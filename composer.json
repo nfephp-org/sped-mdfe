@@ -44,20 +44,19 @@
     },
     "autoload": {
         "psr-4": {
-          "Sped\\MDFe\\": "src/" 
+          "NFePHP\\MDFe\\": "src/"
         } 
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev",
-            "dev-develop": "2.1-dev"
+            "dev-master": "2.0-dev"
         }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload-dev": {
         "psr-4": {
-            "SpedTest\\MDFe\\": "test"
+            "NFePHPTest\\MDFe\\": "test"
         }
     }
 }
