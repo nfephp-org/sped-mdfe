@@ -4,7 +4,7 @@
          bootstrap="./test/bootstrap.php"
          colors="true">
     <testsuites>
-        <testsuite name="NFePHP NFe Test Suite">
+        <testsuite name="NFePHP MDFe Test Suite">
             <directory>./test/</directory>
         </testsuite>
     </testsuites>
