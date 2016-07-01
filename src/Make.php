@@ -4,18 +4,18 @@ namespace NFePHP\MDFe;
 
 /**
  * Classe a construção do xml do Manifesto Eletrônico de Documentos Fiscais (MDF-e)
- *
- * @category  NFePHP
- * @package   NFePHP\MDFe\Make
- * @copyright Copyright (c) 2008
- * @license   http://www.gnu.org/licenses/lesser.html LGPL v3
- * @author    Roberto L. Machado <linux.rlm at gmail dot com>
- * @link      http://github.com/nfephp-org/nfephp for the canonical source repository
- *
  * NOTA: Esta classe foi construida conforme estabelecido no
  * Manual de Orientação do Contribuinte
  * Padrões Técnicos de Comunicação do Manifesto Eletrônico de Documentos Fiscais
  * versão 1.00 de Junho de 2012
+ *
+ * @category  Library
+ * @package   nfephp-org/sped-mdfe
+ * @name      Make.php
+ * @copyright 2009-2016 NFePHP
+ * @license   http://www.gnu.org/licenses/lesser.html LGPL v3
+ * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
+ * @author    Roberto L. Machado <linux.rlm at gmail dot com>
  */
 
 use NFePHP\Common\DateTime\DateTime;
