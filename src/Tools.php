@@ -5,12 +5,12 @@ namespace NFePHP\MDFe;
 /**
  * Classe principal para a comunicação com a SEFAZ
  *
- * @category  NFePHP
- * @package   NFePHP\MDFe\Tools
- * @copyright Copyright (c) 2008
+ * @category  Library
+ * @package   nfephp-org/sped-mdfe
+ * @copyright 2008-2016 NFePHP
  * @license   http://www.gnu.org/licenses/lesser.html LGPL v3
+ * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  * @author    Roberto L. Machado <linux.rlm at gmail dot com>
- * @link      http://github.com/nfephp-org/nfephp for the canonical source repository
  */
 
 use NFePHP\Common\Base\BaseTools;
@@ -24,10 +24,6 @@ use NFePHP\Common\Dom\ValidXsd;
 use NFePHP\MDFe\Response;
 use NFePHP\MDFe\Mail;
 use NFePHP\MDFe\Identify;
-
-if (!defined('NFEPHP_ROOT')) {
-    define('NFEPHP_ROOT', dirname(dirname(dirname(__FILE__))));
-}
 
 class Tools extends BaseTools
 {
@@ -56,8 +52,6 @@ class Tools extends BaseTools
      * @var array
      */
     private $aLastRetEvent = array();
-    
-    
     /**
      * imprime
      * Imprime o documento eletrônico (MDFe, CCe, Inut.)
@@ -73,7 +67,6 @@ class Tools extends BaseTools
         //PrintNFe
         return "$pathXml $pathDestino $printer";
     }
-    
     /**
      * enviaMail
      * Envia a MDFe por email aos destinatários
