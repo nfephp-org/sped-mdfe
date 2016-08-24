@@ -14,7 +14,7 @@ namespace NFePHP\MDFe\Auxiliar;
  */
 
 use \DOMDocument;
-use NFePHP\Common\Identify\Identify;
+use NFePHP\Common\Identify\Identify as IdentifyCommon;
 
 class Identify
 {
@@ -37,8 +37,8 @@ class Identify
             'retEnviMDFe' => 'retEnviMDFe',
             'retEventoMDFe' => 'retEventoMDFe'
         );
-        Identify::setListSchemesId($aList);
-        $schem = Identify::identificacao($xml, $aResp);
+        IdentifyCommon::setListSchemesId($aList);
+        $schem = IdentifyCommon::identificacao($xml, $aResp);
         $dom = $aResp['dom'];
         $node = $dom->getElementsByTagName($aResp['tag'])->item(0);
         if ($schem == 'nfe') {
