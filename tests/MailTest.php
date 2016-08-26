@@ -12,7 +12,7 @@ class MailTest extends PHPUnit_Framework_TestCase
     
     public function testeInstanciar()
     {
-        $configJson = file_get_contents(dirname(dirname(__FILE__)) . '/fixtures/config/fakeconfig.json');
+        $configJson = file_get_contents(dirname(__FILE__) . '/fixtures/config/fakeconfig.json');
         $json = json_decode($configJson);
         $aMail = (array) $json->aMailConf;
         $this->mail = new Mail($aMail);

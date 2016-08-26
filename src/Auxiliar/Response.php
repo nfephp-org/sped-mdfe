@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\MDFe;
+namespace NFePHP\MDFe\Auxiliar;
 
 /**
  * Classe auxiliar com funções de DOM extendidas
