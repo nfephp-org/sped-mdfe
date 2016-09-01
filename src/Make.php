@@ -131,9 +131,9 @@ class Make extends BaseMake
      */
     public function taginfMDFe($chave = '', $versao = '')
     {
-        $this->infNFe = $this->dom->createElement("infMDFe");
-        $this->infNFe->setAttribute("Id", 'MDFe'.$chave);
-        $this->infNFe->setAttribute("versao", $versao);
+        $this->infMDFe = $this->dom->createElement("infMDFe");
+        $this->infMDFe->setAttribute("Id", 'MDFe'.$chave);
+        $this->infMDFe->setAttribute("versao", $versao);
         $this->versao = $versao;
         $this->chMDFe = $chave;
         return $this->infMDFe;
@@ -643,7 +643,7 @@ class Make extends BaseMake
     }
     
     /**
-     * tagInfNFe
+     * tagInfNF
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNF
      *
      * @param  string $nItem

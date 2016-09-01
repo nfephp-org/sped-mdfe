@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Class ConvertNFeTest
+ * Class ConvertTest
  * @author Roberto L. Machado <linux.rlm at gmail dot com>
  */
-use NFePHP\MDFe\Convert;
 
 class ConvertTest extends PHPUnit_Framework_TestCase
 {
@@ -12,6 +11,6 @@ class ConvertTest extends PHPUnit_Framework_TestCase
     
     public function testeInstanciar()
     {
-        $this->mdfe = new Convert();
+        
     }
 }

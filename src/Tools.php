@@ -25,6 +25,10 @@ use NFePHP\MDFe\Response;
 use NFePHP\MDFe\Mail;
 use NFePHP\MDFe\Identify;
 
+if (!defined('NFEPHP_ROOT')) {
+    define('NFEPHP_ROOT', dirname(dirname(__FILE__)));
+}
+
 class Tools extends BaseTools
 {
     /**
@@ -194,7 +198,7 @@ class Tools extends BaseTools
         }
         return $procXML;
     }
-    
+
     /**
      * addCancelamento
      * Adiciona a tga de cancelamento a uma MDFe já autorizada
@@ -272,7 +276,7 @@ class Tools extends BaseTools
         return (string) $procXML;
     }
 
-    
+
     /**
      * verificaValidade
      *
@@ -381,7 +385,7 @@ class Tools extends BaseTools
         $aRetorno = Response::readReturnSefaz($this->urlMethod, $retorno);
         return (string) $retorno;
     }
-    
+
     /**
      * sefazConsultaRecibo
      *
@@ -445,7 +449,7 @@ class Tools extends BaseTools
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
-    
+
     /**
      * sefazConsultaChave
      * Consulta o status da MDFe pela chave de 44 digitos
@@ -513,7 +517,7 @@ class Tools extends BaseTools
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
-    
+
     /**
      * sefazStatus
      * Verifica o status do serviço da SEFAZ
@@ -576,7 +580,7 @@ class Tools extends BaseTools
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
-    
+
     /**
      * sefazCancela
      *
@@ -626,7 +630,7 @@ class Tools extends BaseTools
         $aRetorno = $this->aLastRetEvent;
         return $retorno;
     }
-    
+
     /**
      * sefazEncerra
      *
@@ -675,7 +679,7 @@ class Tools extends BaseTools
         $aRetorno = $this->aLastRetEvent;
         return $retorno;
     }
-    
+
     /**
      * sefazIncluiCondutor
      *
@@ -722,7 +726,7 @@ class Tools extends BaseTools
         $aRetorno = $this->aLastRetEvent;
         return $retorno;
     }
-    
+
     /**
      * sefazConsultaNaoEncerrados
      *
@@ -782,7 +786,7 @@ class Tools extends BaseTools
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
-    
+
     /**
      * zSefazEvento
      *
@@ -874,7 +878,7 @@ class Tools extends BaseTools
         $this->aLastRetEvent = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
-    
+
     /**
      * zTpEv
      *
