@@ -56,7 +56,7 @@ class Make extends BaseMake
     private $tot = ''; //DOMNode
     private $infAdic = ''; //DOMNode
     private $rodo = ''; //DOMNode
-    private $veicPrincipal = ''; //DOMNode
+    private $veicTracao = ''; //DOMNode
     private $aereo = ''; //DOMNode
     private $trem = ''; //DOMNode
     private $aqua = ''; //DOMNode
@@ -1204,8 +1204,8 @@ class Make extends BaseMake
     }
 
     /**
-     * tagVeicPrincipal
-     * tag MDFe/infMDFe/infModal/rodo/veicPrincipal
+     * tagVeicTracao
+     * tag MDFe/infMDFe/infModal/rodo/veicTracao
      *
      * @param  string $cInt
      * @param  string $placa
@@ -1215,7 +1215,7 @@ class Make extends BaseMake
      * @param  string $propRNTRC
      * @return DOMElement
      */
-    public function tagVeicPrincipal(
+    public function tagVeicTracao(
         $cInt = '',
         $placa = '',
         $tara = '',
@@ -1223,14 +1223,14 @@ class Make extends BaseMake
         $capM3 = '',
         $propRNTRC = ''
     ) {
-        $veicPrincipal = $this->zTagVeiculo('veicPrincipal', $cInt, $placa, $tara, $capKG, $capM3, $propRNTRC);
-        $this->veicPrincipal = $veicPrincipal;
-        return $veicPrincipal;
+        $veicTracao = $this->zTagVeiculo('veicTracao', $cInt, $placa, $tara, $capKG, $capM3, $propRNTRC);
+        $this->veicTracao = $veicTracao;
+        return $veicTracao;
     }
 
     /**
      * tagCondutor
-     * tag MDFe/infMDFe/infModal/rodo/veicPrincipal/condutor
+     * tag MDFe/infMDFe/infModal/rodo/veicTracao/condutor
      *
      * @param  string $xNome
      * @param  string $cpf
@@ -1460,8 +1460,8 @@ class Make extends BaseMake
     protected function zTagRodo()
     {
         if (! empty($this->rodo)) {
-            $this->dom->addArrayChild($this->veicPrincipal, $this->aCondutor);
-            $this->dom->appChild($this->rodo, $this->veicPrincipal, 'Falta tag "rodo"');
+            $this->dom->addArrayChild($this->veicTracao, $this->aCondutor);
+            $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
             $this->dom->addArrayChild($this->rodo, $this->aReboque);
             if (! empty($this->aDisp)) {
                 $valePed = $this->dom->createElement("valePed");
