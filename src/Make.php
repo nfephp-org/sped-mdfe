@@ -1524,7 +1524,7 @@ class Make extends BaseMake
      */
     private function zTestaChaveXML($dom)
     {
-        $infMDFe= $dom->getElementsByTagName("infNFe")->item(0);
+        $infMDFe = $dom->getElementsByTagName("infMDFe")->item(0);
         $ide = $dom->getElementsByTagName("ide")->item(0);
         $emit = $dom->getElementsByTagName("emit")->item(0);
         $cUF = $ide->getElementsByTagName('cUF')->item(0)->nodeValue;
