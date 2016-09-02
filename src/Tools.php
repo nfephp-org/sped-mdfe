@@ -351,9 +351,10 @@ class Tools extends BaseTools
             $idLote = LotNumber::geraNumLote(15);
         }
         //carrega serviço
+        $servico = 'MDFeRecepcao';
         $this->zLoadServico(
             'mdfe',
-            'MDFeRecepcao',
+            $servico,
             $siglaUF,
             $tpAmb
         );
@@ -382,7 +383,7 @@ class Tools extends BaseTools
         $filename = "$idLote-retEnviMDFe.xml";
         $this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
-        $aRetorno = Response::readReturnSefaz($this->urlMethod, $retorno);
+        $aRetorno = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
 
