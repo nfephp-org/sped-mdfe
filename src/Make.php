@@ -45,7 +45,7 @@ class Make extends BaseMake
      * @var string
      */
     public $chMDFe = '';
-    
+
     //propriedades privadas utilizadas internamente pela classe
     private $MDFe = ''; //DOMNode
     private $infMDFe = ''; //DOMNode
@@ -60,7 +60,7 @@ class Make extends BaseMake
     private $aereo = ''; //DOMNode
     private $trem = ''; //DOMNode
     private $aqua = ''; //DOMNode
-    
+
     // Arrays
     private $aInfMunCarrega = array(); //array de DOMNode
     private $aInfPercurso = array(); //array de DOMNode
@@ -78,7 +78,7 @@ class Make extends BaseMake
     private $aInfTermDescarreg = array(); //array de DOMNode
     private $aInfEmbComb = array(); //array de DOMNode
     private $aCountDoc = array(); //contador de documentos fiscais
-    
+
     /**
      *
      * @return boolean
@@ -118,7 +118,7 @@ class Make extends BaseMake
         $this->xml = $this->dom->saveXML();
         return true;
     }
-    
+
 
     /**
      * taginfMDFe
@@ -138,7 +138,7 @@ class Make extends BaseMake
         $this->chMDFe = $chave;
         return $this->infMDFe;
     }
-    
+
     /**
      * tgaide
      * Informações de identificação da MDFe 4 pai 1
@@ -293,7 +293,7 @@ class Make extends BaseMake
         $this->ide = $ide;
         return $ide;
     }
-    
+
     /**
      * tagInfMunCarrega
      *
@@ -325,7 +325,7 @@ class Make extends BaseMake
         $this->aInfMunCarrega[] = $infMunCarrega;
         return $infMunCarrega;
     }
-    
+
     /**
      * tagInfPercurso
      *
@@ -347,7 +347,7 @@ class Make extends BaseMake
         $this->aInfPercurso[] = $infPercurso;
         return $infPercurso;
     }
-    
+
     /**
      * tagemit
      * Identificação do emitente da MDFe [25] pai 1
@@ -378,7 +378,7 @@ class Make extends BaseMake
         $this->dom->addChild($this->emit, "xFant", $xFant, false, $identificador . "Nome fantasia do emitente");
         return $this->emit;
     }
-    
+
     /**
      * tagenderEmit
      * Endereço do emitente [30] pai [25]
@@ -515,7 +515,7 @@ class Make extends BaseMake
         $this->aInfMunDescarga[$nItem] = $infMunDescarga;
         return $infMunDescarga;
     }
-    
+
     /**
      * tagInfCTe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe
@@ -548,7 +548,7 @@ class Make extends BaseMake
         $this->aInfCTe[$nItem][] = $infCTe;
         return $infCTe;
     }
-    
+
     /**
      * tagInfCT
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infCT
@@ -608,7 +608,7 @@ class Make extends BaseMake
         $this->aInfCT[$nItem][] = $infCT;
         return $infCT;
     }
- 
+
     /**
      * tagInfNFe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
@@ -641,7 +641,7 @@ class Make extends BaseMake
         $this->aInfNFe[$nItem][] = $infNFe;
         return $infNFe;
     }
-    
+
     /**
      * tagInfNF
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNF
@@ -719,7 +719,7 @@ class Make extends BaseMake
         $this->aInfNF[$nItem][] = $infNF;
         return $infNF;
     }
-    
+
     /**
      * tagTot
      * tag MDFe/infMDFe/tot
@@ -795,7 +795,7 @@ class Make extends BaseMake
         $this->tot = $tot;
         return $tot;
     }
-    
+
     /**
      * tagLacres
      * tag MDFe/infMDFe/lacres
@@ -817,7 +817,7 @@ class Make extends BaseMake
         $this->aLacres[] = $lacres;
         return $lacres;
     }
-    
+
     /**
      * taginfAdic
      * Grupo de Informações Adicionais Z01 pai A01
@@ -849,7 +849,7 @@ class Make extends BaseMake
         $this->infAdic = $infAdic;
         return $infAdic;
     }
-    
+
     /**
      * tagInfModal
      * tag MDFe/infMDFe/infModal
@@ -860,17 +860,11 @@ class Make extends BaseMake
     public function tagInfModal($versaoModal = '')
     {
         $infModal = $this->dom->createElement("infModal");
-        $this->dom->addChild(
-            $infModal,
-            "versaoModal",
-            $versaoModal,
-            false,
-            "Versão do leiaute específico para o Modal"
-        );
+        $infModal->setAttribute("versaoModal", $versaoModal);
         $this->infModal = $infModal;
         return $infModal;
     }
-    
+
     /**
      * tagAereo
      * tag MDFe/infMDFe/infModal/aereo
@@ -937,7 +931,7 @@ class Make extends BaseMake
         $this->aereo = $aereo;
         return $aereo;
     }
-    
+
     /**
      * tagTrem
      * tag MDFe/infMDFe/infModal/ferrov/trem
@@ -995,7 +989,7 @@ class Make extends BaseMake
         $this->trem = $trem;
         return $trem;
     }
-    
+
     /**
      * tagVag
      * tag MDFe/infMDFe/infModal/ferrov/trem/vag
@@ -1044,7 +1038,7 @@ class Make extends BaseMake
         $this->aVag[] = $vag;
         return $vag;
     }
-    
+
     /**
      * tagAqua
      * tag MDFe/infMDFe/infModal/Aqua
@@ -1111,7 +1105,7 @@ class Make extends BaseMake
         $this->aqua = $aqua;
         return $aqua;
     }
-    
+
     /**
      * tagInfTermCarreg
      * tag MDFe/infMDFe/infModal/Aqua/infTermCarreg
@@ -1177,7 +1171,7 @@ class Make extends BaseMake
         $this->aInfEmbComb[] = $infEmbComb;
         return $infEmbComb;
     }
-    
+
     /**
      * tagRodo
      * tag MDFe/infMDFe/infModal/rodo
@@ -1208,7 +1202,7 @@ class Make extends BaseMake
         $this->rodo = $rodo;
         return $rodo;
     }
-    
+
     /**
      * tagVeicPrincipal
      * tag MDFe/infMDFe/infModal/rodo/veicPrincipal
@@ -1233,7 +1227,7 @@ class Make extends BaseMake
         $this->veicPrincipal = $veicPrincipal;
         return $veicPrincipal;
     }
-    
+
     /**
      * tagCondutor
      * tag MDFe/infMDFe/infModal/rodo/veicPrincipal/condutor
@@ -1264,7 +1258,7 @@ class Make extends BaseMake
         $this->aCondutor[] = $condutor;
         return $condutor;
     }
-    
+
     /**
      * tagVeicReboque
      * tag MDFe/infMDFe/infModal/rodo/reboque
@@ -1329,7 +1323,7 @@ class Make extends BaseMake
         $this->aDisp[] = $disp;
         return $disp;
     }
-    
+
     /**
      * zTagVeiculo
      *
@@ -1399,7 +1393,7 @@ class Make extends BaseMake
         }
         return $node;
     }
-    
+
     /**
      * zTagMDFe
      * Tag raiz da MDFe
@@ -1416,7 +1410,7 @@ class Make extends BaseMake
         }
         return $this->MDFe;
     }
-    
+
     /**
      * Adiciona as tags
      * infMunCarrega e infPercurso
@@ -1427,7 +1421,7 @@ class Make extends BaseMake
         $this->dom->addArrayChild($this->ide, $this->aInfMunCarrega);
         $this->dom->addArrayChild($this->ide, $this->aInfPercurso);
     }
-    
+
     /**
      * Processa lacres
      */
@@ -1492,7 +1486,7 @@ class Make extends BaseMake
             $this->dom->appChild($this->infModal, $ferrov, 'Falta tag "infModal"');
         }
     }
-    
+
     /**
      * Processa modal aereo
      */
@@ -1502,7 +1496,7 @@ class Make extends BaseMake
             $this->dom->appChild($this->infModal, $this->aereo, 'Falta tag "infModal"');
         }
     }
-    
+
     /**
      * Processa modal aquaviário
      */
@@ -1515,7 +1509,7 @@ class Make extends BaseMake
             $this->dom->appChild($this->infModal, $this->aqua, 'Falta tag "infModal"');
         }
     }
-    
+
     /**
      * zTestaChaveXML
      * Remonta a chave da NFe de 44 digitos com base em seus dados
