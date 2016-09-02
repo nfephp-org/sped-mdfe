@@ -68,7 +68,7 @@ class Tools extends BaseTools
     public function imprime($pathXml = '', $pathDestino = '', $printer = '')
     {
         //TODO : falta implementar esse método para isso é necessária a classe
-        //PrintNFe
+        //PrintMDFe
         return "$pathXml $pathDestino $printer";
     }
     /**
@@ -85,7 +85,7 @@ class Tools extends BaseTools
      */
     public function enviaMail($pathXml = '', $aMails = array(), $templateFile = '', $comPdf = false)
     {
-        $mail = new MailNFe($this->aMailConf);
+        $mail = new Mail($this->aMailConf);
         if ($templateFile != '') {
             $mail->setTemplate($templateFile);
         }
@@ -106,9 +106,9 @@ class Tools extends BaseTools
     public function addProtocolo($pathMDFefile = '', $pathProtfile = '', $saveFile = false)
     {
         //carrega a MDFe
-        $docnfe = new Dom();
-        $docnfe->loadXMLFile($pathMDFefile);
-        $nodemdfe = $docnfe->getNode('MDFe', 0);
+        $docmdfe = new Dom();
+        $docmdfe->loadXMLFile($pathMDFefile);
+        $nodemdfe = $docmdfe->getNode('MDFe', 0);
         if ($nodemdfe == '') {
             $msg = "O arquivo indicado como MDFe não é um xml de MDFe!";
             throw new Exception\RuntimeException($msg);
@@ -125,17 +125,17 @@ class Tools extends BaseTools
             $msg = "O arquivo indicado não contêm um protocolo de autorização!";
             throw new Exception\RuntimeException($msg);
         }
-        //carrega dados da NFe
-        $tpAmb = $docnfe->getNodeValue('tpAmb');
+        //carrega dados da MDFe
+        $tpAmb = $docmdfe->getNodeValue('tpAmb');
         $anomes = date(
             'Ym',
             DateTime::convertSefazTimeToTimestamp($docmdfe->getNodeValue('dhEmi'))
         );
-        $infMDFe = $docnfe->getNode("infMDFe", 0);
+        $infMDFe = $docmdfe->getNode("infMDFe", 0);
         $versao = $infMDFe->getAttribute("versao");
         $chaveId = $infMDFe->getAttribute("Id");
         $chaveMDFe = preg_replace('/[^0-9]/', '', $chaveId);
-        $digValueMDFe = $docnfe->getNodeValue('DigestValue');
+        $digValueMDFe = $docmdfe->getNodeValue('DigestValue');
         //carrega os dados do protocolo
         for ($i = 0; $i < $nodeprots->length; $i++) {
             $nodeprot = $nodeprots->item($i);
@@ -156,11 +156,11 @@ class Tools extends BaseTools
             $msg = "O protocolo indicado pertence a outro MDFe. Os números das chaves não combinam !";
             throw new Exception\RuntimeException($msg);
         }
-        //cria a NFe processada com a tag do protocolo
+        //cria a MDFe processada com a tag do protocolo
         $procmdfe = new \DOMDocument('1.0', 'utf-8');
         $procmdfe->formatOutput = false;
         $procmdfe->preserveWhiteSpace = false;
-        //cria a tag nfeProc
+        //cria a tag mdfeProc
         $mdfeProc = $procmdfe->createElement('mdfeProc');
         $procmdef->appendChild($mdfeProc);
         //estabele o atributo de versão
@@ -172,7 +172,7 @@ class Tools extends BaseTools
         //inclui a tag MDFe
         $node = $procmdef->importNode($nodemdfe, true);
         $mdfeProc->appendChild($node);
-        //cria tag protNFe
+        //cria tag protMDFe
         $protMDFe = $procmdfe->createElement('protMDFe');
         $mdfeProc->appendChild($protMDFe);
         //estabele o atributo de versão
@@ -213,7 +213,7 @@ class Tools extends BaseTools
     public function addCancelamento($pathMDFefile = '', $pathCancfile = '', $saveFile = false)
     {
         $procXML = '';
-        //carrega a NFe
+        //carrega a MDFe
         $docmdfe = new Dom();
         $docmdfe->loadXMLFile($pathMDFefile);
         $nodemdfe = $docmdfe->getNode('MDFe', 0);
@@ -227,7 +227,7 @@ class Tools extends BaseTools
             throw new Exception\RuntimeException($msg);
         }
         $chaveMDFe = $proMDFe->getElementsByTagName('chMDFe')->item(0)->nodeValue;
-        //$nProtNFe = $proNFe->getElementsByTagName('nProt')->item(0)->nodeValue;
+        //$nProtMDFe = $proMDFe->getElementsByTagName('nProt')->item(0)->nodeValue;
         $tpAmb = $docmdfe->getNodeValue('tpAmb');
         $anomes = date(
             'Ym',
@@ -249,7 +249,7 @@ class Tools extends BaseTools
             //cStat = 135 ==> evento homologado
             //tpEvento = 110111 ==> Cancelamento
             //chave do evento == chave da NFe
-            //protocolo do evneto ==  protocolo da NFe
+            //protocolo do evento ==  protocolo da NFe
             if ($cStat == '135'
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMDFe
@@ -292,14 +292,14 @@ class Tools extends BaseTools
             $msg = "Arquivo não localizado!!";
             throw new Exception\InvalidArgumentException($msg);
         }
-        //carrega a NFe
+        //carrega a MDFe
         $xml = Files\FilesFolders::readFile($pathXmlFile);
         $this->oCertificate->verifySignature($xml, 'infMDFe');
-        //obtem o chave da NFe
-        $docnfe = new Dom();
-        $docnfe->loadXMLFile($pathXmlFile);
-        $tpAmb = $docnfe->getNodeValue('tpAmb');
-        $chMDFe  = $docnfe->getChave('infMDFe');
+        //obtem o chave da MDFe
+        $docmdfe = new Dom();
+        $docmdfe->loadXMLFile($pathXmlFile);
+        $tpAmb = $docmdfe->getNodeValue('tpAmb');
+        $chMDFe  = $docmdfe->getChave('infMDFe');
         $this->sefazConsultaChave($chMDFe, $tpAmb, $aRetorno);
         if ($aRetorno['cStat'] != '100') {
             return false;
