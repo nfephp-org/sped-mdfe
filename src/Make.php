@@ -95,7 +95,7 @@ class Make extends BaseMake
         //tag ide [4]
         $this->dom->appChild($this->infMDFe, $this->ide, 'Falta tag "infMDFe"');
         //tag enderemit [30]
-        $this->appChild($this->emit, $this->enderEmit, 'Falta tag "emit"');
+        $this->dom->appChild($this->emit, $this->enderEmit, 'Falta tag "emit"');
         //tag emit [25]
         $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "infMDFe"');
         //tag infModal [41]
@@ -112,6 +112,10 @@ class Make extends BaseMake
         $this->zTagLacres();
         //tag infAdic [78]
         $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
+        //[1] tag infMDFe (1 A01)
+        $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
+        //[0] tag MDFe
+        $this->dom->appChild($this->dom, $this->MDFe, 'Falta DOMDocument');
         // testa da chave
         $this->zTestaChaveXML($this->dom);
         //convert DOMDocument para string
