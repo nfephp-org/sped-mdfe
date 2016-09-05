@@ -21,7 +21,7 @@ use NFePHP\Common\Files;
 use NFePHP\Common\Exception;
 use NFePHP\Common\Dom\Dom;
 use NFePHP\Common\Dom\ValidXsd;
-use NFePHP\MDFe\Response;
+use NFePHP\MDFe\Auxiliar\Response;
 use NFePHP\MDFe\Mail;
 use NFePHP\MDFe\Identify;
 
