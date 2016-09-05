@@ -1225,9 +1225,12 @@ class Make extends BaseMake
         $tara = '',
         $capKG = '',
         $capM3 = '',
+        $tpCar = '',
+        $tpRod = '',
+        $UF = '',
         $propRNTRC = ''
     ) {
-        $veicTracao = $this->zTagVeiculo('veicTracao', $cInt, $placa, $tara, $capKG, $capM3, $propRNTRC);
+        $veicTracao = $this->zTagVeiculo('veicTracao', $cInt, $placa, $tara, $capKG, $capM3, $tpCar, $tpRod, $UF, $propRNTRC);
         $this->veicTracao = $veicTracao;
         return $veicTracao;
     }
@@ -1346,6 +1349,9 @@ class Make extends BaseMake
         $tara = '',
         $capKG = '',
         $capM3 = '',
+        $tpCar = '',
+        $tpRod = '',
+        $UF = '',
         $propRNTRC = ''
     ) {
         $node = $this->dom->createElement($tag);
@@ -1383,6 +1389,27 @@ class Make extends BaseMake
             $capM3,
             false,
             "Capacidade em M3"
+        );
+        $this->dom->addChild(
+            $node,
+            "tpCar",
+            $tpCar,
+            true,
+            "Tipo de carroceria"
+        );
+        $this->dom->addChild(
+            $node,
+            "tpRod",
+            $tpRod,
+            true,
+            "Tipo de rodado"
+        );
+        $this->dom->addChild(
+            $node,
+            "UF",
+            $UF,
+            true,
+            "UF de licenciamento do veículo"
         );
         if ($propRNTRC != '') {
             $prop = $this->dom->createElement("prop");
