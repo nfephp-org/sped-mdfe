@@ -1221,7 +1221,18 @@ class Make extends BaseMake
         $UF = '',
         $propRNTRC = ''
     ) {
-        $veicTracao = $this->zTagVeiculo('veicTracao', $cInt, $placa, $tara, $capKG, $capM3, $tpCar, $tpRod, $UF, $propRNTRC);
+        $veicTracao = $this->zTagVeiculo(
+            'veicTracao',
+            $cInt,
+            $placa,
+            $tara,
+            $capKG,
+            $capM3,
+            $tpCar,
+            $tpRod,
+            $UF,
+            $propRNTRC
+        );
         $this->veicTracao = $veicTracao;
         return $veicTracao;
     }
