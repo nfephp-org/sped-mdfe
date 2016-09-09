@@ -23,7 +23,7 @@ use NFePHP\Common\Dom\Dom;
 use NFePHP\Common\Dom\ValidXsd;
 use NFePHP\MDFe\Auxiliar\Response;
 use NFePHP\MDFe\Mail;
-use NFePHP\MDFe\Identify;
+use NFePHP\MDFe\Auxiliar\Identify;
 
 if (!defined('NFEPHP_ROOT')) {
     define('NFEPHP_ROOT', dirname(dirname(__FILE__)));
@@ -912,5 +912,38 @@ class Tools extends BaseTools
                 throw new Exception\RuntimeException($msg);
         }
         return array('alias' => $aliasEvento, 'desc' => $descEvento);
+    }
+
+    /**
+     * validarXml
+     * Valida qualquer xml do sistema MDFe com seu xsd
+     * NOTA: caso não exista um arquivo xsd apropriado retorna false
+     *
+     * @param  string $xml path ou conteudo do xml
+     * @return boolean
+     */
+    public function validarXml($xml = '')
+    {
+        $aResp = array();
+        $schem = Identify::identificar($xml, $aResp);
+        if ($schem == '') {
+            return true;
+        }
+        $xsdFile = $aResp['Id'].'_v'.$aResp['versao'].'.xsd';
+        $xsdPath = NFEPHP_ROOT.DIRECTORY_SEPARATOR .
+            'schemes' .
+            DIRECTORY_SEPARATOR .
+            $this->aConfig['schemesMDFe'] .
+            DIRECTORY_SEPARATOR .
+            $xsdFile;
+        if (! is_file($xsdPath)) {
+            $this->errors[] = "O arquivo XSD $xsdFile não foi localizado.";
+            return false;
+        }
+        if (! ValidXsd::validar($aResp['xml'], $xsdPath)) {
+            $this->errors[] = ValidXsd::$errors;
+            return false;
+        }
+        return true;
     }
 }

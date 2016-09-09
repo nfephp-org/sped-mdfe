@@ -41,7 +41,7 @@ class Identify
         $schem = Id::identificacao($xml, $aResp);
         $dom = $aResp['dom'];
         $node = $dom->getElementsByTagName($aResp['tag'])->item(0);
-        if ($schem == 'nfe') {
+        if ($schem == 'mdfe') {
             //se for um nfe então é necessário pegar a versão
             // em outro node infNFe
             $node1 = $dom->getElementsByTagName('infMDFe')->item(0);
