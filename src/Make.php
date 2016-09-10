@@ -729,9 +729,8 @@ class Make extends BaseMake
      * tag MDFe/infMDFe/tot
      *
      * @param  string $qCTe
-     * @param  string $qCT
      * @param  string $qNFe
-     * @param  string $qNF
+     * @param  string $qMDFe
      * @param  string $vCarga
      * @param  string $cUnid
      * @param  string $qCarga
@@ -739,9 +738,8 @@ class Make extends BaseMake
      */
     public function tagTot(
         $qCTe = '',
-        $qCT = '',
         $qNFe = '',
-        $qNF = '',
+        $qMDFe = '',
         $vCarga = '',
         $cUnid = '',
         $qCarga = ''
@@ -756,13 +754,6 @@ class Make extends BaseMake
         );
         $this->dom->addChild(
             $tot,
-            "qCT",
-            $qCT,
-            false,
-            "Quantidade total de CT relacionados no Manifesto"
-        );
-        $this->dom->addChild(
-            $tot,
             "qNFe",
             $qNFe,
             false,
@@ -770,10 +761,10 @@ class Make extends BaseMake
         );
         $this->dom->addChild(
             $tot,
-            "qNF",
-            $qNF,
+            "qMDFe",
+            $qMDFe,
             false,
-            "Quantidade total de NF relacionados no Manifesto"
+            "Quantidade total de MDF-e relacionados no Manifesto"
         );
         $this->dom->addChild(
             $tot,
@@ -1225,9 +1216,23 @@ class Make extends BaseMake
         $tara = '',
         $capKG = '',
         $capM3 = '',
+        $tpCar = '',
+        $tpRod = '',
+        $UF = '',
         $propRNTRC = ''
     ) {
-        $veicTracao = $this->zTagVeiculo('veicTracao', $cInt, $placa, $tara, $capKG, $capM3, $propRNTRC);
+        $veicTracao = $this->zTagVeiculo(
+            'veicTracao',
+            $cInt,
+            $placa,
+            $tara,
+            $capKG,
+            $capM3,
+            $tpCar,
+            $tpRod,
+            $UF,
+            $propRNTRC
+        );
         $this->veicTracao = $veicTracao;
         return $veicTracao;
     }
@@ -1346,6 +1351,9 @@ class Make extends BaseMake
         $tara = '',
         $capKG = '',
         $capM3 = '',
+        $tpCar = '',
+        $tpRod = '',
+        $UF = '',
         $propRNTRC = ''
     ) {
         $node = $this->dom->createElement($tag);
@@ -1383,6 +1391,27 @@ class Make extends BaseMake
             $capM3,
             false,
             "Capacidade em M3"
+        );
+        $this->dom->addChild(
+            $node,
+            "tpCar",
+            $tpCar,
+            true,
+            "Tipo de carroceria"
+        );
+        $this->dom->addChild(
+            $node,
+            "tpRod",
+            $tpRod,
+            true,
+            "Tipo de rodado"
+        );
+        $this->dom->addChild(
+            $node,
+            "UF",
+            $UF,
+            true,
+            "UF de licenciamento do veículo"
         );
         if ($propRNTRC != '') {
             $prop = $this->dom->createElement("prop");
@@ -1439,23 +1468,21 @@ class Make extends BaseMake
      */
     protected function zTagInfDoc()
     {
-        $this->aCountDoc = array('CTe'=>0, 'CT'=>0, 'NFe'=>0, 'NF'=>0);
+        $this->aCountDoc = array('CTe'=>0, 'NFe'=>0, 'MDFe'=>0);
         if (! empty($this->aInfMunDescarga)) {
             $infDoc = $this->dom->createElement("infDoc");
             foreach ($this->aInfMunDescarga as $nItem => $node) {
                 $this->aCountDoc['CTe'] = $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
-                $this->aCountDoc['CT'] = $this->dom->addArrayChild($node, $this->aInfCT[$nItem]);
                 $this->aCountDoc['NFe'] = $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
-                $this->aCountDoc['NF'] = $this->dom->addArrayChild($node, $this->aInfNF[$nItem]);
+                $this->aCountDoc['MDFe'] = $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
                 $this->dom->appChild($infDoc, $node, '');
             }
-            $this->dom->appChild($this->infMDFe, $infDoc, 'Falta tag "infModal"');
+            $this->dom->appChild($this->infMDFe, $infDoc, 'Falta tag "infMDFe"');
         }
         //ajusta quantidades em tot
         $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
-        $this->tot->getElementsByTagName('qCT')->item(0)->nodeValue = $this->aCountDoc['CT'];
         $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
-        $this->tot->getElementsByTagName('qNF')->item(0)->nodeValue = $this->aCountDoc['NF'];
+        $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
     }
 
     /**
