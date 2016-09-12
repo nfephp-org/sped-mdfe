@@ -1216,8 +1216,8 @@ class Make extends BaseMake
         $tara = '',
         $capKG = '',
         $capM3 = '',
-        $tpCar = '',
         $tpRod = '',
+        $tpCar = '',
         $UF = '',
         $propRNTRC = ''
     ) {
@@ -1228,8 +1228,8 @@ class Make extends BaseMake
             $tara,
             $capKG,
             $capM3,
-            $tpCar,
             $tpRod,
+            $tpCar,
             $UF,
             $propRNTRC
         );
@@ -1351,8 +1351,8 @@ class Make extends BaseMake
         $tara = '',
         $capKG = '',
         $capM3 = '',
-        $tpCar = '',
         $tpRod = '',
+        $tpCar = '',
         $UF = '',
         $propRNTRC = ''
     ) {
@@ -1392,12 +1392,9 @@ class Make extends BaseMake
             false,
             "Capacidade em M3"
         );
-        $this->dom->addChild(
+        $this->dom->addArrayChild(
             $node,
-            "tpCar",
-            $tpCar,
-            true,
-            "Tipo de carroceria"
+            $this->aCondutor
         );
         $this->dom->addChild(
             $node,
@@ -1405,6 +1402,13 @@ class Make extends BaseMake
             $tpRod,
             true,
             "Tipo de rodado"
+        );
+        $this->dom->addChild(
+            $node,
+            "tpCar",
+            $tpCar,
+            true,
+            "Tipo de carroceria"
         );
         $this->dom->addChild(
             $node,
@@ -1491,7 +1495,6 @@ class Make extends BaseMake
     protected function zTagRodo()
     {
         if (! empty($this->rodo)) {
-            $this->dom->addArrayChild($this->veicTracao, $this->aCondutor);
             $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
             $this->dom->addArrayChild($this->rodo, $this->aReboque);
             if (! empty($this->aDisp)) {
