@@ -66,9 +66,8 @@ class Make extends BaseMake
     private $aInfPercurso = array(); //array de DOMNode
     private $aInfMunDescarga = array(); //array de DOMNode
     private $aInfCTe = array(); //array de DOMNode
-    private $aInfCT = array(); //array de DOMNode
     private $aInfNFe = array(); //array de DOMNode
-    private $aInfNF = array(); //array de DOMNode
+    private $aInfMDFe = array(); //array de DOMNode
     private $aLacres = array(); //array de DOMNode
     private $aCondutor = array(); //array de DOMNode
     private $aReboque = array(); //array de DOMNode
@@ -554,71 +553,11 @@ class Make extends BaseMake
     }
 
     /**
-     * tagInfCT
-     * tag MDFe/infMDFe/infDoc/infMunDescarga/infCT
-     *
-     * @param  string $nItem
-     * @param  string $nCT
-     * @param  string $serie
-     * @param  string $subser
-     * @param  string $dEmi
-     * @param  string $vCarga
-     * @return string
-     */
-    public function tagInfCT(
-        $nItem = 0,
-        $nCT = '',
-        $serie = '',
-        $subser = '',
-        $dEmi = '',
-        $vCarga = ''
-    ) {
-        $infCT = $this->dom->createElement("infCT");
-        $this->dom->addChild(
-            $infCT,
-            "nCT",
-            $nCT,
-            true,
-            "Número do CT"
-        );
-        $this->dom->addChild(
-            $infCT,
-            "serie",
-            $serie,
-            true,
-            "Série do CT"
-        );
-        $this->dom->addChild(
-            $infCT,
-            "subser",
-            $subser,
-            false,
-            "Subserie do CT"
-        );
-        $this->dom->addChild(
-            $infCT,
-            "dEmi",
-            $dEmi,
-            true,
-            "Data de emissão do CT"
-        );
-        $this->dom->addChild(
-            $infCT,
-            "vCarga",
-            $vCarga,
-            true,
-            "Valor total da carga do CT"
-        );
-        $this->aInfCT[$nItem][] = $infCT;
-        return $infCT;
-    }
-
-    /**
      * tagInfNFe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
      *
      * @param  integer $nItem
-     * @param  string  $chCTe
+     * @param  string  $chNFe
      * @param  string  $segCodBarra
      * @return DOMElement
      */
@@ -647,81 +586,27 @@ class Make extends BaseMake
     }
 
     /**
-     * tagInfNF
-     * tag MDFe/infMDFe/infDoc/infMunDescarga/infNF
+     * tagInfMDFeTransp
+     * tag MDFe/infMDFeTransp/infDoc/infMunDescarga/infMDFeTranspTransp
      *
-     * @param  string $nItem
-     * @param  string $cnpj
-     * @param  string $siglaUF
-     * @param  string $nNF
-     * @param  string $serie
-     * @param  string $dEmi
-     * @param  string $vNF
-     * @param  string $pin
+     * @param  integer $nItem
+     * @param  string  $chMDFe
      * @return DOMElement
      */
-    public function tagInfNF(
+    public function tagInfMDFeTransp(
         $nItem = 0,
-        $cnpj = '',
-        $siglaUF = '',
-        $nNF = '',
-        $serie = '',
-        $dEmi = '',
-        $vNF = '',
-        $pin = ''
+        $chMDFe = ''
     ) {
-        $infNF = $this->dom->createElement("infNF");
+        $infMDFeTransp = $this->dom->createElement("infMDFeTransp");
         $this->dom->addChild(
-            $infNF,
-            "CNPJ",
-            $cnpj,
+            $infMDFeTransp,
+            "chMDFe",
+            $chMDFe,
             true,
-            "CNPJ do emitente da NF"
+            "Chave de Acesso da MDFe"
         );
-        $this->dom->addChild(
-            $infNF,
-            "UF",
-            $siglaUF,
-            true,
-            "Sigla da unidade da federação do emitente da NF"
-        );
-        $this->dom->addChild(
-            $infNF,
-            "nNF",
-            $nNF,
-            true,
-            "Número da NF"
-        );
-        $this->dom->addChild(
-            $infNF,
-            "serie",
-            $serie,
-            true,
-            "Série da NF"
-        );
-        $this->dom->addChild(
-            $infNF,
-            "dEmi",
-            $dEmi,
-            true,
-            "Data de emissão da NF"
-        );
-        $this->dom->addChild(
-            $infNF,
-            "vNF",
-            $vNF,
-            true,
-            "Valor total da NF"
-        );
-        $this->dom->addChild(
-            $infNF,
-            "PIN",
-            $pin,
-            false,
-            "PIN SUFRAMA da NF"
-        );
-        $this->aInfNF[$nItem][] = $infNF;
-        return $infNF;
+        $this->aInfMDFe[$nItem][] = $infMDFeTransp;
+        return $infMDFeTransp;
     }
 
     /**
@@ -1476,9 +1361,15 @@ class Make extends BaseMake
         if (! empty($this->aInfMunDescarga)) {
             $infDoc = $this->dom->createElement("infDoc");
             foreach ($this->aInfMunDescarga as $nItem => $node) {
-                $this->aCountDoc['CTe'] = $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
-                $this->aCountDoc['NFe'] = $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
-                $this->aCountDoc['MDFe'] = $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
+                if (isset($this->aInfCTe[$nItem])) {
+                    $this->aCountDoc['CTe'] = $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
+                }
+                if (isset($this->aInfNFe[$nItem])) {
+                    $this->aCountDoc['NFe'] = $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
+                }
+                if (isset($this->aInfMDFe[$nItem])) {
+                    $this->aCountDoc['MDFe'] = $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
+                }
                 $this->dom->appChild($infDoc, $node, '');
             }
             $this->dom->appChild($this->infMDFe, $infDoc, 'Falta tag "infMDFe"');
