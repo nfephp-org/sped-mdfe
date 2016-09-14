@@ -242,7 +242,7 @@ class Tools extends BaseTools
             //evento
             $cStat = $evento->getElementsByTagName('cStat')->item(0)->nodeValue;
             $tpAmb = $evento->getElementsByTagName('tpAmb')->item(0)->nodeValue;
-            $chaveEvento = $evento->getElementsByTagName('chNFe')->item(0)->nodeValue;
+            $chaveEvento = $evento->getElementsByTagName('chMDFe')->item(0)->nodeValue;
             $tpEvento = $evento->getElementsByTagName('tpEvento')->item(0)->nodeValue;
             //$nProtEvento = $evento->getElementsByTagName('nProt')->item(0)->nodeValue;
             //verifica se conferem os dados
@@ -255,7 +255,7 @@ class Tools extends BaseTools
                 && $chaveEvento == $chaveMDFe
             ) {
                 $proMDFe->getElementsByTagName('cStat')->item(0)->nodeValue = '101';
-                $proMDFe->getElementsByTagName('xMotivo')->item(0)->nodeValue = 'Cancelamento de NF-e homologado';
+                $proMDFe->getElementsByTagName('xMotivo')->item(0)->nodeValue = 'Cancelamento de MDF-e homologado';
                 $procXML = $docmdfe->saveXML();
                 //remove as informações indesejadas
                 $procXML = Strings::clearProt($procXML);
