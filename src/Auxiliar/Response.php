@@ -53,7 +53,7 @@ class Response
         }
         return array();
     }
-    
+
     /**
      * zReadRecepcaoLote
      *
@@ -94,7 +94,7 @@ class Response
         );
         return $aResposta;
     }
-    
+
     /**
      * zReadRetRecepcao
      *
@@ -132,7 +132,7 @@ class Response
         );
         return $aResposta;
     }
-    
+
     /**
      * zReadConsultaMDF
      *
@@ -177,7 +177,7 @@ class Response
         );
         return $aResposta;
     }
-    
+
     /**
      * zReadStatusServico
      *
@@ -217,7 +217,7 @@ class Response
         );
         return $aResposta;
     }
-    
+
     /**
      * zReadRecepcaoEvento
      *
@@ -238,7 +238,7 @@ class Response
             'xMotivo' => '',
             'aEvent' => array()
         );
-        $tag = $dom->getNode('retEvento');
+        $tag = $dom->getNode('retEventoMDFe');
         if (! isset($tag)) {
             return $aResposta;
         }
@@ -255,7 +255,7 @@ class Response
         );
         return $aResposta;
     }
-    
+
     /**
      * zReadConsNaoEnc
      *
@@ -330,7 +330,7 @@ class Response
         );
         return $aProt;
     }
-    
+
     /**
      * zGetEvent
      *
