@@ -723,7 +723,10 @@ class Tools extends BaseTools
         //monta mensagem
         $tagAdic = "<evIncCondutorMDFe><descEvento>Inclusao Condutor</descEvento>"
                 . "<Condutor><xNome>$xNome</xNome><CPF>$cpf</CPF></Condutor></evIncCondutorMDFe>";
-        $retorno = $this->zSefazEvento($siglaUF, $chMDFe, $tpAmb, $tpEvento, $nSeqEvento, $tagAdic);
+
+        $cOrgao = '';
+
+        $retorno = $this->zSefazEvento($siglaUF, $chMDFe, $cOrgao, $tpAmb, $tpEvento, $nSeqEvento, $tagAdic);
         $aRetorno = $this->aLastRetEvent;
         return $retorno;
     }
@@ -793,6 +796,7 @@ class Tools extends BaseTools
      *
      * @param    string $siglaUF
      * @param    string $chave
+     * @param    string $cOrgao
      * @param    string $tpAmb
      * @param    string $tpEvento
      * @param    string $nSeqEvento
@@ -871,9 +875,9 @@ class Tools extends BaseTools
         $lastMsg = $this->oSoap->lastMsg;
         $this->soapDebug = $this->oSoap->soapDebug;
         //salva mensagens
-        $filename = "$chMDFe-$aliasEvento-eventoMDFe.xml";
+        $filename = "$chave-$aliasEvento-eventoMDFe.xml";
         $this->zGravaFile('mdfe', $tpAmb, $filename, $lastMsg);
-        $filename = "$chMDFe-$aliasEvento-retEventoMDFe.xml";
+        $filename = "$chave-$aliasEvento-retEventoMDFe.xml";
         $this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
         $this->aLastRetEvent = Response::readReturnSefaz($servico, $retorno);
