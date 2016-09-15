@@ -28,12 +28,12 @@ use NFePHP\Common\Base\BaseMail;
 use Html2Text\Html2Text;
 use \DOMDocument;
 
-class Mail
+class Mail extends BaseMail
 {
     protected $msgHtml = '';
     protected $msgTxt = '';
     protected $aMail = array();
-    
+
     /**
      * enviaMail
      *
@@ -53,7 +53,7 @@ class Mail
         $this->sendMail($assunto, $this->aMail);
         return true;
     }
-    
+
     /**
      * montaMessagem
      *
@@ -77,10 +77,11 @@ class Mail
         $vCarga = $tot->getElementsByTagName('vCarga')->item(0)->nodeValue;
         $xNome = '';
         $this->msgHtml = $this->renderTemplate($xNome, $data, $nMDF, $serie, $vCarga, $razao);
-        $this->msgTxt = utf8_encode(Html2Text::convert(utf8_decode($this->msgHtml)));
+        $cHTT = new Html2Text($this->msgHtml);
+        $this->msgTxt = $cHTT->getText();
         return "MDFe n. $nMDF - $razao";
     }
-    
+
     /**
      * renderTemplate
      *
