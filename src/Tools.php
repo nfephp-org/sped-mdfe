@@ -627,7 +627,10 @@ class Tools extends BaseTools
         }
         $tagAdic = "<evCancMDFe><descEvento>Cancelamento</descEvento>"
                 . "<nProt>$nProt</nProt><xJust>$xJust</xJust></evCancMDFe>";
-        $retorno = $this->zSefazEvento($siglaUF, $chMDFe, $tpAmb, $tpEvento, $nSeqEvento, $tagAdic);
+
+        $cOrgao = '';
+
+        $retorno = $this->zSefazEvento($siglaUF, $chMDFe, $cOrgao, $tpAmb, $tpEvento, $nSeqEvento, $tagAdic);
         $aRetorno = $this->aLastRetEvent;
         return $retorno;
     }
@@ -676,7 +679,10 @@ class Tools extends BaseTools
         $tagAdic = "<evEncMDFe><descEvento>Encerramento</descEvento>"
                 . "<nProt>$nProt</nProt><dtEnc>$dtEnc</dtEnc><cUF>$cUF</cUF>"
                 . "<cMun>$cMun</cMun></evEncMDFe>";
-        $retorno = $this->zSefazEvento($siglaUF, $chMDFe, $tpAmb, $tpEvento, $nSeqEvento, $tagAdic);
+
+        $cOrgao = '';
+
+        $retorno = $this->zSefazEvento($siglaUF, $chMDFe, $cOrgao, $tpAmb, $tpEvento, $nSeqEvento, $tagAdic);
         $aRetorno = $this->aLastRetEvent;
         return $retorno;
     }
@@ -705,13 +711,8 @@ class Tools extends BaseTools
             $tpAmb = $this->aConfig['tpAmb'];
         }
         $chMDFe = preg_replace('/[^0-9]/', '', $chave);
-        $nProt = preg_replace('/[^0-9]/', '', $nProt);
         if (strlen($chMDFe) != 44) {
             $msg = "Uma chave de MDFe válida não foi passada como parâmetro $chMDFe.";
-            throw new Exception\InvalidArgumentException($msg);
-        }
-        if ($nProt == '') {
-            $msg = "Não foi passado o numero do protocolo!!";
             throw new Exception\InvalidArgumentException($msg);
         }
         $siglaUF = self::zGetSigla(substr($chMDFe, 0, 2));
@@ -722,7 +723,7 @@ class Tools extends BaseTools
         }
         //monta mensagem
         $tagAdic = "<evIncCondutorMDFe><descEvento>Inclusao Condutor</descEvento>"
-                . "<Condutor><xNome>$xNome</xNome><CPF>$cpf</CPF></Condutor></evIncCondutorMDFe>";
+                . "<condutor><xNome>$xNome</xNome><CPF>$cpf</CPF></condutor></evIncCondutorMDFe>";
 
         $cOrgao = '';
 
