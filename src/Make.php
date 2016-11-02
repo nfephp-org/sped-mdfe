@@ -53,7 +53,10 @@ class Make extends BaseMake
      * @var DOMElement
      */
     private $emit;
-    private $enderEmit = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $enderEmit;
     private $infModal = ''; //DOMNode
     private $tot = ''; //DOMNode
     private $infAdic = ''; //DOMNode
@@ -381,19 +384,19 @@ class Make extends BaseMake
 
     /**
      * tagenderEmit
-     * Endereço do emitente [30] pai [25]
-     * tag MDFe/infMDFe/emit/endEmit
+     * Endereço do emitente [32] pai [27]
+     * tag MDFe/infMDFe/emit/enderEmit
      *
-     * @param  string $xLgr
-     * @param  string $nro
-     * @param  string $xCpl
-     * @param  string $xBairro
-     * @param  string $cMun
-     * @param  string $xMun
-     * @param  string $cep
-     * @param  string $siglaUF
-     * @param  string $fone
-     * @param  string $email
+     * @param string $xLgr
+     * @param string $nro
+     * @param string $xCpl
+     * @param string $xBairro
+     * @param string $cMun
+     * @param string $xMun
+     * @param string $CEP
+     * @param string $UF
+     * @param string $fone
+     * @param string $email
      * @return DOMElement
      */
     public function tagenderEmit(
@@ -403,12 +406,12 @@ class Make extends BaseMake
         $xBairro = '',
         $cMun = '',
         $xMun = '',
-        $cep = '',
-        $siglaUF = '',
+        $CEP = '',
+        $UF = '',
         $fone = '',
         $email = ''
     ) {
-        $identificador = '[30] <enderEmit> - ';
+        $identificador = '[32] <enderEmit> - ';
         $this->enderEmit = $this->dom->createElement("enderEmit");
         $this->dom->addChild(
             $this->enderEmit,
@@ -455,14 +458,14 @@ class Make extends BaseMake
         $this->dom->addChild(
             $this->enderEmit,
             "CEP",
-            $cep,
-            true,
+            $CEP,
+            false,
             $identificador . "Código do CEP do Endereço do emitente"
         );
         $this->dom->addChild(
             $this->enderEmit,
             "UF",
-            $siglaUF,
+            $UF,
             true,
             $identificador . "Sigla da UF do Endereço do emitente"
         );
