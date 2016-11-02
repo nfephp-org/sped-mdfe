@@ -18,10 +18,9 @@ namespace NFePHP\MDFe;
  * @author    Roberto L. Machado <linux.rlm at gmail dot com>
  */
 
-use NFePHP\Common\DateTime\DateTime;
+use DOMElement;
 use NFePHP\Common\Base\BaseMake;
-use \DOMDocument;
-use \DOMElement;
+use NFePHP\Common\DateTime\DateTime;
 
 class Make extends BaseMake
 {
@@ -50,7 +49,10 @@ class Make extends BaseMake
     private $MDFe = ''; //DOMNode
     private $infMDFe = ''; //DOMNode
     private $ide = ''; //DOMNode
-    private $emit = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $emit;
     private $enderEmit = ''; //DOMNode
     private $infModal = ''; //DOMNode
     private $tot = ''; //DOMNode
@@ -353,32 +355,27 @@ class Make extends BaseMake
 
     /**
      * tagemit
-     * Identificação do emitente da MDFe [25] pai 1
+     * Identificação do emitente da MDFe [27] pai 1
      * tag MDFe/infMDFe/emit
      *
-     * @param  string $cnpj
-     * @param  string $cpf
-     * @param  string $xNome
-     * @param  string $xFant
-     * @param  string $numIE
-     * @param  string $numIEST
-     * @param  string $numIM
-     * @param  string $cnae
-     * @param  string $crt
+     * @param string $CNPJ
+     * @param string $IE
+     * @param string $xNome
+     * @param string $xFant
      * @return DOMElement
      */
     public function tagemit(
-        $cnpj = '',
-        $numIE = '',
+        $CNPJ = '',
+        $IE = '',
         $xNome = '',
         $xFant = ''
     ) {
-        $identificador = '[25] <emit> - ';
-        $this->emit = $this->dom->createElement("emit");
-        $this->dom->addChild($this->emit, "CNPJ", $cnpj, true, $identificador . "CNPJ do emitente");
-        $this->dom->addChild($this->emit, "IE", $numIE, true, $identificador . "Inscrição Estadual do emitente");
-        $this->dom->addChild($this->emit, "xNome", $xNome, true, $identificador . "Razão Social ou Nome do emitente");
-        $this->dom->addChild($this->emit, "xFant", $xFant, false, $identificador . "Nome fantasia do emitente");
+        $identificador = '[27] <emit> - ';
+        $this->emit = $this->dom->createElement('emit');
+        $this->dom->addChild($this->emit, 'CNPJ', $CNPJ, true, $identificador . 'CNPJ do emitente');
+        $this->dom->addChild($this->emit, 'IE', $IE, true, $identificador . 'Inscrição Estadual do emitente');
+        $this->dom->addChild($this->emit, 'xNome', $xNome, true, $identificador . 'Razão Social ou Nome do emitente');
+        $this->dom->addChild($this->emit, 'xFant', $xFant, false, $identificador . 'Nome fantasia do emitente');
         return $this->emit;
     }
 
