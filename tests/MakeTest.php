@@ -11,10 +11,14 @@ use PHPUnit_Framework_TestCase;
 
 class MakeTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @var Make
+     */
+    private $makeMdfe;
+
     public function testOMetodoTagemitDeveGerenciarCamposOpcionais()
     {
-        $makeMdfe = new Make();
-        $emitDOMElement = $makeMdfe->tagemit(
+        $domElement = $this->makeMdfe->tagemit(
             $CNPJ = '06539526000392',
             $IE = '9057800426',
             $xNome = 'CT-E EMITIDO EM AMBIENTE DE HOMOLOGACAO - SEM VALOR FISCAL',
@@ -28,12 +32,12 @@ class MakeTest extends PHPUnit_Framework_TestCase
             <!--Optional:-->
             <xFant>$xFant</xFant>
         </emit>";
-        $actualXml = $emitDOMElement->ownerDocument->saveXML($emitDOMElement);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
         $xFant = null;
-        $emitDOMElement = $makeMdfe->tagemit($CNPJ, $IE, $xNome, $xFant);
-        $actualXml = $emitDOMElement->ownerDocument->saveXML($emitDOMElement);
+        $domElement = $this->makeMdfe->tagemit($CNPJ, $IE, $xNome, $xFant);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
 
         $expectedXml = "<emit>
@@ -46,8 +50,7 @@ class MakeTest extends PHPUnit_Framework_TestCase
 
     public function testOMetodoTagenderemitDeveGerenciarCamposOpcionais()
     {
-        $makeMdfe = new Make();
-        $enderEmitDOMElement = $makeMdfe->tagenderEmit(
+        $domElement = $this->makeMdfe->tagenderEmit(
             $xLgr = 'ALD TITO MUFFATO',
             $nro = '290',
             $xCpl = 'SALA 04',
@@ -76,15 +79,15 @@ class MakeTest extends PHPUnit_Framework_TestCase
                 <!--Optional:-->
                 <email>$email</email>
             </enderEmit>";
-        $actualXml = $enderEmitDOMElement->ownerDocument->saveXML($enderEmitDOMElement);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
         $xCpl = null;
         $CEP = null;
         $fone = null;
         $email = null;
-        $enderEmitDOMElement = $makeMdfe->tagenderEmit($xLgr, $nro, $xCpl, $xBairro, $cMun, $xMun, $CEP, $UF, $fone, $email);
-        $actualXml = $enderEmitDOMElement->ownerDocument->saveXML($enderEmitDOMElement);
+        $domElement = $this->makeMdfe->tagenderEmit($xLgr, $nro, $xCpl, $xBairro, $cMun, $xMun, $CEP, $UF, $fone, $email);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
 
         $expectedXml = "<enderEmit>
@@ -95,7 +98,92 @@ class MakeTest extends PHPUnit_Framework_TestCase
                 <xMun>$xMun</xMun>
                 <UF>$UF</UF>
             </enderEmit>";
-        $actualXml = $enderEmitDOMElement->ownerDocument->saveXML($enderEmitDOMElement);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+    }
+
+    public function testOMetodoTagideDeveGerenciarCamposOpcionais()
+    {
+        $domElement = $this->makeMdfe->tagide(
+            $cUF = '51',
+            $tpAmb = '2',
+            $tpEmit = '1',
+            $tpTransp = '2',
+            $mod = '58',
+            $serie = '0',
+            $nMDF = '1',
+            $cMDF = (string)rand(),
+            $cDV = '1',
+            $modal = '1',
+            $dhEmi = date('Y-m-d H:i:sP'),
+            $tpEmis = '1',
+            $procEmi = '3',
+            $verProc = '1.0.0',
+            $UFIni = 'SP',
+            $UFFim = 'RJ',
+            $dhIniViagem = date('Y-m-d H:i:sP')
+        );
+
+        $expectedXml = "<ide>
+            <cUF>$cUF</cUF>
+            <tpAmb>$tpAmb</tpAmb>
+            <tpEmit>$tpEmit</tpEmit>
+            <!--Optional:-->
+            <tpTransp>$tpTransp</tpTransp>
+            <mod>$mod</mod>
+            <serie>$serie</serie>
+            <nMDF>$nMDF</nMDF>
+            <cMDF>$cMDF</cMDF>
+            <cDV>$cDV</cDV>
+            <modal>$modal</modal>
+            <dhEmi>$dhEmi</dhEmi>
+            <tpEmis>$tpEmis</tpEmis>
+            <procEmi>$procEmi</procEmi>
+            <verProc>$verProc</verProc>
+            <UFIni>$UFIni</UFIni>
+            <UFFim>$UFFim</UFFim>
+            <!--Optional:-->
+            <dhIniViagem>$dhIniViagem</dhIniViagem>
+        </ide>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+
+        $tpTransp = null;
+        $dhIniViagem = null;
+        $domElement = $this->makeMdfe->tagide($cUF, $tpAmb, $tpEmit, $tpTransp, $mod, $serie, $nMDF, $cMDF, $cDV, $modal, $dhEmi, $tpEmis, $procEmi, $verProc, $UFIni, $UFFim, $dhIniViagem);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
+
+        $expectedXml = "<ide>
+            <cUF>$cUF</cUF>
+            <tpAmb>$tpAmb</tpAmb>
+            <tpEmit>$tpEmit</tpEmit>
+            <mod>$mod</mod>
+            <serie>$serie</serie>
+            <nMDF>$nMDF</nMDF>
+            <cMDF>$cMDF</cMDF>
+            <cDV>$cDV</cDV>
+            <modal>$modal</modal>
+            <dhEmi>$dhEmi</dhEmi>
+            <tpEmis>$tpEmis</tpEmis>
+            <procEmi>$procEmi</procEmi>
+            <verProc>$verProc</verProc>
+            <UFIni>$UFIni</UFIni>
+            <UFFim>$UFFim</UFFim>
+        </ide>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+    }
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->makeMdfe = new Make();
+    }
+
+    protected function tearDown()
+    {
+        parent::tearDown();
+        unset($this->makeMdfe);
     }
 }

@@ -48,7 +48,10 @@ class Make extends BaseMake
     //propriedades privadas utilizadas internamente pela classe
     private $MDFe = ''; //DOMNode
     private $infMDFe = ''; //DOMNode
-    private $ide = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $ide;
     /**
      * @var DOMElement
      */
@@ -149,30 +152,33 @@ class Make extends BaseMake
 
     /**
      * tgaide
-     * Informações de identificação da MDFe 4 pai 1
+     * Informações de identificação da MDFe 4 pai 0
      * tag MDFe/infMDFe/ide
      *
-     * @param  string $cUF
-     * @param  string $tbAmb
-     * @param  string $tpEmit
-     * @param  string $mod
-     * @param  string $serie
-     * @param  string $nMDF
-     * @param  string $cMDF
-     * @param  string $cDV
-     * @param  string $modal
-     * @param  string $dhEmi
-     * @param  string $tpEmis
-     * @param  string $procEmi
-     * @param  string $verProc
-     * @param  string $ufIni
-     * @param  string $ufFim
-     * @return DOMElement
+     * @param string $cUF
+     * @param string $tpAmb
+     * @param string $tpEmit
+     * @param string $tpTransp
+     * @param string $mod
+     * @param string $serie
+     * @param string $nMDF
+     * @param string $cMDF
+     * @param string $cDV
+     * @param string $modal
+     * @param string $dhEmi
+     * @param string $tpEmis
+     * @param string $procEmi
+     * @param string $verProc
+     * @param string $UFIni
+     * @param string $UFFim
+     * @param string $dhIniViagem
+     * @return DOMElement|string
      */
     public function tagide(
         $cUF = '',
         $tpAmb = '',
         $tpEmit = '',
+        $tpTransp = '',
         $mod = '58',
         $serie = '',
         $nMDF = '',
@@ -183,8 +189,9 @@ class Make extends BaseMake
         $tpEmis = '',
         $procEmi = '',
         $verProc = '',
-        $ufIni = '',
-        $ufFim = ''
+        $UFIni = '',
+        $UFFim = '',
+        $dhIniViagem = ''
     ) {
         $this->tpAmb = $tpAmb;
         if ($dhEmi == '') {
@@ -212,6 +219,13 @@ class Make extends BaseMake
             $tpEmit,
             true,
             $identificador . "Indicador da tipo de emitente"
+        );
+        $this->dom->addChild(
+            $ide,
+            "tpTransp",
+            $tpTransp,
+            false,
+            $identificador . "Tipo do Transportador"
         );
         $this->dom->addChild(
             $ide,
@@ -286,20 +300,27 @@ class Make extends BaseMake
         $this->dom->addChild(
             $ide,
             "UFIni",
-            $ufIni,
+            $UFIni,
             true,
             $identificador . "Sigla da UF do Carregamento"
         );
         $this->dom->addChild(
             $ide,
             "UFFim",
-            $ufFim,
+            $UFFim,
             true,
             $identificador . "Sigla da UF do Descarregamento"
         );
+        $this->dom->addChild(
+            $ide,
+            "dhIniViagem",
+            $dhIniViagem,
+            false,
+            $identificador . "Data e hora previstos de inicio da viagem"
+        );
         $this->mod = $mod;
         $this->ide = $ide;
-        return $ide;
+        return $this->ide;
     }
 
     /**
@@ -358,7 +379,7 @@ class Make extends BaseMake
 
     /**
      * tagemit
-     * Identificação do emitente da MDFe [27] pai 1
+     * Identificação do emitente da MDFe [27] pai 0
      * tag MDFe/infMDFe/emit
      *
      * @param string $CNPJ
