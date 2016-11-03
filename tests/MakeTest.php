@@ -239,6 +239,47 @@ class MakeTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
+    public function testOMetodoTagtotDeveGerenciarCamposOpcionais()
+    {
+        $domElement = $this->makeMdfe->tagTot(
+            $qCTe = '2',
+            $qNFe = '2',
+            $qMDFe = '2',
+            $vCarga = '100.00',
+            $cUnid = '01',
+            $qCarga = '20'
+        );
+
+        $expectedXml = "<tot>
+            <!--Optional:-->
+            <qCTe>$qCTe</qCTe>
+            <!--Optional:-->
+            <qNFe>$qNFe</qNFe>
+            <!--Optional:-->
+            <qMDFe>$qMDFe</qMDFe>
+            <vCarga>$vCarga</vCarga>
+            <cUnid>$cUnid</cUnid>
+            <qCarga>$qCarga</qCarga>
+        </tot>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+
+        $qCTe = null;
+        $qNFe = null;
+        $qMDFe = null;
+        $domElement = $this->makeMdfe->tagTot($qCTe, $qNFe, $qMDFe, $vCarga, $cUnid, $qCarga);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
+
+        $expectedXml = "<tot>
+            <vCarga>$vCarga</vCarga>
+            <cUnid>$cUnid</cUnid>
+            <qCarga>$qCarga</qCarga>
+        </tot>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+    }
+
     protected function setUp()
     {
         parent::setUp();

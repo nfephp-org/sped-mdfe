@@ -61,7 +61,10 @@ class Make extends BaseMake
      */
     private $enderEmit;
     private $infModal = ''; //DOMNode
-    private $tot = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $tot;
     /**
      * @var DOMElement
      */
@@ -649,13 +652,13 @@ class Make extends BaseMake
      * tagTot
      * tag MDFe/infMDFe/tot
      *
-     * @param  string $qCTe
-     * @param  string $qNFe
-     * @param  string $qMDFe
-     * @param  string $vCarga
-     * @param  string $cUnid
-     * @param  string $qCarga
-     * @return DOMElement
+     * @param string $qCTe
+     * @param string $qNFe
+     * @param string $qMDFe
+     * @param string $vCarga
+     * @param string $cUnid
+     * @param string $qCarga
+     * @return DOMElement|string
      */
     public function tagTot(
         $qCTe = '',
@@ -709,7 +712,7 @@ class Make extends BaseMake
             "Peso Bruto Total da Carga / Mercadoria Transportada"
         );
         $this->tot = $tot;
-        return $tot;
+        return $this->tot;
     }
 
     /**
@@ -736,7 +739,7 @@ class Make extends BaseMake
 
     /**
      * taginfAdic
-     * Grupo de Informações Adicionais Z01 pai A01
+     * Grupo de Informações Adicionais 140 pai 0
      * tag MDFe/infMDFe/infAdic (opcional)
      *
      * @param string $infAdFisco
