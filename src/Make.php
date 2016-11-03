@@ -62,7 +62,10 @@ class Make extends BaseMake
     private $enderEmit;
     private $infModal = ''; //DOMNode
     private $tot = ''; //DOMNode
-    private $infAdic = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $infAdic;
     private $rodo = ''; //DOMNode
     private $veicTracao = ''; //DOMNode
     private $aereo = ''; //DOMNode
@@ -736,8 +739,8 @@ class Make extends BaseMake
      * Grupo de Informações Adicionais Z01 pai A01
      * tag MDFe/infMDFe/infAdic (opcional)
      *
-     * @param  string $infAdFisco
-     * @param  string $infCpl
+     * @param string $infAdFisco
+     * @param string $infCpl
      * @return DOMElement
      */
     public function taginfAdic(
@@ -760,7 +763,7 @@ class Make extends BaseMake
             "Informações Complementares de interesse do Contribuinte"
         );
         $this->infAdic = $infAdic;
-        return $infAdic;
+        return $this->infAdic;
     }
 
     /**

@@ -212,6 +212,33 @@ class MakeTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
+    public function testOMetodoTaginfAdicDeveGerenciarCamposOpcionais()
+    {
+        $domElement = $this->makeMdfe->taginfAdic(
+            $infAdFisco = 'Informações adicionais de interesse do Fisco',
+            $infCpl = 'Informações complementares de interesse do Contribuinte'
+        );
+
+        $expectedXml = "<infAdic>
+            <!--Optional:-->
+            <infAdFisco>$infAdFisco</infAdFisco>
+            <!--Optional:-->
+            <infCpl>$infCpl</infCpl>
+        </infAdic>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+
+        $infAdFisco = null;
+        $infCpl = null;
+        $domElement = $this->makeMdfe->taginfAdic($infAdFisco, $infCpl);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
+
+        $expectedXml = "<infAdic/>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+    }
+
     protected function setUp()
     {
         parent::setUp();
