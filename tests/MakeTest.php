@@ -175,6 +175,43 @@ class MakeTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
+    public function testOMetodoTagInfCTeDeveGerenciarCamposOpcionais()
+    {
+        $domElement = $this->makeMdfe->tagInfCTe(
+            $nItem = 0,
+            $chCTe = '33333333333333333333333333333333333333333333',
+            $segCodBarra = '123123123123123123123123123123123123',
+            $indReentrega = '1'
+        );
+
+        $expectedXml = "<infCTe>
+            <chCTe>$chCTe</chCTe>
+            <!--Optional:-->
+            <SegCodBarra>$segCodBarra</SegCodBarra>
+            <!--Optional:-->
+            <indReentrega>$indReentrega</indReentrega>
+        </infCTe>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+
+        $segCodBarra = null;
+        $indReentrega = null;
+        $domElement = $this->makeMdfe->tagInfCTe(
+            $nItem,
+            $chCTe,
+            $segCodBarra,
+            $indReentrega
+        );
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
+
+        $expectedXml = "<infCTe>
+            <chCTe>$chCTe</chCTe>
+        </infCTe>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+    }
+
     protected function setUp()
     {
         parent::setUp();

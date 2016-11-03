@@ -73,7 +73,10 @@ class Make extends BaseMake
     private $aInfMunCarrega = array(); //array de DOMNode
     private $aInfPercurso = array(); //array de DOMNode
     private $aInfMunDescarga = array(); //array de DOMNode
-    private $aInfCTe = array(); //array de DOMNode
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfCTe = array();
     private $aInfNFe = array(); //array de DOMNode
     private $aInfMDFe = array(); //array de DOMNode
     private $aLacres = array(); //array de DOMNode
@@ -544,15 +547,17 @@ class Make extends BaseMake
      * tagInfCTe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe
      *
-     * @param  integer $nItem
-     * @param  string  $chCTe
-     * @param  string  $segCodBarra
+     * @param int $nItem
+     * @param string $chCTe
+     * @param string $segCodBarra
+     * @param string $indReentrega
      * @return DOMElement
      */
     public function tagInfCTe(
         $nItem = 0,
         $chCTe = '',
-        $segCodBarra = ''
+        $segCodBarra = '',
+        $indReentrega = ''
     ) {
         $infCTe = $this->dom->createElement("infCTe");
         $this->dom->addChild(
@@ -568,6 +573,13 @@ class Make extends BaseMake
             $segCodBarra,
             false,
             "Segundo código de barras do CTe"
+        );
+        $this->dom->addChild(
+            $infCTe,
+            "indReentrega",
+            $indReentrega,
+            false,
+            "Indicador de Reentrega"
         );
         $this->aInfCTe[$nItem][] = $infCTe;
         return $infCTe;
