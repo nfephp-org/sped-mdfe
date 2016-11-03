@@ -664,15 +664,17 @@ class Make extends BaseMake
      * tagInfNFe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
      *
-     * @param  integer $nItem
-     * @param  string  $chNFe
-     * @param  string  $segCodBarra
+     * @param int $nItem
+     * @param string $chNFe
+     * @param string $SegCodBarra
+     * @param string $indReentrega
      * @return DOMElement
      */
     public function tagInfNFe(
         $nItem = 0,
         $chNFe = '',
-        $segCodBarra = ''
+        $SegCodBarra = '',
+        $indReentrega = ''
     ) {
         $infNFe = $this->dom->createElement("infNFe");
         $this->dom->addChild(
@@ -685,9 +687,16 @@ class Make extends BaseMake
         $this->dom->addChild(
             $infNFe,
             "SegCodBarra",
-            $segCodBarra,
+            $SegCodBarra,
             false,
             "Segundo código de barras da NFe"
+        );
+        $this->dom->addChild(
+            $infNFe,
+            "indReentrega",
+            $indReentrega,
+            false,
+            "Indicador de Reentrega"
         );
         $this->aInfNFe[$nItem][] = $infNFe;
         return $infNFe;
