@@ -13,7 +13,7 @@ class ToolsTest extends PHPUnit_Framework_TestCase
     /**
      * @expectedException NFePHP\Common\Exception\InvalidArgumentException
      */
-    public function testeInstanciar()
+    public function testInstanciar()
     {
         $configJson = dirname(__FILE__) . '/fixtures/config/fakeconfig.json';
         $this->mdfe = new Tools($configJson);
