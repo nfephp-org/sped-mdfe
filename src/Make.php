@@ -706,13 +706,15 @@ class Make extends BaseMake
      * tagInfMDFeTransp
      * tag MDFe/infMDFeTransp/infDoc/infMunDescarga/infMDFeTranspTransp
      *
-     * @param  integer $nItem
-     * @param  string  $chMDFe
+     * @param int $nItem
+     * @param string $chMDFe
+     * @param string $indReentrega
      * @return DOMElement
      */
     public function tagInfMDFeTransp(
         $nItem = 0,
-        $chMDFe = ''
+        $chMDFe = '',
+        $indReentrega = ''
     ) {
         $infMDFeTransp = $this->dom->createElement("infMDFeTransp");
         $this->dom->addChild(
@@ -721,6 +723,13 @@ class Make extends BaseMake
             $chMDFe,
             true,
             "Chave de Acesso da MDFe"
+        );
+        $this->dom->addChild(
+            $infMDFeTransp,
+            "indReentrega",
+            $indReentrega,
+            false,
+            "Indicador de Reentrega"
         );
         $this->aInfMDFe[$nItem][] = $infMDFeTransp;
         return $infMDFeTransp;

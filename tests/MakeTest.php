@@ -284,30 +284,58 @@ class MakeTest extends PHPUnit_Framework_TestCase
     {
         $domElement = $this->makeMdfe->tagInfNFe(
             $nItem = 0,
-            $chCTe = '33333333333333333333333333333333333333333333',
-            $segCodBarra = '123123123123123123123123123123123123',
+            $chNFe = '33333333333333333333333333333333333333333333',
+            $SegCodBarra = '123123123123123123123123123123123123',
             $indReentrega = '1'
         );
 
         $expectedXml = "<infNFe>
-            <chNFe>$chCTe</chNFe>
+            <chNFe>$chNFe</chNFe>
             <!--Optional:-->
-            <SegCodBarra>$segCodBarra</SegCodBarra>
+            <SegCodBarra>$SegCodBarra</SegCodBarra>
             <!--Optional:-->
             <indReentrega>$indReentrega</indReentrega>
         </infNFe>";
         $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
 
-        $segCodBarra = null;
+        $SegCodBarra = null;
         $indReentrega = null;
-        $domElement = $this->makeMdfe->tagInfNFe($nItem, $chCTe, $segCodBarra, $indReentrega);
+        $domElement = $this->makeMdfe->tagInfNFe($nItem, $chNFe, $SegCodBarra, $indReentrega);
         $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
 
         $expectedXml = "<infNFe>
-            <chNFe>$chCTe</chNFe>
+            <chNFe>$chNFe</chNFe>
         </infNFe>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+    }
+
+    public function testOMetodoTaginfmdfetranspDeveGerenciarCamposOpcionais()
+    {
+        $domElement = $this->makeMdfe->tagInfMDFeTransp(
+            $nItem = 0,
+            $chMDFe = '33333333333333333333333333333333333333333333',
+            $indReentrega = '1'
+        );
+
+        $expectedXml = "<infMDFeTransp>
+            <chMDFe>$chMDFe</chMDFe>
+            <!--Optional:-->
+            <indReentrega>$indReentrega</indReentrega>
+        </infMDFeTransp>";
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
+
+        $indReentrega = null;
+        $domElement = $this->makeMdfe->tagInfMDFeTransp($nItem, $chMDFe, $indReentrega);
+        $actualXml = $domElement->ownerDocument->saveXML($domElement);
+        $this->assertXmlStringNotEqualsXmlString($expectedXml, $actualXml);
+
+        $expectedXml = "<infMDFeTransp>
+            <chMDFe>$chMDFe</chMDFe>
+        </infMDFeTransp>";
         $actualXml = $domElement->ownerDocument->saveXML($domElement);
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
