@@ -175,7 +175,7 @@ class MakeTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
-    public function testOMetodoTagInfCTeDeveGerenciarCamposOpcionais()
+    public function testOMetodoTaginfcteDeveGerenciarCamposOpcionais()
     {
         $domElement = $this->makeMdfe->tagInfCTe(
             $nItem = 0,
@@ -212,7 +212,7 @@ class MakeTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
-    public function testOMetodoTaginfAdicDeveGerenciarCamposOpcionais()
+    public function testOMetodoTaginfadicDeveGerenciarCamposOpcionais()
     {
         $domElement = $this->makeMdfe->taginfAdic(
             $infAdFisco = 'Informações adicionais de interesse do Fisco',
@@ -280,7 +280,7 @@ class MakeTest extends PHPUnit_Framework_TestCase
         $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml);
     }
 
-    public function testOMetodoTagInfNFeDeveGerenciarCamposOpcionais()
+    public function testOMetodoTaginfnfeDeveGerenciarCamposOpcionais()
     {
         $domElement = $this->makeMdfe->tagInfNFe(
             $nItem = 0,
