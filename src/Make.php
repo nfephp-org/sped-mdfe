@@ -44,10 +44,14 @@ class Make extends BaseMake
      * @var string
      */
     public $chMDFe = '';
-
-    //propriedades privadas utilizadas internamente pela classe
-    private $MDFe = ''; //DOMNode
-    private $infMDFe = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $MDFe;
+    /**
+     * @var DOMElement
+     */
+    private $infMDFe;
     /**
      * @var DOMElement
      */
@@ -60,7 +64,10 @@ class Make extends BaseMake
      * @var DOMElement
      */
     private $enderEmit;
-    private $infModal = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $infModal;
     /**
      * @var DOMElement
      */
@@ -69,31 +76,93 @@ class Make extends BaseMake
      * @var DOMElement
      */
     private $infAdic;
-    private $rodo = ''; //DOMNode
-    private $veicTracao = ''; //DOMNode
-    private $aereo = ''; //DOMNode
-    private $trem = ''; //DOMNode
-    private $aqua = ''; //DOMNode
+    /**
+     * @var DOMElement
+     */
+    private $rodo;
+    /**
+     * @var DOMElement
+     */
+    private $veicTracao;
+    /**
+     * @var DOMElement
+     */
+    private $aereo;
+    /**
+     * @var DOMElement
+     */
+    private $trem;
+    /**
+     * @var DOMElement
+     */
+    private $aqua;
 
     // Arrays
-    private $aInfMunCarrega = array(); //array de DOMNode
-    private $aInfPercurso = array(); //array de DOMNode
-    private $aInfMunDescarga = array(); //array de DOMNode
     /**
      * @var DOMElement[]
      */
-    private $aInfCTe = array();
-    private $aInfNFe = array(); //array de DOMNode
-    private $aInfMDFe = array(); //array de DOMNode
-    private $aLacres = array(); //array de DOMNode
-    private $aCondutor = array(); //array de DOMNode
-    private $aReboque = array(); //array de DOMNode
-    private $aDisp = array(); //array de DOMNode
-    private $aVag = array(); //array de DOMNode
-    private $aInfTermCarreg = array(); //array de DOMNode
-    private $aInfTermDescarreg = array(); //array de DOMNode
-    private $aInfEmbComb = array(); //array de DOMNode
-    private $aCountDoc = array(); //contador de documentos fiscais
+    private $aInfMunCarrega;
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfPercurso;
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfMunDescarga;
+    /**
+     * @var DOMElement[]
+     */
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfCTe;
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfNFe;
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfMDFe;
+    /**
+     * @var DOMElement[]
+     */
+    private $aLacres;
+    /**
+     * @var DOMElement[]
+     */
+    private $aCondutor;
+    /**
+     * @var DOMElement[]
+     */
+    private $aReboque;
+    /**
+     * @var DOMElement[]
+     */
+    private $aDisp;
+    /**
+     * @var DOMElement[]
+     */
+    private $aVag;
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfTermCarreg;
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfTermDescarreg;
+    /**
+     * @var DOMElement[]
+     */
+    private $aInfEmbComb;
+    /**
+     * contador de documentos fiscais
+     *
+     * @var array
+     */
+    private $aCountDoc = array();
 
     /**
      *
