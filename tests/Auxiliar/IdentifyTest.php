@@ -8,7 +8,7 @@ use NFePHP\MDFe\Auxiliar\Identify;
 
 class IdentifyTest extends PHPUnit_Framework_TestCase
 {
-    public function testeIdentificaMDFe()
+    public function testIdentificaMdfe()
     {
         $aResp = array();
         $filePath = dirname(dirname(__FILE__)) . '/fixtures/xml/MDFe41140581452880000139580010000000281611743166.xml';
