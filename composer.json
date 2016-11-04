@@ -31,11 +31,11 @@
     "autoload": {
         "psr-4": {
           "NFePHP\\MDFe\\": "src/"
-        } 
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "NFePHP\\MDFe\\Tests\\": "tests/"
+          "Tests\\NFePHP\\MDFe\\": "tests/"
         }
     },
     "scripts": {

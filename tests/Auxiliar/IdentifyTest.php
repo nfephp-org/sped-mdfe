@@ -1,10 +1,12 @@
 <?php
 
+namespace Tests\NFePHP\MDFe\Auxiliar;
+
 /**
- * Class IdentifyMDFeTest
  * @author Roberto L. Machado <linux.rlm at gmail dot com>
  */
 use NFePHP\MDFe\Auxiliar\Identify;
+use PHPUnit_Framework_TestCase;
 
 class IdentifyTest extends PHPUnit_Framework_TestCase
 {
