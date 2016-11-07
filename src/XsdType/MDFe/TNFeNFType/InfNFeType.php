@@ -73,7 +73,4 @@ class InfNFeType
         $this->PIN = $PIN;
         return $this;
     }
-
-
 }
-

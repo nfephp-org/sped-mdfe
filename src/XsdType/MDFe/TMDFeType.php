@@ -70,7 +70,4 @@ class TMDFeType
         $this->Signature = $Signature;
         return $this;
     }
-
-
 }
-

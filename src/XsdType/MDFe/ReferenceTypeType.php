@@ -208,7 +208,4 @@ class ReferenceTypeType
         $this->DigestValue = $DigestValue;
         return $this;
     }
-
-
 }
-

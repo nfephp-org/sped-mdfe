@@ -40,7 +40,4 @@ class LacUnidCargaType
         $this->nLacre = $nLacre;
         return $this;
     }
-
-
 }
-

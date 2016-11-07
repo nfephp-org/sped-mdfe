@@ -64,7 +64,4 @@ class KeyInfoTypeType
         $this->X509Data = $X509Data;
         return $this;
     }
-
-
 }
-

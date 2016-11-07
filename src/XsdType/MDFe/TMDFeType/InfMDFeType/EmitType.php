@@ -172,7 +172,4 @@ class EmitType
         $this->enderEmit = $enderEmit;
         return $this;
     }
-
-
 }
-

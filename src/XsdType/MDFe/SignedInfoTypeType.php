@@ -123,7 +123,4 @@ class SignedInfoTypeType
         $this->Reference = $Reference;
         return $this;
     }
-
-
 }
-

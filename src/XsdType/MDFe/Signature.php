@@ -10,4 +10,3 @@ class Signature extends SignatureTypeType
 
 
 }
-

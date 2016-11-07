@@ -800,7 +800,4 @@ class IdeType
         $this->dhIniViagem = $dhIniViagem;
         return $this;
     }
-
-
 }
-

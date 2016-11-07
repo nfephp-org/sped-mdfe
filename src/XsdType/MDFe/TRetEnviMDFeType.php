@@ -241,7 +241,4 @@ class TRetEnviMDFeType
         $this->infRec = $infRec;
         return $this;
     }
-
-
 }
-

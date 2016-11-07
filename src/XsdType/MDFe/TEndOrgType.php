@@ -376,7 +376,4 @@ class TEndOrgType
         $this->fone = $fone;
         return $this;
     }
-
-
 }
-

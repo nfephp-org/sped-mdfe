@@ -208,7 +208,4 @@ class TotType
         $this->qCarga = $qCarga;
         return $this;
     }
-
-
 }
-

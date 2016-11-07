@@ -499,7 +499,4 @@ class InfMDFeType
         $this->infAdic = $infAdic;
         return $this;
     }
-
-
 }
-

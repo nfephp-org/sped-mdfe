@@ -73,7 +73,4 @@ class InfMunCarregaType
         $this->xMunCarrega = $xMunCarrega;
         return $this;
     }
-
-
 }
-

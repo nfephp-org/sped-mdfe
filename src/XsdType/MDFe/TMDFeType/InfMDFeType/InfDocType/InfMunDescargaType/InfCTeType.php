@@ -271,7 +271,4 @@ class InfCTeType
         $this->peri = $peri;
         return $this;
     }
-
-
 }
-

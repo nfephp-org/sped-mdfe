@@ -325,7 +325,4 @@ class InfMunDescargaType
         $this->infMDFeTransp = $infMDFeTransp;
         return $this;
     }
-
-
 }
-

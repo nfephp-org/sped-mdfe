@@ -204,7 +204,4 @@ class TUnidCargaType
         $this->qtdRat = $qtdRat;
         return $this;
     }
-
-
 }
-

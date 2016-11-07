@@ -98,7 +98,4 @@ class TransformTypeType
         $this->XPath = $XPath;
         return $this;
     }
-
-
 }
-

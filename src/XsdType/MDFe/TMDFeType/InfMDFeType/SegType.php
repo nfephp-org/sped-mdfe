@@ -183,7 +183,4 @@ class SegType
         $this->nAver = $nAver;
         return $this;
     }
-
-
 }
-

@@ -139,7 +139,4 @@ class InfRespType
         $this->CPF = $CPF;
         return $this;
     }
-
-
 }
-

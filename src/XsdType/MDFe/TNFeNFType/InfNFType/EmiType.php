@@ -106,7 +106,4 @@ class EmiType
         $this->UF = $UF;
         return $this;
     }
-
-
 }
-

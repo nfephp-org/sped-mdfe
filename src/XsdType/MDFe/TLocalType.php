@@ -109,7 +109,4 @@ class TLocalType
         $this->UF = $UF;
         return $this;
     }
-
-
 }
-

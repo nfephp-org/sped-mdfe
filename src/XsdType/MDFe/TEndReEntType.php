@@ -343,7 +343,4 @@ class TEndReEntType
         $this->UF = $UF;
         return $this;
     }
-
-
 }
-

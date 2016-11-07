@@ -238,7 +238,4 @@ class InfNFType
         $this->PIN = $PIN;
         return $this;
     }
-
-
 }
-
