@@ -3,7 +3,6 @@
 namespace NFePHP\MDFe\Serializer;
 
 use DOMXPath;
-use NFePHP\MDFe\XsdType\MDFe\MDFe;
 use NFePHP\MDFe\XsdType\MDFe\TMDFeType;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
@@ -26,7 +25,8 @@ class XmlSerializer
         if ($serializable instanceof TMDFeType && !is_null($serializable->getInfMDFe())) {
             $xmlnsDOMAttr = new \DOMAttr('xmlns', 'http://www.portalfiscal.inf.br/mdfe');
             $dom->firstChild->appendChild($xmlnsDOMAttr);
-            /** @var  MDFe $serializable */
+
+            /** @var  TMDFeType $serializable */
             $IdDOMAttr = new \DOMAttr('Id', $serializable->getInfMDFe()->getId());
             $versaoDOMAttr = new \DOMAttr('versao', $serializable->getInfMDFe()->getVersao());
             $infMDFeDOMNode = $dom->getElementsByTagName('infMDFe')->item(0);
@@ -38,6 +38,15 @@ class XmlSerializer
             $IdDOMNode = $xpath->query('/MDFe/infMDFe/Id')->item(0);
             $infMDFeDOMNode->removeChild($versaoDOMNode);
             $infMDFeDOMNode->removeChild($IdDOMNode);
+
+            if (!is_null($serializable->getInfMDFe()->getInfModal())) {
+                $versaoModalDOMAttr = new \DOMAttr('versaoModal', $serializable->getInfMDFe()->getInfModal()->getVersaoModal());
+                $infModalDOMNode = $dom->getElementsByTagName('infModal')->item(0);
+                $infModalDOMNode->appendChild($versaoModalDOMAttr);
+
+                $versaoModalDOMNode = $xpath->query('/MDFe/infMDFe/infModal/versaoModal')->item(0);
+                $infModalDOMNode->removeChild($versaoModalDOMNode);
+            }
         }
         $xpath = new DOMXPath($dom);
         foreach ($xpath->query('//*[not(normalize-space())]') as $node) {
