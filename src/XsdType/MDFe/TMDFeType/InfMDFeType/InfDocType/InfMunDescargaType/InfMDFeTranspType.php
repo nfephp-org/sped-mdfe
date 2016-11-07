@@ -250,7 +250,4 @@ class InfMDFeTranspType
         $this->peri = $peri;
         return $this;
     }
-
-
 }
-

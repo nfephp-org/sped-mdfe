@@ -40,7 +40,4 @@ class LacUnidTranspType
         $this->nLacre = $nLacre;
         return $this;
     }
-
-
 }
-

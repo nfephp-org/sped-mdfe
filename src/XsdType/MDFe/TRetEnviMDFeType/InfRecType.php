@@ -106,7 +106,4 @@ class InfRecType
         $this->tMed = $tMed;
         return $this;
     }
-
-
 }
-

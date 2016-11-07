@@ -73,7 +73,4 @@ class AutXMLType
         $this->CPF = $CPF;
         return $this;
     }
-
-
 }
-

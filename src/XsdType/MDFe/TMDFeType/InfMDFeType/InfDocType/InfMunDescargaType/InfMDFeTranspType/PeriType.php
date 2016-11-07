@@ -235,7 +235,4 @@ class PeriType
         $this->qVolTipo = $qVolTipo;
         return $this;
     }
-
-
 }
-

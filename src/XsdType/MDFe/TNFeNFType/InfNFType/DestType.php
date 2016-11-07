@@ -145,7 +145,4 @@ class DestType
         $this->UF = $UF;
         return $this;
     }
-
-
 }
-

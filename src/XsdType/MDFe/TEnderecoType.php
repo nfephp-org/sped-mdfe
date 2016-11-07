@@ -343,7 +343,4 @@ class TEnderecoType
         $this->xPais = $xPais;
         return $this;
     }
-
-
 }
-

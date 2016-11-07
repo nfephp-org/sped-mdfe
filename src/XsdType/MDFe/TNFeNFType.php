@@ -76,7 +76,4 @@ class TNFeNFType
         $this->infNF = $infNF;
         return $this;
     }
-
-
 }
-

@@ -271,7 +271,4 @@ class InfNFeType
         $this->peri = $peri;
         return $this;
     }
-
-
 }
-

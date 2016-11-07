@@ -321,7 +321,4 @@ class TUnidadeTranspType
         $this->qtdRat = $qtdRat;
         return $this;
     }
-
-
 }
-

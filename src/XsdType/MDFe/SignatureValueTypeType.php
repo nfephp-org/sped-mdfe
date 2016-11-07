@@ -76,7 +76,4 @@ class SignatureValueTypeType
         $this->Id = $Id;
         return $this;
     }
-
-
 }
-

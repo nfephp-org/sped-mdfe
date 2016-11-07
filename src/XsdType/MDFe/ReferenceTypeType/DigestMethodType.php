@@ -34,7 +34,4 @@ class DigestMethodType
         $this->Algorithm = $Algorithm;
         return $this;
     }
-
-
 }
-

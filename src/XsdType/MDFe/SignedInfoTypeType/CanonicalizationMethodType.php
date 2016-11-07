@@ -34,7 +34,4 @@ class CanonicalizationMethodType
         $this->Algorithm = $Algorithm;
         return $this;
     }
-
-
 }
-

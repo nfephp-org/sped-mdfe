@@ -76,7 +76,4 @@ class InfSegType
         $this->CNPJ = $CNPJ;
         return $this;
     }
-
-
 }
-

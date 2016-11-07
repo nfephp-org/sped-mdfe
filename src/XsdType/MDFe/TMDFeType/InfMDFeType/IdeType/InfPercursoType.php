@@ -43,7 +43,4 @@ class InfPercursoType
         $this->UFPer = $UFPer;
         return $this;
     }
-
-
 }
-

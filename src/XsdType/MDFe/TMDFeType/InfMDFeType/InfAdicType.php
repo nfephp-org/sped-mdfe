@@ -76,7 +76,4 @@ class InfAdicType
         $this->infCpl = $infCpl;
         return $this;
     }
-
-
 }
-

@@ -37,7 +37,4 @@ class X509DataTypeType
         $this->X509Certificate = $X509Certificate;
         return $this;
     }
-
-
 }
-

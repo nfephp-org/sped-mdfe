@@ -34,7 +34,4 @@ class SignatureMethodType
         $this->Algorithm = $Algorithm;
         return $this;
     }
-
-
 }
-

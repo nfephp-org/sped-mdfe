@@ -277,7 +277,4 @@ class TEndernacType
         $this->UF = $UF;
         return $this;
     }
-
-
 }
-

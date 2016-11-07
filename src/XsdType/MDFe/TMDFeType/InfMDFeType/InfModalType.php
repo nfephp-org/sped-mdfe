@@ -40,7 +40,4 @@ class InfModalType
         $this->versaoModal = $versaoModal;
         return $this;
     }
-
-
 }
-

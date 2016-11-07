@@ -87,7 +87,4 @@ class InfDocType
         $this->infMunDescarga = $infMunDescarga;
         return $this;
     }
-
-
 }
-

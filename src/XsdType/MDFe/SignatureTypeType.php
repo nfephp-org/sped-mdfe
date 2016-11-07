@@ -118,7 +118,4 @@ class SignatureTypeType
         $this->KeyInfo = $KeyInfo;
         return $this;
     }
-
-
 }
-

@@ -343,7 +343,4 @@ class TEndeEmiType
         $this->email = $email;
         return $this;
     }
-
-
 }
-

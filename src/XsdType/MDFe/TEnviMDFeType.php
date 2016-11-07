@@ -91,7 +91,4 @@ class TEnviMDFeType
         $this->MDFe = $MDFe;
         return $this;
     }
-
-
 }
-

@@ -277,7 +277,4 @@ class TEnderFerType
         $this->UF = $UF;
         return $this;
     }
-
-
 }
-

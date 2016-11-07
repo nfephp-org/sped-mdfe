@@ -40,7 +40,4 @@ class LacresType
         $this->nLacre = $nLacre;
         return $this;
     }
-
-
 }
-
