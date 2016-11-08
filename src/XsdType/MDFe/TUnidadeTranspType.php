@@ -2,6 +2,8 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe;
 
+use NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType\LacUnidTranspType;
+
 /**
  * Class representing TUnidadeTranspType
  *
@@ -43,7 +45,7 @@ class TUnidadeTranspType
     /**
      * Lacres das Unidades de Transporte
      *
-     * @property \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType\LacUnidTranspType[]
+     * @property LacUnidTranspType[]
      * $lacUnidTransp
      */
     private $lacUnidTransp = null;
@@ -153,10 +155,9 @@ class TUnidadeTranspType
      * Lacres das Unidades de Transporte
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType\LacUnidTranspType
-     * $lacUnidTransp
+     * @param LacUnidTranspType $lacUnidTransp
      */
-    public function addToLacUnidTransp(\NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType\LacUnidTranspType $lacUnidTransp)
+    public function addToLacUnidTransp(LacUnidTranspType $lacUnidTransp)
     {
         $this->lacUnidTransp[] = $lacUnidTransp;
         return $this;
@@ -193,7 +194,7 @@ class TUnidadeTranspType
      *
      * Lacres das Unidades de Transporte
      *
-     * @return \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType\LacUnidTranspType[]
+     * @return LacUnidTranspType[]
      */
     public function getLacUnidTransp()
     {
@@ -205,8 +206,7 @@ class TUnidadeTranspType
      *
      * Lacres das Unidades de Transporte
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType\LacUnidTranspType[]
-     * $lacUnidTransp
+     * @param LacUnidTranspType[] $lacUnidTransp
      * @return self
      */
     public function setLacUnidTransp(array $lacUnidTransp)

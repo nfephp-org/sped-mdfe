@@ -2,6 +2,8 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType;
 
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType;
+
 /**
  * Class representing InfNFeType
  */
@@ -41,9 +43,7 @@ class InfNFeType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType[]
-     * $peri
+     * @property PeriType[] $peri
      */
     private $peri = null;
 
@@ -203,11 +203,9 @@ class InfNFeType
      * perigosos.
      *
      * @return self
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType
-     * $peri
+     * @param PeriType $peri
      */
-    public function addToPeri(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType $peri)
+    public function addToPeri(PeriType $peri)
     {
         $this->peri[] = $peri;
         return $this;
@@ -247,8 +245,7 @@ class InfNFeType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @return
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType[]
+     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType[]
      */
     public function getPeri()
     {
@@ -261,9 +258,7 @@ class InfNFeType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType[]
-     * $peri
+     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType[] $peri
      * @return self
      */
     public function setPeri(array $peri)

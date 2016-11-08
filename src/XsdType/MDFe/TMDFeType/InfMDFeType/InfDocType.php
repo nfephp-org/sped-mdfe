@@ -2,6 +2,8 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType;
 
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType;
+
 /**
  * Class representing InfDocType
  */
@@ -11,9 +13,7 @@ class InfDocType
     /**
      * Informações dos Municípios de descarregamento
      *
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType[]
-     * $infMunDescarga
+     * @property InfMunDescargaType[] $infMunDescarga
      */
     private $infMunDescarga = null;
 
@@ -23,11 +23,9 @@ class InfDocType
      * Informações dos Municípios de descarregamento
      *
      * @return self
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType
-     * $infMunDescarga
+     * @param InfMunDescargaType $infMunDescarga
      */
-    public function addToInfMunDescarga(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType $infMunDescarga)
+    public function addToInfMunDescarga(InfMunDescargaType $infMunDescarga)
     {
         $this->infMunDescarga[] = $infMunDescarga;
         return $this;
@@ -64,8 +62,7 @@ class InfDocType
      *
      * Informações dos Municípios de descarregamento
      *
-     * @return
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType[]
+     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType[]
      */
     public function getInfMunDescarga()
     {
@@ -77,9 +74,7 @@ class InfDocType
      *
      * Informações dos Municípios de descarregamento
      *
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType[]
-     * $infMunDescarga
+     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType[] $infMunDescarga
      * @return self
      */
     public function setInfMunDescarga(array $infMunDescarga)

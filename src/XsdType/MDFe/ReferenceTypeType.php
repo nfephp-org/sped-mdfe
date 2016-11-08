@@ -2,6 +2,8 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe;
 
+use NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType\DigestMethodType;
+
 /**
  * Class representing ReferenceTypeType
  *
@@ -32,7 +34,7 @@ class ReferenceTypeType
     private $Transforms = null;
 
     /**
-     * @property \NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType\DigestMethodType
+     * @property DigestMethodType
      * $DigestMethod
      */
     private $DigestMethod = null;
@@ -167,7 +169,7 @@ class ReferenceTypeType
     /**
      * Gets as DigestMethod
      *
-     * @return \NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType\DigestMethodType
+     * @return DigestMethodType
      */
     public function getDigestMethod()
     {
@@ -177,11 +179,10 @@ class ReferenceTypeType
     /**
      * Sets a new DigestMethod
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType\DigestMethodType
-     * $DigestMethod
+     * @param DigestMethodType $DigestMethod
      * @return self
      */
-    public function setDigestMethod(\NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType\DigestMethodType $DigestMethod)
+    public function setDigestMethod(DigestMethodType $DigestMethod)
     {
         $this->DigestMethod = $DigestMethod;
         return $this;

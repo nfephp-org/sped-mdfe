@@ -2,6 +2,8 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe;
 
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType;
+
 /**
  * Class representing TMDFeType
  *
@@ -14,7 +16,7 @@ class TMDFeType
     /**
      * Informações do MDF-e
      *
-     * @property \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType $infMDFe
+     * @property InfMDFeType $infMDFe
      */
     private $infMDFe = null;
 
@@ -28,7 +30,7 @@ class TMDFeType
      *
      * Informações do MDF-e
      *
-     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType
+     * @return InfMDFeType
      */
     public function getInfMDFe()
     {
@@ -40,10 +42,10 @@ class TMDFeType
      *
      * Informações do MDF-e
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType $infMDFe
+     * @param InfMDFeType $infMDFe
      * @return self
      */
-    public function setInfMDFe(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType $infMDFe)
+    public function setInfMDFe(InfMDFeType $infMDFe)
     {
         $this->infMDFe = $infMDFe;
         return $this;

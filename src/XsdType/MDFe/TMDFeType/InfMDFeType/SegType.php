@@ -2,6 +2,9 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType;
 
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfRespType;
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfSegType;
+
 /**
  * Class representing SegType
  */
@@ -11,7 +14,7 @@ class SegType
     /**
      * Informações do responsável pelo seguro da carga
      *
-     * @property \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfRespType
+     * @property InfRespType
      * $infResp
      */
     private $infResp = null;
@@ -19,7 +22,7 @@ class SegType
     /**
      * Informações da seguradora
      *
-     * @property \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfSegType
+     * @property InfSegType
      * $infSeg
      */
     private $infSeg = null;
@@ -43,7 +46,7 @@ class SegType
      *
      * Informações do responsável pelo seguro da carga
      *
-     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfRespType
+     * @return InfRespType
      */
     public function getInfResp()
     {
@@ -55,11 +58,10 @@ class SegType
      *
      * Informações do responsável pelo seguro da carga
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfRespType
-     * $infResp
+     * @param InfRespType $infResp
      * @return self
      */
-    public function setInfResp(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfRespType $infResp)
+    public function setInfResp(InfRespType $infResp)
     {
         $this->infResp = $infResp;
         return $this;
@@ -70,7 +72,7 @@ class SegType
      *
      * Informações da seguradora
      *
-     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfSegType
+     * @return InfSegType
      */
     public function getInfSeg()
     {
@@ -82,11 +84,10 @@ class SegType
      *
      * Informações da seguradora
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfSegType
-     * $infSeg
+     * @param InfSegType $infSeg
      * @return self
      */
-    public function setInfSeg(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType\InfSegType $infSeg)
+    public function setInfSeg(InfSegType $infSeg)
     {
         $this->infSeg = $infSeg;
         return $this;
