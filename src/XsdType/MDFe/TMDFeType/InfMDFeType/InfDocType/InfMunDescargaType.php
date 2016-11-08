@@ -2,6 +2,10 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType;
 
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType;
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfMDFeTranspType;
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType;
+
 /**
  * Class representing InfMunDescargaType
  */
@@ -26,18 +30,14 @@ class InfMunDescargaType
      * Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de
      * transporte
      *
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType[]
-     * $infCTe
+     * @property InfCTeType[] $infCTe
      */
     private $infCTe = null;
 
     /**
      * Nota Fiscal Eletronica
      *
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType[]
-     * $infNFe
+     * @property InfNFeType[] $infNFe
      */
     private $infNFe = null;
 
@@ -45,9 +45,7 @@ class InfMunDescargaType
      * Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário
      * (vide regras MOC)
      *
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfMDFeTranspType[]
-     * $infMDFeTransp
+     * @property InfMDFeTranspType[] $infMDFeTransp
      */
     private $infMDFeTransp = null;
 
@@ -110,11 +108,9 @@ class InfMunDescargaType
      * transporte
      *
      * @return self
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType
-     * $infCTe
+     * @param InfCTeType $infCTe
      */
-    public function addToInfCTe(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType $infCTe)
+    public function addToInfCTe(InfCTeType $infCTe)
     {
         $this->infCTe[] = $infCTe;
         return $this;
@@ -154,8 +150,7 @@ class InfMunDescargaType
      * Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de
      * transporte
      *
-     * @return
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType[]
+     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType[]
      */
     public function getInfCTe()
     {
@@ -168,9 +163,7 @@ class InfMunDescargaType
      * Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de
      * transporte
      *
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType[]
-     * $infCTe
+     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType[] $infCTe
      * @return self
      */
     public function setInfCTe(array $infCTe)
@@ -185,11 +178,9 @@ class InfMunDescargaType
      * Nota Fiscal Eletronica
      *
      * @return self
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType
-     * $infNFe
+     * @param InfNFeType $infNFe
      */
-    public function addToInfNFe(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType $infNFe)
+    public function addToInfNFe(InfNFeType $infNFe)
     {
         $this->infNFe[] = $infNFe;
         return $this;
@@ -226,8 +217,7 @@ class InfMunDescargaType
      *
      * Nota Fiscal Eletronica
      *
-     * @return
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType[]
+     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType[]
      */
     public function getInfNFe()
     {
@@ -239,9 +229,7 @@ class InfMunDescargaType
      *
      * Nota Fiscal Eletronica
      *
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType[]
-     * $infNFe
+     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType[] $infNFe
      * @return self
      */
     public function setInfNFe(array $infNFe)
@@ -257,11 +245,9 @@ class InfMunDescargaType
      * (vide regras MOC)
      *
      * @return self
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfMDFeTranspType
-     * $infMDFeTransp
+     * @param InfMDFeTranspType $infMDFeTransp
      */
-    public function addToInfMDFeTransp(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfMDFeTranspType $infMDFeTransp)
+    public function addToInfMDFeTransp(InfMDFeTranspType $infMDFeTransp)
     {
         $this->infMDFeTransp[] = $infMDFeTransp;
         return $this;
@@ -301,8 +287,7 @@ class InfMunDescargaType
      * Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário
      * (vide regras MOC)
      *
-     * @return
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfMDFeTranspType[]
+     * @return InfMDFeTranspType[]
      */
     public function getInfMDFeTransp()
     {
@@ -315,9 +300,7 @@ class InfMunDescargaType
      * Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário
      * (vide regras MOC)
      *
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfMDFeTranspType[]
-     * $infMDFeTransp
+     * @param InfMDFeTranspType[] $infMDFeTransp
      * @return self
      */
     public function setInfMDFeTransp(array $infMDFeTransp)

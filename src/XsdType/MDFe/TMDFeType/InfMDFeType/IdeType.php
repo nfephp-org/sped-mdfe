@@ -2,6 +2,9 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType;
 
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfMunCarregaType;
+use NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfPercursoType;
+
 /**
  * Class representing IdeType
  */
@@ -148,18 +151,14 @@ class IdeType
     /**
      * Informações dos Municípios de Carregamento
      *
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfMunCarregaType[]
-     * $infMunCarrega
+     * @property InfMunCarregaType[] $infMunCarrega
      */
     private $infMunCarrega = null;
 
     /**
      * Informações do Percurso do MDF-e
      *
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfPercursoType[]
-     * $infPercurso
+     * @property InfPercursoType[] $infPercurso
      */
     private $infPercurso = null;
 
@@ -642,10 +641,9 @@ class IdeType
      * Informações dos Municípios de Carregamento
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfMunCarregaType
-     * $infMunCarrega
+     * @param InfMunCarregaType $infMunCarrega
      */
-    public function addToInfMunCarrega(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfMunCarregaType $infMunCarrega)
+    public function addToInfMunCarrega(InfMunCarregaType $infMunCarrega)
     {
         $this->infMunCarrega[] = $infMunCarrega;
         return $this;
@@ -682,8 +680,7 @@ class IdeType
      *
      * Informações dos Municípios de Carregamento
      *
-     * @return
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfMunCarregaType[]
+     * @return \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfMunCarregaType[]
      */
     public function getInfMunCarrega()
     {
@@ -695,9 +692,7 @@ class IdeType
      *
      * Informações dos Municípios de Carregamento
      *
-     * @param
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfMunCarregaType[]
-     * $infMunCarrega
+     * @param InfMunCarregaType[] $infMunCarrega
      * @return self
      */
     public function setInfMunCarrega(array $infMunCarrega)
@@ -712,10 +707,9 @@ class IdeType
      * Informações do Percurso do MDF-e
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfPercursoType
-     * $infPercurso
+     * @param InfPercursoType $infPercurso
      */
-    public function addToInfPercurso(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfPercursoType $infPercurso)
+    public function addToInfPercurso(InfPercursoType $infPercurso)
     {
         $this->infPercurso[] = $infPercurso;
         return $this;
@@ -752,8 +746,7 @@ class IdeType
      *
      * Informações do Percurso do MDF-e
      *
-     * @return
-     * \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfPercursoType[]
+     * @return InfPercursoType[]
      */
     public function getInfPercurso()
     {
@@ -765,8 +758,7 @@ class IdeType
      *
      * Informações do Percurso do MDF-e
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType\InfPercursoType[]
-     * $infPercurso
+     * @param InfPercursoType[] $infPercurso
      * @return self
      */
     public function setInfPercurso(array $infPercurso)

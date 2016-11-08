@@ -40,7 +40,8 @@ class XmlSerializer
             $infMDFeDOMNode->removeChild($IdDOMNode);
 
             if (!is_null($serializable->getInfMDFe()->getInfModal())) {
-                $versaoModalDOMAttr = new \DOMAttr('versaoModal', $serializable->getInfMDFe()->getInfModal()->getVersaoModal());
+                $versaoModal = $serializable->getInfMDFe()->getInfModal()->getVersaoModal();
+                $versaoModalDOMAttr = new \DOMAttr('versaoModal', $versaoModal);
                 $infModalDOMNode = $dom->getElementsByTagName('infModal')->item(0);
                 $infModalDOMNode->appendChild($versaoModalDOMAttr);
 

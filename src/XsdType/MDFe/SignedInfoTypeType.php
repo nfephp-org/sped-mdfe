@@ -2,6 +2,9 @@
 
 namespace NFePHP\MDFe\XsdType\MDFe;
 
+use NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\CanonicalizationMethodType;
+use NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\SignatureMethodType;
+
 /**
  * Class representing SignedInfoTypeType
  *
@@ -17,14 +20,12 @@ class SignedInfoTypeType
     private $Id = null;
 
     /**
-     * @property
-     * \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\CanonicalizationMethodType
-     * $CanonicalizationMethod
+     * @property \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\CanonicalizationMethodType $CanonicalizationMethod
      */
     private $CanonicalizationMethod = null;
 
     /**
-     * @property \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\SignatureMethodType
+     * @property SignatureMethodType
      * $SignatureMethod
      */
     private $SignatureMethod = null;
@@ -59,7 +60,7 @@ class SignedInfoTypeType
     /**
      * Gets as CanonicalizationMethod
      *
-     * @return \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\CanonicalizationMethodType
+     * @return CanonicalizationMethodType
      */
     public function getCanonicalizationMethod()
     {
@@ -69,11 +70,10 @@ class SignedInfoTypeType
     /**
      * Sets a new CanonicalizationMethod
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\CanonicalizationMethodType
-     * $CanonicalizationMethod
+     * @param CanonicalizationMethodType $CanonicalizationMethod
      * @return self
      */
-    public function setCanonicalizationMethod(\NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\CanonicalizationMethodType $CanonicalizationMethod)
+    public function setCanonicalizationMethod(CanonicalizationMethodType $CanonicalizationMethod)
     {
         $this->CanonicalizationMethod = $CanonicalizationMethod;
         return $this;
@@ -82,7 +82,7 @@ class SignedInfoTypeType
     /**
      * Gets as SignatureMethod
      *
-     * @return \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\SignatureMethodType
+     * @return SignatureMethodType
      */
     public function getSignatureMethod()
     {
@@ -92,11 +92,10 @@ class SignedInfoTypeType
     /**
      * Sets a new SignatureMethod
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\SignatureMethodType
-     * $SignatureMethod
+     * @param SignatureMethodType $SignatureMethod
      * @return self
      */
-    public function setSignatureMethod(\NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\SignatureMethodType $SignatureMethod)
+    public function setSignatureMethod(SignatureMethodType $SignatureMethod)
     {
         $this->SignatureMethod = $SignatureMethod;
         return $this;

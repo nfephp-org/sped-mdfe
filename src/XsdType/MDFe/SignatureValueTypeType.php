@@ -14,7 +14,7 @@ class SignatureValueTypeType
     /**
      * @property mixed $__value
      */
-    private $__value = null;
+    private $__value = null; // @codingStandardsIgnoreLine
 
     /**
      * @property string $Id
