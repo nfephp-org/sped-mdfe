@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MDFe xmlns="http://www.portalfiscal.inf.br/mdfe">
+    <infMDFe Id="MDFe34343434343434343434343434343434343434343434" versao="3.00">
+        <ide>
+            <cUF>41</cUF>
+            <tpAmb>2</tpAmb>
+            <tpEmit>1</tpEmit>
+            <mod>58</mod>
+            <serie>1</serie>
+            <nMDF>28</nMDF>
+            <cMDF>61174316</cMDF>
+            <cDV>6</cDV>
+            <modal>1</modal>
+            <dhEmi>2016-01-01T00:00:00-02:00</dhEmi>
+            <tpEmis>1</tpEmis>
+            <procEmi>0</procEmi>
+            <verProc>1.6</verProc>
+            <UFIni>MG</UFIni>
+            <UFFim>RO</UFFim>
+            <infMunCarrega>
+                <cMunCarrega>4127700</cMunCarrega>
+                <xMunCarrega>TOLEDO</xMunCarrega>
+            </infMunCarrega>
+        </ide>
+        <emit>
+            <CNPJ>81452880000139</CNPJ>
+            <IE>3280006873</IE>
+            <xNome>COMERCIO E TRANSPORTES WESSLING LTDA</xNome>
+            <xFant>COMERCIO E TRANSPORTES WESSLING LTDA</xFant>
+            <enderEmit>
+                <xLgr>AV. JOAQUIM BONETTI</xLgr>
+                <nro>985</nro>
+                <xCpl>SALA 201</xCpl>
+                <xBairro>CENTRO</xBairro>
+                <cMun>4107405</cMun>
+                <xMun>ENEAS MARQUES</xMun>
+                <CEP>85630000</CEP>
+                <UF>PR</UF>
+                <fone>004635441252</fone>
+            </enderEmit>
+        </emit>
+        <infDoc>
+            <infMunDescarga>
+                <cMunDescarga>4114609</cMunDescarga>
+                <xMunDescarga>MARECHAL CANDIDO RONDON</xMunDescarga>
+                <infCTe>
+                    <chCTe>41130181452880000139570010000018971536074822</chCTe>
+                </infCTe>
+            </infMunDescarga>
+        </infDoc>
+        <tot>
+            <qCTe>1</qCTe>
+            <vCarga>1000.00</vCarga>
+            <cUnid>01</cUnid>
+            <qCarga>1129.9400</qCarga>
+        </tot>
+    </infMDFe>
+</MDFe>
