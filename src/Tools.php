@@ -53,7 +53,7 @@ class Tools extends BaseTools
     /**
      * @var string
      */
-    private $rootDir;
+    protected $rootDir;
 
     public function __construct($configJson = '')
     {
