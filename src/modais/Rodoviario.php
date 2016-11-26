@@ -8,8 +8,8 @@ namespace NFePHP\MDFe\Modais;
  * 20/11/2016 - 21:25
  */
 
-class Rodoviario {
-    private $reflection;
+class Rodoviario
+{
     
     /*
     * Tags Primarias
@@ -33,12 +33,6 @@ class Rodoviario {
     * Tags Secondarias veicTracao
     */
     private $tracaoCondutor;
-    
-    
-    public function __construct()
-    {
-        $this->reflection = new \ReflectionClass($this);
-    }
     
     /*
     * Verifica campos e retorna nao nulos
