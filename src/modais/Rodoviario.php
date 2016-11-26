@@ -221,17 +221,17 @@ class Rodoviario {
      * E possivel definir o propietario ao passar um array de acordo com o manual
      */
     public function setTracao(
-        $cInt = null, 
-        $placa, 
-        $RENAVAM = null, 
-        $tara, 
-        $capKG = null, 
-        $capM3 = null, 
+        $cInt = null,
+        $placa,
+        $RENAVAM = null,
+        $tara,
+        $capKG = null,
+        $capM3 = null,
         $propietario = null
     )
     {
-        $this->veicTracao = $this->nulos([
-            'cInt' => $cInt,
+        $this->veicTracao = $this->nulos(
+            ['cInt' => $cInt,
             'placa' => $placa,
             'RENAVAM' => $RENAVAM,
             'tara' => $tara,
@@ -280,7 +280,14 @@ class Rodoviario {
      * No maximo 3 reboques podem ser conduzidos por um veiculo
      * E possivel definir o propietario ao passar um array de acordo com o manual
      */
-    public function setReboque($cInt = null, $placa, $RENAVAM = null, $tara, $capKG = null, $capM3 = null, $propietario = null)
+    public function setReboque(
+        $cInt = null,
+        $placa,
+        $RENAVAM = null,
+        $tara, $capKG = null,
+        $capM3 = null,
+        $propietario = null
+    )
     {
         if (count($this->veicReboque) < 3) {
             $prop = [];
