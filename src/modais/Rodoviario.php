@@ -95,12 +95,12 @@ class Rodoviario
      */
     private function veicTracao()
     {
-        if ($this->veicTracao != null) {        
+        if ($this->veicTracao != null) {
             if ($this->tracaoCondutor != null) {
                 $this->veicTracao[] = $this->multiArray('infCondutores', $this->tracaoCondutor);
             } else {
                 throw new \Exception('Nao foi definido nenhum condutor para o veiculo');
-            }           
+            }
             $this->rodo['veicTracao'] = $this->veicTracao;
         } else {
             throw new \Exception('Nao foi definido nenhum veiculo de tracao');
@@ -110,7 +110,7 @@ class Rodoviario
     private function veicReboque()
     {
         if ($this->veicReboque != null) {
-            $this->rodo[] = $this->multiArray('veicReboque', $this->veicReboque);           
+            $this->rodo[] = $this->multiArray('veicReboque', $this->veicReboque);
         } else {
             throw new \Exception('Nao foi definido nenhum reboque para esse mdfe');
         }
@@ -230,8 +230,8 @@ class Rodoviario
             'RENAVAM' => $RENAVAM,
             'tara' => $tara,
             'capKG' => $capKG,
-            'capM3' => $capM3
-        ]);
+            'capM3' => $capM3]
+            );
         
         if ($propietario != null) {
             $this->veicTracao['prop'] = $propietario;
