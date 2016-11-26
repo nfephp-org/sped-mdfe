@@ -105,11 +105,11 @@ class Rodoviario {
             if ($this->tracaoCondutor != null) {
                 $this->veicTracao[] = $this->multiArray('infCondutores', $this->tracaoCondutor);
             } else {
-                Throw new \Exception('Nao foi definido nenhum condutor para o veiculo');
+                throw new \Exception('Nao foi definido nenhum condutor para o veiculo');
             }           
             $this->rodo['veicTracao'] = $this->veicTracao;
         } else {
-            Throw new \Exception('Nao foi definido nenhum veiculo de tracao');
+            throw new \Exception('Nao foi definido nenhum veiculo de tracao');
         }
     }
 
@@ -118,7 +118,7 @@ class Rodoviario {
         if ($this->veicReboque != null) {
             $this->rodo[] = $this->multiArray('veicReboque', $this->veicReboque);           
         } else {
-            Throw new \Exception('Nao foi definido nenhum reboque para esse mdfe');
+            throw new \Exception('Nao foi definido nenhum reboque para esse mdfe');
         }
     }
 
@@ -265,7 +265,7 @@ class Rodoviario {
                     'UF' => $UF
             ];
         } else {
-            Throw new \Exception('Excedeu o número maximo de condutores para o modal');
+            throw new \Exception('Excedeu o número maximo de condutores para o modal');
         }
         return $this;
     }
@@ -298,7 +298,7 @@ class Rodoviario {
             }
             $this->veicReboque[] = $prop;
         } else {
-            Throw new \Exception('Mais de 3 reboques foram definidos para este transporte!');
+            throw new \Exception('Mais de 3 reboques foram definidos para este transporte!');
         }
         return $this;
     }
@@ -336,4 +336,4 @@ class Rodoviario {
     {
         return $this->lacRodo;
     }
-};
+}
