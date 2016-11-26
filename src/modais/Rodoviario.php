@@ -1,5 +1,4 @@
 <?php
-
 namespace NFePHP\MDFe\Modais;
 
 /*
@@ -10,7 +9,7 @@ namespace NFePHP\MDFe\Modais;
 
 class Rodoviario
 {
-    
+
     /*
     * Tags Primarias
     */
@@ -20,20 +19,21 @@ class Rodoviario
     private $veicReboque;
     private $codAgPorto;
     private $lacRodo;
-    
+    private $lacRodo;
+
     /*
-    * Tags Secondarias infANTT
+            * Tags Secondarias infANTT
     */
     private $anttRNTRC;
     private $infCIOT;
     private $valePed;
     private $infContratante;
-    
+
     /*
-    * Tags Secondarias veicTracao
+            * Tags Secondarias veicTracao
     */
     private $tracaoCondutor;
-    
+
     /*
     * Verifica campos e retorna nao nulos
     */
@@ -86,10 +86,10 @@ class Rodoviario
             $this->rodo['infANTT'] = $this->infANTT;
         }
     }
-    
+
     /*
      * Define o documento veicTracao
-     * Verifica se veicTracao ja foi definido 
+     * Verifica se veicTracao ja foi definido
      * Entao verifica os condutores
      * Ambos sao obrigatorios
      */
@@ -222,28 +222,27 @@ class Rodoviario
         $capKG = null,
         $capM3 = null,
         $propietario = null
-    )
-    {
+    ) {
         $this->veicTracao = $this->nulos(
             ['cInt' => $cInt,
-            'placa' => $placa,
-            'RENAVAM' => $RENAVAM,
-            'tara' => $tara,
-            'capKG' => $capKG,
-            'capM3' => $capM3]
-            );
-        
+                'placa' => $placa,
+                'RENAVAM' => $RENAVAM,
+                'tara' => $tara,
+                'capKG' => $capKG,
+                'capM3' => $capM3]
+        );
+
         if ($propietario != null) {
             $this->veicTracao['prop'] = $propietario;
         }
         return $this;
     }
-    
+
     public function getTracao()
     {
         return $this->veicTracao;
     }
-    
+
     /*
      * Define um condutor para o veiculo
      * No maximo 10 condutores poderao conduzir um modal
@@ -252,23 +251,23 @@ class Rodoviario
     {
         if (count($this->tracaoCondutor) < 10) {
             $this->tracaoCondutor[] = [
-                    'xNome' => $xNome,
-                    'CPF' => $CPF,
-                    'tpRod' => $tpRod,
-                    'tpCar' => $tpCar,
-                    'UF' => $UF
+                'xNome' => $xNome,
+                'CPF' => $CPF,
+                'tpRod' => $tpRod,
+                'tpCar' => $tpCar,
+                'UF' => $UF,
             ];
         } else {
             throw new \Exception('Excedeu o número maximo de condutores para o modal');
         }
         return $this;
     }
-    
+
     public function getTracaoCondutor()
     {
         return $this->tracaoCondutor;
     }
-    
+
     /*
      * Define um reboque para o veiculo
      * No maximo 3 reboques podem ser conduzidos por um veiculo
@@ -278,22 +277,24 @@ class Rodoviario
         $cInt = null,
         $placa,
         $RENAVAM = null,
-        $tara, $capKG = null,
+        $tara,
+        $capKG = null,
         $capM3 = null,
         $propietario = null
-    )
-    {
+    ) {
         if (count($this->veicReboque) < 3) {
             $prop = [];
-            $prop = $this->nulos([
+            $prop = $this->nulos(
+                [
                     'cInt' => $cInt,
                     'placa' => $placa,
                     'RENAVAM' => $RENAVAM,
                     'tara' => $tara,
                     'capKG' => $capKG,
-                    'capM3' => $capM3
-            ]);
-            
+                    'capM3' => $capM3,
+                ]
+            );
+
             if ($propietario != null) {
                 $prop['prop'] = $propietario;
             }
@@ -303,12 +304,12 @@ class Rodoviario
         }
         return $this;
     }
-    
+
     public function getReboque()
     {
         return $this->veicReboque;
     }
-    
+
     /*
      * Define um codigo de agendamento no porto
      * O que e isso ?
@@ -317,12 +318,12 @@ class Rodoviario
     {
         $this->codAgPorto = $cod;
     }
-    
+
     public function getCodAgPorto()
     {
         return $this->codAgPorto;
     }
-    
+
     /*
      * Define lacres para o transporte
      * Lacres utilizados nos caminhoes e containers
@@ -332,7 +333,7 @@ class Rodoviario
     {
         $this->lacRodo[] = ['nLacre' => $cod];
     }
-    
+
     public function getLacres()
     {
         return $this->lacRodo;
