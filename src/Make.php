@@ -737,13 +737,13 @@ class Make extends BaseMake
 
     /**
      * tagLacres
-     * tag MDFe/infMDFe/lacres
+     * tag MDFe/infMDFe/autXML
      *
      * Autorizados para download do XML do MDF-e
      *
      * @param string $cnpj
      * @param string $cpf
-     * @return array|DOMElement
+     * @return DOMElement
      */
     public function tagautXML($cnpj = '', $cpf = '')
     {
