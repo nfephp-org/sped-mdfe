@@ -69,6 +69,7 @@ class Make extends BaseMake
     private $aInfNFe = array(); //array de DOMNode
     private $aInfMDFe = array(); //array de DOMNode
     private $aLacres = array(); //array de DOMNode
+    private $aAutXML = array(); //array de DOMNode
     private $aCondutor = array(); //array de DOMNode
     private $aReboque = array(); //array de DOMNode
     private $aDisp = array(); //array de DOMNode
@@ -111,6 +112,10 @@ class Make extends BaseMake
         $this->zTagLacres();
         //tag infAdic [78]
         $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
+        // tag autXML [137]
+        foreach ($this->aAutXML as $aut) {
+            $this->dom->appChild($this->infMDFe, $aut, 'Falta tag "infMDFe"');
+        }
         //[1] tag infMDFe (1 A01)
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         //[0] tag MDFe
@@ -728,6 +733,37 @@ class Make extends BaseMake
         );
         $this->infAdic = $infAdic;
         return $infAdic;
+    }
+
+    /**
+     * tagLacres
+     * tag MDFe/infMDFe/autXML
+     *
+     * Autorizados para download do XML do MDF-e
+     *
+     * @param string $cnpj
+     * @param string $cpf
+     * @return DOMElement
+     */
+    public function tagautXML($cnpj = '', $cpf = '')
+    {
+        $autXML = $this->dom->createElement("autXML");
+        $this->dom->addChild(
+            $autXML,
+            "CNPJ",
+            $cnpj,
+            false,
+            "CNPJ do autorizado"
+        );
+        $this->dom->addChild(
+            $autXML,
+            "CPF",
+            $cpf,
+            false,
+            "CPF do autorizado"
+        );
+        $this->aAutXML[] = $autXML;
+        return $autXML;
     }
 
     /**
