@@ -285,7 +285,7 @@ class Response
             foreach ($lista as $infMDFe) {
                 $aMDFe[] = array(
                     'chMDFe' => $dom->getValue($infMDFe, 'chMDFe'),
-                    'nProt' => $dom->getValue($infMDFe, 'chMDFe')
+                    'nProt' => $dom->getValue($infMDFe, 'nProt')
                 );
             }
         }
