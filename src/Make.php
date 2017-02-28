@@ -1304,10 +1304,6 @@ class Make extends BaseMake
         $this->dom->addArrayChild(
             $node,
             $condutores
-//            "condutores",
-//
-//            true,
-//            "Condutores"
         );
         $this->dom->addChild(
             $node,
