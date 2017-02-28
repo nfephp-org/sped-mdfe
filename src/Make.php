@@ -137,8 +137,8 @@ class Make extends BaseMake
         $this->infMDFe = $this->dom->createElement("infMDFe");
         $this->infMDFe->setAttribute("Id", 'MDFe'.$chave);
         $this->infMDFe->setAttribute("versao", $versao);
-        $this->versao = $versao;
         $this->chMDFe = $chave;
+        $this->versao = $versao;
         return $this->infMDFe;
     }
 
@@ -1111,6 +1111,7 @@ class Make extends BaseMake
             $cInt,
             $placa,
             $tara,
+            $this->aCondutor,
             $capKG,
             $capM3,
             $tpRod,
@@ -1234,6 +1235,7 @@ class Make extends BaseMake
         $cInt = '',
         $placa = '',
         $tara = '',
+        $condutores = array(),
         $capKG = '',
         $capM3 = '',
         $tpRod = '',
@@ -1262,6 +1264,14 @@ class Make extends BaseMake
             $tara,
             true,
             "Tara em KG"
+        );
+        $this->dom->addArrayChild(
+            $node,
+            $condutores
+//            "condutores",
+//
+//            true,
+//            "Condutores"
         );
         $this->dom->addChild(
             $node,
@@ -1360,24 +1370,33 @@ class Make extends BaseMake
         $this->aCountDoc = array('CTe'=>0, 'NFe'=>0, 'MDFe'=>0);
         if (! empty($this->aInfMunDescarga)) {
             $infDoc = $this->dom->createElement("infDoc");
+            $this->aCountDoc['CTe'] = 0;
+            $this->aCountDoc['NFe'] = 0;
+            $this->aCountDoc['MDFe'] = 0;
             foreach ($this->aInfMunDescarga as $nItem => $node) {
                 if (isset($this->aInfCTe[$nItem])) {
-                    $this->aCountDoc['CTe'] = $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
+                    $this->aCountDoc['CTe'] += $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
                 }
                 if (isset($this->aInfNFe[$nItem])) {
-                    $this->aCountDoc['NFe'] = $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
+                    $this->aCountDoc['NFe'] += $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
                 }
                 if (isset($this->aInfMDFe[$nItem])) {
-                    $this->aCountDoc['MDFe'] = $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
+                    $this->aCountDoc['MDFe'] += $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
                 }
                 $this->dom->appChild($infDoc, $node, '');
             }
             $this->dom->appChild($this->infMDFe, $infDoc, 'Falta tag "infMDFe"');
         }
         //ajusta quantidades em tot
-        $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
-        $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
-        $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
+        if ($this->aCountDoc['CTe'] > 0) {
+            $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
+        }
+        if ($this->aCountDoc['NFe'] > 0) {
+            $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
+        }
+        if ($this->aCountDoc['MDFe'] > 0) {
+            $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
+        }
     }
 
     /**
