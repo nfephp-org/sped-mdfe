@@ -98,71 +98,22 @@ class Make extends BaseMake
     private $aqua;
 
     // Arrays
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfMunCarrega;
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfPercurso;
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfMunDescarga;
-    /**
-     * @var DOMElement[]
-     */
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfCTe;
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfNFe;
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfMDFe;
-    /**
-     * @var DOMElement[]
-     */
-    private $aLacres;
-    /**
-     * @var DOMElement[]
-     */
-    private $aCondutor;
-    /**
-     * @var DOMElement[]
-     */
-    private $aReboque;
-    /**
-     * @var DOMElement[]
-     */
-    private $aDisp;
-    /**
-     * @var DOMElement[]
-     */
-    private $aVag;
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfTermCarreg;
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfTermDescarreg;
-    /**
-     * @var DOMElement[]
-     */
-    private $aInfEmbComb;
-    /**
-     * contador de documentos fiscais
-     *
-     * @var array
-     */
-    private $aCountDoc = array();
+    private $aInfMunCarrega = array(); //array de DOMNode
+    private $aInfPercurso = array(); //array de DOMNode
+    private $aInfMunDescarga = array(); //array de DOMNode
+    private $aInfCTe = array(); //array de DOMNode
+    private $aInfNFe = array(); //array de DOMNode
+    private $aInfMDFe = array(); //array de DOMNode
+    private $aLacres = array(); //array de DOMNode
+    private $aAutXML = array(); //array de DOMNode
+    private $aCondutor = array(); //array de DOMNode
+    private $aReboque = array(); //array de DOMNode
+    private $aDisp = array(); //array de DOMNode
+    private $aVag = array(); //array de DOMNode
+    private $aInfTermCarreg = array(); //array de DOMNode
+    private $aInfTermDescarreg = array(); //array de DOMNode
+    private $aInfEmbComb = array(); //array de DOMNode
+    private $aCountDoc = array(); //contador de documentos fiscais
 
     /**
      *
@@ -197,6 +148,10 @@ class Make extends BaseMake
         $this->zTagLacres();
         //tag infAdic [78]
         $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
+        // tag autXML [137]
+        foreach ($this->aAutXML as $aut) {
+            $this->dom->appChild($this->infMDFe, $aut, 'Falta tag "infMDFe"');
+        }
         //[1] tag infMDFe (1 A01)
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         //[0] tag MDFe
@@ -223,8 +178,8 @@ class Make extends BaseMake
         $this->infMDFe = $this->dom->createElement("infMDFe");
         $this->infMDFe->setAttribute("Id", 'MDFe'.$chave);
         $this->infMDFe->setAttribute("versao", $versao);
-        $this->versao = $versao;
         $this->chMDFe = $chave;
+        $this->versao = $versao;
         return $this->infMDFe;
     }
 
@@ -857,6 +812,37 @@ class Make extends BaseMake
     }
 
     /**
+     * tagLacres
+     * tag MDFe/infMDFe/autXML
+     *
+     * Autorizados para download do XML do MDF-e
+     *
+     * @param string $cnpj
+     * @param string $cpf
+     * @return DOMElement
+     */
+    public function tagautXML($cnpj = '', $cpf = '')
+    {
+        $autXML = $this->dom->createElement("autXML");
+        $this->dom->addChild(
+            $autXML,
+            "CNPJ",
+            $cnpj,
+            false,
+            "CNPJ do autorizado"
+        );
+        $this->dom->addChild(
+            $autXML,
+            "CPF",
+            $cpf,
+            false,
+            "CPF do autorizado"
+        );
+        $this->aAutXML[] = $autXML;
+        return $autXML;
+    }
+
+    /**
      * tagInfModal
      * tag MDFe/infMDFe/infModal
      *
@@ -1237,6 +1223,7 @@ class Make extends BaseMake
             $cInt,
             $placa,
             $tara,
+            $this->aCondutor,
             $capKG,
             $capM3,
             $tpRod,
@@ -1360,6 +1347,7 @@ class Make extends BaseMake
         $cInt = '',
         $placa = '',
         $tara = '',
+        $condutores = array(),
         $capKG = '',
         $capM3 = '',
         $tpRod = '',
@@ -1388,6 +1376,10 @@ class Make extends BaseMake
             $tara,
             true,
             "Tara em KG"
+        );
+        $this->dom->addArrayChild(
+            $node,
+            $condutores
         );
         $this->dom->addChild(
             $node,
@@ -1486,24 +1478,33 @@ class Make extends BaseMake
         $this->aCountDoc = array('CTe'=>0, 'NFe'=>0, 'MDFe'=>0);
         if (! empty($this->aInfMunDescarga)) {
             $infDoc = $this->dom->createElement("infDoc");
+            $this->aCountDoc['CTe'] = 0;
+            $this->aCountDoc['NFe'] = 0;
+            $this->aCountDoc['MDFe'] = 0;
             foreach ($this->aInfMunDescarga as $nItem => $node) {
                 if (isset($this->aInfCTe[$nItem])) {
-                    $this->aCountDoc['CTe'] = $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
+                    $this->aCountDoc['CTe'] += $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
                 }
                 if (isset($this->aInfNFe[$nItem])) {
-                    $this->aCountDoc['NFe'] = $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
+                    $this->aCountDoc['NFe'] += $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
                 }
                 if (isset($this->aInfMDFe[$nItem])) {
-                    $this->aCountDoc['MDFe'] = $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
+                    $this->aCountDoc['MDFe'] += $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
                 }
                 $this->dom->appChild($infDoc, $node, '');
             }
             $this->dom->appChild($this->infMDFe, $infDoc, 'Falta tag "infMDFe"');
         }
         //ajusta quantidades em tot
-        $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
-        $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
-        $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
+        if ($this->aCountDoc['CTe'] > 0) {
+            $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
+        }
+        if ($this->aCountDoc['NFe'] > 0) {
+            $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
+        }
+        if ($this->aCountDoc['MDFe'] > 0) {
+            $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
+        }
     }
 
     /**
