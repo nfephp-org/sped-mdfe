@@ -38,7 +38,7 @@ class Response
             case 'MDFeRetRecepcao':
                 return self::zReadRetRecepcao($dom);
                 break;
-            case 'MDFeConsultaSituacao':
+            case 'MDFeConsulta':
                 return self::zReadConsultaMDF($dom);
                 break;
             case 'MDFeStatusServico':
@@ -285,7 +285,7 @@ class Response
             foreach ($lista as $infMDFe) {
                 $aMDFe[] = array(
                     'chMDFe' => $dom->getValue($infMDFe, 'chMDFe'),
-                    'nProt' => $dom->getValue($infMDFe, 'chMDFe')
+                    'nProt' => $dom->getValue($infMDFe, 'nProt')
                 );
             }
         }

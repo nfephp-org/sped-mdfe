@@ -112,7 +112,13 @@ class Tools extends BaseTools
     {
         //carrega a MDFe
         $docmdfe = new Dom();
-        $docmdfe->loadXMLFile($pathMDFefile);
+        if (file_exists($pathMDFefile)) {
+            //carrega o XML pelo caminho do arquivo informado
+            $docmdfe->loadXMLFile($pathMDFefile);
+        } else {
+            //carrega o XML pelo conteúdo
+            $docmdfe->loadXMLString($pathMDFefile);
+        }
         $nodemdfe = $docmdfe->getNode('MDFe', 0);
         if ($nodemdfe == '') {
             $msg = "O arquivo indicado como MDFe não é um xml de MDFe!";
@@ -124,7 +130,13 @@ class Tools extends BaseTools
         }
         //carrega o protocolo
         $docprot = new Dom();
-        $docprot->loadXMLFile($pathProtfile);
+        if (file_exists($pathMDFefile)) {
+            //carrega o XML pelo caminho do arquivo informado
+            $docprot->loadXMLFile($pathProtfile);
+        } else {
+            //carrega o XML pelo conteúdo
+            $docprot->loadXMLString($pathProtfile);
+        }
         $nodeprots = $docprot->getElementsByTagName('protMDFe');
         if ($nodeprots->length == 0) {
             $msg = "O arquivo indicado não contêm um protocolo de autorização!";
@@ -162,7 +174,7 @@ class Tools extends BaseTools
             throw new Exception\RuntimeException($msg);
         }
         //cria a MDFe processada com a tag do protocolo
-        $procmdfe = new \DOMDocument('1.0', 'utf-8');
+        $procmdfe = new \DOMDocument('1.0', 'UTF-8');
         $procmdfe->formatOutput = false;
         $procmdfe->preserveWhiteSpace = false;
         //cria a tag mdfeProc
@@ -220,7 +232,13 @@ class Tools extends BaseTools
         $procXML = '';
         //carrega a MDFe
         $docmdfe = new Dom();
-        $docmdfe->loadXMLFile($pathMDFefile);
+        if (file_exists($pathMDFefile)) {
+            //carrega o XML pelo caminho do arquivo informado
+            $docmdfe->loadXMLFile($pathMDFefile);
+        } else {
+            //carrega o XML pelo conteúdo
+            $docmdfe->loadXMLString($pathMDFefile);
+        }
         $nodemdfe = $docmdfe->getNode('MDFe', 0);
         if ($nodemdfe == '') {
             $msg = "O arquivo indicado como MDFe não é um xml de MDFe!";
@@ -241,8 +259,15 @@ class Tools extends BaseTools
         //carrega o cancelamento
         //pode ser um evento ou resultado de uma consulta com multiplos eventos
         $doccanc = new Dom();
-        $doccanc->loadXMLFile($pathCancfile);
-        $eventos = $doccanc->getElementsByTagName('infEvento');
+        if (file_exists($pathCancfile)) {
+            //carrega o XML pelo caminho do arquivo informado
+            $doccanc->loadXMLFile($pathCancfile);
+        } else {
+            //carrega o XML pelo conteúdo
+            $doccanc->loadXMLString($pathCancfile);
+        }
+        $retEvento = $doccanc->getElementsByTagName('retEventoMDFe')->item(0);
+        $eventos = $retEvento->getElementsByTagName('infEvento');
         foreach ($eventos as $evento) {
             //evento
             $cStat = $evento->getElementsByTagName('cStat')->item(0)->nodeValue;
@@ -259,8 +284,8 @@ class Tools extends BaseTools
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMDFe
             ) {
-                $proMDFe->getElementsByTagName('cStat')->item(0)->nodeValue = '101';
-                $proMDFe->getElementsByTagName('xMotivo')->item(0)->nodeValue = 'Cancelamento de MDF-e homologado';
+                $docmdfe->getElementsByTagName('cStat')->item(0)->nodeValue = '101';
+                $docmdfe->getElementsByTagName('xMotivo')->item(0)->nodeValue = 'Cancelamento de MDF-e homologado';
                 $procXML = $docmdfe->saveXML();
                 //remove as informações indesejadas
                 $procXML = Strings::clearProt($procXML);
@@ -521,6 +546,7 @@ class Tools extends BaseTools
         $this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
+
         return (string) $retorno;
     }
 
@@ -776,7 +802,7 @@ class Tools extends BaseTools
         //    throw new Exception\RuntimeException($msg);
         //}
         //montagem dos dados da mensagem SOAP
-        $body = "<mdefDadosMsg xmlns=\"$this->urlNamespace\">$cons</mdfeDadosMsg>";
+        $body = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$cons</mdfeDadosMsg>";
         //consome o webservice e verifica o retorno do SOAP
         $retorno = $this->oSoap->send(
             $this->urlService,
