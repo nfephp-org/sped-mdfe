@@ -1349,7 +1349,7 @@ class Make extends BaseMake
         $cInt = '',
         $placa = '',
         $tara = '',
-        $condutores = [],
+        $condutores = array(),
         $capKG = '',
         $capM3 = '',
         $tpRod = '',
