@@ -1435,6 +1435,91 @@ class Make extends BaseMake
     }
 
     /**
+     * @param string $tag
+     * @param string $CPF
+     * @param string $CNPJ
+     * @param string $RNTRC
+     * @param string $xNome
+     * @param string $IE
+     * @param string $UF
+     * @param string $tpProp
+     *
+     * @return DOMElement
+     */
+    protected function zTagPropVeiculo(
+        $tag = '',
+        $CPF = '',
+        $CNPJ = '',
+        $RNTRC = '',
+        $xNome = '',
+        $IE = '',
+        $UF = '',
+        $tpProp = ''
+    ) {
+        $args = func_get_args();
+        unset($args[0]);
+
+        if (!array_filter($args)) {
+            return false;
+        }
+
+        $identificador = "<{$tag}> - ";
+        $nodeProp = $this->dom->createElement($tag);
+
+        $this->dom->addChild(
+            $nodeProp,
+            'CPF',
+            $CPF,
+            false,
+            "{$identificador} Número do CPF do proprietário"
+        );
+        $this->dom->addChild(
+            $nodeProp,
+            'CNPJ',
+            $CNPJ,
+            false,
+            "{$identificador} Número do CNPJ do proprietário"
+        );
+        $this->dom->addChild(
+            $nodeProp,
+            'RNTRC',
+            $RNTRC,
+            true,
+            "{$identificador} Registro Nacional dos Transportadores Rodoviários de Carga do proprietário"
+        );
+        $this->dom->addChild(
+            $nodeProp,
+            'xNome',
+            $xNome,
+            true,
+            "{$identificador} Razão Social ou Nome do proprietário do proprietário"
+        );
+        $this->dom->addChild(
+            $nodeProp,
+            'IE',
+            $IE,
+            true,
+            "{$identificador} Inscrição Estadual do proprietário"
+        );
+        $this->dom->addChild(
+            $nodeProp,
+            'UF',
+            $UF,
+            true,
+            "{$identificador} UF do proprietário"
+        );
+        $this->dom->addChild(
+            $nodeProp,
+            'tpProp',
+            $tpProp,
+            true,
+            "{$identificador} Tipo do Proprietário"
+        );
+
+        return $nodeProp;
+    }
+
+    /**
      * zTagMDFe
      * Tag raiz da MDFe
      * tag MDFe DOMNode
