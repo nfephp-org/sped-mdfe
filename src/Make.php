@@ -148,12 +148,12 @@ class Make extends BaseMake
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "infMDFe"');
         //tag lacres [76]
         $this->zTagLacres();
-        //tag infAdic [78]
-        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
         // tag autXML [137]
         foreach ($this->aAutXML as $aut) {
             $this->dom->appChild($this->infMDFe, $aut, 'Falta tag "infMDFe"');
         }
+        //tag infAdic [78]
+        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
         //[1] tag infMDFe (1 A01)
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         //[0] tag MDFe
@@ -1188,6 +1188,12 @@ class Make extends BaseMake
      * @param  string $tpCar
      * @param  string $UF
      * @param  string $propRNTRC
+     * @param  string $propCPF
+     * @param  string $propCNPJ
+     * @param  string $propXNome
+     * @param  string $propIE
+     * @param  string $propUF
+     * @param  string $propTpProp
      *
      * @return DOMElement
      */
@@ -1200,7 +1206,13 @@ class Make extends BaseMake
         $tpRod = '',
         $tpCar = '',
         $UF = '',
-        $propRNTRC = ''
+        $propRNTRC = '',
+        $propCPF = '',
+        $propCNPJ = '',
+        $propXNome = '',
+        $propIE = '',
+        $propUF = '',
+        $propTpProp = ''
     ) {
         $veicTracao = $this->zTagVeiculo(
             'veicTracao',
@@ -1213,7 +1225,13 @@ class Make extends BaseMake
             $tpRod,
             $tpCar,
             $UF,
-            $propRNTRC
+            $propRNTRC,
+            $propCPF,
+            $propCNPJ,
+            $propXNome,
+            $propIE,
+            $propUF,
+            $propTpProp
         );
         $this->veicTracao = $veicTracao;
         return $veicTracao;
