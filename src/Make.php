@@ -1411,9 +1411,15 @@ class Make extends BaseMake
             $this->dom->appChild($this->infMDFe, $infDoc, 'Falta tag "infMDFe"');
         }
         //ajusta quantidades em tot
-        $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
-        $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
-        $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
+        if ($this->aCountDoc['CTe'] > 0) {
+            $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
+        }
+        if ($this->aCountDoc['NFe'] > 0) {
+            $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
+        }
+        if ($this->aCountDoc['MDFe'] > 0) {
+            $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
+        }
     }
 
     /**
