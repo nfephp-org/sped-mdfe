@@ -1261,6 +1261,14 @@ class Make extends BaseMake
      * @param string $capKG
      * @param string $capM3
      * @param string $propRNTRC
+     * @param string $propCPF
+     * @param string $propCNPJ
+     * @param string $propXNome
+     * @param string $propIE
+     * @param string $propUF
+     * @param string $propTpProp
+     * @param string $tpCar
+     * @param string $UF
      *
      * @return DOMElement
      */
@@ -1270,7 +1278,15 @@ class Make extends BaseMake
         $tara = '',
         $capKG = '',
         $capM3 = '',
-        $propRNTRC = ''
+        $propRNTRC = '',
+        $propCPF = '',
+        $propCNPJ = '',
+        $propXNome = '',
+        $propIE = '',
+        $propUF = '',
+        $propTpProp = '',
+        $tpCar = '',
+        $UF = ''
     ) {
         $reboque = $this->zTagVeiculo(
             'veicReboque',
@@ -1280,9 +1296,20 @@ class Make extends BaseMake
             [],
             $capKG,
             $capM3,
-            $propRNTRC
+            null,
+            $tpCar,
+            $UF,
+            $propRNTRC,
+            $propCPF,
+            $propCNPJ,
+            $propXNome,
+            $propIE,
+            $propUF,
+            $propTpProp
         );
+
         $this->aReboque[] = $reboque;
+
         return $reboque;
     }
 
@@ -1341,6 +1368,12 @@ class Make extends BaseMake
      * @param string $tpCar
      * @param string $UF
      * @param string $propRNTRC
+     * @param string $propCPF
+     * @param string $propCNPJ
+     * @param string $propXNome
+     * @param string $propIE
+     * @param string $propUF
+     * @param string $propTpProp
      *
      * @return DOMElement
      */
@@ -1355,7 +1388,13 @@ class Make extends BaseMake
         $tpRod = '',
         $tpCar = '',
         $UF = '',
-        $propRNTRC = ''
+        $propRNTRC = '',
+        $propCPF = '',
+        $propCNPJ = '',
+        $propXNome = '',
+        $propIE = '',
+        $propUF = '',
+        $propTpProp = ''
     ) {
         $node = $this->dom->createElement($tag);
         $this->dom->addChild(
@@ -1393,6 +1432,22 @@ class Make extends BaseMake
             false,
             "Capacidade em M3"
         );
+
+        $prop = $this->zTagPropVeiculo(
+            'prop',
+            $propCPF,
+            $propCNPJ,
+            $propRNTRC,
+            $propXNome,
+            $propIE,
+            $propUF,
+            $propTpProp
+        );
+
+        if ($prop) {
+            $node->appendChild($prop);
+        }
+
         if ($condutores) {
             $this->dom->addArrayChild(
                 $node,
@@ -1403,7 +1458,7 @@ class Make extends BaseMake
             $node,
             "tpRod",
             $tpRod,
-            true,
+            false,
             "Tipo de rodado"
         );
         $this->dom->addChild(
@@ -1420,17 +1475,7 @@ class Make extends BaseMake
             true,
             "UF de licenciamento do veículo"
         );
-        if ($propRNTRC != '') {
-            $prop = $this->dom->createElement("prop");
-            $this->dom->addChild(
-                $prop,
-                "RNTRC",
-                $propRNTRC,
-                true,
-                "Registro Nacional dos Transportadores Rodoviários de Carga"
-            );
-            $this->dom->appChild($node, $prop, '');
-        }
+
         return $node;
     }
 
