@@ -2,17 +2,6 @@
 
 namespace NFePHP\MDFe;
 
-use NFePHP\Common\Base\BaseTools;
-use NFePHP\Common\DateTime\DateTime;
-use NFePHP\Common\Dom\Dom;
-use NFePHP\Common\Dom\ValidXsd;
-use NFePHP\Common\Exception;
-use NFePHP\Common\Files;
-use NFePHP\Common\LotNumber\LotNumber;
-use NFePHP\Common\Strings\Strings;
-use NFePHP\MDFe\Auxiliar\Identify;
-use NFePHP\MDFe\Auxiliar\Response;
-
 /**
  * Classe principal para a comunicação com a SEFAZ
  *
@@ -23,6 +12,23 @@ use NFePHP\MDFe\Auxiliar\Response;
  * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  * @author    Roberto L. Machado <linux.rlm at gmail dot com>
  */
+
+use NFePHP\Common\Base\BaseTools;
+use NFePHP\Common\DateTime\DateTime;
+use NFePHP\Common\LotNumber\LotNumber;
+use NFePHP\Common\Strings\Strings;
+use NFePHP\Common\Files;
+use NFePHP\Common\Exception;
+use NFePHP\Common\Dom\Dom;
+use NFePHP\Common\Dom\ValidXsd;
+use NFePHP\MDFe\Auxiliar\Response;
+use NFePHP\MDFe\Mail;
+use NFePHP\MDFe\Auxiliar\Identify;
+
+if (!defined('NFEPHP_ROOT')) {
+    define('NFEPHP_ROOT', dirname(dirname(__FILE__)));
+}
+
 class Tools extends BaseTools
 {
     /**
@@ -50,17 +56,6 @@ class Tools extends BaseTools
      * @var array
      */
     private $aLastRetEvent = array();
-    /**
-     * @var string
-     */
-    protected $rootDir;
-
-    public function __construct($configJson = '')
-    {
-        parent::__construct($configJson);
-        $this->rootDir = dirname(__DIR__);
-    }
-
     /**
      * imprime
      * Imprime o documento eletrônico (MDFe, CCe, Inut.)
@@ -864,7 +859,7 @@ class Tools extends BaseTools
         $aRet = $this->zTpEv($tpEvento);
         $aliasEvento = $aRet['alias'];
         $cnpj = $this->aConfig['cnpj'];
-        $dhEvento = (string) str_replace(' ', 'T', date('Y-m-d H:i:s'));
+        $dhEvento = (string) str_replace(' ', 'T', date('Y-m-d H:i:sP'));
         $sSeqEvento = str_pad($nSeqEvento, 2, "0", STR_PAD_LEFT);
         $eventId = "ID".$tpEvento.$chave.$sSeqEvento;
         if ($cOrgao == '') {
@@ -965,7 +960,7 @@ class Tools extends BaseTools
             return true;
         }
         $xsdFile = $aResp['Id'].'_v'.$aResp['versao'].'.xsd';
-        $xsdPath = $this->rootDir.DIRECTORY_SEPARATOR .
+        $xsdPath = NFEPHP_ROOT.DIRECTORY_SEPARATOR .
             'schemes' .
             DIRECTORY_SEPARATOR .
             $this->aConfig['schemesMDFe'] .
