@@ -8,7 +8,7 @@
         <MDFeRecepcaoEvento method='mdfeRecepcaoEvento' operation='MDFeRecepcaoEvento' version = '1.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx</MDFeRecepcaoEvento>
         <MDFeConsultaSituacao method='mdfeConsultaMDF' operation='MDFeConsultaSituacao' version = '1.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsultaSituacao>
         <MDFeStatusServico method='mdfeStatusServicoMDF' operation='MDFeStatusServico' version = '1.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx</MDFeStatusServico>
-        <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version = '1.0'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
+        <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version = '1.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
     </homologacao>
     <producao>
         <MDFeRecepcao method='mdfeRecepcaoLote' operation='MDFeRecepcao' version='1.00'>https://mdfe.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx</MDFeRecepcao>
@@ -16,7 +16,7 @@
         <MDFeRecepcaoEvento method='mdfeRecepcaoEvento' operation='MDFeRecepcaoEvento' version='1.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx</MDFeRecepcaoEvento>
         <MDFeConsultaSituacao method='mdfeConsultaMDF' operation='MDFeConsultaSituacao' version='1.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsultaSituacao>
         <MDFeStatusServico method='mdfeStatusServicoMDF' operation='MDFeStatusServico' version='1.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx</MDFeStatusServico>
-        <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version = '1.0'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
+        <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version = '1.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
     </producao>
 </UF>
 </WS>
