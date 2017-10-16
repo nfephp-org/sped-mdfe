@@ -18,7 +18,7 @@ use NFePHP\MDFe\Tools;
 
 $tools = new Tools('../config/config.json');
 $aResposta = array();
-$retorno = $tools->sefazConsultaNaoEncerrados($tpAmb='2', $cnpj=$tools->aConfig['cnpj'], $aResposta);
+$retorno = $tools->sefazConsultaNaoEncerrados($tpAmb = '2', $cnpj = $tools->aConfig['cnpj'], $aResposta);
 echo '<pre>';
 //echo htmlspecialchars($cteTools->soapDebug);
 print_r($aResposta);
