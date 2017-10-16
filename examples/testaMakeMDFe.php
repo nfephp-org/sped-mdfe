@@ -40,7 +40,7 @@ $tpAmb = '2';       // 1-Producao(versao fiscal), 2-Homologacao(versao de teste)
 $mod = '58';        // Modelo do documento fiscal: 58 para identificação do MDF-e
 $serie = '1';       // Serie do MDFe
 $tpEmis = '1';      // Forma de emissao do MDFe: 1-Normal; 2- Contingencia
-$numeroMDFe = '103';
+$numeroMDFe = '104';
 $cMDF = '00000010';
 
 
@@ -174,7 +174,7 @@ $make->tagautXML(
 );
 
 $resp = $make->montaMDFe();
-$filename = "../xml/{$chave}-cte.xml";
+$filename = "../xml/{$chave}-mdfe.xml";
 if ($resp) {
     //header('Content-type: text/xml; charset=UTF-8');
     $xml = $make->getXML();
