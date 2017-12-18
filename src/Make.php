@@ -30,7 +30,7 @@ class Make extends BaseMake
      *
      * @var string
      */
-    public $versao = '1.00';
+    public $versao = '3.00';
     /**
      * mod
      * modelo da MDFe 58
@@ -71,6 +71,10 @@ class Make extends BaseMake
     /**
      * @var DOMElement
      */
+    private $infResp;
+    /**
+     * @var DOMElement
+     */
     private $tot;
     /**
      * @var DOMElement
@@ -80,6 +84,14 @@ class Make extends BaseMake
      * @var DOMElement
      */
     private $rodo;
+    /**
+     * @var DOMElement
+     */
+    private $infANTT;
+    /**
+     * @var DOMElement
+     */
+    private $infContratante;
     /**
      * @var DOMElement
      */
@@ -114,6 +126,7 @@ class Make extends BaseMake
     private $aInfTermDescarreg = array(); //array de DOMNode
     private $aInfEmbComb = array(); //array de DOMNode
     private $aCountDoc = array(); //contador de documentos fiscais
+    private $aSeg = array(); //Seguro da carga
 
     /**
      *
@@ -142,16 +155,19 @@ class Make extends BaseMake
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infMDFe"');
         //tag indDoc [44]
         $this->zTagInfDoc();
+        foreach ($this->aSeg as $seg) {
+            $this->dom->appChild($this->infMDFe, $seg, 'Falta tag "infMDFe"');
+        }
         //tag tot [68]
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "infMDFe"');
-        //tag lacres [76]
-        $this->zTagLacres();
-        //tag infAdic [78]
-        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
         // tag autXML [137]
         foreach ($this->aAutXML as $aut) {
             $this->dom->appChild($this->infMDFe, $aut, 'Falta tag "infMDFe"');
         }
+        //tag lacres [76]
+        $this->zTagLacres();
+        //tag infAdic [78]
+        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
         //[1] tag infMDFe (1 A01)
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         //[0] tag MDFe
@@ -384,6 +400,8 @@ class Make extends BaseMake
             true,
             "Nome do Município de Carregamento"
         );
+        $node = $this->ide->getElementsByTagName("dhIniViagem")->item(0);
+        $this->ide->insertBefore($infMunCarrega, $node);
         $this->aInfMunCarrega[] = $infMunCarrega;
         return $infMunCarrega;
     }
@@ -691,6 +709,120 @@ class Make extends BaseMake
     }
 
     /**
+     * tagSeg
+     * tag MDFe/infMDFe/seg
+     *
+     * @param string $nApol
+     * @param string $nAver
+     * @return DOMElement|string
+     */
+    public function tagSeg(
+        $nApol = '',
+        $nAver = ''
+    ) {
+        $this->seg = $this->dom->createElement("seg");
+        $this->dom->addChild(
+            $this->seg,
+            "nApol",
+            $nApol,
+            false,
+            "Número da Apólice"
+        );
+        if ($nAver != '') {
+            $this->dom->addChild(
+                $this->seg,
+                "nAver",
+                $nAver,
+                false,
+                "Número da Averbação"
+            );
+        }
+        $this->aSeg[] = $this->seg;
+        return $this->seg;
+    }
+
+    /**
+     * tagInfResp
+     * tag MDFe/infMDFe/seg/infResp
+     *
+     * @param string $respSeg
+     * @param string $CNPJ
+     * @param string $CPF
+     * @return DOMElement|string
+     */
+    public function tagInfResp(
+        $respSeg = '',
+        $CNPJ = '',
+        $CPF = ''
+    ) {
+        $infResp = $this->dom->createElement("infResp");
+        $this->dom->addChild(
+            $infResp,
+            "respSeg",
+            $respSeg,
+            false,
+            "Responsável pelo seguro"
+        );
+        if ($CNPJ != '') {
+            $this->dom->addChild(
+                $infResp,
+                "CNPJ",
+                $CNPJ,
+                false,
+                "CNPJ do responsável pelo seguro"
+            );
+        }
+        if ($CPF != '') {
+            $this->dom->addChild(
+                $infResp,
+                "CPF",
+                $CPF,
+                false,
+                "CPF do responsável pelo seguro"
+            );
+        }
+        $node = $this->seg->getElementsByTagName("nApol")->item(0);
+        $this->seg->insertBefore($infResp, $node);
+        $this->infResp = $infResp;
+        return $this->infResp;
+    }
+
+    /**
+     * tagInfSeg
+     * tag MDFe/infMDFe/seg/infSeg
+     *
+     * @param string $xSeg
+     * @param string $CNPJ
+     * @return DOMElement|string
+     */
+    public function tagInfSeg(
+        $xSeg = '',
+        $CNPJ = ''
+    ) {
+        $infSeg = $this->dom->createElement("infSeg");
+        $this->dom->addChild(
+            $infSeg,
+            "xSeg",
+            $xSeg,
+            false,
+            "Nome da Seguradora"
+        );
+        if ($CNPJ != '') {
+            $this->dom->addChild(
+                $infSeg,
+                "CNPJ",
+                $CNPJ,
+                false,
+                "CNPJ da seguradora"
+            );
+        }
+        $node = $this->seg->getElementsByTagName("nApol")->item(0);
+        $this->seg->insertBefore($infSeg, $node);
+        $this->infSeg = $infSeg;
+        return $this->infSeg;
+    }
+
+    /**
      * tagTot
      * tag MDFe/infMDFe/tot
      *
@@ -812,7 +944,7 @@ class Make extends BaseMake
     }
 
     /**
-     * tagLacres
+     * tagautXML
      * tag MDFe/infMDFe/autXML
      *
      * Autorizados para download do XML do MDF-e
@@ -1169,14 +1301,38 @@ class Make extends BaseMake
      * tag MDFe/infMDFe/infModal/rodo
      *
      * @param  string $rntrc
-     * @param  string $ciot
      * @return DOMElement
      */
     public function tagRodo(
+        $rntrc = ''
+    ) {
+        $rodo = $this->dom->createElement("rodo");
+        $infANTT = $this->dom->createElement('infANTT');
+        $this->dom->addChild(
+            $infANTT,
+            "RNTRC",
+            $rntrc,
+            false,
+            "Registro Nacional de Transportadores Rodoviários de Carga"
+        );
+        $rodo->appendChild($infANTT);
+        $this->infANTT = $infANTT;
+        $this->rodo = $rodo;
+        return $rodo;
+    }
+
+    /**
+     * tagInfANTT
+     * tag MDFe/infMDFe/infModal/rodo/infANTT
+     *
+     * @param  string $rntrc
+     * @return DOMElement
+     */
+    public function tagInfANTT(
         $rntrc = '',
         $ciot = ''
     ) {
-        $rodo = $this->dom->createElement("rodo");
+        $infANTT = $this->dom->createElement("infANTT");
         $this->dom->addChild(
             $rodo,
             "RNTRC",
@@ -1184,15 +1340,44 @@ class Make extends BaseMake
             false,
             "Registro Nacional de Transportadores Rodoviários de Carga"
         );
-        $this->dom->addChild(
-            $rodo,
-            "CIOT",
-            $ciot,
-            false,
-            "Código Identificador da Operação de Transporte"
-        );
         $this->rodo = $rodo;
         return $rodo;
+    }
+
+    /**
+     * tagInfContratante
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
+     *
+     * @param  string $CPF
+     * @param  string $CNPJ
+     * @return DOMElement
+     */
+    public function tagInfContratante(
+        $CPF = '',
+        $CNPJ = ''
+    ) {
+        $infContratante = $this->dom->createElement("infContratante");
+        if ($CPF != '') {
+            $this->dom->addChild(
+                $infContratante,
+                "CPF",
+                $CPF,
+                false,
+                "CPF do contratante"
+            );
+        }
+        if ($CNPJ != '') {
+            $this->dom->addChild(
+                $infContratante,
+                "CNPJ",
+                $CNPJ,
+                false,
+                "CNPJ do contratante"
+            );
+        }
+        $this->dom->appChild($this->infANTT, $infContratante);
+        $this->infContratante = $infContratante;
+        return $infContratante;
     }
 
     /**
@@ -1458,8 +1643,15 @@ class Make extends BaseMake
      */
     protected function zTagIde()
     {
-        $this->dom->addArrayChild($this->ide, $this->aInfMunCarrega);
-        $this->dom->addArrayChild($this->ide, $this->aInfPercurso);
+        $node = $this->ide->getElementsByTagName("dhIniViagem")->item(0);
+
+        foreach ($this->aInfMunCarrega as $munCarrega) {
+            $this->ide->insertBefore($munCarrega, $node);
+        }
+        
+        foreach ($this->aInfPercurso as $munPercurso) {
+            $this->ide->insertBefore($munPercurso, $node);
+        }
     }
 
     /**
