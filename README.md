@@ -2,6 +2,9 @@
 
 API para geração e comunicação das MDFe com as SEFAZ autorizadoras.
 
+## Contributing
+**ATENÇÂO: A versão atual corresponde a vesão 3.00 do layout da SEFAZ, tanto na branch "master" como na branch "v3.0". As contribuições para a proxima versão do layout da SEFAZ 3.0 devem ser feitas exclusivamente na branch v3.0. Assim que tivermos uma versão estável será lançada uma realese e a Branch "master" será atualizada com esses códigos.**
+
 ## APENAS EM DESENVOLVIMENTO !!
 
 Este pacote está em desenvolvimento, não é funcional e não deve ser utilizado para nada além de testes. 
