@@ -71,10 +71,6 @@ class Make extends BaseMake
     /**
      * @var DOMElement
      */
-    private $infResp;
-    /**
-     * @var DOMElement
-     */
     private $tot;
     /**
      * @var DOMElement
@@ -84,14 +80,6 @@ class Make extends BaseMake
      * @var DOMElement
      */
     private $rodo;
-    /**
-     * @var DOMElement
-     */
-    private $infANTT;
-    /**
-     * @var DOMElement
-     */
-    private $infContratante;
     /**
      * @var DOMElement
      */
@@ -108,7 +96,28 @@ class Make extends BaseMake
      * @var DOMElement
      */
     private $aqua;
+    /**
+     * @var DOMElement
+     */
+    private $infANTT;
+    /**
+     * @var DOMElement
+     */
+    private $infContratante;
+    /**
+     * @var DOMElement
+     */
+    private $seg;
+    /**
+     * @var DOMElement
+     */
+    private $infResp;
+    /**
+     * @var DOMElement
+     */
+    private $infSeg;
 
+    
     // Arrays
     private $aInfMunCarrega = array(); //array de DOMNode
     private $aInfPercurso = array(); //array de DOMNode
@@ -126,7 +135,6 @@ class Make extends BaseMake
     private $aInfTermDescarreg = array(); //array de DOMNode
     private $aInfEmbComb = array(); //array de DOMNode
     private $aCountDoc = array(); //contador de documentos fiscais
-    private $aSeg = array(); //Seguro da carga
 
     /**
      *
@@ -155,19 +163,17 @@ class Make extends BaseMake
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infMDFe"');
         //tag indDoc [44]
         $this->zTagInfDoc();
-        foreach ($this->aSeg as $seg) {
-            $this->dom->appChild($this->infMDFe, $seg, 'Falta tag "infMDFe"');
-        }
+        $this->zTagSeg();
         //tag tot [68]
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "infMDFe"');
-        // tag autXML [137]
-        foreach ($this->aAutXML as $aut) {
-            $this->dom->appChild($this->infMDFe, $aut, 'Falta tag "infMDFe"');
-        }
         //tag lacres [76]
         $this->zTagLacres();
         //tag infAdic [78]
         $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
+        // tag autXML [137]
+        foreach ($this->aAutXML as $aut) {
+            $this->dom->appChild($this->infMDFe, $aut, 'Falta tag "infMDFe"');
+        }
         //[1] tag infMDFe (1 A01)
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         //[0] tag MDFe
@@ -400,8 +406,6 @@ class Make extends BaseMake
             true,
             "Nome do Município de Carregamento"
         );
-        $node = $this->ide->getElementsByTagName("dhIniViagem")->item(0);
-        $this->ide->insertBefore($infMunCarrega, $node);
         $this->aInfMunCarrega[] = $infMunCarrega;
         return $infMunCarrega;
     }
@@ -706,120 +710,6 @@ class Make extends BaseMake
         );
         $this->aInfMDFe[$nItem][] = $infMDFeTransp;
         return $infMDFeTransp;
-    }
-
-    /**
-     * tagSeg
-     * tag MDFe/infMDFe/seg
-     *
-     * @param string $nApol
-     * @param string $nAver
-     * @return DOMElement|string
-     */
-    public function tagSeg(
-        $nApol = '',
-        $nAver = ''
-    ) {
-        $this->seg = $this->dom->createElement("seg");
-        $this->dom->addChild(
-            $this->seg,
-            "nApol",
-            $nApol,
-            false,
-            "Número da Apólice"
-        );
-        if ($nAver != '') {
-            $this->dom->addChild(
-                $this->seg,
-                "nAver",
-                $nAver,
-                false,
-                "Número da Averbação"
-            );
-        }
-        $this->aSeg[] = $this->seg;
-        return $this->seg;
-    }
-
-    /**
-     * tagInfResp
-     * tag MDFe/infMDFe/seg/infResp
-     *
-     * @param string $respSeg
-     * @param string $CNPJ
-     * @param string $CPF
-     * @return DOMElement|string
-     */
-    public function tagInfResp(
-        $respSeg = '',
-        $CNPJ = '',
-        $CPF = ''
-    ) {
-        $infResp = $this->dom->createElement("infResp");
-        $this->dom->addChild(
-            $infResp,
-            "respSeg",
-            $respSeg,
-            false,
-            "Responsável pelo seguro"
-        );
-        if ($CNPJ != '') {
-            $this->dom->addChild(
-                $infResp,
-                "CNPJ",
-                $CNPJ,
-                false,
-                "CNPJ do responsável pelo seguro"
-            );
-        }
-        if ($CPF != '') {
-            $this->dom->addChild(
-                $infResp,
-                "CPF",
-                $CPF,
-                false,
-                "CPF do responsável pelo seguro"
-            );
-        }
-        $node = $this->seg->getElementsByTagName("nApol")->item(0);
-        $this->seg->insertBefore($infResp, $node);
-        $this->infResp = $infResp;
-        return $this->infResp;
-    }
-
-    /**
-     * tagInfSeg
-     * tag MDFe/infMDFe/seg/infSeg
-     *
-     * @param string $xSeg
-     * @param string $CNPJ
-     * @return DOMElement|string
-     */
-    public function tagInfSeg(
-        $xSeg = '',
-        $CNPJ = ''
-    ) {
-        $infSeg = $this->dom->createElement("infSeg");
-        $this->dom->addChild(
-            $infSeg,
-            "xSeg",
-            $xSeg,
-            false,
-            "Nome da Seguradora"
-        );
-        if ($CNPJ != '') {
-            $this->dom->addChild(
-                $infSeg,
-                "CNPJ",
-                $CNPJ,
-                false,
-                "CNPJ da seguradora"
-            );
-        }
-        $node = $this->seg->getElementsByTagName("nApol")->item(0);
-        $this->seg->insertBefore($infSeg, $node);
-        $this->infSeg = $infSeg;
-        return $this->infSeg;
     }
 
     /**
@@ -1304,19 +1194,16 @@ class Make extends BaseMake
      * @return DOMElement
      */
     public function tagRodo(
-        $rntrc = ''
+        $codAgPorto = ''
     ) {
         $rodo = $this->dom->createElement("rodo");
-        $infANTT = $this->dom->createElement('infANTT');
         $this->dom->addChild(
-            $infANTT,
-            "RNTRC",
-            $rntrc,
+            $rodo,
+            "codAgPorto",
+            $codAgPorto,
             false,
-            "Registro Nacional de Transportadores Rodoviários de Carga"
+            "Código de Agendamento no porto"
         );
-        $rodo->appendChild($infANTT);
-        $this->infANTT = $infANTT;
         $this->rodo = $rodo;
         return $rodo;
     }
@@ -1329,19 +1216,18 @@ class Make extends BaseMake
      * @return DOMElement
      */
     public function tagInfANTT(
-        $rntrc = '',
-        $ciot = ''
+        $rntrc = ''
     ) {
         $infANTT = $this->dom->createElement("infANTT");
         $this->dom->addChild(
-            $rodo,
+            $infANTT,
             "RNTRC",
             $rntrc,
             false,
             "Registro Nacional de Transportadores Rodoviários de Carga"
         );
-        $this->rodo = $rodo;
-        return $rodo;
+        $this->infANTT = $infANTT;
+        return $infANTT;
     }
 
     /**
@@ -1380,6 +1266,89 @@ class Make extends BaseMake
         return $infContratante;
     }
 
+    public function tagSeg(
+        $nApol = '',
+        $nAver = ''
+    ) {
+        $seg = $this->dom->createElement("seg");
+        if (! empty($this->infResp)) {
+                $this->dom->appChild($seg, $this->infResp, '');
+        }
+        if (! empty($this->infSeg)) {
+            $this->dom->appChild($seg, $this->infSeg, '');
+        }
+        $this->dom->addChild(
+            $seg,
+            "nApol",
+            $nApol,
+            false,
+            "Número da Apólice "
+        );
+        $this->dom->addChild(
+            $seg,
+            "nAver",
+            $nAver,
+            false,
+            "Número da Averbação "
+        );
+        $this->seg = $seg;
+        return $seg;
+    }
+    
+    public function tagInfResp(
+        $respSeg = '',
+        $CNPJ = '',
+        $CPF = ''
+    ) {
+        $infResp = $this->dom->createElement("infResp");
+        $this->dom->addChild(
+            $infResp,
+            "respSeg",
+            $respSeg,
+            true,
+            "Responsável pelo seguro"
+        );
+        $this->dom->addChild(
+            $infResp,
+            "CNPJ",
+            $CNPJ,
+            false,
+            "CNPJ do responsável pelo seguro"
+        );
+        $this->dom->addChild(
+            $infResp,
+            "CPF",
+            $CPF,
+            false,
+            "CPF do responsável pelo seguro"
+        );
+        $this->infResp = $infResp;
+        return $infResp;
+    }
+    
+    public function tagInfSeg(
+        $xSeg = '',
+        $CNPJ = ''
+    ) {
+        $infSeg = $this->dom->createElement("infSeg");
+        $this->dom->addChild(
+            $infSeg,
+            "xSeg",
+            $xSeg,
+            true,
+            "Responsável pelo seguro"
+        );
+        $this->dom->addChild(
+            $infSeg,
+            "CNPJ",
+            $CNPJ,
+            false,
+            "CNPJ do responsável da seguradora"
+        );
+        $this->infSeg = $infSeg;
+        return $infSeg;
+    }
+    
     /**
      * tagVeicTracao
      * tag MDFe/infMDFe/infModal/rodo/veicTracao
@@ -1401,7 +1370,8 @@ class Make extends BaseMake
         $tpRod = '',
         $tpCar = '',
         $UF = '',
-        $propRNTRC = ''
+        $propRNTRC = '',
+        $RENAVAM
     ) {
         $veicTracao = $this->zTagVeiculo(
             'veicTracao',
@@ -1414,7 +1384,8 @@ class Make extends BaseMake
             $tpRod,
             $tpCar,
             $UF,
-            $propRNTRC
+            $propRNTRC,
+            $RENAVAM
         );
         $this->veicTracao = $veicTracao;
         return $veicTracao;
@@ -1538,7 +1509,8 @@ class Make extends BaseMake
         $tpRod = '',
         $tpCar = '',
         $UF = '',
-        $propRNTRC = ''
+        $propRNTRC = '',
+        $RENAVAM = ''
     ) {
         $node = $this->dom->createElement($tag);
         $this->dom->addChild(
@@ -1554,6 +1526,13 @@ class Make extends BaseMake
             $placa,
             true,
             "Placa do veículo"
+        );
+        $this->dom->addChild(
+            $node,
+            "RENAVAM",
+            $RENAVAM,
+            true,
+            "RENAVAM do veículo"
         );
         $this->dom->addChild(
             $node,
@@ -1643,17 +1622,10 @@ class Make extends BaseMake
      */
     protected function zTagIde()
     {
-        $node = $this->ide->getElementsByTagName("dhIniViagem")->item(0);
-
-        foreach ($this->aInfMunCarrega as $munCarrega) {
-            $this->ide->insertBefore($munCarrega, $node);
-        }
-        
-        foreach ($this->aInfPercurso as $munPercurso) {
-            $this->ide->insertBefore($munPercurso, $node);
-        }
+        $this->dom->addArrayChild($this->ide, $this->aInfMunCarrega);
+        $this->dom->addArrayChild($this->ide, $this->aInfPercurso);
     }
-
+        
     /**
      * Processa lacres
      */
@@ -1700,11 +1672,28 @@ class Make extends BaseMake
     }
 
     /**
+     * Processa Seguro
+     */
+    protected function zTagSeg()
+    {
+        if (! empty($this->seg)) {
+            $this->dom->appChild($this->infMDFe, $this->seg, '');
+        }
+    }
+
+    /**
      * Processa modal rodoviario
      */
     protected function zTagRodo()
     {
-        if (! empty($this->rodo)) {
+        if (! empty($this->infModal)) {
+            if (empty($this->rodo)) {
+                $this->rodo = $this->dom->createElement("rodo");
+            }
+            if (! empty($this->infANTT)) {
+                $this->dom->appChild($this->infANTT, $this->infContratante, '');
+                $this->dom->appChild($this->rodo, $this->infANTT, '');
+            }
             $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
             $this->dom->addArrayChild($this->rodo, $this->aReboque);
             if (! empty($this->aDisp)) {
