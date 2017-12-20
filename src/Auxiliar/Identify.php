@@ -35,7 +35,8 @@ class Identify
             'retConsSitMDFe' => 'retConsSitMDFe',
             'retConsStatServMDFe' => 'retConsStatServMDFe',
             'retEnviMDFe' => 'retEnviMDFe',
-            'retEventoMDFe' => 'retEventoMDFe'
+            'retEventoMDFe' => 'retEventoMDFe',
+            'consMDFeNaoEnc' => 'retConsMDFeNaoEnc'
         );
         Id::setListSchemesId($aList);
         $schem = Id::identificacao($xml, $aResp);

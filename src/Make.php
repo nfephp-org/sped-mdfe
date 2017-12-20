@@ -1260,12 +1260,19 @@ class Make extends BaseMake
                 false,
                 "CNPJ do contratante"
             );
-        }
-        $this->dom->appChild($this->infANTT, $infContratante);
+        }        
         $this->infContratante = $infContratante;
         return $infContratante;
     }
 
+    /**
+     * tagSeg
+     * tag MDFe/infMDFe/seg
+     *
+     * @param type $nApol
+     * @param type $nAver
+     * @return type
+     */
     public function tagSeg(
         $nApol = '',
         $nAver = ''
@@ -1295,6 +1302,15 @@ class Make extends BaseMake
         return $seg;
     }
     
+    /**
+     * tagInfResp
+     * tag MDFe/infMDFe/seg/infResp
+     *
+     * @param type $respSeg
+     * @param type $CNPJ
+     * @param type $CPF
+     * @return type
+     */
     public function tagInfResp(
         $respSeg = '',
         $CNPJ = '',
@@ -1326,6 +1342,14 @@ class Make extends BaseMake
         return $infResp;
     }
     
+    /**
+     * tagInfSeg
+     * tag MDFe/infMDFe/seg/infSeg
+     *
+     * @param type $xSeg
+     * @param type $CNPJ
+     * @return type
+     */
     public function tagInfSeg(
         $xSeg = '',
         $CNPJ = ''
@@ -1371,7 +1395,7 @@ class Make extends BaseMake
         $tpCar = '',
         $UF = '',
         $propRNTRC = '',
-        $RENAVAM
+        $RENAVAM = ''
     ) {
         $veicTracao = $this->zTagVeiculo(
             'veicTracao',
