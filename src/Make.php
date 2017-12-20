@@ -834,7 +834,7 @@ class Make extends BaseMake
     }
 
     /**
-     * tagLacres
+     * tagautXML
      * tag MDFe/infMDFe/autXML
      *
      * Autorizados para download do XML do MDF-e
@@ -1191,7 +1191,6 @@ class Make extends BaseMake
      * tag MDFe/infMDFe/infModal/rodo
      *
      * @param  string $rntrc
-     * @param  string $ciot
      * @return DOMElement
      */
     public function tagRodo(
@@ -1209,6 +1208,13 @@ class Make extends BaseMake
         return $rodo;
     }
 
+    /**
+     * tagInfANTT
+     * tag MDFe/infMDFe/infModal/rodo/infANTT
+     *
+     * @param  string $rntrc
+     * @return DOMElement
+     */
     public function tagInfANTT(
         $rntrc = ''
     ) {
@@ -1224,29 +1230,49 @@ class Make extends BaseMake
         return $infANTT;
     }
     
-    public function tagInfcontratante(
-        $cpf = '',
-        $cnpj = ''
+    /**
+     * tagInfContratante
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
+     *
+     * @param  string $CPF
+     * @param  string $CNPJ
+     * @return DOMElement
+     */
+    public function tagInfContratante(
+        $CPF = '',
+        $CNPJ = ''
     ) {
         $infContratante = $this->dom->createElement("infContratante");
-        $this->dom->addChild(
-            $infContratante,
-            "CPF",
-            $cpf,
-            false,
-            "CPF do Contratante"
-        );
-        $this->dom->addChild(
-            $infContratante,
-            "CNPJ",
-            $cnpj,
-            false,
-            "CNPJ do Contratante"
-        );
+        if ($CPF != '') {
+            $this->dom->addChild(
+                $infContratante,
+                "CPF",
+                $CPF,
+                false,
+                "CPF do contratante"
+            );
+        }
+        if ($CNPJ != '') {
+            $this->dom->addChild(
+                $infContratante,
+                "CNPJ",
+                $CNPJ,
+                false,
+                "CNPJ do contratante"
+            );
+        }
         $this->infContratante = $infContratante;
-        return $infContratante;
+        return $infContratante;        
     }
     
+    /**
+     * tagSeg
+     * tag MDFe/infMDFe/seg
+     *
+     * @param type $nApol
+     * @param type $nAver
+     * @return type
+     */
     public function tagSeg(
         $nApol = '',
         $nAver = ''
@@ -1276,6 +1302,15 @@ class Make extends BaseMake
         return $seg;
     }
     
+    /**
+     * tagInfResp
+     * tag MDFe/infMDFe/seg/infResp
+     *
+     * @param type $respSeg
+     * @param type $CNPJ
+     * @param type $CPF
+     * @return type
+     */
     public function tagInfResp(
         $respSeg = '',
         $CNPJ = '',
@@ -1307,6 +1342,14 @@ class Make extends BaseMake
         return $infResp;
     }
     
+    /**
+     * tagInfSeg
+     * tag MDFe/infMDFe/seg/infSeg
+     *
+     * @param type $xSeg
+     * @param type $CNPJ
+     * @return type
+     */
     public function tagInfSeg(
         $xSeg = '',
         $CNPJ = ''
@@ -1352,7 +1395,7 @@ class Make extends BaseMake
         $tpCar = '',
         $UF = '',
         $propRNTRC = '',
-        $RENAVAM
+        $RENAVAM = ''
     ) {
         $veicTracao = $this->zTagVeiculo(
             'veicTracao',
