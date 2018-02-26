@@ -128,6 +128,7 @@ class Make extends BaseMake
     private $aLacres = array(); //array de DOMNode
     private $aAutXML = array(); //array de DOMNode
     private $aCondutor = array(); //array de DOMNode
+    private $aProprietario = array(); //array de DOMNode
     private $aReboque = array(); //array de DOMNode
     private $aDisp = array(); //array de DOMNode
     private $aVag = array(); //array de DOMNode
@@ -1382,7 +1383,6 @@ class Make extends BaseMake
      * @param  string $tara
      * @param  string $capKG
      * @param  string $capM3
-     * @param  string $propRNTRC
      * @return DOMElement
      */
     public function tagVeicTracao(
@@ -1394,7 +1394,7 @@ class Make extends BaseMake
         $tpRod = '',
         $tpCar = '',
         $UF = '',
-        $propRNTRC = '',
+        $propRNTRC = '', // informação migrada para o metodo tagVeicProp
         $RENAVAM = ''
     ) {
         $veicTracao = $this->zTagVeiculo(
@@ -1408,8 +1408,8 @@ class Make extends BaseMake
             $tpRod,
             $tpCar,
             $UF,
-            $propRNTRC,
-            $RENAVAM
+            $RENAVAM,
+            $this->aProprietario
         );
         $this->veicTracao = $veicTracao;
         return $veicTracao;
@@ -1444,6 +1444,81 @@ class Make extends BaseMake
         );
         $this->aCondutor[] = $condutor;
         return $condutor;
+    }
+
+    /**
+     * tagVeicProp
+     *
+     * @param string $CPF
+     * @param string $CNPJ
+     * @param $RNTRC
+     * @param $xNome
+     * @param $IE
+     * @param $UF
+     * @param $tpProp
+     * @return DOMElement
+     */
+    protected function tagVeicProp(
+        $CPF = '',
+        $CNPJ = '',
+        $RNTRC,
+        $xNome,
+        $IE,
+        $UF,
+        $tpProp
+    ) {
+        $prop = $this->dom->createElement("prop");
+        $this->dom->addChild(
+            $prop,
+            "CPF",
+            $CPF,
+            true,
+            "CPF do proprietário"
+        );
+        $this->dom->addChild(
+            $prop,
+            "CNPJ",
+            $CNPJ,
+            true,
+            "CNPJ do proprietário"
+        );
+        $this->dom->addChild(
+            $prop,
+            "RNTRC",
+            $RNTRC,
+            true,
+            "Registro Nacional dos Transportadores Rodoviários de Carga"
+        );
+        $this->dom->addChild(
+            $prop,
+            "xNome",
+            $xNome,
+            true,
+            "Nome do proprietário"
+        );
+        $this->dom->addChild(
+            $prop,
+            "IE",
+            $IE,
+            true,
+            "EI do proprietário"
+        );
+        $this->dom->addChild(
+            $prop,
+            "UF",
+            $UF,
+            true,
+            "UF do proprietário"
+        );
+        $this->dom->addChild(
+            $prop,
+            "tpProp",
+            $tpProp,
+            true,
+            "Tipo do proprietário"
+        );
+        $this->aProprietario[] = $prop;
+        return $prop;
     }
 
     /**
@@ -1533,8 +1608,8 @@ class Make extends BaseMake
         $tpRod = '',
         $tpCar = '',
         $UF = '',
-        $propRNTRC = '',
-        $RENAVAM = ''
+        $RENAVAM = '',
+        $proprietarios = array()
     ) {
         $node = $this->dom->createElement($tag);
         $this->dom->addChild(
@@ -1608,17 +1683,10 @@ class Make extends BaseMake
             true,
             "UF de licenciamento do veículo"
         );
-        if ($propRNTRC != '') {
-            $prop = $this->dom->createElement("prop");
-            $this->dom->addChild(
-                $prop,
-                "RNTRC",
-                $propRNTRC,
-                true,
-                "Registro Nacional dos Transportadores Rodoviários de Carga"
-            );
-            $this->dom->appChild($node, $prop, '');
-        }
+        $this->dom->addArrayChild(
+            $node,
+            $proprietarios
+        );
         return $node;
     }
 
