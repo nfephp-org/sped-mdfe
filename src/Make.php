@@ -1243,10 +1243,11 @@ class Make extends BaseMake
         $CPF = '',
         $CNPJ = ''
     ) {
-        $infContratante = $this->dom->createElement("infContratante");
+        $this->infContratante[] = $this->dom->createElement("infContratante");
+        $posicao = (integer)count($this->infContratante) - 1;
         if ($CPF != '') {
             $this->dom->addChild(
-                $infContratante,
+                $this->infContratante[$posicao],
                 "CPF",
                 $CPF,
                 false,
@@ -1255,15 +1256,14 @@ class Make extends BaseMake
         }
         if ($CNPJ != '') {
             $this->dom->addChild(
-                $infContratante,
+                $this->infContratante[$posicao],
                 "CNPJ",
                 $CNPJ,
                 false,
                 "CNPJ do contratante"
             );
         }
-        $this->infContratante = $infContratante;
-        return $infContratante;        
+        return $this->infContratante[$posicao];
     }
     
     /**
@@ -1458,7 +1458,7 @@ class Make extends BaseMake
      * @param $tpProp
      * @return DOMElement
      */
-    protected function tagVeicProp(
+    public function tagVeicProp(
         $CPF = '',
         $CNPJ = '',
         $RNTRC,
@@ -1560,7 +1560,7 @@ class Make extends BaseMake
         $cnpjPg = '',
         $nCompra = ''
     ) {
-        $disp = $this->dom->createElement($disp);
+        $disp = $this->dom->createElement('disp');
         $this->dom->addChild(
             $disp,
             "CNPJForn",
@@ -1783,7 +1783,7 @@ class Make extends BaseMake
                 $this->rodo = $this->dom->createElement("rodo");
             }
             if (! empty($this->infANTT)) {
-                $this->dom->appChild($this->infANTT, $this->infContratante, '');
+                $this->dom->addArrayChild($this->infANTT, $this->infContratante);
                 $this->dom->appChild($this->rodo, $this->infANTT, '');
             }
             $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
