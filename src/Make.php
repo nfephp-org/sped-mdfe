@@ -1556,12 +1556,14 @@ class Make extends BaseMake
      * @param  type $cnpjForn
      * @param  type $cnpjPg
      * @param  type $nCompra
+     * @param  type $vValePed
      * @return DOMElement
      */
     public function tagValePed(
         $cnpjForn = '',
         $cnpjPg = '',
-        $nCompra = ''
+        $nCompra = '',
+        $vValePed = ''
     ) {
         $disp = $this->dom->createElement('disp');
         $this->dom->addChild(
@@ -1584,6 +1586,13 @@ class Make extends BaseMake
             $nCompra,
             true,
             "Número do comprovante de compra"
+        );
+        $this->dom->addChild(
+            $disp,
+            "vValePed",
+            $vValePed,
+            true,
+            "Valor do Vale-Pedágio"
         );
         $this->aDisp[] = $disp;
         return $disp;
