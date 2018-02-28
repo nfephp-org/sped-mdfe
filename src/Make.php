@@ -136,6 +136,7 @@ class Make extends BaseMake
     private $aInfTermDescarreg = array(); //array de DOMNode
     private $aInfEmbComb = array(); //array de DOMNode
     private $aCountDoc = array(); //contador de documentos fiscais
+    private $aSeg = array(); //informações de Seguro da Cargas
 
     /**
      *
@@ -164,7 +165,9 @@ class Make extends BaseMake
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infMDFe"');
         //tag indDoc [44]
         $this->zTagInfDoc();
-        $this->zTagSeg();
+        foreach ($this->aSeg as $seg) {
+            $this->dom->appChild($this->infMDFe, $seg, 'Falta tag "seg"');
+        }
         //tag tot [68]
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "infMDFe"');
         //tag lacres [76]
@@ -1299,7 +1302,7 @@ class Make extends BaseMake
             false,
             "Número da Averbação "
         );
-        $this->seg = $seg;
+        $this->aSeg[] = $seg;
         return $seg;
     }
     
