@@ -1386,6 +1386,10 @@ class Make extends BaseMake
      * @param  string $tara
      * @param  string $capKG
      * @param  string $capM3
+     * @param  string $tpRod
+     * @param  string $tpCar
+     * @param  string $UF
+     * @param  string $RENAVAM
      * @return DOMElement
      */
     public function tagVeicTracao(
@@ -1397,7 +1401,6 @@ class Make extends BaseMake
         $tpRod = '',
         $tpCar = '',
         $UF = '',
-        $propRNTRC = '', // informação migrada para o metodo tagVeicProp
         $RENAVAM = ''
     ) {
         $veicTracao = $this->zTagVeiculo(
@@ -1464,11 +1467,11 @@ class Make extends BaseMake
     public function tagVeicProp(
         $CPF = '',
         $CNPJ = '',
-        $RNTRC,
-        $xNome,
-        $IE,
-        $UF,
-        $tpProp
+        $RNTRC = '',
+        $xNome = '',
+        $IE = '',
+        $UF = '',
+        $tpProp = ''
     ) {
         $prop = $this->dom->createElement("prop");
         $this->dom->addChild(
