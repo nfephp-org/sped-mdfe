@@ -31,10 +31,7 @@
         "squizlabs/php_codesniffer": "~2.3"
     },
   "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/Gleidson2012/sped-console"
-    }
+
   ],
     "autoload": {
         "psr-4": {
