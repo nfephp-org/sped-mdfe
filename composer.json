@@ -1,5 +1,5 @@
 {
-    "name": "nfephp-org/sped-mdfe",
+    "name": "joaoroyosilva/sped-mdfe",
     "type": "library",
     "description": "API para geração e comunicação da MDFe com as SEFAZ autorizadoras.",
     "keywords": ["mdfe", "sped", "nfephp"],
@@ -19,7 +19,7 @@
     ],
     "require": {
         "php" : "~5.5|~7.0",
-        "nfephp-org/sped-common" : "^4.1",
+        "nfephp-org/sped-common" : "4.1.9",
         "zendframework/zend-mail": "^2.5",
         "html2text/html2text": "^4.0",
         "symfony/serializer": "^3.1",
