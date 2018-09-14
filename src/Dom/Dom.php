@@ -1,11 +1,11 @@
 <?php
 
-namespace NFePHP\Common\Dom;
+namespace NFePHP\MDFe\Dom;
 
 /**
  * Classe auxiliar com funções de DOM extendidas
  * @category   NFePHP
- * @package    NFePHP\Common\DomDocument
+ * @package    NFePHP\MDFe\DomDocument
  * @copyright  Copyright (c) 2008-2015
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>
@@ -13,8 +13,8 @@ namespace NFePHP\Common\Dom;
  */
 
 use \DOMDocument;
-use NFePHP\Common\Files\FilesFolders;
-use NFePHP\Common\Exception;
+use NFePHP\MDFe\Files\FilesFolders;
+use NFePHP\MDFe\Exception;
 
 class Dom extends DOMDocument
 {

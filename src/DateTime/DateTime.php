@@ -1,11 +1,11 @@
 <?php
 
-namespace NFePHP\Common\DateTime;
+namespace NFePHP\MDFe\DateTime;
 
 /**
  * Classe auxiliar para tratar datas
  * @category   NFePHP
- * @package    NFePHP\Common\DateTime
+ * @package    NFePHP\MDFe\DateTime
  * @copyright  Copyright (c) 2008-2015
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>

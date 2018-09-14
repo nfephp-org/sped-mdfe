@@ -5,7 +5,7 @@ namespace Tests\NFePHP\MDFe;
 /**
  * @author Roberto L. Machado <linux.rlm at gmail dot com>
  */
-use NFePHP\Common\Exception\InvalidArgumentException;
+use NFePHP\MDFe\Exception\InvalidArgumentException;
 use NFePHP\MDFe\Tools;
 use PHPUnit_Framework_TestCase;
 

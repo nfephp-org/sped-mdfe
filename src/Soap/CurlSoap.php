@@ -1,19 +1,19 @@
 <?php
 
-namespace NFePHP\Common\Soap;
+namespace NFePHP\MDFe\Soap;
 
 /**
  * Classe auxiliar para envio das mensagens SOAP usando cURL
  * @category   NFePHP
- * @package    NFePHP\Common\Soap
+ * @package    NFePHP\MDFe\Soap
  * @copyright  Copyright (c) 2008-2015
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux dot rlm at gmail dot com>
  * @link       http://github.com/nfephp-org/nfephp for the canonical source repository
  */
 
-use NFePHP\Common\Strings\Strings;
-use NFePHP\Common\Exception;
+use NFePHP\MDFe\Strings\Strings;
+use NFePHP\MDFe\Exception;
 
 class CurlSoap
 {

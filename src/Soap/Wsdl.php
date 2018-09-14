@@ -1,19 +1,19 @@
 <?php
 
-namespace NFePHP\Common\Soap;
+namespace NFePHP\MDFe\Soap;
 
 /**
  * Classe usada para obter os arquivos WSDL, que são as especificações
  * da comunicação SOAP com os webservices da SEFAZ e das Prefeituras;
  * @category   NFePHP
- * @package    NFePHP\Common\Soap
+ * @package    NFePHP\MDFe\Soap
  * @copyright  Copyright (c) 2008-2015
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm@gamil.com>
  * @link       http://github.com/nfephp-org/spedphp for the canonical source repository
  */
 
-use NFePHP\Common\Soap;
+use NFePHP\MDFe\Soap;
 
 class Wsdl
 {

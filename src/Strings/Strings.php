@@ -1,11 +1,11 @@
 <?php
 
-namespace NFePHP\Common\Strings;
+namespace NFePHP\MDFe\Strings;
 
 /**
  * Classe auxiliar para o tratamento de strings
  * @category   NFePHP
- * @package    NFePHP\Common\Strings
+ * @package    NFePHP\MDFe\Strings
  * @copyright  Copyright (c) 2008-2015
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux dot rlm at gmail dot com>

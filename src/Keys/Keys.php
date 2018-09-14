@@ -1,11 +1,11 @@
 <?php
 
-namespace NFePHP\Common\Keys;
+namespace NFePHP\MDFe\Keys;
 
 /**
  * Classe auxiliar para criar, listar e testar os diretórios utilizados pela API
  * @category   NFePHP
- * @package    NFePHP\Common\Keys
+ * @package    NFePHP\MDFe\Keys
  * @copyright  Copyright (c) 2008-2015
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>

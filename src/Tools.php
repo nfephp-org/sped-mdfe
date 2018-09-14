@@ -2,14 +2,14 @@
 
 namespace NFePHP\MDFe;
 
-use NFePHP\Common\Base\BaseTools;
-use NFePHP\Common\DateTime\DateTime;
-use NFePHP\Common\Dom\Dom;
-use NFePHP\Common\Dom\ValidXsd;
-use NFePHP\Common\Exception;
-use NFePHP\Common\Files;
-use NFePHP\Common\LotNumber\LotNumber;
-use NFePHP\Common\Strings\Strings;
+use NFePHP\MDFe\Base\BaseTools;
+use NFePHP\MDFe\DateTime\DateTime;
+use NFePHP\MDFe\Dom\Dom;
+use NFePHP\MDFe\Dom\ValidXsd;
+use NFePHP\MDFe\Exception;
+use NFePHP\MDFe\Files;
+use NFePHP\MDFe\LotNumber\LotNumber;
+use NFePHP\MDFe\Strings\Strings;
 use NFePHP\MDFe\Auxiliar\Identify;
 use NFePHP\MDFe\Auxiliar\Response;
 

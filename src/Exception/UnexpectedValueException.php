@@ -1,10 +1,10 @@
 <?php
 
-namespace NFePHP\Common\Exception;
+namespace NFePHP\MDFe\Exception;
 
 /**
  * @category   NFePHP
- * @package    NFePHP\Common\Exception
+ * @package    NFePHP\MDFe\Exception
  * @copyright  Copyright (c) 2008-2014
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>

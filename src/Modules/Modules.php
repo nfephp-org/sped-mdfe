@@ -1,11 +1,11 @@
 <?php
 
-namespace NFePHP\Common\Modules;
+namespace NFePHP\MDFe\Modules;
 
 /**
  * Classe auxiliar para obter informações dos modulos instalados no PHP
  * @category   NFePHP
- * @package    NFePHP\Common\Modules
+ * @package    NFePHP\MDFe\Modules
  * @copyright  Copyright (c) 2008-2014
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>

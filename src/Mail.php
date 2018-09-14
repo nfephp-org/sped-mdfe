@@ -22,9 +22,9 @@ namespace NFePHP\MDFe;
  *
  */
 
-use NFePHP\Common\Dom\Dom;
-use NFePHP\Common\DateTime\DateTime;
-use NFePHP\Common\Base\BaseMail;
+use NFePHP\MDFe\Dom\Dom;
+use NFePHP\MDFe\DateTime\DateTime;
+use NFePHP\MDFe\Base\BaseMail;
 use Html2Text\Html2Text;
 use \DOMDocument;
 

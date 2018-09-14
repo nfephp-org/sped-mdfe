@@ -19,8 +19,8 @@ namespace NFePHP\MDFe;
  */
 
 use DOMElement;
-use NFePHP\Common\Base\BaseMake;
-use NFePHP\Common\DateTime\DateTime;
+use NFePHP\MDFe\Base\BaseMake;
+use NFePHP\MDFe\DateTime\DateTime;
 
 class Make extends BaseMake
 {

@@ -14,7 +14,7 @@ namespace NFePHP\MDFe\Auxiliar;
  */
 
 use \DOMDocument;
-use NFePHP\Common\Identify\Identify as Id;
+use NFePHP\MDFe\Identify\Identify as Id;
 
 class Identify
 {

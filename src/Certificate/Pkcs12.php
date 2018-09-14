@@ -1,21 +1,21 @@
 <?php
 
-namespace NFePHP\Common\Certificate;
+namespace NFePHP\MDFe\Certificate;
 
 /**
  * Classe para tratamento e uso dos certificados digitais modelo A1 (PKCS12)
  *
  * @category   NFePHP
- * @package    NFePHP\Common\Certificate
+ * @package    NFePHP\MDFe\Certificate
  * @copyright  Copyright (c) 2008-2014
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>
  * @link       http://github.com/nfephp-org/nfephp for the canonical source repository
  */
 
-use NFePHP\Common\Certificate\Asn;
-use NFePHP\Common\Exception;
-use NFePHP\Common\Dom\Dom;
+use NFePHP\MDFe\Certificate\Asn;
+use NFePHP\MDFe\Exception;
+use NFePHP\MDFe\Dom\Dom;
 
 class Pkcs12
 {

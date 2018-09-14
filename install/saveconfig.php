@@ -8,7 +8,7 @@ if (!defined('PATH_NFEPHP')) {
     define('PATH_NFEPHP', dirname(dirname(__FILE__)));
 }
 
-use NFePHP\Common\Files\FilesFolders;
+use NFePHP\MDFe\Files\FilesFolders;
 
 $configfolder = filter_input(INPUT_GET, 'configfolder', FILTER_SANITIZE_STRING);
 

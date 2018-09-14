@@ -1,23 +1,23 @@
 <?php
 
-namespace NFePHP\Common\Base;
+namespace NFePHP\MDFe\Base;
 
 /**
  * Classe base para a criação das classes construtoras dos XML
  * tanto para NFe, NFCe, CTe e MDFe
  *
  * @category   NFePHP
- * @package    NFePHP\Common\Base\BaseMake
+ * @package    NFePHP\MDFe\Base\BaseMake
  * @copyright  Copyright (c) 2008-2015
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>
  * @link       http://github.com/nfephp-org/nfephp for the canonical source repository
  */
 
-use NFePHP\Common\Dom\Dom as Dom;
-use NFePHP\Common\Keys\Keys;
-use NFePHP\Common\Identify\Identify;
-use NFePHP\Common\Files\FilesFolders;
+use NFePHP\MDFe\Dom\Dom as Dom;
+use NFePHP\MDFe\Keys\Keys;
+use NFePHP\MDFe\Identify\Identify;
+use NFePHP\MDFe\Files\FilesFolders;
 
 class BaseMake
 {
@@ -49,7 +49,7 @@ class BaseMake
     /**
      * dom
      * Variável onde será montado o xml do documento fiscal
-     * @var \NFePHP\Common\Dom\Dom
+     * @var \NFePHP\MDFe\Dom\Dom
      */
     public $dom;
     /**

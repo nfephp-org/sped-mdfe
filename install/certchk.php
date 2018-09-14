@@ -4,7 +4,7 @@ namespace NFePHP\install;
 
 require_once('../bootstrap.php');
 
-use NFePHP\Common\Configure\Configure;
+use NFePHP\MDFe\Configure\Configure;
 
 $cnpj = filter_input(INPUT_GET, 'cnpj', FILTER_SANITIZE_STRING);
 $pathCertsFiles = filter_input(INPUT_GET, 'pathCertsFiles', FILTER_SANITIZE_STRING);

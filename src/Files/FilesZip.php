@@ -1,18 +1,18 @@
 <?php
 
-namespace NFePHP\Common\Files;
+namespace NFePHP\MDFe\Files;
 
 /**
  * Classe auxiliar para criar, listar e testar os diretórios utilizados pela API
  * @category   NFePHP
- * @package    NFePHP\Common\Files
+ * @package    NFePHP\MDFe\Files
  * @copyright  Copyright (c) 2008-2014
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>
  * @link       http://github.com/nfephp-org/nfephp for the canonical source repository
  */
 
-use NFePHP\Common\Exception;
+use NFePHP\MDFe\Exception;
 
 class FilesZip
 {

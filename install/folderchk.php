@@ -4,7 +4,7 @@ namespace NFePHP\install;
 
 require_once('../bootstrap.php');
 
-use NFePHP\Common\Configure\Configure;
+use NFePHP\MDFe\Configure\Configure;
 
 $pathnfe = filter_input(INPUT_GET, 'pathNFeFiles', FILTER_SANITIZE_STRING);
 $pathcte = filter_input(INPUT_GET, 'pathCTeFiles', FILTER_SANITIZE_STRING);

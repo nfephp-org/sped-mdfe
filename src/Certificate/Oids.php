@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\Common\Certificate;
+namespace NFePHP\MDFe\Certificate;
 
 class Oids
 {

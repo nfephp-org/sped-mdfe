@@ -1,13 +1,13 @@
 <?php
 
-namespace NFePHP\Common\Certificate;
+namespace NFePHP\MDFe\Certificate;
 
 /**
  * Classe auxiliar para obter informações dos certificados digitais A1 (PKCS12)
  * Base para a classe ASN
  *
  * @category   NFePHP
- * @package    NFePHP\Common\Certificate
+ * @package    NFePHP\MDFe\Certificate
  * @copyright  Copyright (c) 2008-2014
  * @license    http://www.gnu.org/licenses/lesser.html LGPL v3
  * @author     Roberto L. Machado <linux.rlm at gmail dot com>
