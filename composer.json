@@ -35,7 +35,7 @@
         "ext-fileinfo": "*",
         "ext-iconv": "*",
         "ext-mbstring": "*",
-        "zendframework/zend-servicemanager": "^2.5",
+        "zendframework/zend-servicemanager": "^2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "4.*",
