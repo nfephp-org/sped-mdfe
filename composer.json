@@ -19,6 +19,7 @@
     ],
     "require": {
         "php" : "~5.5|~7.0",
+        "nfephp-org/sped-common": "v4.1",
         "zendframework/zend-mail": "^2.5",
         "html2text/html2text": "^4.0",
         "symfony/serializer": "^3.1",
