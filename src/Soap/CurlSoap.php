@@ -153,7 +153,7 @@ class CurlSoap
     public function send($urlservice, $namespace, $header, $body, $method)
     {
         //monta a mensagem ao webservice
-        $data = '<?xml version="1.0" encoding="utf-8"?>'.'<soap12:Envelope ';
+        $data = '<?xml version="1.0" encoding="ISO-8859-1"?>'.'<soap12:Envelope ';
         $data .= 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ';
         $data .= 'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ';
         $data .= 'xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">';
