@@ -806,8 +806,8 @@ class Tools extends BaseTools
             throw new Exception\RuntimeException($msg);
         }
         $cons = "<consMDFeNaoEnc xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-            . "<tpAmb>$tpAmb</tpAmb>"
-            . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ><CNPJ>$cnpj</CNPJ></consMDFeNaoEnc>";
+                . "<tpAmb>$tpAmb</tpAmb>"
+                . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ><CNPJ>$cnpj</CNPJ></consMDFeNaoEnc>";
         //valida mensagem com xsd
         //if (! $this->zValidMessage($cons, 'mdfe', 'consMDFeNaoEnc', $version)) {
         //    $msg = 'Falha na validação. '.$this->error;
@@ -834,7 +834,7 @@ class Tools extends BaseTools
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
-
+    
     /**
      * zSefazEvento
      *
