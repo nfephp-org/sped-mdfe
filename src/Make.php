@@ -116,8 +116,8 @@ class Make extends BaseMake
      * @var DOMElement
      */
     private $infSeg;
-            
-    
+
+
     // Arrays
     private $aInfMunCarrega = array(); //array de DOMNode
     private $aInfPercurso = array(); //array de DOMNode
@@ -202,7 +202,7 @@ class Make extends BaseMake
     public function taginfMDFe($chave = '', $versao = '')
     {
         $this->infMDFe = $this->dom->createElement("infMDFe");
-        $this->infMDFe->setAttribute("Id", 'MDFe'.$chave);
+        $this->infMDFe->setAttribute("Id", 'MDFe' . $chave);
         $this->infMDFe->setAttribute("versao", $versao);
         $this->chMDFe = $chave;
         $this->versao = $versao;
@@ -251,7 +251,8 @@ class Make extends BaseMake
         $UFIni = '',
         $UFFim = '',
         $dhIniViagem = ''
-    ) {
+    )
+    {
         $this->tpAmb = $tpAmb;
         if ($dhEmi == '') {
             $dhEmi = DateTime::convertTimestampToSefazTime();
@@ -394,7 +395,8 @@ class Make extends BaseMake
     public function tagInfMunCarrega(
         $cMunCarrega = '',
         $xMunCarrega = ''
-    ) {
+    )
+    {
         $infMunCarrega = $this->dom->createElement("infMunCarrega");
         $this->dom->addChild(
             $infMunCarrega,
@@ -452,7 +454,8 @@ class Make extends BaseMake
         $IE = '',
         $xNome = '',
         $xFant = ''
-    ) {
+    )
+    {
         $identificador = '[27] <emit> - ';
         $this->emit = $this->dom->createElement('emit');
         $this->dom->addChild($this->emit, 'CNPJ', $CNPJ, true, $identificador . 'CNPJ do emitente');
@@ -490,7 +493,8 @@ class Make extends BaseMake
         $UF = '',
         $fone = '',
         $email = ''
-    ) {
+    )
+    {
         $identificador = '[32] <enderEmit> - ';
         $this->enderEmit = $this->dom->createElement("enderEmit");
         $this->dom->addChild(
@@ -571,15 +575,16 @@ class Make extends BaseMake
      * tag MDFe/infMDFe/infDoc/infMunDescarga
      *
      * @param  integer $item
-     * @param  string  $cMunDescarga
-     * @param  string  $xMunDescarga
+     * @param  string $cMunDescarga
+     * @param  string $xMunDescarga
      * @return DOMElement
      */
     public function tagInfMunDescarga(
         $nItem = 0,
         $cMunDescarga = '',
         $xMunDescarga = ''
-    ) {
+    )
+    {
         $infMunDescarga = $this->dom->createElement("infMunDescarga");
         $this->dom->addChild(
             $infMunDescarga,
@@ -614,7 +619,8 @@ class Make extends BaseMake
         $chCTe = '',
         $segCodBarra = '',
         $indReentrega = ''
-    ) {
+    )
+    {
         $infCTe = $this->dom->createElement("infCTe");
         $this->dom->addChild(
             $infCTe,
@@ -656,7 +662,8 @@ class Make extends BaseMake
         $chNFe = '',
         $SegCodBarra = '',
         $indReentrega = ''
-    ) {
+    )
+    {
         $infNFe = $this->dom->createElement("infNFe");
         $this->dom->addChild(
             $infNFe,
@@ -696,7 +703,8 @@ class Make extends BaseMake
         $nItem = 0,
         $chMDFe = '',
         $indReentrega = ''
-    ) {
+    )
+    {
         $infMDFeTransp = $this->dom->createElement("infMDFeTransp");
         $this->dom->addChild(
             $infMDFeTransp,
@@ -735,7 +743,8 @@ class Make extends BaseMake
         $vCarga = '',
         $cUnid = '',
         $qCarga = ''
-    ) {
+    )
+    {
         $tot = $this->dom->createElement("tot");
         $this->dom->addChild(
             $tot,
@@ -792,7 +801,8 @@ class Make extends BaseMake
      */
     public function tagLacres(
         $nLacre = ''
-    ) {
+    )
+    {
         $lacres = $this->dom->createElement("lacres");
         $this->dom->addChild(
             $lacres,
@@ -817,7 +827,8 @@ class Make extends BaseMake
     public function taginfAdic(
         $infAdFisco = '',
         $infCpl = ''
-    ) {
+    )
+    {
         $infAdic = $this->dom->createElement("infAdic");
         $this->dom->addChild(
             $infAdic,
@@ -902,7 +913,8 @@ class Make extends BaseMake
         $cAerEmb = '',
         $cAerDes = '',
         $dVoo = ''
-    ) {
+    )
+    {
         $aereo = $this->dom->createElement("aereo");
         $this->dom->addChild(
             $aereo,
@@ -967,7 +979,8 @@ class Make extends BaseMake
         $xOri = '',
         $xDest = '',
         $qVag = ''
-    ) {
+    )
+    {
         $trem = $this->dom->createElement("trem");
         $this->dom->addChild(
             $trem,
@@ -1023,7 +1036,8 @@ class Make extends BaseMake
         $nVag = '',
         $nSeq = '',
         $tonUtil = ''
-    ) {
+    )
+    {
         $vag = $this->dom->createElement("vag");
         $this->dom->addChild(
             $vag,
@@ -1076,7 +1090,8 @@ class Make extends BaseMake
         $nViagem = '',
         $cPrtEmb = '',
         $cPrtDest = ''
-    ) {
+    )
+    {
         $aqua = $this->dom->createElement("Aqua");
         $this->dom->addChild(
             $aqua,
@@ -1133,7 +1148,8 @@ class Make extends BaseMake
      */
     public function tagInfTermCarreg(
         $cTermCarreg = ''
-    ) {
+    )
+    {
         $infTermCarreg = $this->dom->createElement("infTermCarreg");
         $this->dom->addChild(
             $infTermCarreg,
@@ -1155,7 +1171,8 @@ class Make extends BaseMake
      */
     public function tagInfTermDescarreg(
         $cTermDescarreg = ''
-    ) {
+    )
+    {
         $infTermDescarreg = $this->dom->createElement("infTermDescarreg");
         $this->dom->addChild(
             $infTermDescarreg,
@@ -1177,7 +1194,8 @@ class Make extends BaseMake
      */
     public function tagInfEmbComb(
         $cEmbComb = ''
-    ) {
+    )
+    {
         $infEmbComb = $this->dom->createElement("infEmbComb");
         $this->dom->addChild(
             $infEmbComb,
@@ -1199,7 +1217,8 @@ class Make extends BaseMake
      */
     public function tagRodo(
         $codAgPorto = ''
-    ) {
+    )
+    {
         $rodo = $this->dom->createElement("rodo");
         $this->dom->addChild(
             $rodo,
@@ -1221,7 +1240,8 @@ class Make extends BaseMake
      */
     public function tagInfANTT(
         $rntrc = ''
-    ) {
+    )
+    {
         $infANTT = $this->dom->createElement("infANTT");
         $this->dom->addChild(
             $infANTT,
@@ -1233,7 +1253,7 @@ class Make extends BaseMake
         $this->infANTT = $infANTT;
         return $infANTT;
     }
-    
+
     /**
      * tagInfContratante
      * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
@@ -1245,7 +1265,8 @@ class Make extends BaseMake
     public function tagInfContratante(
         $CPF = '',
         $CNPJ = ''
-    ) {
+    )
+    {
         $this->infContratante[] = $this->dom->createElement("infContratante");
         $posicao = (integer)count($this->infContratante) - 1;
         if ($CPF != '') {
@@ -1268,7 +1289,7 @@ class Make extends BaseMake
         }
         return $this->infContratante[$posicao];
     }
-    
+
     /**
      * tagSeg
      * tag MDFe/infMDFe/seg
@@ -1280,12 +1301,13 @@ class Make extends BaseMake
     public function tagSeg(
         $nApol = '',
         $nAver = ''
-    ) {
+    )
+    {
         $seg = $this->dom->createElement("seg");
-        if (! empty($this->infResp)) {
-                $this->dom->appChild($seg, $this->infResp, '');
+        if (!empty($this->infResp)) {
+            $this->dom->appChild($seg, $this->infResp, '');
         }
-        if (! empty($this->infSeg)) {
+        if (!empty($this->infSeg)) {
             $this->dom->appChild($seg, $this->infSeg, '');
         }
         $this->dom->addChild(
@@ -1305,7 +1327,7 @@ class Make extends BaseMake
         $this->aSeg[] = $seg;
         return $seg;
     }
-    
+
     /**
      * tagInfResp
      * tag MDFe/infMDFe/seg/infResp
@@ -1319,7 +1341,8 @@ class Make extends BaseMake
         $respSeg = '',
         $CNPJ = '',
         $CPF = ''
-    ) {
+    )
+    {
         $infResp = $this->dom->createElement("infResp");
         $this->dom->addChild(
             $infResp,
@@ -1345,7 +1368,7 @@ class Make extends BaseMake
         $this->infResp = $infResp;
         return $infResp;
     }
-    
+
     /**
      * tagInfSeg
      * tag MDFe/infMDFe/seg/infSeg
@@ -1357,7 +1380,8 @@ class Make extends BaseMake
     public function tagInfSeg(
         $xSeg = '',
         $CNPJ = ''
-    ) {
+    )
+    {
         $infSeg = $this->dom->createElement("infSeg");
         $this->dom->addChild(
             $infSeg,
@@ -1376,7 +1400,7 @@ class Make extends BaseMake
         $this->infSeg = $infSeg;
         return $infSeg;
     }
-    
+
     /**
      * tagVeicTracao
      * tag MDFe/infMDFe/infModal/rodo/veicTracao
@@ -1402,7 +1426,8 @@ class Make extends BaseMake
         $tpCar = '',
         $UF = '',
         $RENAVAM = ''
-    ) {
+    )
+    {
         $veicTracao = $this->zTagVeiculo(
             'veicTracao',
             $cInt,
@@ -1432,7 +1457,8 @@ class Make extends BaseMake
     public function tagCondutor(
         $xNome = '',
         $cpf = ''
-    ) {
+    )
+    {
         $condutor = $this->dom->createElement("condutor");
         $this->dom->addChild(
             $condutor,
@@ -1472,7 +1498,8 @@ class Make extends BaseMake
         $IE = '',
         $UF = '',
         $tpProp = ''
-    ) {
+    )
+    {
         $prop = $this->dom->createElement("prop");
         $this->dom->addChild(
             $prop,
@@ -1546,7 +1573,8 @@ class Make extends BaseMake
         $capKG = '',
         $capM3 = '',
         $propRNTRC = ''
-    ) {
+    )
+    {
         $reboque = $this->zTagVeiculo('reboque', $cInt, $placa, $tara, $capKG, $capM3, $propRNTRC);
         $this->aReboque[] = $reboque;
         return $reboque;
@@ -1567,7 +1595,8 @@ class Make extends BaseMake
         $cnpjPg = '',
         $nCompra = '',
         $vValePed = ''
-    ) {
+    )
+    {
         $disp = $this->dom->createElement('disp');
         $this->dom->addChild(
             $disp,
@@ -1625,7 +1654,8 @@ class Make extends BaseMake
         $UF = '',
         $RENAVAM = '',
         $proprietarios = array()
-    ) {
+    )
+    {
         $node = $this->dom->createElement($tag);
         $this->dom->addChild(
             $node,
@@ -1641,13 +1671,15 @@ class Make extends BaseMake
             true,
             "Placa do veículo"
         );
-        $this->dom->addChild(
-            $node,
-            "RENAVAM",
-            $RENAVAM,
-            true,
-            "RENAVAM do veículo"
-        );
+        if ($RENAVAM) {
+            $this->dom->addChild(
+                $node,
+                "RENAVAM",
+                $RENAVAM,
+                true,
+                "RENAVAM do veículo"
+            );
+        }
         $this->dom->addChild(
             $node,
             "tara",
@@ -1746,8 +1778,8 @@ class Make extends BaseMake
      */
     protected function zTagInfDoc()
     {
-        $this->aCountDoc = array('CTe'=>0, 'NFe'=>0, 'MDFe'=>0);
-        if (! empty($this->aInfMunDescarga)) {
+        $this->aCountDoc = array('CTe' => 0, 'NFe' => 0, 'MDFe' => 0);
+        if (!empty($this->aInfMunDescarga)) {
             $infDoc = $this->dom->createElement("infDoc");
             $this->aCountDoc['CTe'] = 0;
             $this->aCountDoc['NFe'] = 0;
@@ -1777,13 +1809,13 @@ class Make extends BaseMake
             $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
         }
     }
-    
+
     /**
      * Processa Seguro
      */
     protected function zTagSeg()
     {
-        if (! empty($this->seg)) {
+        if (!empty($this->seg)) {
             $this->dom->appChild($this->infMDFe, $this->seg, '');
         }
     }
@@ -1793,17 +1825,17 @@ class Make extends BaseMake
      */
     protected function zTagRodo()
     {
-        if (! empty($this->infModal)) {
+        if (!empty($this->infModal)) {
             if (empty($this->rodo)) {
                 $this->rodo = $this->dom->createElement("rodo");
             }
-            if (! empty($this->infANTT)) {
+            if (!empty($this->infANTT)) {
                 $this->dom->addArrayChild($this->infANTT, $this->infContratante);
                 $this->dom->appChild($this->rodo, $this->infANTT, '');
             }
             $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
             $this->dom->addArrayChild($this->rodo, $this->aReboque);
-            if (! empty($this->aDisp)) {
+            if (!empty($this->aDisp)) {
                 $valePed = $this->dom->createElement("valePed");
                 foreach ($this->aDisp as $node) {
                     $this->dom->appChild($valePed, $node, '');
@@ -1819,7 +1851,7 @@ class Make extends BaseMake
      */
     protected function zTagFerrov()
     {
-        if (! empty($this->trem)) {
+        if (!empty($this->trem)) {
             $this->dom->addArrayChild($this->trem, $this->aVag);
             $ferrov = $this->dom->createElement("ferrov");
             $this->dom->appChild($ferrov, $this->trem, '');
@@ -1832,7 +1864,7 @@ class Make extends BaseMake
      */
     protected function zTagAereo()
     {
-        if (! empty($this->aereo)) {
+        if (!empty($this->aereo)) {
             $this->dom->appChild($this->infModal, $this->aereo, 'Falta tag "infModal"');
         }
     }
@@ -1842,7 +1874,7 @@ class Make extends BaseMake
      */
     protected function zTagAqua()
     {
-        if (! empty($this->aqua)) {
+        if (!empty($this->aqua)) {
             $this->dom->addArrayChild($this->aqua, $this->aInfTermCarreg);
             $this->dom->addArrayChild($this->aqua, $this->aInfTermDescarreg);
             $this->dom->addArrayChild($this->aqua, $this->aInfEmbComb);
