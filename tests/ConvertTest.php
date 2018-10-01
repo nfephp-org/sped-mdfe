@@ -4,13 +4,14 @@
  * Class ConvertTest
  * @author Roberto L. Machado <linux.rlm at gmail dot com>
  */
+use PHPUnit\Framework\TestCase;
 
-class ConvertTest extends PHPUnit_Framework_TestCase
+class ConvertTest extends TestCase
 {
     public $mdfe;
-    
+
     public function testeInstanciar()
     {
-        
+        $this->assertTrue(true);
     }
 }

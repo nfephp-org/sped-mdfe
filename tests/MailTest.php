@@ -4,9 +4,10 @@
  * Class MailMDFeTest
  * @author Roberto L. Machado <linux.rlm at gmail dot com>
  */
+use PHPUnit\Framework\TestCase;
 use NFePHP\MDFe\Mail;
 
-class MailTest extends PHPUnit_Framework_TestCase
+class MailTest extends TestCase
 {
     public $mail;
     
@@ -16,5 +17,6 @@ class MailTest extends PHPUnit_Framework_TestCase
         $json = json_decode($configJson);
         $aMail = (array) $json->aMailConf;
         $this->mail = new Mail($aMail);
+        $this->assertTrue(true);
     }
 }

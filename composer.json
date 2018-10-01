@@ -19,12 +19,13 @@
     ],
     "require": {
         "php" : "~5.5|~7.0",
+        "ext-dom": "*",
         "nfephp-org/sped-common" : "^4.1",
         "zendframework/zend-mail": "^2.5",
         "html2text/html2text": "^4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.*",
+        "phpunit/phpunit": "^6.4",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.3"
     },

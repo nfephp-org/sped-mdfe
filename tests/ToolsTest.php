@@ -4,9 +4,10 @@
  * Class ToolsMDFeTest
  * @author Roberto L. Machado <linux.rlm at gmail dot com>
  */
+use PHPUnit\Framework\TestCase;
 use NFePHP\MDFe\Tools;
 
-class ToolsTest extends PHPUnit_Framework_TestCase
+class ToolsTest extends TestCase
 {
     public $mdfe;
     
