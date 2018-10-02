@@ -103,6 +103,10 @@ class Make extends BaseMake
     /**
      * @var DOMElement
      */
+    private $infCIOT; //array de DOMNode
+    /**
+     * @var DOMElement
+     */
     private $infContratante;
     /**
      * @var DOMElement
@@ -1254,6 +1258,40 @@ class Make extends BaseMake
         return $infANTT;
     }
 
+    public function tagInfCIOT(
+        $ciot = '',
+        $cpfcnpj = ''
+    )
+    {
+        $tagCIOT = $this->dom->createElement("infCIOT");
+        $this->dom->addChild(
+            $tagCIOT,
+            "CIOT",
+            $ciot,
+            true,
+            "Código Identificador da Operação de Transportes"
+        );
+        if (strlen($cpfcnpj) == 14) {
+            $this->dom->addChild(
+                $tagCIOT,
+                "CNPJ",
+                $cpfcnpj,
+                true,
+                "CNPJ do contratante e do destinatário da carga"
+            );
+        } else {
+            $this->dom->addChild(
+                $tagCIOT,
+                "CPF",
+                $cpfcnpj,
+                true,
+                "CPF do contratante e do destinatário da carga"
+            );
+        }
+        $this->infCIOT = $tagCIOT;
+        return $tagCIOT;
+    }
+
     /**
      * tagInfContratante
      * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
@@ -1828,6 +1866,9 @@ class Make extends BaseMake
         if (!empty($this->infModal)) {
             if (empty($this->rodo)) {
                 $this->rodo = $this->dom->createElement("rodo");
+            }
+            if (!empty($this->infCIOT)) {
+                $this->dom->appChild($this->infANTT, $this->infCIOT, '');
             }
             if (!empty($this->infANTT)) {
                 $this->dom->addArrayChild($this->infANTT, $this->infContratante);
