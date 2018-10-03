@@ -1630,7 +1630,7 @@ class Make extends BaseMake
      */
     public function tagValePed(
         $cnpjForn = '',
-        $cnpjPg = '',
+        $cpfcnpjPg = '',
         $nCompra = '',
         $vValePed = ''
     )
@@ -1643,13 +1643,23 @@ class Make extends BaseMake
             true,
             "CNPJ da empresa fornecedora do Vale-Pedágio"
         );
-        $this->dom->addChild(
-            $disp,
-            "CNPJPg",
-            $cnpjPg,
-            false,
-            "CNPJ do responsável pelo pagamento do Vale-Pedágio"
-        );
+        if (strlen($cpfcnpjPg) == 14) {
+            $this->dom->addChild(
+                $disp,
+                "CNPJPg",
+                $cpfcnpjPg,
+                false,
+                "CNPJ do responsável pelo pagamento do Vale-Pedágio"
+            );
+        }else{
+            $this->dom->addChild(
+                $disp,
+                "CPFPg",
+                $cpfcnpjPg,
+                false,
+                "CPF do responsável pelo pagamento do Vale-Pedágio"
+            );
+        }
         $this->dom->addChild(
             $disp,
             "nCompra",
@@ -1870,19 +1880,19 @@ class Make extends BaseMake
             if (!empty($this->infCIOT)) {
                 $this->dom->appChild($this->infANTT, $this->infCIOT, '');
             }
+            if (!empty($this->aDisp)) {
+                $valePed = $this->dom->createElement("valePed");
+                foreach ($this->aDisp as $node) {
+                    $this->dom->appChild($valePed, $node, '');
+                }
+                $this->dom->appChild($this->infANTT, $valePed, '');
+            }
             if (!empty($this->infANTT)) {
                 $this->dom->addArrayChild($this->infANTT, $this->infContratante);
                 $this->dom->appChild($this->rodo, $this->infANTT, '');
             }
             $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
             $this->dom->addArrayChild($this->rodo, $this->aReboque);
-            if (!empty($this->aDisp)) {
-                $valePed = $this->dom->createElement("valePed");
-                foreach ($this->aDisp as $node) {
-                    $this->dom->appChild($valePed, $node, '');
-                }
-                $this->dom->appChild($this->rodo, $valePed, '');
-            }
             $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "infModal"');
         }
     }
