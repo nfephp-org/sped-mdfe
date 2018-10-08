@@ -19,6 +19,16 @@ class MakeTest extends TestCase
         $this->make = new Make();
     }
 
+    public function testTagInfMdfe()
+    {
+        $std = new \stdClass();
+        $std->versao = '3.00';
+
+        $mdfe = $this->make->taginfMDFe($std);
+        $this->assertInstanceOf(\DOMElement::class, $mdfe);
+        $this->assertEquals('3.00', $mdfe->getAttribute('versao'));
+    }
+
     public function testTagIde()
     {
         $std = new \stdClass();
@@ -83,8 +93,8 @@ class MakeTest extends TestCase
     public function testTagEmit()
     {
         $std = new \stdClass();
-        $std->cnpj = '09204054000143';
-        $std->numIE = '0010526120088';
+        $std->CNPJ = '09204054000143';
+        $std->IE = '0010526120088';
         $std->xNome = 'NOME DO CLIENTE';
         $std->xFant = 'FANTASIA';
 
@@ -105,8 +115,8 @@ class MakeTest extends TestCase
         $std->xBairro = 'CAICARAS';
         $std->cMun = '3106200';
         $std->xMun = 'Belo Horizonte';
-        $std->cep = '30770180';
-        $std->siglaUF = 'MG';
+        $std->CEP = '30770180';
+        $std->UF = 'MG';
         $std->fone = '31988998899';
         $std->email = 'email@hotmail.com';
 
@@ -124,61 +134,6 @@ class MakeTest extends TestCase
         $this->assertEquals('email@hotmail.com', $enderEmit->getElementsByTagName('email')->item(0)->nodeValue);
     }
 
-    public function testTagInfMunDescarga()
-    {
-        $std = new \stdClass();
-        $std->nItem = 0;
-        $std->cMunDescarga = '5300108';
-        $std->xMunDescarga = 'BRASILIA';
-
-        $infMunDescarga = $this->make->tagInfMunDescarga($std);
-        $this->assertInstanceOf(\DOMElement::class, $infMunDescarga);
-        $this->assertEquals('5300108', $infMunDescarga->getElementsByTagName('cMunDescarga')->item(0)->nodeValue);
-        $this->assertEquals('BRASILIA', $infMunDescarga->getElementsByTagName('xMunDescarga')->item(0)->nodeValue);
-    }
-
-    public function testTagInfCTe()
-    {
-        $std = new \stdClass();
-        $std->nItem = 0;
-        $std->chCTe = '31171009204054000143570010000015441090704345';
-        $std->segCodBarra = '';
-        $std->indReentrega = '';
-
-        $infCTe = $this->make->tagInfCTe($std);
-        $this->assertInstanceOf(\DOMElement::class, $infCTe);
-        $this->assertEquals('31171009204054000143570010000015441090704345', $infCTe->getElementsByTagName('chCTe')->item(0)->nodeValue);
-        $this->assertEquals('', $infCTe->getElementsByTagName('SegCodBarra')->item(0)->nodeValue);
-        $this->assertEquals('', $infCTe->getElementsByTagName('indReentrega')->item(0)->nodeValue);
-    }
-
-    public function testTagInfNFe()
-    {
-        $std = new \stdClass();
-        $std->nItem = 0;
-        $std->chNFe = '31171009204054000143570010000015441090704345';
-        $std->SegCodBarra = '';
-        $std->indReentrega = '';
-
-        $infNFe = $this->make->tagInfNFe($std);
-        $this->assertInstanceOf(\DOMElement::class, $infNFe);
-        $this->assertEquals('31171009204054000143570010000015441090704345', $infNFe->getElementsByTagName('chNFe')->item(0)->nodeValue);
-        $this->assertEquals('', $infNFe->getElementsByTagName('SegCodBarra')->item(0)->nodeValue);
-        $this->assertEquals('', $infNFe->getElementsByTagName('indReentrega')->item(0)->nodeValue);
-    }
-
-    public function testTagAutXML()
-    {
-        $std = new \stdClass();
-        $std->cnpj = '';
-        $std->cpf = '09835787667';
-
-        $autXML = $this->make->tagautXML($std);
-        $this->assertInstanceOf(\DOMElement::class, $autXML);
-        $this->assertEquals('', $autXML->getElementsByTagName('CNPJ')->item(0)->nodeValue);
-        $this->assertEquals('09835787667', $autXML->getElementsByTagName('CPF')->item(0)->nodeValue);
-    }
-
     public function testTagInfModal()
     {
         $std = new \stdClass();
@@ -187,6 +142,160 @@ class MakeTest extends TestCase
         $infModal = $this->make->tagInfModal($std);
         $this->assertInstanceOf(\DOMElement::class, $infModal);
         $this->assertEquals('3.00', $infModal->getAttribute('versaoModal'));
+    }
+
+    public function testTagRodo()
+    {
+        $std = new \stdClass();
+        $std->codAgPorto = '10167059';
+
+        $rodo = $this->make->tagRodo($std);
+        $this->assertInstanceOf(\DOMElement::class, $rodo);
+        $this->assertEquals('10167059', $rodo->getElementsByTagName('codAgPorto')->item(0)->nodeValue);
+    }
+
+    public function testTagInfANTT()
+    {
+        $std = new \stdClass();
+        $std->RNTRC = '9988877';
+
+        $antt = $this->make->tagInfANTT($std);
+        $this->assertInstanceOf(\DOMElement::class, $antt);
+        $this->assertEquals('9988877', $antt->getElementsByTagName('RNTRC')->item(0)->nodeValue);
+    }
+
+    public function testTagInfCIOT()
+    {
+        $std = new \stdClass();
+        $std->CIOT  = '9988877';
+        $std->CNPJ  = '09204054000143';
+
+        $ciot = $this->make->tagInfCIOT($std);
+        $this->assertInstanceOf(\DOMElement::class, $ciot);
+        $this->assertEquals('9988877', $ciot->getElementsByTagName('CIOT')->item(0)->nodeValue);
+        $this->assertEquals('09204054000143', $ciot->getElementsByTagName('CNPJ')->item(0)->nodeValue);
+    }
+
+    public function testTagDisp()
+    {
+        $std = new \stdClass();
+        $std->CNPJForn  = '09204054000143';
+        $std->CNPJPg  = '09204054000143';
+        $std->CPFPg  = '64884590074';
+        $std->nCompra  = '34566';
+        $std->vValePed  = '200';
+
+        $disp = $this->make->tagDisp($std);
+        $this->assertInstanceOf(\DOMElement::class, $disp);
+        $this->assertEquals('09204054000143', $disp->getElementsByTagName('CNPJForn')->item(0)->nodeValue);
+        $this->assertEquals('09204054000143', $disp->getElementsByTagName('CNPJPg')->item(0)->nodeValue);
+        $this->assertEquals('64884590074', $disp->getElementsByTagName('CPFPg')->item(0)->nodeValue);
+        $this->assertEquals('34566', $disp->getElementsByTagName('nCompra')->item(0)->nodeValue);
+        $this->assertEquals('200', $disp->getElementsByTagName('vValePed')->item(0)->nodeValue);
+    }
+
+    public function testTagInfContratante()
+    {
+        $std = new \stdClass();
+        $std->CPF  = '';
+        $std->CNPJ  = '09204054000143';
+
+        $contratante = $this->make->tagInfContratante($std);
+        $this->assertInstanceOf(\DOMElement::class, $contratante);
+        $this->assertEquals('09204054000143', $contratante->getElementsByTagName('CNPJ')->item(0)->nodeValue);
+        $this->assertEquals('', $contratante->getElementsByTagName('CPF')->item(0)->nodeValue);
+    }
+
+    public function testTagVeicTracao()
+    {
+        $std = new \stdClass();
+        $std->cInt = '';
+        $std->placa = 'ABC1234';
+        $std->RENAVAM = '78541258';
+        $std->tara = '10000';
+        $std->capKG = '500';
+        $std->capM3 = '60';
+        $std->tpRod = '06';
+        $std->tpCar = '02';
+        $std->UF = 'MG';
+
+        $veic = $this->make->tagVeicTracao($std);
+        $this->assertInstanceOf(\DOMElement::class, $veic);
+        $this->assertEquals('', $veic->getElementsByTagName('cInt')->item(0)->nodeValue);
+        $this->assertEquals('ABC1234', $veic->getElementsByTagName('placa')->item(0)->nodeValue);
+        $this->assertEquals('78541258', $veic->getElementsByTagName('RENAVAM')->item(0)->nodeValue);
+        $this->assertEquals('10000', $veic->getElementsByTagName('tara')->item(0)->nodeValue);
+        $this->assertEquals('500', $veic->getElementsByTagName('capKG')->item(0)->nodeValue);
+        $this->assertEquals('60', $veic->getElementsByTagName('capM3')->item(0)->nodeValue);
+        $this->assertEquals('06', $veic->getElementsByTagName('tpRod')->item(0)->nodeValue);
+        $this->assertEquals('02', $veic->getElementsByTagName('tpCar')->item(0)->nodeValue);
+        $this->assertEquals('MG', $veic->getElementsByTagName('UF')->item(0)->nodeValue);
+    }
+
+    public function testTagPropVeicTracao()
+    {
+        $std = new \stdClass();
+        $std->xNome = 'Proprietario';
+
+        $prop = $this->make->tagPropVeicTracao($std);
+        $this->assertInstanceOf(\DOMElement::class, $prop);
+        $this->assertEquals('Proprietario', $prop->getElementsByTagName('xNome')->item(0)->nodeValue);
+    }
+
+    public function testTagCondutor()
+    {
+        $std = new \stdClass();
+        $std->xNome = 'Condutor 1';
+
+        $condutor = $this->make->tagCondutor($std);
+        $this->assertInstanceOf(\DOMElement::class, $condutor);
+        $this->assertEquals('Condutor 1', $condutor->getElementsByTagName('xNome')->item(0)->nodeValue);
+    }
+
+    public function testTagVeicReboque()
+    {
+        $std = new \stdClass();
+        $std->item = '1';
+        $std->cInt = '1';
+        $std->placa = 'ABC1234';
+        $std->RENAVAM = '78541258';
+        $std->tara = '10000';
+        $std->capKG = '500';
+        $std->capM3 = '60';
+        $std->tpCar = '02';
+        $std->UF = 'MG';
+
+        $veic = $this->make->tagVeicReboque($std);
+        $this->assertInstanceOf(\DOMElement::class, $veic);
+        $this->assertEquals('1', $veic->getElementsByTagName('cInt')->item(0)->nodeValue);
+        $this->assertEquals('ABC1234', $veic->getElementsByTagName('placa')->item(0)->nodeValue);
+        $this->assertEquals('78541258', $veic->getElementsByTagName('RENAVAM')->item(0)->nodeValue);
+        $this->assertEquals('10000', $veic->getElementsByTagName('tara')->item(0)->nodeValue);
+        $this->assertEquals('500', $veic->getElementsByTagName('capKG')->item(0)->nodeValue);
+        $this->assertEquals('60', $veic->getElementsByTagName('capM3')->item(0)->nodeValue);
+        $this->assertEquals('02', $veic->getElementsByTagName('tpCar')->item(0)->nodeValue);
+        $this->assertEquals('MG', $veic->getElementsByTagName('UF')->item(0)->nodeValue);
+    }
+
+    public function testTagPropVeicReboque()
+    {
+        $std = new \stdClass();
+        $std->item = '1';
+        $std->xNome = 'Proprietario';
+
+        $prop = $this->make->tagPropVeicReboque($std);
+        $this->assertInstanceOf(\DOMElement::class, $prop);
+        $this->assertEquals('Proprietario', $prop->getElementsByTagName('xNome')->item(0)->nodeValue);
+    }
+
+    public function testTagLacRodo()
+    {
+        $std = new \stdClass();
+        $std->nLacre = '6552';
+
+        $lacre = $this->make->tagLacRodo($std);
+        $this->assertInstanceOf(\DOMElement::class, $lacre);
+        $this->assertEquals('6552', $lacre->getElementsByTagName('nLacre')->item(0)->nodeValue);
     }
 
     public function testTagAereo()
@@ -207,46 +316,6 @@ class MakeTest extends TestCase
         $this->assertEquals('OACI', $aereo->getElementsByTagName('cAerEmb')->item(0)->nodeValue);
         $this->assertEquals('OACI', $aereo->getElementsByTagName('cAerDes')->item(0)->nodeValue);
         $this->assertEquals('2017-12-12T10:24:00-03:00', $aereo->getElementsByTagName('dVoo')->item(0)->nodeValue);
-    }
-
-    public function testTagTrem()
-    {
-        $std = new \stdClass();
-        $std->xPref = 'NGA0115';
-        $std->dhTrem = '2017-12-12T10:24:00-03:00';
-        $std->xOri = 'EFVM';
-        $std->xDest = 'EFA';
-        $std->qVag = '6';
-
-        $trem = $this->make->tagTrem($std);
-        $this->assertInstanceOf(\DOMElement::class, $trem);
-        $this->assertEquals('NGA0115', $trem->getElementsByTagName('xPref')->item(0)->nodeValue);
-        $this->assertEquals('2017-12-12T10:24:00-03:00', $trem->getElementsByTagName('dhTrem')->item(0)->nodeValue);
-        $this->assertEquals('EFVM', $trem->getElementsByTagName('xOri')->item(0)->nodeValue);
-        $this->assertEquals('EFA', $trem->getElementsByTagName('xDest')->item(0)->nodeValue);
-        $this->assertEquals('6', $trem->getElementsByTagName('qVag')->item(0)->nodeValue);
-    }
-
-    public function testTagVag()
-    {
-        $std = new \stdClass();
-        $std->pesoBC = 1.000;
-        $std->pesoR = 1.000;
-        $std->tpVag = 'Gaiola';
-        $std->serie = '1';
-        $std->nVag = '3';
-        $std->nSeq = '1';
-        $std->TU = 1.000;
-
-        $trem = $this->make->tagVag($std);
-        $this->assertInstanceOf(\DOMElement::class, $trem);
-        $this->assertEquals(1.000, $trem->getElementsByTagName('pesoBC')->item(0)->nodeValue);
-        $this->assertEquals(1.000, $trem->getElementsByTagName('pesoR')->item(0)->nodeValue);
-        $this->assertEquals('Gaiola', $trem->getElementsByTagName('tpVag')->item(0)->nodeValue);
-        $this->assertEquals('1', $trem->getElementsByTagName('serie')->item(0)->nodeValue);
-        $this->assertEquals('3', $trem->getElementsByTagName('nVag')->item(0)->nodeValue);
-        $this->assertEquals('1', $trem->getElementsByTagName('nSeq')->item(0)->nodeValue);
-        $this->assertEquals(1.000, $trem->getElementsByTagName('TU')->item(0)->nodeValue);
     }
 
     public function testTagAquav()
@@ -279,22 +348,24 @@ class MakeTest extends TestCase
     {
         $std = new \stdClass();
         $std->cTermCarreg = '12';
+        $std->xTermCarreg = 'Carga Teste';
 
-        $infTermCarreg = $this->make->tagInfTermCarreg($std);
-        $this->assertInstanceOf(\DOMElement::class, $infTermCarreg);
-        $this->assertEquals('12', $infTermCarreg->getElementsByTagName('cTermCarreg')->item(0)->nodeValue);
+        $carreg = $this->make->tagInfTermCarreg($std);
+        $this->assertInstanceOf(\DOMElement::class, $carreg);
+        $this->assertEquals('12', $carreg->getElementsByTagName('cTermCarreg')->item(0)->nodeValue);
+        $this->assertEquals('Carga Teste', $carreg->getElementsByTagName('xTermCarreg')->item(0)->nodeValue);
     }
 
     public function testTagInfTermDescarreg()
     {
         $std = new \stdClass();
-        $std->cTermCarreg = '12';
-        $std->xTermCarreg = 'teste';
+        $std->cTermDescarreg = '12';
+        $std->xTermDescarreg = 'Carga Teste';
 
-        $infTermDescarreg = $this->make->tagInfTermDescarreg($std);
-        $this->assertInstanceOf(\DOMElement::class, $infTermDescarreg);
-        $this->assertEquals('12', $infTermDescarreg->getElementsByTagName('cTermCarreg')->item(0)->nodeValue);
-        $this->assertEquals('teste', $infTermDescarreg->getElementsByTagName('xTermCarreg')->item(0)->nodeValue);
+        $descarreg = $this->make->tagInfTermDescarreg($std);
+        $this->assertInstanceOf(\DOMElement::class, $descarreg);
+        $this->assertEquals('12', $descarreg->getElementsByTagName('cTermDescarreg')->item(0)->nodeValue);
+        $this->assertEquals('Carga Teste', $descarreg->getElementsByTagName('xTermDescarreg')->item(0)->nodeValue);
     }
 
     public function testTagInfEmbComb()
@@ -309,6 +380,181 @@ class MakeTest extends TestCase
         $this->assertEquals('balsa teste', $infEmbComb->getElementsByTagName('xBalsa')->item(0)->nodeValue);
     }
 
+    public function testTagInfUnidCargaVazia()
+    {
+        $std = new \stdClass();
+        $std->idUnidCargaVazia = 0;
+        $std->tpUnidCargaVazia = '5300108';
+
+        $unid = $this->make->tagInfUnidCargaVazia($std);
+        $this->assertInstanceOf(\DOMElement::class, $unid);
+        $this->assertEquals(0, $unid->getElementsByTagName('idUnidCargaVazia')->item(0)->nodeValue);
+        $this->assertEquals('5300108', $unid->getElementsByTagName('tpUnidCargaVazia')->item(0)->nodeValue);
+    }
+
+    public function testTagTrem()
+    {
+        $std = new \stdClass();
+        $std->xPref = 'NGA0115';
+        $std->dhTrem = '2017-12-12T10:24:00-03:00';
+        $std->xOri = 'EFVM';
+        $std->xDest = 'EFA';
+        $std->qVag = '6';
+
+        $trem = $this->make->tagTrem($std);
+        $this->assertInstanceOf(\DOMElement::class, $trem);
+        $this->assertEquals('NGA0115', $trem->getElementsByTagName('xPref')->item(0)->nodeValue);
+        $this->assertEquals('2017-12-12T10:24:00-03:00', $trem->getElementsByTagName('dhTrem')->item(0)->nodeValue);
+        $this->assertEquals('EFVM', $trem->getElementsByTagName('xOri')->item(0)->nodeValue);
+        $this->assertEquals('EFA', $trem->getElementsByTagName('xDest')->item(0)->nodeValue);
+        $this->assertEquals('6', $trem->getElementsByTagName('qVag')->item(0)->nodeValue);
+    }
+
+    public function testTagVag()
+    {
+        $std = new \stdClass();
+        $std->pesoBC = 1.000;
+        $std->pesoR = 1.000;
+        $std->tpVag = 'Gai';
+        $std->serie = '1';
+        $std->nVag = '3';
+        $std->nSeq = '1';
+        $std->TU = 1.000;
+
+        $trem = $this->make->tagVag($std);
+        $this->assertInstanceOf(\DOMElement::class, $trem);
+        $this->assertEquals(1.000, $trem->getElementsByTagName('pesoBC')->item(0)->nodeValue);
+        $this->assertEquals(1.000, $trem->getElementsByTagName('pesoR')->item(0)->nodeValue);
+        $this->assertEquals('Gai', $trem->getElementsByTagName('tpVag')->item(0)->nodeValue);
+        $this->assertEquals('1', $trem->getElementsByTagName('serie')->item(0)->nodeValue);
+        $this->assertEquals('3', $trem->getElementsByTagName('nVag')->item(0)->nodeValue);
+        $this->assertEquals('1', $trem->getElementsByTagName('nSeq')->item(0)->nodeValue);
+        $this->assertEquals(1.000, $trem->getElementsByTagName('TU')->item(0)->nodeValue);
+    }
+
+    public function testTagInfMunDescarga()
+    {
+        $std = new \stdClass();
+        $std->nItem = 0;
+        $std->cMunDescarga = '5300108';
+        $std->xMunDescarga = 'BRASILIA';
+
+        $infMunDescarga = $this->make->tagInfMunDescarga($std);
+        $this->assertInstanceOf(\DOMElement::class, $infMunDescarga);
+        $this->assertEquals('5300108', $infMunDescarga->getElementsByTagName('cMunDescarga')->item(0)->nodeValue);
+        $this->assertEquals('BRASILIA', $infMunDescarga->getElementsByTagName('xMunDescarga')->item(0)->nodeValue);
+    }
+
+    public function testTagInfCTe()
+    {
+        $std = new \stdClass();
+        $std->nItem = 1;
+        $std->chCTe = '31171009204054000143570010000015441090704345';
+        $std->segCodBarra = '';
+        $std->indReentrega = '';
+
+        $infCTe = $this->make->tagInfCTe($std);
+        $this->assertInstanceOf(\DOMElement::class, $infCTe);
+        $this->assertEquals('31171009204054000143570010000015441090704345', $infCTe->getElementsByTagName('chCTe')->item(0)->nodeValue);
+        $this->assertEquals('', $infCTe->getElementsByTagName('SegCodBarra')->item(0)->nodeValue);
+        $this->assertEquals('', $infCTe->getElementsByTagName('indReentrega')->item(0)->nodeValue);
+    }
+
+    public function testTagInfNFe()
+    {
+        $std = new \stdClass();
+        $std->nItem = 0;
+        $std->chNFe = '31171009204054000143570010000015441090704345';
+        $std->SegCodBarra = '';
+        $std->indReentrega = '';
+
+        $infNFe = $this->make->tagInfNFe($std);
+        $this->assertInstanceOf(\DOMElement::class, $infNFe);
+        $this->assertEquals('31171009204054000143570010000015441090704345', $infNFe->getElementsByTagName('chNFe')->item(0)->nodeValue);
+        $this->assertEquals('', $infNFe->getElementsByTagName('SegCodBarra')->item(0)->nodeValue);
+        $this->assertEquals('', $infNFe->getElementsByTagName('indReentrega')->item(0)->nodeValue);
+    }
+
+    public function testTagInfResp()
+    {
+        $std = new \stdClass();
+        $std->respSeg = 'Joao';
+        $std->CNPJ = '11095658000140';
+        $std->CPF = '';
+
+        $resp = $this->make->tagInfResp($std);
+        $this->assertInstanceOf(\DOMElement::class, $resp);
+        $this->assertEquals('Joao', $resp->getElementsByTagName('respSeg')->item(0)->nodeValue);
+        $this->assertEquals('11095658000140', $resp->getElementsByTagName('CNPJ')->item(0)->nodeValue);
+        $this->assertEquals('', $resp->getElementsByTagName('CPF')->item(0)->nodeValue);
+    }
+
+    public function testTagInfSeg()
+    {
+        $std = new \stdClass();
+        $std->xSeg = 'Joao';
+        $std->CNPJ = '11095658000140';
+
+        $seg = $this->make->tagInfSeg($std);
+        $this->assertInstanceOf(\DOMElement::class, $seg);
+        $this->assertEquals('Joao', $seg->getElementsByTagName('xSeg')->item(0)->nodeValue);
+        $this->assertEquals('11095658000140', $seg->getElementsByTagName('CNPJ')->item(0)->nodeValue);
+    }
+
+    public function testTagSeg()
+    {
+        $std = new \stdClass();
+        $std->nApol = '114';
+        $std->nAver = '300';
+
+        $seg = $this->make->tagSeg($std);
+        $this->assertInstanceOf(\DOMElement::class, $seg);
+        $this->assertEquals('114', $seg->getElementsByTagName('nApol')->item(0)->nodeValue);
+        $this->assertEquals('300', $seg->getElementsByTagName('nAver')->item(0)->nodeValue);
+    }
+
+    public function testTagTot()
+    {
+        $std = new \stdClass();
+        $std->qCTe = '1';
+        $std->qNFe = '';
+        $std->qMDFe = '';
+        $std->vCarga = '157620.00';
+        $std->cUnid = '01';
+        $std->qCarga = '2323.0000';
+
+        $tot = $this->make->tagTot($std);
+        $this->assertInstanceOf(\DOMElement::class, $tot);
+        $this->assertEquals('1', $tot->getElementsByTagName('qCTe')->item(0)->nodeValue);
+        $this->assertEquals('', $tot->getElementsByTagName('qNFe')->item(0)->nodeValue);
+        $this->assertEquals('', $tot->getElementsByTagName('qMDFe')->item(0)->nodeValue);
+        $this->assertEquals('157620.00', $tot->getElementsByTagName('vCarga')->item(0)->nodeValue);
+        $this->assertEquals('01', $tot->getElementsByTagName('cUnid')->item(0)->nodeValue);
+        $this->assertEquals('2323.0000', $tot->getElementsByTagName('qCarga')->item(0)->nodeValue);
+    }
+
+    public function testTagLacres()
+    {
+        $std = new \stdClass();
+        $std->nLacre = '1';
+
+        $lacres = $this->make->tagLacres($std);
+        $this->assertInstanceOf(\DOMElement::class, $lacres);
+        $this->assertEquals('1', $lacres->getElementsByTagName('nLacre')->item(0)->nodeValue);
+    }
+
+    public function testTagAutXML()
+    {
+        $std = new \stdClass();
+        $std->CNPJ = '';
+        $std->CPF = '09835787667';
+
+        $autXML = $this->make->tagautXML($std);
+        $this->assertInstanceOf(\DOMElement::class, $autXML);
+        $this->assertEquals('', $autXML->getElementsByTagName('CNPJ')->item(0)->nodeValue);
+        $this->assertEquals('09835787667', $autXML->getElementsByTagName('CPF')->item(0)->nodeValue);
+    }
+
     public function testTagInfAdic()
     {
         $std = new \stdClass();
@@ -319,17 +565,5 @@ class MakeTest extends TestCase
         $this->assertInstanceOf(\DOMElement::class, $infAdic);
         $this->assertEquals('Inf. Fisco', $infAdic->getElementsByTagName('infAdFisco')->item(0)->nodeValue);
         $this->assertEquals('Inf. Complementar do contribuinte', $infAdic->getElementsByTagName('infCpl')->item(0)->nodeValue);
-    }
-
-    public function testTagRodo()
-    {
-        $std = new \stdClass();
-        $std->rntrc = '10167059';
-        $std->ciot = '';
-
-        $rodo = $this->make->tagRodo($std);
-        $this->assertInstanceOf(\DOMElement::class, $rodo);
-        $this->assertEquals('10167059', $rodo->getElementsByTagName('RNTRC')->item(0)->nodeValue);
-        $this->assertEquals('', $rodo->getElementsByTagName('CIOT')->item(0)->nodeValue);
     }
 }

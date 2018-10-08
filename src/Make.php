@@ -12,18 +12,19 @@ namespace NFePHP\MDFe;
  * @category  Library
  * @package   nfephp-org/sped-mdfe
  * @name      Make.php
- * @copyright 2009-2016 NFePHP
+ * @copyright 2009-2018 NFePHP
  * @license   http://www.gnu.org/licenses/lesser.html LGPL v3
  * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  * @author    Roberto L. Machado <linux.rlm at gmail dot com>
  */
 
-use NFePHP\Common\DateTime\DateTime;
-use NFePHP\Common\Base\BaseMake;
-use \DOMElement;
+use NFePHP\Common\Keys;
+use NFePHP\Common\DOMImproved as Dom;
+use DOMElement;
 use stdClass;
+use DateTime;
 
-class Make extends BaseMake
+class Make
 {
     /**
      * versao
@@ -32,6 +33,12 @@ class Make extends BaseMake
      * @var string
      */
     public $versao = '1.00';
+
+    /**
+     * @var string
+     */
+    public $chNFe;
+
     /**
      * mod
      * modelo da MDFe 58
@@ -39,6 +46,7 @@ class Make extends BaseMake
      * @var integer
      */
     public $mod = '58';
+
     /**
      * chave da MDFe
      *
@@ -51,121 +59,139 @@ class Make extends BaseMake
      * @type string|\DOMNode
      */
     private $MDFe = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $infMDFe = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $ide = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $emit = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $enderEmit = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $infModal = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $tot = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $infAdic = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $rodo = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $veicTracao = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $aereo = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $trem = '';
-    /**
-     * @type string|\DOMNode
-     */
-    private $aqua = '';
-
-    // Arrays
-    private $aInfMunCarrega = []; //array de DOMNode
-    private $aInfPercurso = []; //array de DOMNode
-    private $aInfMunDescarga = []; //array de DOMNode
-    private $aInfCTe = []; //array de DOMNode
-    private $aInfNFe = []; //array de DOMNode
-    private $aInfMDFe = []; //array de DOMNode
-    private $aLacres = []; //array de DOMNode
-    private $aAutXML = []; //array de DOMNode
-    private $aCondutor = []; //array de DOMNode
-    private $aReboque = []; //array de DOMNode
-    private $aDisp = []; //array de DOMNode
-    private $aVag = []; //array de DOMNode
-    private $aInfTermCarreg = []; //array de DOMNode
-    private $aInfTermDescarreg = []; //array de DOMNode
-    private $aInfEmbComb = []; //array de DOMNode
-    private $aCountDoc = []; //contador de documentos fiscais
 
     /**
-     *
+     * @var DOMElement
+     */
+    private $infMDFe;
+
+    /**
+     * @var DOMElement
+     */
+    protected $ide;
+
+    /**
+     * @var DOMElement
+     */
+    protected $emit;
+
+    /**
+     * @var DOMElement
+     */
+    protected $enderEmit;
+
+    /**
+     * @var DOMElement
+     */
+    private $infModal;
+
+    /**
+     * @var DOMElement
+     */
+    private $tot;
+
+    /**
+     * @var DOMElement
+     */
+    private $infAdic;
+
+    /**
+     * @var DOMElement
+     */
+    private $rodo;
+
+    /**
+     * @var DOMElement
+     */
+    private $veicTracao;
+
+    /**
+     * @var DOMElement
+     */
+    private $aereo;
+
+    /**
+     * @var DOMElement
+     */
+    private $trem;
+
+    /**
+     * @var DOMElement
+     */
+    private $aquav;
+
+    /**
+     * Função construtora cria um objeto DOMDocument
+     * que será carregado com o documento fiscal
+     */
+    public function __construct()
+    {
+        $this->dom = new Dom('1.0', 'UTF-8');
+        $this->dom->preserveWhiteSpace = false;
+        $this->dom->formatOutput = false;
+    }
+
+    /**
+     * Returns xml string and assembly it is necessary
+     * @return string
+     */
+    public function getXML()
+    {
+        if (empty($this->xml)) {
+            $this->monta();
+        }
+        return $this->xml;
+    }
+
+    /**
+     * Retorns the key number of NFe (44 digits)
+     * @return string
+     */
+    public function getChave()
+    {
+        return $this->chNFe;
+    }
+
+    /**
+     * Mdfe xml mount method
      * @return boolean
      */
-    public function montaMDFe()
+    public function monta()
     {
         if (count($this->erros) > 0) {
             return false;
         }
         //cria a tag raiz da MDFe
-        $this->zTagMDFe();
-        //monta a tag ide com as tags adicionais
-        $this->zTagIde();
+        $this->buildMDFe();
         //tag ide [4]
         $this->dom->appChild($this->infMDFe, $this->ide, 'Falta tag "infMDFe"');
-        //tag enderemit [30]
-        $this->dom->appChild($this->emit, $this->enderEmit, 'Falta tag "emit"');
-        //tag emit [25]
+        //tag emit [27]
         $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "infMDFe"');
-        //tag infModal [41]
-        $this->zTagRodo();
-        $this->zTagAereo();
-        $this->zTagFerrov();
-        $this->zTagAqua();
+        //tag infModal [43]
+        $this->buildInfModal();
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infMDFe"');
-        //tag indDoc [44]
-        $this->zTagInfDoc();
-        //tag tot [68]
+        //tag infDoc [46]
+        $this->buildInfDoc();
+        $this->dom->appChild($this->infMDFe, $this->infDoc, 'Falta tag "infMDFe"');
+        //tag seg [118]
+        $this->dom->appChild($this->infMDFe, $this->seg, 'Falta tag "infMDFe"');
+        //tag tot [128]
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "infMDFe"');
-        //tag lacres [76]
-        $this->zTagLacres();
-        // tag autXML [137]
-        foreach ($this->aAutXML as $aut) {
-            $this->dom->appChild($this->infMDFe, $aut, 'Falta tag "infMDFe"');
-        }
-        //tag infAdic [78]
+        //tag lacres [135]
+        $this->dom->addArrayChild($this->infMDFe, $this->aLacres);
+        //tag lacres [137]
+        $this->dom->addArrayChild($this->infMDFe, $this->aAutXML);
+        //tag lacres [140]
         $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
-        //[1] tag infMDFe (1 A01)
+        //[1] tag infNFe [1]
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         //[0] tag MDFe
-        $this->dom->appChild($this->dom, $this->MDFe, 'Falta DOMDocument');
+        $this->dom->appendChild($this->MDFe);
         // testa da chave
-        $this->zTestaChaveXML($this->dom);
-        //convert DOMDocument para string
+        $this->checkNFeKey($this->dom);
         $this->xml = $this->dom->saveXML();
         return true;
     }
-
 
     /**
      * taginfMDFe
@@ -175,12 +201,10 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function taginfMDFe(\stdClass $std)
+    public function taginfMDFe(stdClass $std)
     {
         $this->infMDFe = $this->dom->createElement("infMDFe");
-        $this->infMDFe->setAttribute("Id", 'MDFe'.$std->chave);
         $this->infMDFe->setAttribute("versao", $std->versao);
-        $this->chMDFe = $std->chave;
         $this->versao = $std->versao;
         return $this->infMDFe;
     }
@@ -192,11 +216,14 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagide(\stdClass $std)
+    public function tagide(stdClass $std)
     {
         $this->tpAmb = $std->tpAmb;
         if ($std->dhEmi == '') {
             $std->dhEmi = DateTime::convertTimestampToSefazTime();
+        }
+        if (empty($std->cDV)) {
+            $std->cDV = 0;
         }
         $identificador = '[4] <ide> - ';
         $ide = $this->dom->createElement("ide");
@@ -332,8 +359,11 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagInfMunCarrega(\stdClass $std)
+    public function tagInfMunCarrega(stdClass $std)
     {
+        if(empty($this->ide)){
+            $this->ide = $this->dom->createElement("ide");
+        }
         $infMunCarrega = $this->dom->createElement("infMunCarrega");
         $this->dom->addChild(
             $infMunCarrega,
@@ -349,7 +379,12 @@ class Make extends BaseMake
             true,
             "Nome do Município de Carregamento"
         );
-        $this->aInfMunCarrega[] = $infMunCarrega;
+        if ($this->ide->getElementsByTagName("infMunCarrega")->length > 0) {
+            $node = $this->ide->getElementsByTagName("infMunCarrega")->item(0);
+        }else{
+            $node = $this->ide->getElementsByTagName("dhIniViagem")->item(0);
+        }
+        $this->ide->insertBefore($infMunCarrega, $node);
         return $infMunCarrega;
     }
 
@@ -361,8 +396,11 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagInfPercurso(\stdClass $std)
+    public function tagInfPercurso(stdClass $std)
     {
+        if(empty($this->ide)){
+            $this->ide = $this->dom->createElement("ide");
+        }
         $infPercurso = $this->dom->createElement("infPercurso");
         $this->dom->addChild(
             $infPercurso,
@@ -371,7 +409,12 @@ class Make extends BaseMake
             true,
             "Sigla das Unidades da Federação do percurso"
         );
-        $this->aInfPercurso[] = $infPercurso;
+        if ($this->ide->getElementsByTagName("infPercurso")->length > 0) {
+            $node = $this->ide->getElementsByTagName("infPercurso")->item(0);
+        }else{
+            $node = $this->ide->getElementsByTagName("dhIniViagem")->item(0);
+        }
+        $this->ide->insertBefore($infPercurso, $node);
         return $infPercurso;
     }
 
@@ -383,15 +426,40 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagemit(\stdClass $std)
+    public function tagemit(stdClass $std)
     {
         $identificador = '[25] <emit> - ';
-        $this->emit = $this->dom->createElement("emit");
-        $this->dom->addChild($this->emit, "CNPJ", $std->cnpj, true, $identificador . "CNPJ do emitente");
-        $this->dom->addChild($this->emit, "IE", $std->numIE, true, $identificador . "Inscrição Estadual do emitente");
-        $this->dom->addChild($this->emit, "xNome", $std->xNome, true, $identificador . "Razão Social ou Nome do emitente");
-        $this->dom->addChild($this->emit, "xFant", $std->xFant, false, $identificador . "Nome fantasia do emitente");
-        return $this->emit;
+        $emit = $this->dom->createElement("emit");
+        $this->dom->addChild(
+            $emit,
+            "CNPJ",
+            $std->CNPJ,
+            true,
+            $identificador . "CNPJ do emitente"
+        );
+        $this->dom->addChild(
+            $emit,
+            "IE",
+            $std->IE,
+            true,
+            $identificador . "Inscrição Estadual do emitente"
+        );
+        $this->dom->addChild(
+            $emit,
+            "xNome",
+            $std->xNome,
+            true,
+            $identificador . "Razão Social ou Nome do emitente"
+        );
+        $this->dom->addChild(
+            $emit,
+            "xFant",
+            $std->xFant,
+            false,
+            $identificador . "Nome fantasia do emitente"
+        );
+        $this->emit = $emit;
+        return $emit;
     }
 
     /**
@@ -402,357 +470,87 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagenderEmit(\stdClass $std)
+    public function tagenderEmit(stdClass $std)
     {
+        if(empty($this->emit)){
+            $this->emit = $this->dom->createElement("emit");
+        }
         $identificador = '[30] <enderEmit> - ';
-        $this->enderEmit = $this->dom->createElement("enderEmit");
+        $enderEmit = $this->dom->createElement("enderEmit");
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "xLgr",
             $std->xLgr,
             true,
             $identificador . "Logradouro do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "nro",
             $std->nro,
             true,
             $identificador . "Número do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "xCpl",
             $std->xCpl,
             false,
             $identificador . "Complemento do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "xBairro",
             $std->xBairro,
             true,
             $identificador . "Bairro do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "cMun",
             $std->cMun,
             true,
             $identificador . "Código do município do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "xMun",
             $std->xMun,
             true,
             $identificador . "Nome do município do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "CEP",
-            $std->cep,
+            $std->CEP,
             true,
             $identificador . "Código do CEP do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "UF",
-            $std->siglaUF,
+            $std->UF,
             true,
             $identificador . "Sigla da UF do Endereço do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "fone",
             $std->fone,
             false,
             $identificador . "Número de telefone do emitente"
         );
         $this->dom->addChild(
-            $this->enderEmit,
+            $enderEmit,
             "email",
             $std->email,
             false,
             $identificador . "Endereço de email do emitente"
         );
-        return $this->enderEmit;
-    }
-
-    /**
-     * tagInfMunDescarga
-     * tag MDFe/infMDFe/infDoc/infMunDescarga
-     *
-     * @param  stdClass $std
-     * @return DOMElement
-     */
-    public function tagInfMunDescarga(\stdClass $std)
-    {
-        $infMunDescarga = $this->dom->createElement("infMunDescarga");
-        $this->dom->addChild(
-            $infMunDescarga,
-            "cMunDescarga",
-            $std->cMunDescarga,
-            true,
-            "Código do Município de Descarga"
-        );
-        $this->dom->addChild(
-            $infMunDescarga,
-            "xMunDescarga",
-            $std->xMunDescarga,
-            true,
-            "Nome do Município de Descarga"
-        );
-        $this->aInfMunDescarga[$std->nItem] = $infMunDescarga;
-        return $infMunDescarga;
-    }
-
-    /**
-     * tagInfCTe
-     * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe
-     *
-     * @param  stdClass $std
-     * @return DOMElement
-     */
-    public function tagInfCTe(\stdClass $std)
-    {
-        $infCTe = $this->dom->createElement("infCTe");
-        $this->dom->addChild(
-            $infCTe,
-            "chCTe",
-            $std->chCTe,
-            true,
-            "Chave de Acesso CTe"
-        );
-        $this->dom->addChild(
-            $infCTe,
-            "SegCodBarra",
-            $std->segCodBarra,
-            false,
-            "Segundo código de barras do CTe"
-        );
-        $this->dom->addChild(
-            $infCTe,
-            "indReentrega",
-            $std->segCodBarra,
-            false,
-            "Indicador de Reentrega do CTe"
-        );
-        $this->aInfCTe[$std->nItem][] = $infCTe;
-        return $infCTe;
-    }
-
-    /**
-     * tagInfNFe
-     * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
-     *
-     * @param  stdClass $std
-     * @return DOMElement
-     */
-    public function tagInfNFe(\stdClass $std)
-    {
-        $infNFe = $this->dom->createElement("infNFe");
-        $this->dom->addChild(
-            $infNFe,
-            "chNFe",
-            $std->chNFe,
-            true,
-            "Chave de Acesso da NFe"
-        );
-        $this->dom->addChild(
-            $infNFe,
-            "SegCodBarra",
-            $std->segCodBarra,
-            false,
-            "Segundo código de barras da NFe"
-        );
-        $this->dom->addChild(
-            $infNFe,
-            "indReentrega",
-            $std->indReentrega,
-            false,
-            "Indicador de Reentrega da NFe"
-        );
-        $this->aInfNFe[$std->nItem][] = $infNFe;
-        return $infNFe;
-    }
-
-    /**
-     * tagInfMDFeTransp
-     * tag MDFe/infMDFeTransp/infDoc/infMunDescarga/infMDFeTranspTransp
-     *
-     * @param  integer $nItem
-     * @param  string  $chMDFe
-     *
-     * @return DOMElement
-     */
-    public function tagInfMDFeTransp(
-        $nItem = 0,
-        $chMDFe = ''
-    ) {
-        $infMDFeTransp = $this->dom->createElement("infMDFeTransp");
-        $this->dom->addChild(
-            $infMDFeTransp,
-            "chMDFe",
-            $chMDFe,
-            true,
-            "Chave de Acesso da MDFe"
-        );
-        $this->aInfMDFe[$nItem][] = $infMDFeTransp;
-        return $infMDFeTransp;
-    }
-
-    /**
-     * tagTot
-     * tag MDFe/infMDFe/tot
-     *
-     * @param  string $qCTe
-     * @param  string $qNFe
-     * @param  string $qMDFe
-     * @param  string $vCarga
-     * @param  string $cUnid
-     * @param  string $qCarga
-     *
-     * @return DOMElement
-     */
-    public function tagTot(
-        $qCTe = '',
-        $qNFe = '',
-        $qMDFe = '',
-        $vCarga = '',
-        $cUnid = '',
-        $qCarga = ''
-    ) {
-        $tot = $this->dom->createElement("tot");
-        $this->dom->addChild(
-            $tot,
-            "qCTe",
-            $qCTe,
-            false,
-            "Quantidade total de CT-e relacionados no Manifesto"
-        );
-        $this->dom->addChild(
-            $tot,
-            "qNFe",
-            $qNFe,
-            false,
-            "Quantidade total de NF-e relacionados no Manifesto"
-        );
-        $this->dom->addChild(
-            $tot,
-            "qMDFe",
-            $qMDFe,
-            false,
-            "Quantidade total de MDF-e relacionados no Manifesto"
-        );
-        $this->dom->addChild(
-            $tot,
-            "vCarga",
-            $vCarga,
-            true,
-            "Valor total da mercadoria/carga transportada"
-        );
-        $this->dom->addChild(
-            $tot,
-            "cUnid",
-            $cUnid,
-            true,
-            "Código da unidade de medida do Peso Bruto da Carga / Mercadoria Transportada"
-        );
-        $this->dom->addChild(
-            $tot,
-            "qCarga",
-            $qCarga,
-            true,
-            "Peso Bruto Total da Carga / Mercadoria Transportada"
-        );
-        $this->tot = $tot;
-        return $tot;
-    }
-
-    /**
-     * tagLacres
-     * tag MDFe/infMDFe/lacres
-     *
-     * @param  string $nLacre
-     *
-     * @return DOMElement
-     */
-    public function tagLacres(
-        $nLacre = ''
-    ) {
-        $lacres = $this->dom->createElement("lacres");
-        $this->dom->addChild(
-            $lacres,
-            "nLacre",
-            $nLacre,
-            false,
-            "Número do lacre"
-        );
-        $this->aLacres[] = $lacres;
-        return $lacres;
-    }
-
-    /**
-     * taginfAdic
-     * Grupo de Informações Adicionais Z01 pai A01
-     * tag MDFe/infMDFe/infAdic (opcional)
-     *
-     * @param  string $infAdFisco
-     * @param  string $infCpl
-     *
-     * @param  stdClass $std
-     * @return DOMElement
-     */
-    public function taginfAdic(\stdClass $std)
-    {
-        $infAdic = $this->dom->createElement("infAdic");
-        $this->dom->addChild(
-            $infAdic,
-            "infAdFisco",
-            $std->infAdFisco,
-            false,
-            "Informações Adicionais de Interesse do Fisco"
-        );
-        $this->dom->addChild(
-            $infAdic,
-            "infCpl",
-            $std->infCpl,
-            false,
-            "Informações Complementares de interesse do Contribuinte"
-        );
-        $this->infAdic = $infAdic;
-        return $infAdic;
-    }
-
-    /**
-     * tagLacres
-     * tag MDFe/infMDFe/autXML
-     *
-     * Autorizados para download do XML do MDF-e
-     *
-     * @param  stdClass $std
-     * @return DOMElement
-     */
-    public function tagautXML(\stdClass $std)
-    {
-        $autXML = $this->dom->createElement("autXML");
-        $this->dom->addChild(
-            $autXML,
-            "CNPJ",
-            $std->cnpj,
-            false,
-            "CNPJ do autorizado"
-        );
-        $this->dom->addChild(
-            $autXML,
-            "CPF",
-            $std->cpf,
-            false,
-            "CPF do autorizado"
-        );
-        $this->aAutXML[] = $autXML;
-        return $autXML;
+        $node = $this->emit->getElementsByTagName("IE")->item(0);
+        $this->emit->insertBefore($enderEmit, $node);
+        $this->enderEmit = $enderEmit;
+        return $enderEmit;
     }
 
     /**
@@ -762,12 +560,500 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagInfModal(\stdClass $std)
+    public function tagInfModal(stdClass $std)
     {
         $infModal = $this->dom->createElement("infModal");
         $infModal->setAttribute("versaoModal", $std->versaoModal);
         $this->infModal = $infModal;
         return $infModal;
+    }
+
+    /**
+     * tagRodo
+     * tag MDFe/infMDFe/infModal/rodo
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagRodo(stdClass $std)
+    {
+        $rodo = $this->dom->createElement("rodo");
+        $this->dom->addChild(
+            $rodo,
+            "codAgPorto",
+            $std->codAgPorto,
+            false,
+            "Código de Agendamento no porto"
+        );
+        $this->rodo = $rodo;
+        return $rodo;
+    }
+
+    /**
+     * tagInfANTT
+     * tag MDFe/infMDFe/infModal/rodo/infANTT
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfANTT(stdClass $std)
+    {
+        if (empty($this->rodo)) {
+            $this->rodo = $this->dom->createElement("rodo");
+        }
+        $infANTT = $this->dom->createElement("infANTT");
+        $this->dom->addChild(
+            $infANTT,
+            "RNTRC",
+            $std->RNTRC,
+            false,
+            "Registro Nacional de Transportadores Rodoviários de Carga"
+        );
+        $this->rodo->insertBefore($infANTT);
+        return $infANTT;
+    }
+
+    /**
+     * tagInfCIOT
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/infCIOT
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfCIOT(stdClass $std)
+    {
+        $infCIOT = $this->dom->createElement("infCIOT");
+        $this->dom->addChild(
+            $infCIOT,
+            "CIOT",
+            $std->CIOT,
+            false,
+            "Código Identificador da Operação de Transporte"
+        );
+        $this->dom->addChild(
+            $infCIOT,
+            "CPF",
+            $std->CPF,
+            false,
+            "Número do CPF responsável pela geração do CIOT"
+        );
+        $this->dom->addChild(
+            $infCIOT,
+            "CNPJ",
+            $std->CNPJ,
+            false,
+            "Número do CNPJ responsável pela geração do CIOT"
+        );
+        $this->aInfCIOT[] = $infCIOT;
+        return $infCIOT;
+    }
+
+    /**
+     * tagInfContratante
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagDisp(stdClass $std)
+    {
+        $disp = $this->dom->createElement("disp");
+        $this->dom->addChild(
+            $disp,
+            "CNPJForn",
+            $std->CNPJForn,
+            false,
+            "CNPJ da empresa fornecedora do Vale-Pedágio"
+        );
+        $this->dom->addChild(
+            $disp,
+            "CNPJPg",
+            $std->CNPJPg,
+            false,
+            "CNPJ do responsável pelo pagamento do Vale-Pedágio"
+        );
+        $this->dom->addChild(
+            $disp,
+            "CPFPg",
+            $std->CPFPg,
+            false,
+            "CNPJ do responsável pelo pagamento do Vale-Pedágio"
+        );
+        $this->dom->addChild(
+            $disp,
+            "nCompra",
+            $std->nCompra,
+            false,
+            "Número do comprovante de compra"
+        );
+        $this->dom->addChild(
+            $disp,
+            "vValePed",
+            $std->vValePed,
+            false,
+            "Valor do Vale-Pedagio"
+        );
+        $this->aDisp[] = $disp;
+        return $disp;
+    }
+
+    /**
+     * tagInfContratante
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfContratante(stdClass $std)
+    {
+        $infContratante = $this->dom->createElement("infContratante");
+        $this->dom->addChild(
+            $infContratante,
+            "CPF",
+            $std->CPF,
+            false,
+            "Número do CPF do contratente do serviço"
+        );
+        $this->dom->addChild(
+            $infContratante,
+            "CNPJ",
+            $std->CNPJ,
+            false,
+            "Número do CNPJ do contratante do serviço"
+        );
+        $this->aInfContratante[] = $infContratante;
+        return $infContratante;
+    }
+
+    /**
+     * tagVeicTracao
+     * tag MDFe/infMDFe/infModal/rodo/veicTracao
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagVeicTracao(stdClass $std)
+    {
+        $veicTracao = $this->dom->createElement('veicTracao');
+        $this->dom->addChild(
+            $veicTracao,
+            "cInt",
+            $std->cInt,
+            true,
+            "Código interno do veículo"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "placa",
+            $std->placa,
+            true,
+            "Placa do veículo"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "RENAVAM",
+            $std->RENAVAM,
+            true,
+            "RENAVAM do veículo"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "tara",
+            $std->tara,
+            true,
+            "Tara em KG"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "capKG",
+            $std->capKG,
+            true,
+            "Capacidade em KG"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "capM3",
+            $std->capM3,
+            true,
+            "Capacidade em M3"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "tpRod",
+            $std->tpRod,
+            true,
+            "Tipo de Rodado"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "tpCar",
+            $std->tpCar,
+            true,
+            "Tipo de Carroceria"
+        );
+        $this->dom->addChild(
+            $veicTracao,
+            "UF",
+            $std->UF,
+            true,
+            "UF em que veículo está licenciado"
+        );
+        $this->veicTracao = $veicTracao;
+        return $veicTracao;
+    }
+
+    /**
+     * tagProp
+     * tag MDFe/infMDFe/infModal/rodo/veicTracao/prop
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagPropVeicTracao(stdClass $std)
+    {
+        if (empty($this->veicTracao)) {
+            $this->veicTracao = $this->dom->createElement('veicTracao');
+        }
+        $this->propVeicTracao = $this->dom->createElement(prop);
+        $this->dom->addChild(
+            $this->propVeicTracao,
+            "CPF",
+            $std->CPF,
+            true,
+            "Número do CPF"
+        );
+        $this->dom->addChild(
+            $this->propVeicTracao,
+            "CNPJ",
+            $std->CNPJ,
+            true,
+            "Número do CNPJ"
+        );
+        $this->dom->addChild(
+            $this->propVeicTracao,
+            "RNTRC",
+            $std->RNTRC,
+            true,
+            "Registro Nacional dos Transportadores Rodoviários de Carga"
+        );
+        $this->dom->addChild(
+            $this->propVeicTracao,
+            "xNome",
+            $std->xNome,
+            true,
+            "Razão Social ou Nome do proprietário"
+        );
+        $this->dom->addChild(
+            $this->propVeicTracao,
+            "IE",
+            $std->IE,
+            true,
+            "Inscrição Estadual"
+        );
+        $this->dom->addChild(
+            $this->propVeicTracao,
+            "UF",
+            $std->UF,
+            true,
+            "UF"
+        );
+        $this->dom->addChild(
+            $this->propVeicTracao,
+            "tpProp",
+            $std->tpProp,
+            true,
+            "Tipo Proprietário"
+        );
+
+        if ($this->veicTracao->getElementsByTagName("condutor")->length > 0) {
+            $node = $this->veicTracao->getElementsByTagName("condutor")->item(0);
+        }else{
+            $node = $this->veicTracao->getElementsByTagName("tpRod")->item(0);
+        }
+        $this->veicTracao->insertBefore($this->propVeicTracao, $node);
+        return $this->propVeicTracao;
+    }
+
+    /**
+     * tagCondutor
+     * tag MDFe/infMDFe/infModal/rodo/veicTracao/condutor
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagCondutor(stdClass $std)
+    {
+        $condutor = $this->dom->createElement("condutor");
+        $this->dom->addChild(
+            $condutor,
+            "xNome",
+            $std->xNome,
+            true,
+            "Nome do condutor"
+        );
+        $this->dom->addChild(
+            $condutor,
+            "CPF",
+            $std->cpf,
+            true,
+            "CPF do condutor"
+        );
+        $this->aCondutor[] = $condutor;
+        return $condutor;
+    }
+
+    /**
+     * tagVeicReboque
+     * tag MDFe/infMDFe/infModal/rodo/reboque
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagVeicReboque(stdClass $std)
+    {
+        $reboque = $this->dom->createElement("veicReboque");
+        $this->dom->addChild(
+            $reboque,
+            "cInt",
+            $std->cInt,
+            true,
+            "Código interno do veículo"
+        );
+        $this->dom->addChild(
+            $reboque,
+            "placa",
+            $std->placa,
+            true,
+            "Placa do veículo"
+        );
+        $this->dom->addChild(
+            $reboque,
+            "RENAVAM",
+            $std->RENAVAM,
+            true,
+            "RENAVAM do veículo"
+        );
+        $this->dom->addChild(
+            $reboque,
+            "tara",
+            $std->tara,
+            true,
+            "Tara em KG"
+        );
+        $this->dom->addChild(
+            $reboque,
+            "capKG",
+            $std->capKG,
+            true,
+            "Capacidade em KG"
+        );
+        $this->dom->addChild(
+            $reboque,
+            "capM3",
+            $std->capM3,
+            true,
+            "Capacidade em M3"
+        );
+        $this->dom->addChild(
+            $reboque,
+            "tpCar",
+            $std->tpCar,
+            true,
+            "Tipo de Carroceria"
+        );
+        $this->dom->addChild(
+            $reboque,
+            "UF",
+            $std->UF,
+            true,
+            "UF em que veículo está licenciado"
+        );
+        $this->aVeicReboque[$std->item] = $reboque;
+        return $reboque;
+    }
+
+    /**
+     * tagProp
+     * tag MDFe/infMDFe/infModal/rodo/veicReboque/prop
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagPropVeicReboque(stdClass $std)
+    {
+        $propVeicReboque = $this->dom->createElement(prop);
+        $this->dom->addChild(
+            $propVeicReboque,
+            "CPF",
+            $std->CPF,
+            true,
+            "Número do CPF"
+        );
+        $this->dom->addChild(
+            $propVeicReboque,
+            "CNPJ",
+            $std->CNPJ,
+            true,
+            "Número do CNPJ"
+        );
+        $this->dom->addChild(
+            $propVeicReboque,
+            "RNTRC",
+            $std->RNTRC,
+            true,
+            "Registro Nacional dos Transportadores Rodoviários de Carga"
+        );
+        $this->dom->addChild(
+            $propVeicReboque,
+            "xNome",
+            $std->xNome,
+            true,
+            "Razão Social ou Nome do proprietário"
+        );
+        $this->dom->addChild(
+            $propVeicReboque,
+            "IE",
+            $std->IE,
+            true,
+            "Inscrição Estadual"
+        );
+        $this->dom->addChild(
+            $propVeicReboque,
+            "UF",
+            $std->UF,
+            true,
+            "UF"
+        );
+        $this->dom->addChild(
+            $propVeicReboque,
+            "tpProp",
+            $std->tpProp,
+            true,
+            "Tipo Proprietário"
+        );
+        $this->aPropVeicReboque[$std->item] = $propVeicReboque;
+        return $propVeicReboque;
+    }
+
+    /**
+     * tagLacRodo
+     * tag MDFe/infMDFe/infModal/rodo/lacRodo
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagLacRodo(stdClass $std)
+    {
+        $lacre = $this->dom->createElement("lacRodo");
+        $this->dom->addChild(
+            $lacre,
+            "nLacre",
+            $std->nLacre,
+            true,
+            "Código interno do veículo"
+        );
+        $this->aLacRodo[] = $lacre;
+        return $lacre;
     }
 
     /**
@@ -777,7 +1063,7 @@ class Make extends BaseMake
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagAereo(\stdClass $std)
+    public function tagAereo(stdClass $std)
     {
         $aereo = $this->dom->createElement("aereo");
         $this->dom->addChild(
@@ -827,125 +1113,13 @@ class Make extends BaseMake
     }
 
     /**
-     * tagTrem
-     * tag MDFe/infMDFe/infModal/ferrov/trem
+     * tagAquav
+     * tag MDFe/infMDFe/infModal/aquav
      *
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagTrem(\stdClass $std)
-    {
-        $trem = $this->dom->createElement("trem");
-        $this->dom->addChild(
-            $trem,
-            "xPref",
-            $std->xPref,
-            true,
-            "Prefixo do Trem"
-        );
-        $this->dom->addChild(
-            $trem,
-            "dhTrem",
-            $std->dhTrem,
-            false,
-            "Data e hora de liberação do trem na origem"
-        );
-        $this->dom->addChild(
-            $trem,
-            "xOri",
-            $std->xOri,
-            true,
-            "Origem do Trem"
-        );
-        $this->dom->addChild(
-            $trem,
-            "xDest",
-            $std->xDest,
-            true,
-            "Destino do Trem"
-        );
-        $this->dom->addChild(
-            $trem,
-            "qVag",
-            $std->qVag,
-            true,
-            "Quantidade de vagões"
-        );
-        $this->trem = $trem;
-        return $trem;
-    }
-
-    /**
-     * tagVag
-     * tag MDFe/infMDFe/infModal/ferrov/trem/vag
-     *
-     * @param  stdClass $std
-     * @return DOMElement
-     */
-    public function tagVag(\stdClass $std)
-    {
-        $vag = $this->dom->createElement("vag");
-        $this->dom->addChild(
-            $vag,
-            "pesoBC",
-            $std->pesoBC,
-            true,
-            "Peso Base de Cálculo de Frete em Toneladas"
-        );
-        $this->dom->addChild(
-            $vag,
-            "pesoR",
-            $std->pesoR,
-            true,
-            "Peso Real em Toneladas"
-        );
-        $this->dom->addChild(
-            $vag,
-            "tpVag",
-            $std->tpVag,
-            true,
-            "Tipo de Vagão"
-        );
-        $this->dom->addChild(
-            $vag,
-            "serie",
-            $std->serie,
-            true,
-            "Série de Identificação do vagão"
-        );
-        $this->dom->addChild(
-            $vag,
-            "nVag",
-            $std->nVag,
-            true,
-            "Número de Identificação do vagão"
-        );
-        $this->dom->addChild(
-            $vag,
-            "nSeq",
-            $std->nSeq,
-            false,
-            "Sequência do vagão na composição"
-        );
-        $this->dom->addChild(
-            $vag,
-            "TU",
-            $std->TU,
-            true,
-            "Tonelada Útil"
-        );
-        $this->aVag[] = $vag;
-        return $vag;
-    }
-
-    /**
-     * tagAqua
-     * tag MDFe/infMDFe/infModal/Aqua
-     *
-     * @param  stdClass $std
-     * @return DOMElement
-     */
-    public function tagAquav(\stdClass $std)
+    public function tagAquav(stdClass $std)
     {
         $aquav = $this->dom->createElement("aquav");
         $this->dom->addChild(
@@ -1011,18 +1185,18 @@ class Make extends BaseMake
             true,
             "Tipo de Navegação"
         );
-        $this->aqua = $aquav;
+        $this->aquav = $aquav;
         return $aquav;
     }
 
     /**
      * tagInfTermCarreg
-     * tag MDFe/infMDFe/infModal/Aqua/infTermCarreg
+     * tag MDFe/infMDFe/infModal/aquav/infTermCarreg
      *
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagInfTermCarreg(\stdClass $std)
+    public function tagInfTermCarreg(stdClass $std)
     {
         $infTermCarreg = $this->dom->createElement("infTermCarreg");
         $this->dom->addChild(
@@ -1032,32 +1206,39 @@ class Make extends BaseMake
             true,
             "Código do Terminal de Carregamento"
         );
+        $this->dom->addChild(
+            $infTermCarreg,
+            "xTermCarreg",
+            $std->xTermCarreg,
+            true,
+            "Nome do Terminal de Carregamento"
+        );
         $this->aInfTermCarreg[] = $infTermCarreg;
         return $infTermCarreg;
     }
 
     /**
      * tagInfTermDescarreg
-     * tag MDFe/infMDFe/infModal/Aqua/infTermDescarreg
+     * tag MDFe/infMDFe/infModal/aquav/infTermDescarreg
      *
      * @param  string $cTermDescarreg
      *
      * @return DOMElement
      */
-    public function tagInfTermDescarreg(\stdClass $std)
+    public function tagInfTermDescarreg(stdClass $std)
     {
         $infTermDescarreg = $this->dom->createElement("infTermDescarreg");
         $this->dom->addChild(
             $infTermDescarreg,
-            "cTermCarreg",
-            $std->cTermCarreg,
+            "cTermDescarreg",
+            $std->cTermDescarreg,
             true,
             "Código do Terminal de Descarregamento"
         );
         $this->dom->addChild(
             $infTermDescarreg,
-            "xTermCarreg",
-            $std->xTermCarreg,
+            "xTermDescarreg",
+            $std->xTermDescarreg,
             true,
             "Nome do Terminal de Descarregamento"
         );
@@ -1067,13 +1248,13 @@ class Make extends BaseMake
 
     /**
      * tagInfEmbComb
-     * tag MDFe/infMDFe/infModal/Aqua/infEmbComb
+     * tag MDFe/infMDFe/infModal/aquav/infEmbComb
      *
      * @param  string $cTermDescarreg
      *
      * @return DOMElement
      */
-    public function tagInfEmbComb(\stdClass $std)
+    public function tagInfEmbComb(stdClass $std)
     {
         $infEmbComb = $this->dom->createElement("infEmbComb");
         $this->dom->addChild(
@@ -1095,454 +1276,532 @@ class Make extends BaseMake
     }
 
     /**
-     * tagRodo
-     * tag MDFe/infMDFe/infModal/rodo
+     * tagInfUnidCargaVazia
+     * tag MDFe/infMDFe/infModal/aquav/infUnidCargaVazia
+     *
+     * @param  string $cTermDescarreg
+     *
+     * @return DOMElement
+     */
+    public function tagInfUnidCargaVazia(stdClass $std)
+    {
+        $infUnidCargaVazia = $this->dom->createElement("infUnidCargaVazia");
+        $this->dom->addChild(
+            $infUnidCargaVazia,
+            "idUnidCargaVazia",
+            $std->idUnidCargaVazia,
+            true,
+            "Identificação da unidades de carga vazia"
+        );
+        $this->dom->addChild(
+            $infUnidCargaVazia,
+            "tpUnidCargaVazia",
+            $std->tpUnidCargaVazia,
+            true,
+            "Tipo da unidade de carga vazia"
+        );
+        $this->aInfUnidCargaVazia[] = $infUnidCargaVazia;
+        return $infUnidCargaVazia;
+    }
+
+    /**
+     * tagInfUnidTranspVazia
+     * tag MDFe/infMDFe/infModal/aquav/infUnidTranspVazia
+     *
+     * @param  string $cTermDescarreg
+     *
+     * @return DOMElement
+     */
+    public function tagInfUnidTranspVazia(stdClass $std)
+    {
+        $infUnidTranspVazia = $this->dom->createElement("infUnidTranspVazia");
+        $this->dom->addChild(
+            $infUnidTranspVazia,
+            "idUnidTranspVazia",
+            $std->idUnidTranspVazia,
+            true,
+            "Identificação da unidades de transporte vazia"
+        );
+        $this->dom->addChild(
+            $infUnidTranspVazia,
+            "tpUnidTranspVazia",
+            $std->tpUnidTranspVazia,
+            true,
+            "Tipo da unidade de transporte vazia"
+        );
+        $this->aInfUnidTranspVazia[] = $infUnidTranspVazia;
+        return $infUnidTranspVazia;
+    }
+
+    /**
+     * tagTrem
+     * tag MDFe/infMDFe/infModal/ferrov/trem
      *
      * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagRodo(\stdClass $std)
+    public function tagTrem(stdClass $std)
     {
-        $rodo = $this->dom->createElement("rodo");
+        $trem = $this->dom->createElement("trem");
         $this->dom->addChild(
-            $rodo,
-            "RNTRC",
-            $std->rntrc,
-            false,
-            "Registro Nacional de Transportadores Rodoviários de Carga"
-        );
-        $this->dom->addChild(
-            $rodo,
-            "CIOT",
-            $std->ciot,
-            false,
-            "Código Identificador da Operação de Transporte"
-        );
-        $this->rodo = $rodo;
-        return $rodo;
-    }
-
-
-    /**
-     * tagVeicTracao
-     * tag MDFe/infMDFe/infModal/rodo/veicTracao
-     *
-     * @param  string $cInt
-     * @param  string $placa
-     * @param  string $tara
-     * @param  string $capKG
-     * @param  string $capM3
-     * @param  string $tpRod
-     * @param  string $tpCar
-     * @param  string $UF
-     * @param  string $propRNTRC
-     * @param  string $propCPF
-     * @param  string $propCNPJ
-     * @param  string $propXNome
-     * @param  string $propIE
-     * @param  string $propUF
-     * @param  string $propTpProp
-     *
-     * @return DOMElement
-     */
-    public function tagVeicTracao(
-        $cInt = '',
-        $placa = '',
-        $tara = '',
-        $capKG = '',
-        $capM3 = '',
-        $tpRod = '',
-        $tpCar = '',
-        $UF = '',
-        $propRNTRC = '',
-        $propCPF = '',
-        $propCNPJ = '',
-        $propXNome = '',
-        $propIE = '',
-        $propUF = '',
-        $propTpProp = ''
-    ) {
-        $veicTracao = $this->zTagVeiculo(
-            'veicTracao',
-            $cInt,
-            $placa,
-            $tara,
-            $this->aCondutor,
-            $capKG,
-            $capM3,
-            $tpRod,
-            $tpCar,
-            $UF,
-            $propRNTRC,
-            $propCPF,
-            $propCNPJ,
-            $propXNome,
-            $propIE,
-            $propUF,
-            $propTpProp
-        );
-        $this->veicTracao = $veicTracao;
-        return $veicTracao;
-    }
-
-    /**
-     * tagCondutor
-     * tag MDFe/infMDFe/infModal/rodo/veicTracao/condutor
-     *
-     * @param  string $xNome
-     * @param  string $cpf
-     *
-     * @return DOMElement
-     */
-    public function tagCondutor(
-        $xNome = '',
-        $cpf = ''
-    ) {
-        $condutor = $this->dom->createElement("condutor");
-        $this->dom->addChild(
-            $condutor,
-            "xNome",
-            $xNome,
+            $trem,
+            "xPref",
+            $std->xPref,
             true,
-            "Nome do condutor"
+            "Prefixo do Trem"
         );
         $this->dom->addChild(
-            $condutor,
+            $trem,
+            "dhTrem",
+            $std->dhTrem,
+            false,
+            "Data e hora de liberação do trem na origem"
+        );
+        $this->dom->addChild(
+            $trem,
+            "xOri",
+            $std->xOri,
+            true,
+            "Origem do Trem"
+        );
+        $this->dom->addChild(
+            $trem,
+            "xDest",
+            $std->xDest,
+            true,
+            "Destino do Trem"
+        );
+        $this->dom->addChild(
+            $trem,
+            "qVag",
+            $std->qVag,
+            true,
+            "Quantidade de vagões"
+        );
+        $this->trem = $trem;
+        return $trem;
+    }
+
+    /**
+     * tagVag
+     * tag MDFe/infMDFe/infModal/ferrov/trem/vag
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagVag(stdClass $std)
+    {
+        $vag = $this->dom->createElement("vag");
+        $this->dom->addChild(
+            $vag,
+            "pesoBC",
+            $std->pesoBC,
+            true,
+            "Peso Base de Cálculo de Frete em Toneladas"
+        );
+        $this->dom->addChild(
+            $vag,
+            "pesoR",
+            $std->pesoR,
+            true,
+            "Peso Real em Toneladas"
+        );
+        $this->dom->addChild(
+            $vag,
+            "tpVag",
+            $std->tpVag,
+            true,
+            "Tipo de Vagão"
+        );
+        $this->dom->addChild(
+            $vag,
+            "serie",
+            $std->serie,
+            true,
+            "Série de Identificação do vagão"
+        );
+        $this->dom->addChild(
+            $vag,
+            "nVag",
+            $std->nVag,
+            true,
+            "Número de Identificação do vagão"
+        );
+        $this->dom->addChild(
+            $vag,
+            "nSeq",
+            $std->nSeq,
+            false,
+            "Sequência do vagão na composição"
+        );
+        $this->dom->addChild(
+            $vag,
+            "TU",
+            $std->TU,
+            true,
+            "Tonelada Útil"
+        );
+        $this->aVag[] = $vag;
+        return $vag;
+    }
+
+    /**
+     * tagInfMunDescarga
+     * tag MDFe/infMDFe/infDoc/infMunDescarga
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfMunDescarga(stdClass $std)
+    {
+        $infMunDescarga = $this->dom->createElement("infMunDescarga");
+        $this->dom->addChild(
+            $infMunDescarga,
+            "cMunDescarga",
+            $std->cMunDescarga,
+            true,
+            "Código do Município de Descarga"
+        );
+        $this->dom->addChild(
+            $infMunDescarga,
+            "xMunDescarga",
+            $std->xMunDescarga,
+            true,
+            "Nome do Município de Descarga"
+        );
+        $this->aInfMunDescarga[$std->nItem] = $infMunDescarga;
+        return $infMunDescarga;
+    }
+
+    /**
+     * tagInfCTe
+     * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfCTe(stdClass $std)
+    {
+        $infCTe = $this->dom->createElement("infCTe");
+        $this->dom->addChild(
+            $infCTe,
+            "chCTe",
+            $std->chCTe,
+            true,
+            "Chave de Acesso CTe"
+        );
+        $this->dom->addChild(
+            $infCTe,
+            "SegCodBarra",
+            $std->segCodBarra,
+            false,
+            "Segundo código de barras do CTe"
+        );
+        $this->dom->addChild(
+            $infCTe,
+            "indReentrega",
+            $std->segCodBarra,
+            false,
+            "Indicador de Reentrega do CTe"
+        );
+        $this->aInfCTe[$std->nItem][] = $infCTe;
+        return $infCTe;
+    }
+
+    /**
+     * tagInfNFe
+     * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfNFe(stdClass $std)
+    {
+        $infNFe = $this->dom->createElement("infNFe");
+        $this->dom->addChild(
+            $infNFe,
+            "chNFe",
+            $std->chNFe,
+            true,
+            "Chave de Acesso da NFe"
+        );
+        $this->dom->addChild(
+            $infNFe,
+            "SegCodBarra",
+            $std->segCodBarra,
+            false,
+            "Segundo código de barras da NFe"
+        );
+        $this->dom->addChild(
+            $infNFe,
+            "indReentrega",
+            $std->indReentrega,
+            false,
+            "Indicador de Reentrega da NFe"
+        );
+        $this->aInfNFe[$std->nItem][] = $infNFe;
+        return $infNFe;
+    }
+
+    /**
+     * tagInfMDFeTransp
+     * tag MDFe/infMDFeTransp/infDoc/infMunDescarga/infMDFeTranspTransp
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfMDFeTransp(stdClass $std)
+    {
+        $infMDFeTransp = $this->dom->createElement("infMDFeTransp");
+        $this->dom->addChild(
+            $infMDFeTransp,
+            "chMDFe",
+            $std->chMDFe,
+            true,
+            "Chave de Acesso da MDFe"
+        );
+        $this->aInfMDFe[$std->nItem][] = $infMDFeTransp;
+        return $infMDFeTransp;
+    }
+
+    /**
+     * tagSeg
+     * tag MDFe/infMDFe/seg
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagSeg(stdClass $std)
+    {
+        $this->buildSeg();
+        $this->dom->addChild(
+            $this->seg,
+            "nApol",
+            $std->nApol,
+            false,
+            "Número da Apólice"
+        );
+        $this->dom->addChild(
+            $this->seg,
+            "nAver",
+            $std->nAver,
+            false,
+            "Número da Averbação"
+        );
+
+        return $this->seg;
+    }
+
+    /**
+     * tagInfResp
+     * tag MDFe/infMDFe/seg/infResp
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagInfResp(stdClass $std)
+    {
+        $this->buildSeg();
+        $infResp = $this->dom->createElement("infResp");
+        $this->dom->addChild(
+            $infResp,
+            "respSeg",
+            $std->respSeg,
+            false,
+            "Responsável pelo seguro"
+        );
+        $this->dom->addChild(
+            $infResp,
+            "CNPJ",
+            $std->CNPJ,
+            false,
+            "Número do CNPJ do responsável pelo seguro"
+        );
+        $this->dom->addChild(
+            $infResp,
             "CPF",
-            $cpf,
-            true,
-            "CPF do condutor"
+            $std->CPF,
+            false,
+            "Número do CPF do responsável pelo seguro"
         );
-        $this->aCondutor[] = $condutor;
-        return $condutor;
+        $this->dom->appChild($this->seg, $infResp);
+        return $infResp;
     }
 
     /**
-     * tagVeicReboque
-     * tag MDFe/infMDFe/infModal/rodo/reboque
+     * tagInfSeg
+     * tag MDFe/infMDFe/seg/taginfSeg
      *
-     * @param string $cInt
-     * @param string $placa
-     * @param string $tara
-     * @param string $capKG
-     * @param string $capM3
-     * @param string $propRNTRC
-     * @param string $propCPF
-     * @param string $propCNPJ
-     * @param string $propXNome
-     * @param string $propIE
-     * @param string $propUF
-     * @param string $propTpProp
-     * @param string $tpCar
-     * @param string $UF
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagVeicReboque(
-        $cInt = '',
-        $placa = '',
-        $tara = '',
-        $capKG = '',
-        $capM3 = '',
-        $propRNTRC = '',
-        $propCPF = '',
-        $propCNPJ = '',
-        $propXNome = '',
-        $propIE = '',
-        $propUF = '',
-        $propTpProp = '',
-        $tpCar = '',
-        $UF = ''
-    ) {
-        $reboque = $this->zTagVeiculo(
-            'veicReboque',
-            $cInt,
-            $placa,
-            $tara,
-            [],
-            $capKG,
-            $capM3,
-            null,
-            $tpCar,
-            $UF,
-            $propRNTRC,
-            $propCPF,
-            $propCNPJ,
-            $propXNome,
-            $propIE,
-            $propUF,
-            $propTpProp
+    public function tagInfSeg(stdClass $std)
+    {
+        $this->buildSeg();
+        $infSeg = $this->dom->createElement("infSeg");
+        $this->dom->addChild(
+            $infSeg,
+            "xSeg",
+            $std->xSeg,
+            false,
+            "Nome da Seguradora"
         );
-
-        $this->aReboque[] = $reboque;
-
-        return $reboque;
+        $this->dom->addChild(
+            $infSeg,
+            "CNPJ",
+            $std->CNPJ,
+            false,
+            "Número do CNPJ da seguradora"
+        );
+        $this->dom->appChild($this->seg, $infSeg);
+        return $infSeg;
     }
 
     /**
-     * tagValePed
-     * tag MDFe/infMDFe/infModal/rodo/valePed
+     * tagTot
+     * tag MDFe/infMDFe/tot
      *
-     * @param  string $cnpjForn
-     * @param  string $cnpjPg
-     * @param  string $nCompra
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
-    public function tagValePed(
-        $cnpjForn = '',
-        $cnpjPg = '',
-        $nCompra = ''
-    ) {
-        $disp = $this->dom->createElement($disp);
+    public function tagTot(stdClass $std)
+    {
+        $tot = $this->dom->createElement("tot");
         $this->dom->addChild(
-            $disp,
-            "CNPJForn",
-            $cnpjForn,
-            true,
-            "CNPJ da empresa fornecedora do Vale-Pedágio"
-        );
-        $this->dom->addChild(
-            $disp,
-            "CNPJPg",
-            $cnpjPg,
+            $tot,
+            "qCTe",
+            $std->qCTe,
             false,
-            "CNPJ do responsável pelo pagamento do Vale-Pedágio"
+            "Quantidade total de CT-e relacionados no Manifesto"
         );
         $this->dom->addChild(
-            $disp,
-            "nCompra",
-            $nCompra,
-            true,
-            "Número do comprovante de compra"
+            $tot,
+            "qNFe",
+            $std->qNFe,
+            false,
+            "Quantidade total de NF-e relacionados no Manifesto"
         );
-        $this->aDisp[] = $disp;
-        return $disp;
+        $this->dom->addChild(
+            $tot,
+            "qMDFe",
+            $std->qMDFe,
+            false,
+            "Quantidade total de MDF-e relacionados no Manifesto"
+        );
+        $this->dom->addChild(
+            $tot,
+            "vCarga",
+            $std->vCarga,
+            true,
+            "Valor total da mercadoria/carga transportada"
+        );
+        $this->dom->addChild(
+            $tot,
+            "cUnid",
+            $std->cUnid,
+            true,
+            "Código da unidade de medida do Peso Bruto da Carga / Mercadoria Transportada"
+        );
+        $this->dom->addChild(
+            $tot,
+            "qCarga",
+            $std->qCarga,
+            true,
+            "Peso Bruto Total da Carga / Mercadoria Transportada"
+        );
+        $this->tot = $tot;
+        return $tot;
     }
 
     /**
-     * zTagVeiculo
+     * tagLacres
+     * tag MDFe/infMDFe/lacres
      *
-     * @param string $tag
-     * @param string $cInt
-     * @param string $placa
-     * @param string $tara
-     * @param array  $condutores
-     * @param string $capKG
-     * @param string $capM3
-     * @param string $tpRod
-     * @param string $tpCar
-     * @param string $UF
-     * @param string $propRNTRC
-     * @param string $propCPF
-     * @param string $propCNPJ
-     * @param string $propXNome
-     * @param string $propIE
-     * @param string $propUF
-     * @param string $propTpProp
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
-    protected function zTagVeiculo(
-        $tag = '',
-        $cInt = '',
-        $placa = '',
-        $tara = '',
-        $condutores = array(),
-        $capKG = '',
-        $capM3 = '',
-        $tpRod = '',
-        $tpCar = '',
-        $UF = '',
-        $propRNTRC = '',
-        $propCPF = '',
-        $propCNPJ = '',
-        $propXNome = '',
-        $propIE = '',
-        $propUF = '',
-        $propTpProp = ''
-    ) {
-        $node = $this->dom->createElement($tag);
+    public function tagLacres(stdClass $std)
+    {
+        $lacres = $this->dom->createElement("lacres");
         $this->dom->addChild(
-            $node,
-            "cInt",
-            $cInt,
+            $lacres,
+            "nLacre",
+            $std->nLacre,
             false,
-            "Código interno do veículo"
+            "Número do lacre"
         );
-        $this->dom->addChild(
-            $node,
-            "placa",
-            $placa,
-            true,
-            "Placa do veículo"
-        );
-        $this->dom->addChild(
-            $node,
-            "tara",
-            $tara,
-            true,
-            "Tara em KG"
-        );
-        $this->dom->addArrayChild(
-            $node,
-            $condutores
-        );
-        $this->dom->addChild(
-            $node,
-            "capKG",
-            $capKG,
-            false,
-            "Capacidade em KG"
-        );
-        $this->dom->addChild(
-            $node,
-            "capM3",
-            $capM3,
-            false,
-            "Capacidade em M3"
-        );
-
-        $prop = $this->zTagPropVeiculo(
-            'prop',
-            $propCPF,
-            $propCNPJ,
-            $propRNTRC,
-            $propXNome,
-            $propIE,
-            $propUF,
-            $propTpProp
-        );
-
-        if ($prop) {
-            $node->appendChild($prop);
-        }
-
-        if ($condutores) {
-            $this->dom->addArrayChild(
-                $node,
-                $condutores
-            );
-        }
-        $this->dom->addChild(
-            $node,
-            "tpRod",
-            $tpRod,
-            false,
-            "Tipo de rodado"
-        );
-        $this->dom->addChild(
-            $node,
-            "tpCar",
-            $tpCar,
-            true,
-            "Tipo de carroceria"
-        );
-        $this->dom->addChild(
-            $node,
-            "UF",
-            $UF,
-            true,
-            "UF de licenciamento do veículo"
-        );
-
-        return $node;
+        $this->aLacres[] = $lacres;
+        return $lacres;
     }
 
     /**
-     * @param string $tag
-     * @param string $CPF
-     * @param string $CNPJ
-     * @param string $RNTRC
-     * @param string $xNome
-     * @param string $IE
-     * @param string $UF
-     * @param string $tpProp
+     * tagLacres
+     * tag MDFe/infMDFe/autXML
      *
+     * Autorizados para download do XML do MDF-e
+     *
+     * @param  stdClass $std
      * @return DOMElement
      */
-    protected function zTagPropVeiculo(
-        $tag = '',
-        $CPF = '',
-        $CNPJ = '',
-        $RNTRC = '',
-        $xNome = '',
-        $IE = '',
-        $UF = '',
-        $tpProp = ''
-    ) {
-        $args = func_get_args();
-        unset($args[0]);
-
-        if (!array_filter($args)) {
-            return false;
-        }
-
-        $identificador = "<{$tag}> - ";
-        $nodeProp = $this->dom->createElement($tag);
-
+    public function tagAutXML(stdClass $std)
+    {
+        $autXML = $this->dom->createElement("autXML");
         $this->dom->addChild(
-            $nodeProp,
-            'CPF',
-            $CPF,
+            $autXML,
+            "CNPJ",
+            $std->CNPJ,
             false,
-            "{$identificador} Número do CPF do proprietário"
+            "CNPJ do autorizado"
         );
         $this->dom->addChild(
-            $nodeProp,
-            'CNPJ',
-            $CNPJ,
+            $autXML,
+            "CPF",
+            $std->CPF,
             false,
-            "{$identificador} Número do CNPJ do proprietário"
+            "CPF do autorizado"
         );
-        $this->dom->addChild(
-            $nodeProp,
-            'RNTRC',
-            $RNTRC,
-            true,
-            "{$identificador} Registro Nacional dos Transportadores Rodoviários de Carga do proprietário"
-        );
-        $this->dom->addChild(
-            $nodeProp,
-            'xNome',
-            $xNome,
-            true,
-            "{$identificador} Razão Social ou Nome do proprietário do proprietário"
-        );
-        $this->dom->addChild(
-            $nodeProp,
-            'IE',
-            $IE,
-            true,
-            "{$identificador} Inscrição Estadual do proprietário"
-        );
-        $this->dom->addChild(
-            $nodeProp,
-            'UF',
-            $UF,
-            true,
-            "{$identificador} UF do proprietário"
-        );
-        $this->dom->addChild(
-            $nodeProp,
-            'tpProp',
-            $tpProp,
-            true,
-            "{$identificador} Tipo do Proprietário"
-        );
-
-        return $nodeProp;
+        $this->aAutXML[] = $autXML;
+        return $autXML;
     }
 
     /**
-     * zTagMDFe
+     * taginfAdic
+     * Grupo de Informações Adicionais
+     * tag MDFe/infMDFe/infAdic (opcional)
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function taginfAdic(stdClass $std)
+    {
+        $infAdic = $this->dom->createElement("infAdic");
+        $this->dom->addChild(
+            $infAdic,
+            "infAdFisco",
+            $std->infAdFisco,
+            false,
+            "Informações Adicionais de Interesse do Fisco"
+        );
+        $this->dom->addChild(
+            $infAdic,
+            "infCpl",
+            $std->infCpl,
+            false,
+            "Informações Complementares de interesse do Contribuinte"
+        );
+        $this->infAdic = $infAdic;
+        return $infAdic;
+    }
+
+    /**
+     * buildMDFe
      * Tag raiz da MDFe
      * tag MDFe DOMNode
      * Função chamada pelo método [ monta ]
      *
      * @return DOMElement
      */
-    protected function zTagMDFe()
+    protected function buildMDFe()
     {
         if (empty($this->MDFe)) {
             $this->MDFe = $this->dom->createElement("MDFe");
@@ -1552,125 +1811,14 @@ class Make extends BaseMake
     }
 
     /**
-     * Adiciona as tags
-     * infMunCarrega e infPercurso
-     * a tag ide
-     */
-    protected function zTagIde()
-    {
-        $this->dom->addArrayChild($this->ide, $this->aInfMunCarrega);
-        $this->dom->addArrayChild($this->ide, $this->aInfPercurso);
-    }
-
-    /**
-     * Processa lacres
-     */
-    protected function zTagLacres()
-    {
-        $this->dom->addArrayChild($this->infMDFe, $this->aLacres);
-    }
-
-    /**
-     * Proecessa documentos fiscais
-     */
-    protected function zTagInfDoc()
-    {
-        $this->aCountDoc = ['CTe'=>0, 'NFe'=>0, 'MDFe'=>0];
-        if (! empty($this->aInfMunDescarga)) {
-            $infDoc = $this->dom->createElement("infDoc");
-            $this->aCountDoc['CTe'] = 0;
-            $this->aCountDoc['NFe'] = 0;
-            $this->aCountDoc['MDFe'] = 0;
-            foreach ($this->aInfMunDescarga as $nItem => $node) {
-                if (isset($this->aInfCTe[$nItem])) {
-                    $this->aCountDoc['CTe'] += $this->dom->addArrayChild($node, $this->aInfCTe[$nItem]);
-                }
-                if (isset($this->aInfNFe[$nItem])) {
-                    $this->aCountDoc['NFe'] += $this->dom->addArrayChild($node, $this->aInfNFe[$nItem]);
-                }
-                if (isset($this->aInfMDFe[$nItem])) {
-                    $this->aCountDoc['MDFe'] += $this->dom->addArrayChild($node, $this->aInfMDFe[$nItem]);
-                }
-                $this->dom->appChild($infDoc, $node, '');
-            }
-            $this->dom->appChild($this->infMDFe, $infDoc, 'Falta tag "infMDFe"');
-        }
-        //ajusta quantidades em tot
-        if ($this->aCountDoc['CTe'] > 0) {
-            $this->tot->getElementsByTagName('qCTe')->item(0)->nodeValue = $this->aCountDoc['CTe'];
-        }
-        if ($this->aCountDoc['NFe'] > 0) {
-            $this->tot->getElementsByTagName('qNFe')->item(0)->nodeValue = $this->aCountDoc['NFe'];
-        }
-        if ($this->aCountDoc['MDFe'] > 0) {
-            $this->tot->getElementsByTagName('qMDFe')->item(0)->nodeValue = $this->aCountDoc['MDFe'];
-        }
-    }
-
-    /**
-     * Processa modal rodoviario
-     */
-    protected function zTagRodo()
-    {
-        if (! empty($this->rodo)) {
-            $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
-            $this->dom->addArrayChild($this->rodo, $this->aReboque);
-            if (! empty($this->aDisp)) {
-                $valePed = $this->dom->createElement("valePed");
-                foreach ($this->aDisp as $node) {
-                    $this->dom->appChild($valePed, $node, '');
-                }
-                $this->dom->appChild($this->rodo, $valePed, '');
-            }
-            $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "infModal"');
-        }
-    }
-
-    /**
-     * Proecessa modal ferroviario
-     */
-    protected function zTagFerrov()
-    {
-        if (! empty($this->trem)) {
-            $this->dom->addArrayChild($this->trem, $this->aVag);
-            $ferrov = $this->dom->createElement("ferrov");
-            $this->dom->appChild($ferrov, $this->trem, '');
-            $this->dom->appChild($this->infModal, $ferrov, 'Falta tag "infModal"');
-        }
-    }
-
-    /**
-     * Processa modal aereo
-     */
-    protected function zTagAereo()
-    {
-        if (! empty($this->aereo)) {
-            $this->dom->appChild($this->infModal, $this->aereo, 'Falta tag "infModal"');
-        }
-    }
-
-    /**
-     * Processa modal aquaviário
-     */
-    protected function zTagAqua()
-    {
-        if (! empty($this->aqua)) {
-            $this->dom->addArrayChild($this->aqua, $this->aInfTermCarreg);
-            $this->dom->addArrayChild($this->aqua, $this->aInfTermDescarreg);
-            $this->dom->addArrayChild($this->aqua, $this->aInfEmbComb);
-            $this->dom->appChild($this->infModal, $this->aqua, 'Falta tag "infModal"');
-        }
-    }
-
-    /**
-     * zTestaChaveXML
      * Remonta a chave da NFe de 44 digitos com base em seus dados
+     * já contidos na NFE.
      * Isso é útil no caso da chave informada estar errada
      * se a chave estiver errada a mesma é substituida
-     *
-     * @param object $dom
+     * @param Dom $dom
+     * @return void
      */
-    private function zTestaChaveXML($dom)
+    protected function checkNFeKey(Dom $dom)
     {
         $infMDFe = $dom->getElementsByTagName("infMDFe")->item(0);
         $ide = $dom->getElementsByTagName("ide")->item(0);
@@ -1680,15 +1828,15 @@ class Make extends BaseMake
         $cnpj = $emit->getElementsByTagName('CNPJ')->item(0)->nodeValue;
         $mod = $ide->getElementsByTagName('mod')->item(0)->nodeValue;
         $serie = $ide->getElementsByTagName('serie')->item(0)->nodeValue;
-        $nNF = $ide->getElementsByTagName('nMDF')->item(0)->nodeValue;
+        $nNF = $ide->getElementsByTagName('nNF')->item(0)->nodeValue;
         $tpEmis = $ide->getElementsByTagName('tpEmis')->item(0)->nodeValue;
-        $cNF = $ide->getElementsByTagName('cMDF')->item(0)->nodeValue;
-        $chave = str_replace('MDFe', '', $infMDFe->getAttribute("Id"));
-        $tempData = explode("-", $dhEmi);
-        $chaveMontada = $this->montaChave(
+        $cNF = $ide->getElementsByTagName('cNF')->item(0)->nodeValue;
+        $chave = str_replace('NFe', '', $infMDFe->getAttribute("Id"));
+        $dt = new DateTime($dhEmi);
+        $chaveMontada = Keys::build(
             $cUF,
-            $tempData[0] - 2000,
-            $tempData[1],
+            $dt->format('y'),
+            $dt->format('m'),
             $cnpj,
             $mod,
             $serie,
@@ -1699,10 +1847,239 @@ class Make extends BaseMake
         //caso a chave contida na NFe esteja errada
         //substituir a chave
         if ($chaveMontada != $chave) {
+            //throw new RuntimeException("A chave informada é diferente da chave
+            //mondata com os dados [correto: $chaveMontada].");
             $ide->getElementsByTagName('cDV')->item(0)->nodeValue = substr($chaveMontada, -1);
             $infMDFe = $dom->getElementsByTagName("infMDFe")->item(0);
             $infMDFe->setAttribute("Id", "MDFe" . $chaveMontada);
-            $this->chMDFe = $chaveMontada;
+            $this->chNFe = $chaveMontada;
+        }
+    }
+
+    /**
+     * Informações do modal
+     * tag MDFe/infMDFe/InfModal/Rodo
+     * Depende de infMunDescarga
+     */
+    protected function buildInfModal()
+    {
+        $this->buildRodo();
+        $this->buildAereo();
+        $this->buildAquav();
+        $this->buildFerrov();
+    }
+
+    /**
+     * Informações do modal Rodoviário
+     * tag MDFe/infMDFe/InfModal/Rodo
+     * Depende de infMunDescarga
+     */
+    protected function buildRodo()
+    {
+        if (empty($this->aInfMunDescarga)) {
+            return '';
+        }
+
+        //infCIOT
+        if (isset($this->aInfCIOT)) {
+            $this->dom->addArrayChild($this->rodo, $this->aInfCIOT);
+        }
+
+        //valePed
+        $this->buildValePed();
+
+        //infContratante
+        if (isset($this->aInfContratante)) {
+            $this->dom->addArrayChild($this->rodo, $this->aInfContratante);
+        }
+
+        //veicTracao
+        $this->buildVeicTracao();
+
+        //veicReboque
+        $this->buildVeicReboque();
+
+        //lacRodo
+        if (isset($this->aLacRodo)) {
+            $this->dom->addArrayChild($this->rodo, $this->aLacRodo);
+        }
+
+        $this->infModal->insertBefore($this->rodo);
+    }
+
+    /**
+     * Informações de Vale Pedágio
+     * tag MDFe/infMDFe/InfModal/Rodo/infANTT/valePed
+     * Depende de infMunDescarga
+     */
+    protected function buildValePed()
+    {
+        if (empty($this->aDisp)) {
+            return '';
+        }
+        if (empty($this->valePed)) {
+            $this->valePed = $this->dom->createElement("valePed");
+        }
+
+        //disp
+        if (isset($this->aDisp)) {
+            $this->dom->addArrayChild($this->valePed, $this->aDisp);
+        }
+
+        $this->rodo->appendChild($this->valePed);
+    }
+
+    /**
+     * Dados do Veículo com a Tração
+     * tag MDFe/infMDFe/InfModal/Rodo/infANTT/valePed
+     * Depende de infMunDescarga
+     */
+    protected function buildVeicTracao()
+    {
+        if (empty($this->veicTracao)) {
+            return '';
+        }
+
+        //ccondutor
+        if (isset($this->aCondutor)) {
+            $node = $this->veicTracao->getElementsByTagName("tpRod")->item(0);
+            foreach ($this->aCondutor as $ccondutor){
+                $this->veicTracao->insertBefore($ccondutor, $node);
+            }
+        }
+        $this->rodo->appendChild($this->veicTracao);
+    }
+
+    /**
+     * Dados dos reboques
+     * tag MDFe/infMDFe/InfModal/Rodo/infANTT/valePed
+     * Depende de infMunDescarga
+     */
+    protected function buildVeicReboque()
+    {
+        if (isset($this->aVeicReboque)) {
+            foreach ($this->aVeicReboque as $nItem => $veicReboque){
+                $node = $this->aVeicReboque[$nItem]->getElementsByTagName("tpCar")->item(0);
+                $this->aVeicReboque[$nItem]->insertBefore($this->aPropVeicReboque[$nItem], $node);
+                $this->rodo->appendChild($this->aVeicReboque[$nItem]);
+            }
+        }
+    }
+
+    /**
+     * Informações do modal Aéreo
+     * tag MDFe/infMDFe/InfModal/Rodo/Aereo
+     * Depende de infMunDescarga
+     */
+    protected function buildAereo()
+    {
+        $this->infModal->appendChild($this->aereo);
+    }
+
+    /**
+     * Informações do modal Aquaviário
+     * tag MDFe/infMDFe/InfModal/Rodo/Aquav
+     * Depende de infMunDescarga
+     */
+    protected function buildAquav()
+    {
+        if (empty($this->aquav)) {
+            return '';
+        }
+
+        //infTermCarreg
+        if (isset($this->aInfTermCarreg)) {
+            $this->dom->addArrayChild($this->aquav, $this->aInfTermCarreg);
+        }
+
+        //infTermDescarreg
+        if (isset($this->aInfTermDescarreg)) {
+            $this->dom->addArrayChild($this->aquav, $this->aInfTermDescarreg);
+        }
+
+        //infEmbComb
+        if (isset($this->aInfEmbComb)) {
+            $this->dom->addArrayChild($this->aquav, $this->aInfEmbComb);
+        }
+
+        //infUnidCargaVazia
+        if (isset($this->aInfUnidCargaVazia)) {
+            $this->dom->addArrayChild($this->aquav, $this->aInfUnidCargaVazia);
+        }
+
+        //infUnidTranspVazia
+        if (isset($this->aInfUnidTranspVazia)) {
+            $this->dom->addArrayChild($this->aquav, $this->aInfUnidTranspVazia);
+        }
+
+        $this->infModal->appendChild($this->aquav);
+    }
+
+    /**
+     * Informações do modal Ferroviário
+     * tag MDFe/infMDFe/InfModal/Rodo/Ferrov
+     * Depende de infMunDescarga
+     */
+    protected function buildFerrov()
+    {
+        if (empty($this->ferrov) && !empty($this->trem)) {
+            $this->ferrov = $this->dom->createElement("ferrov");
+        }
+        if (empty($this->ferrov) && !empty($this->vag)) {
+            $this->ferrov = $this->dom->createElement("ferrov");
+        }
+
+        //trem
+        $this->ferrov->appendChild($this->trem);
+
+        //vag
+        if (isset($this->aVag)) {
+            $this->dom->addArrayChild($this->ferrov, $this->aVag);
+        }
+
+        $this->infModal->appendChild($this->ferrov);
+    }
+
+    /**
+     * Informações dos Documentos fiscais vinculados ao manifesto
+     * tag MDFe/infMDFe/infDoc
+     * Depende de infMunDescarga
+     */
+    protected function buildInfDoc()
+    {
+        if (empty($this->aInfMunDescarga)) {
+            return '';
+        }
+
+        if (empty($this->infDoc)) {
+            $this->infDoc = $this->dom->createElement("infDoc");
+        }
+
+        foreach ($this->aInfMunDescarga as $nItem => $infMunDescarga) {
+
+            //infCTe
+            if (isset($this->aInfCTe[$nItem])) {
+                $this->dom->addArrayChild($infMunDescarga, $this->aInfCTe[$nItem]);
+            }
+
+            //infNFe
+            if (isset($this->aInfNFe[$nItem])) {
+                $this->dom->addArrayChild($infMunDescarga, $this->aInfNFe[$nItem]);
+            }
+
+            $this->dom->appChild($this->infDoc, $infMunDescarga, "infDoc");
+        }
+    }
+
+    /**
+     * Informações de Seguro da Carga
+     * tag MDFe/infMDFe/seg(opcional)
+     * Depende de infResp, infSeg
+     */
+    protected function buildSeg()
+    {
+        if (empty($this->seg)) {
+            $this->seg = $this->dom->createElement("seg");
         }
     }
 }
