@@ -547,8 +547,7 @@ class Make
             false,
             $identificador . "Endereço de email do emitente"
         );
-        $node = $this->emit->getElementsByTagName("IE")->item(0);
-        $this->emit->insertBefore($enderEmit, $node);
+        $this->emit->appendChild($enderEmit);
         $this->enderEmit = $enderEmit;
         return $enderEmit;
     }
