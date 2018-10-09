@@ -1875,10 +1875,6 @@ class Make
      */
     protected function buildRodo()
     {
-        if (empty($this->aInfMunDescarga)) {
-            return '';
-        }
-
         //infCIOT
         if (isset($this->aInfCIOT)) {
             $this->dom->addArrayChild($this->rodo, $this->aInfCIOT);
@@ -1903,7 +1899,7 @@ class Make
             $this->dom->addArrayChild($this->rodo, $this->aLacRodo);
         }
 
-        $this->infModal->insertBefore($this->rodo);
+        $this->infModal->appendChild($this->rodo);
     }
 
     /**
