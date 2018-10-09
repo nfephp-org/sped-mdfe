@@ -1973,6 +1973,9 @@ class Make
      */
     protected function buildAereo()
     {
+        if (empty($this->aereo)) {
+            return '';
+        }
         $this->infModal->appendChild($this->aereo);
     }
 
@@ -2030,14 +2033,18 @@ class Make
         }
 
         //trem
-        $this->ferrov->appendChild($this->trem);
+        if(!empty($this->trem)){
+            $this->ferrov->appendChild($this->trem);
+        }
 
         //vag
         if (isset($this->aVag)) {
             $this->dom->addArrayChild($this->ferrov, $this->aVag);
         }
 
-        $this->infModal->appendChild($this->ferrov);
+        if(!empty($this->ferrov)){
+            $this->infModal->appendChild($this->ferrov);
+        }
     }
 
     /**
