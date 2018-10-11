@@ -19,7 +19,11 @@
     ],
     "require": {
         "php" : "~5.5|~7.0",
+        "ext-json": "*",
         "ext-dom": "*",
+        "ext-simplexml": "*",
+        "ext-libxml": "*",
+        "ext-soap": "*",
         "nfephp-org/sped-common" : "^5.0",
         "zendframework/zend-mail": "^2.5",
         "html2text/html2text": "^4.0"

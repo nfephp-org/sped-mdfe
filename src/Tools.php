@@ -13,24 +13,78 @@ namespace NFePHP\MDFe;
  * @author    Roberto L. Machado <linux.rlm at gmail dot com>
  */
 
-use NFePHP\Common\Base\BaseTools;
-use NFePHP\Common\DateTime\DateTime;
-use NFePHP\Common\LotNumber\LotNumber;
-use NFePHP\Common\Strings\Strings;
-use NFePHP\Common\Files;
+use DOMDocument;
+use InvalidArgumentException;
+use NFePHP\Common\Certificate;
+use NFePHP\Common\Signer;
+use NFePHP\Common\Soap\SoapCurl;
+use NFePHP\Common\Validator;
+use NFePHP\MDFe\Common\Config;
+use NFePHP\Common\Strings;
 use NFePHP\Common\Exception;
-use NFePHP\Common\Dom\Dom;
-use NFePHP\Common\Dom\ValidXsd;
 use NFePHP\MDFe\Auxiliar\Response;
-use NFePHP\MDFe\Mail;
 use NFePHP\MDFe\Auxiliar\Identify;
+use NFePHP\MDFe\Common\Webservices;
+use NFePHP\MDFe\Factories\Header;
+use SoapHeader;
 
-if (!defined('NFEPHP_ROOT')) {
-    define('NFEPHP_ROOT', dirname(dirname(__FILE__)));
-}
 
-class Tools extends BaseTools
+class Tools
 {
+    /**
+     * config class
+     * @var \stdClass
+     */
+    public $config;
+
+    /**
+     * Version of layout
+     * @var string
+     */
+    private $versao = '3.00';
+
+    /**
+     * certificate class
+     * @var Certificate
+     */
+    protected $certificate;
+
+    /**
+     * Sign algorithm from OPENSSL
+     * @var int
+     */
+    protected $algorithm = OPENSSL_ALGO_SHA1;
+
+    /**
+     * Canonical conversion options
+     * @var array
+     */
+    protected $canonical = [true,false,null,null];
+
+    /**
+     * ambiente
+     * @var string
+     */
+    public $ambiente = 'homologacao';
+
+    /**
+     * Environment
+     * @var int
+     */
+    public $tpAmb = 2;
+
+    /**
+     * Path to schemes folder
+     * @var string
+     */
+    public $pathschemes = '';
+
+    /**
+     * soap class
+     * @var SoapCurl
+     */
+    public $soap;
+
     /**
      * errrors
      *
@@ -56,6 +110,68 @@ class Tools extends BaseTools
      * @var array
      */
     private $aLastRetEvent = array();
+
+    /**
+     * @var array
+     */
+    protected $soapnamespaces = [
+        'xmlns:soap' => "http://www.w3.org/2003/05/soap-envelope",
+        'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
+        'xmlns:xsd' => "http://www.w3.org/2001/XMLSchema"
+    ];
+
+    /**
+     * Constructor
+     * load configurations,
+     * load Digital Certificate,
+     * map all paths,
+     * set timezone and
+     * and instanciate Contingency::class
+     * @param string $configJson content of config in json format
+     * @param Certificate $certificate
+     * @throws \Exception
+     */
+    public function __construct($configJson, Certificate $certificate)
+    {
+        //valid config json string
+        $this->config = Config::validate($configJson);
+
+        $this->versao = $this->config->versao;
+        $this->certificate = $certificate;
+        $this->setEnvironment($this->config->tpAmb);
+        $this->setPathSchemes($this->config->versao);
+        $this->soap = new SoapCurl($certificate);
+    }
+
+    /**
+     * Alter environment from "homologacao" to "producao" and vice-versa
+     * @param int $tpAmb
+     * @return void
+     */
+    public function setEnvironment($tpAmb = 2)
+    {
+        if (!empty($tpAmb) && ($tpAmb == 1 || $tpAmb == 2)) {
+            $this->tpAmb = $tpAmb;
+            $this->ambiente = ($tpAmb == 1) ? 'producao' : 'homologacao';
+        }
+    }
+
+    /**
+     * Define o Schemas para validação do XML da MDFe
+     * @param null $versao
+     * @return void
+     */
+    public function setPathSchemes($versao = null)
+    {
+        //Verify version template is defined
+        if ($versao === null) {
+            throw new \InvalidArgumentException('É preciso definir a versão de layout para validação.');
+        }
+        $this->pathschemes = realpath(
+            __DIR__ . '/../schemes/PL_MDFe_' . str_replace(".","",$versao)
+        ).'/';
+    }
+
     /**
      * imprime
      * Imprime o documento eletrônico (MDFe, CCe, Inut.)
@@ -301,7 +417,6 @@ class Tools extends BaseTools
         return (string) $procXML;
     }
 
-
     /**
      * verificaValidade
      *
@@ -333,16 +448,32 @@ class Tools extends BaseTools
     }
 
     /**
-     * assina
-     *
-     * @param  string  $xml
-     * @param  boolean $saveFile
-     * @return string
-     * @throws Exception\RuntimeException
+     * Sign MDFe
+     * @param  string  $xml MDFe xml content
+     * @return string signed MDFe xml
      */
-    public function assina($xml = '', $saveFile = false)
+    public function sign($xml)
     {
-        return $this->assinaDoc($xml, 'mdfe', 'infMDFe', $saveFile);
+        if (empty($xml)) {
+            throw new InvalidArgumentException('$xml');
+        }
+        //remove all invalid strings
+        $xml = Strings::clearXmlString($xml);
+        $signed = Signer::sign(
+            $this->certificate,
+            $xml,
+            'infMDFe',
+            'Id',
+            $this->algorithm,
+            $this->canonical
+        );
+        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom->preserveWhiteSpace = false;
+        $dom->formatOutput = false;
+        $dom->loadXML($signed);
+        //exception will be throw if NFe is not valid
+        $this->isValid($this->versao, $signed, 'mdfe');
+        return $signed;
     }
 
     /**
@@ -767,55 +898,17 @@ class Tools extends BaseTools
      * @return string
      * @throws Exception\RuntimeException
      */
-    public function sefazConsultaNaoEncerrados($tpAmb = '2', $cnpj = '', &$aRetorno = array())
+    public function sefazConsultaNaoEncerrados()
     {
-        if ($tpAmb == '') {
-            $tpAmb = $this->aConfig['tpAmb'];
-        }
-        if ($cnpj == '') {
-            $cnpj = $this->aConfig['cnpj'];
-        }
-        $siglaUF = $this->aConfig['siglaUF'];
-        //carrega serviço
-        $servico = 'MDFeConsNaoEnc';
-        $this->zLoadServico(
-            'mdfe',
-            $servico,
-            $siglaUF,
-            $tpAmb
-        );
-        if ($this->urlService == '') {
-            $msg = "O serviço não está disponível na SEFAZ $siglaUF!!!";
-            throw new Exception\RuntimeException($msg);
-        }
-        $cons = "<consMDFeNaoEnc xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-            . "<tpAmb>$tpAmb</tpAmb>"
-            . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ><CNPJ>$cnpj</CNPJ></consMDFeNaoEnc>";
-        //valida mensagem com xsd
-        //if (! $this->zValidMessage($cons, 'mdfe', 'consMDFeNaoEnc', $version)) {
-        //    $msg = 'Falha na validação. '.$this->error;
-        //    throw new Exception\RuntimeException($msg);
-        //}
+        $this->servico('MDFeConsNaoEnc',$this->config->siglaUF, 2);
+        $cons = "<consMDFeNaoEnc xmlns=\"{$this->urlPortal}\" versao=\"{$this->versao}\">"
+            . "<tpAmb>{$this->tpAmb}</tpAmb>"
+            . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ><CNPJ>{$this->config->cnpj}</CNPJ></consMDFeNaoEnc>";
+
         //montagem dos dados da mensagem SOAP
-        $body = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$cons</mdfeDadosMsg>";
-        //consome o webservice e verifica o retorno do SOAP
-        $retorno = $this->oSoap->send(
-            $this->urlService,
-            $this->urlNamespace,
-            $this->urlHeader,
-            $body,
-            $this->urlMethod
-        );
-        $lastMsg = $this->oSoap->lastMsg;
-        $this->soapDebug = $this->oSoap->soapDebug;
-        $datahora = date('Ymd_His');
-        $filename = $siglaUF."_"."$datahora-consNaoEnc.xml";
-        $this->zGravaFile('mdfe', $tpAmb, $filename, $lastMsg);
-        $filename = $siglaUF."_"."$datahora-retConsNaoEnc.xml";
-        $this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
-        //tratar dados de retorno
-        $aRetorno = Response::readReturnSefaz($servico, $retorno);
-        return (string) $retorno;
+        $request = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$cons</mdfeDadosMsg>";
+        $this->lastResponse = $this->sendRequest($request, []);
+        return $this->lastResponse;
     }
 
     /**
@@ -945,35 +1038,104 @@ class Tools extends BaseTools
     }
 
     /**
-     * validarXml
-     * Valida qualquer xml do sistema MDFe com seu xsd
-     * NOTA: caso não exista um arquivo xsd apropriado retorna false
-     *
-     * @param  string $xml path ou conteudo do xml
+     * Performs xml validation with its respective
+     * XSD structure definition document
+     * NOTE: if dont exists the XSD file will return true
+     * @param string $version layout version
+     * @param string $body
+     * @param string $method
      * @return boolean
      */
-    public function validarXml($xml = '')
+    protected function isValid($version, $body, $method)
     {
-        $aResp = array();
-        $schem = Identify::identificar($xml, $aResp);
-        if ($schem == '') {
+        $schema = $this->pathschemes.$method."_v$version.xsd";
+        if (!is_file($schema)) {
             return true;
         }
-        $xsdFile = $aResp['Id'].'_v'.$aResp['versao'].'.xsd';
-        $xsdPath = NFEPHP_ROOT.DIRECTORY_SEPARATOR .
-            'schemes' .
-            DIRECTORY_SEPARATOR .
-            $this->aConfig['schemesMDFe'] .
-            DIRECTORY_SEPARATOR .
-            $xsdFile;
-        if (! is_file($xsdPath)) {
-            $this->errors[] = "O arquivo XSD $xsdFile não foi localizado.";
-            return false;
+        return Validator::isValid(
+            $body,
+            $schema
+        );
+    }
+
+    /**
+     * Assembles all the necessary parameters for soap communication
+     * @param string $service
+     * @param string $uf
+     * @param int $tpAmb
+     * @param bool $ignoreContingency
+     * @return void
+     */
+    private function servico($service, $uf, $tpAmb, $ignoreContingency = false) {
+        $ambiente = $tpAmb == 1 ? "producao" : "homologacao";
+        $Webservice = new Webservices();
+        $stdWS = $Webservice->get($this->config->siglaUF, $ambiente, $service);
+
+        $sigla = $uf;
+        if (!$ignoreContingency) {
+            $contType = $this->contingency->type;
+            if (!empty($contType)
+                && ($contType == 'SVCRS' || $contType == 'SVCAN')
+            ) {
+                $sigla = $contType;
+            }
         }
-        if (! ValidXsd::validar($aResp['xml'], $xsdPath)) {
-            $this->errors[] = ValidXsd::$errors;
-            return false;
+        if ($stdWS === false) {
+            throw new \RuntimeException(
+                "Nenhum serviço foi localizado para esta unidade "
+                . "da federação [$uf]."
+            );
         }
-        return true;
+        //recuperação da url do serviço
+        $this->urlService = $stdWS->url;
+        //recuperação do método
+        $this->urlMethod = $stdWS->method;
+        //recuperação da operação
+        $this->urlOperation = $stdWS->operation;
+        //montagem do namespace do serviço
+        $this->urlNamespace = sprintf("%s/wsdl/%s", $this->urlPortal, $stdWS->operation);
+        //montagem do cabeçalho da comunicação SOAP
+        $this->urlHeader = Header::get($this->urlNamespace, 43, $stdWS->version);
+        $this->objHeader = new SoapHeader(
+            $this->urlNamespace,
+            'mdfeCabecMsg',
+            ['cUF' => 43, 'versaoDados' => $stdWS->version]
+        );
+        $this->urlAction = "\""
+            . $this->urlNamespace
+            . "/"
+            . $this->urlMethod
+            . "\"";
+    }
+
+    /**
+     * Send request message to webservice
+     * @param array $parameters
+     * @param string $request
+     * @return string
+     */
+    private function sendRequest($request, array $parameters = [])
+    {
+        $this->checkSoap();
+        return (string) $this->soap->send(
+            $this->urlService,
+            $this->urlMethod,
+            $this->urlAction,
+            SOAP_1_2,
+            $parameters,
+            $this->soapnamespaces,
+            $request,
+            $this->objHeader
+        );
+    }
+
+    /**
+     * Verify if SOAP class is loaded, if not, force load SoapCurl
+     */
+    private function checkSoap()
+    {
+        if (empty($this->soap)) {
+            $this->soap = new SoapCurl($this->certificate);
+        }
     }
 }

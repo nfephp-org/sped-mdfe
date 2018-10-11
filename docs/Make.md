@@ -473,7 +473,7 @@ $elem = $make->tagInfNFe($std);
 
 ```php
 $std = new stdClass();
-$std->respSeg = 'Joao';
+$std->respSeg = '1';
 $std->CNPJ = '11095658000140';
 $std->CPF  = '';
 

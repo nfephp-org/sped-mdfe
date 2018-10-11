@@ -478,13 +478,13 @@ class MakeTest extends TestCase
     public function testTagInfResp()
     {
         $std = new \stdClass();
-        $std->respSeg = 'Joao';
+        $std->respSeg = '1';
         $std->CNPJ = '11095658000140';
         $std->CPF = '';
 
         $resp = $this->make->tagInfResp($std);
         $this->assertInstanceOf(\DOMElement::class, $resp);
-        $this->assertEquals('Joao', $resp->getElementsByTagName('respSeg')->item(0)->nodeValue);
+        $this->assertEquals('1', $resp->getElementsByTagName('respSeg')->item(0)->nodeValue);
         $this->assertEquals('11095658000140', $resp->getElementsByTagName('CNPJ')->item(0)->nodeValue);
         $this->assertEquals('', $resp->getElementsByTagName('CPF')->item(0)->nodeValue);
     }
