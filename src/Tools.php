@@ -18,6 +18,7 @@ use InvalidArgumentException;
 use NFePHP\Common\Certificate;
 use NFePHP\Common\Signer;
 use NFePHP\Common\Soap\SoapCurl;
+use NFePHP\Common\UFList;
 use NFePHP\Common\Validator;
 use NFePHP\MDFe\Common\Config;
 use NFePHP\Common\Strings;
@@ -170,6 +171,16 @@ class Tools
         $this->pathschemes = realpath(
             __DIR__ . '/../schemes/PL_MDFe_' . str_replace(".","",$versao)
         ).'/';
+    }
+
+    /**
+     * Recover cUF number from state acronym
+     * @param string $acronym Sigla do estado
+     * @return int number cUF
+     */
+    public function getcUF($acronym)
+    {
+        return UFlist::getCodeByUF($acronym);
     }
 
     /**
@@ -1095,7 +1106,7 @@ class Tools
         //montagem do namespace do serviço
         $this->urlNamespace = sprintf("%s/wsdl/%s", $this->urlPortal, $stdWS->operation);
         //montagem do cabeçalho da comunicação SOAP
-        $this->urlHeader = Header::get($this->urlNamespace, 43, $stdWS->version);
+        $this->urlHeader = Header::get($this->urlNamespace, $this->getcUF($this->config->siglaUF), $stdWS->version);
         $this->objHeader = new SoapHeader(
             $this->urlNamespace,
             'mdfeCabecMsg',
