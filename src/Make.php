@@ -103,10 +103,6 @@ class Make extends BaseMake
     /**
      * @var DOMElement
      */
-    private $infCIOT; //array de DOMNode
-    /**
-     * @var DOMElement
-     */
     private $infContratante;
     /**
      * @var DOMElement
@@ -1258,40 +1254,6 @@ class Make extends BaseMake
         return $infANTT;
     }
 
-    public function tagInfCIOT(
-        $ciot = '',
-        $cpfcnpj = ''
-    )
-    {
-        $tagCIOT = $this->dom->createElement("infCIOT");
-        $this->dom->addChild(
-            $tagCIOT,
-            "CIOT",
-            $ciot,
-            true,
-            "Código Identificador da Operação de Transportes"
-        );
-        if (strlen($cpfcnpj) == 14) {
-            $this->dom->addChild(
-                $tagCIOT,
-                "CNPJ",
-                $cpfcnpj,
-                true,
-                "CNPJ do contratante e do destinatário da carga"
-            );
-        } else {
-            $this->dom->addChild(
-                $tagCIOT,
-                "CPF",
-                $cpfcnpj,
-                true,
-                "CPF do contratante e do destinatário da carga"
-            );
-        }
-        $this->infCIOT = $tagCIOT;
-        return $tagCIOT;
-    }
-
     /**
      * tagInfContratante
      * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
@@ -1630,7 +1592,7 @@ class Make extends BaseMake
      */
     public function tagValePed(
         $cnpjForn = '',
-        $cnpjPg = '',
+        $cpfcnpjPg = '',
         $nCompra = '',
         $vValePed = ''
     )
@@ -1643,13 +1605,23 @@ class Make extends BaseMake
             true,
             "CNPJ da empresa fornecedora do Vale-Pedágio"
         );
-        $this->dom->addChild(
-            $disp,
-            "CNPJPg",
-            $cnpjPg,
-            false,
-            "CNPJ do responsável pelo pagamento do Vale-Pedágio"
-        );
+        if (strlen($cpfcnpjPg) == 14) {
+            $this->dom->addChild(
+                $disp,
+                "CNPJPg",
+                $cpfcnpjPg,
+                false,
+                "CNPJ do responsável pelo pagamento do Vale-Pedágio"
+            );
+        } else {
+            $this->dom->addChild(
+                $disp,
+                "CPFPg",
+                $cpfcnpjPg,
+                false,
+                "CPF do responsável pelo pagamento do Vale-Pedágio"
+            );
+        }
         $this->dom->addChild(
             $disp,
             "nCompra",
@@ -1709,7 +1681,7 @@ class Make extends BaseMake
             true,
             "Placa do veículo"
         );
-        if ($RENAVAM) {
+        if ($RENAVAM != '') {
             $this->dom->addChild(
                 $node,
                 "RENAVAM",
@@ -1867,22 +1839,19 @@ class Make extends BaseMake
             if (empty($this->rodo)) {
                 $this->rodo = $this->dom->createElement("rodo");
             }
-            if (!empty($this->infCIOT)) {
-                $this->dom->appChild($this->infANTT, $this->infCIOT, '');
-            }
             if (!empty($this->infANTT)) {
+                if (!empty($this->aDisp)) {
+                    $valePed = $this->dom->createElement("valePed");
+                    foreach ($this->aDisp as $node) {
+                        $this->dom->appChild($valePed, $node, '');
+                    }
+                    $this->dom->appChild($this->infANTT, $valePed, '');
+                }
                 $this->dom->addArrayChild($this->infANTT, $this->infContratante);
                 $this->dom->appChild($this->rodo, $this->infANTT, '');
             }
             $this->dom->appChild($this->rodo, $this->veicTracao, 'Falta tag "rodo"');
             $this->dom->addArrayChild($this->rodo, $this->aReboque);
-            if (!empty($this->aDisp)) {
-                $valePed = $this->dom->createElement("valePed");
-                foreach ($this->aDisp as $node) {
-                    $this->dom->appChild($valePed, $node, '');
-                }
-                $this->dom->appChild($this->rodo, $valePed, '');
-            }
             $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "infModal"');
         }
     }
@@ -1967,3 +1936,4 @@ class Make extends BaseMake
         }
     }
 }
+
