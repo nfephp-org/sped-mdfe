@@ -1,6 +1,10 @@
-# ENCERRA MDF-e
+# CONSULTA RECIBO
 
-**Função:** evento destinado ao atendimento de solicitações de encerramento de MDF-e.
+**Função:** serviço destinado a devolver o resultado do processamento do MDF-e.
+
+**Processo:** assíncrono.
+
+**Método:** mdfeRetRecepcao
 
 
 ```php
@@ -21,11 +25,9 @@ $config = json_encode($config);
 $cert = file_get_contents("certificado_teste.pfx");
 $tools = new Tools($config,Certificate::readPfx($cert, 'associacao'));
 
-$chave = "43150989471824000151580010004785411095587838"; //Chave da MDF-e
-$nProt = "943280000050374"; //Informar o nº do Protocolo de Autorização do MDF-e a ser encerrado.
-$cMun = "4317608"; //Informar o código do município do encerramento do manifesto
+$recibo = "439000006591030";
 try{
-    $resp = $tools->sefazEncerra($chave,$nProt,$cMun);
+    $resp = $tools->sefazConsultaRecibo($recibo);
     $st = new Standardize($resp);
     $std = $st->toStd();
     echo "<pre>";
@@ -34,5 +36,4 @@ try{
     echo "<pre>";
     var_dump("Erro:".$e->getMessage());
 }
-
 ```

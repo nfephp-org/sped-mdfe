@@ -35,11 +35,6 @@ class Make
     public $versao = '1.00';
 
     /**
-     * @var string
-     */
-    public $chNFe;
-
-    /**
      * mod
      * modelo da MDFe 58
      *
@@ -52,7 +47,7 @@ class Make
      *
      * @var string
      */
-    public $chMDFe = '';
+    public $chMDFe;
 
     //propriedades privadas utilizadas internamente pela classe
     /**
@@ -149,7 +144,7 @@ class Make
      */
     public function getChave()
     {
-        return $this->chNFe;
+        return $this->chMDFe;
     }
 
     /**
@@ -188,7 +183,7 @@ class Make
         //[0] tag MDFe
         $this->dom->appendChild($this->MDFe);
         // testa da chave
-        $this->checkNFeKey($this->dom);
+        $this->checkMDFeKey($this->dom);
         $this->xml = $this->dom->saveXML();
         return true;
     }
@@ -203,7 +198,9 @@ class Make
      */
     public function taginfMDFe(stdClass $std)
     {
+        $chave = preg_replace('/[^0-9]/', '', $std->Id);
         $this->infMDFe = $this->dom->createElement("infMDFe");
+        $this->infMDFe->setAttribute("Id", 'MDFe' . $chave);
         $this->infMDFe->setAttribute("versao", $std->versao);
         $this->versao = $std->versao;
         return $this->infMDFe;
@@ -893,7 +890,7 @@ class Make
         $this->dom->addChild(
             $condutor,
             "CPF",
-            $std->cpf,
+            $std->CPF,
             true,
             "CPF do condutor"
         );
@@ -1817,7 +1814,7 @@ class Make
      * @param Dom $dom
      * @return void
      */
-    protected function checkNFeKey(Dom $dom)
+    protected function checkMDFeKey(Dom $dom)
     {
         $infMDFe = $dom->getElementsByTagName("infMDFe")->item(0);
         $ide = $dom->getElementsByTagName("ide")->item(0);
@@ -1827,10 +1824,10 @@ class Make
         $cnpj = $emit->getElementsByTagName('CNPJ')->item(0)->nodeValue;
         $mod = $ide->getElementsByTagName('mod')->item(0)->nodeValue;
         $serie = $ide->getElementsByTagName('serie')->item(0)->nodeValue;
-        $nNF = $ide->getElementsByTagName('nNF')->item(0)->nodeValue;
+        $nMDF = $ide->getElementsByTagName('nMDF')->item(0)->nodeValue;
         $tpEmis = $ide->getElementsByTagName('tpEmis')->item(0)->nodeValue;
-        $cNF = $ide->getElementsByTagName('cNF')->item(0)->nodeValue;
-        $chave = str_replace('NFe', '', $infMDFe->getAttribute("Id"));
+        $cMDF = $ide->getElementsByTagName('cMDF')->item(0)->nodeValue;
+        $chave = str_replace('MDFe', '', $infMDFe->getAttribute("Id"));
         $dt = new DateTime($dhEmi);
         $chaveMontada = Keys::build(
             $cUF,
@@ -1839,9 +1836,9 @@ class Make
             $cnpj,
             $mod,
             $serie,
-            $nNF,
+            $nMDF,
             $tpEmis,
-            $cNF
+            $cMDF
         );
         //caso a chave contida na NFe esteja errada
         //substituir a chave
@@ -1851,7 +1848,7 @@ class Make
             $ide->getElementsByTagName('cDV')->item(0)->nodeValue = substr($chaveMontada, -1);
             $infMDFe = $dom->getElementsByTagName("infMDFe")->item(0);
             $infMDFe->setAttribute("Id", "MDFe" . $chaveMontada);
-            $this->chNFe = $chaveMontada;
+            $this->chMDFe = $chaveMontada;
         }
     }
 

@@ -1,9 +1,7 @@
-# ENCERRA MDF-e
+<?php
 
-**Função:** evento destinado ao atendimento de solicitações de encerramento de MDF-e.
+require __DIR__ . "/../vendor/autoload.php";
 
-
-```php
 use NFePHP\Common\Certificate;
 use NFePHP\MDFe\Common\Standardize;
 use NFePHP\MDFe\Tools;
@@ -22,17 +20,14 @@ $cert = file_get_contents("certificado_teste.pfx");
 $tools = new Tools($config,Certificate::readPfx($cert, 'associacao'));
 
 $chave = "43150989471824000151580010004785411095587838"; //Chave da MDF-e
-$nProt = "943280000050374"; //Informar o nº do Protocolo de Autorização do MDF-e a ser encerrado.
-$cMun = "4317608"; //Informar o código do município do encerramento do manifesto
 try{
-    $resp = $tools->sefazEncerra($chave,$nProt,$cMun);
+    $resp = $tools->sefazConsultaChave($chave);
     $st = new Standardize($resp);
     $std = $st->toStd();
     echo "<pre>";
+    var_dump($resp);
     var_dump($std);
 }catch (\Exception $e){
     echo "<pre>";
     var_dump("Erro:".$e->getMessage());
 }
-
-```

@@ -24,6 +24,7 @@
         "ext-simplexml": "*",
         "ext-libxml": "*",
         "ext-soap": "*",
+        "ext-openssl": "*",
         "nfephp-org/sped-common" : "^5.0",
         "zendframework/zend-mail": "^2.5",
         "html2text/html2text": "^4.0"

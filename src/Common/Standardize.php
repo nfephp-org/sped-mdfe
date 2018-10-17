@@ -54,7 +54,12 @@ class Standardize
         'procNFe',
         'nfeProc',
         'NFe',
-        'retConsMDFeNaoEnc'
+        'retConsMDFeNaoEnc',
+        'retEnviMDFe',
+        'retConsReciMDFe',
+        'retConsSitMDFe',
+        'retConsStatServMDFe',
+        'retEventoMDFe'
     ];
 
     /**
