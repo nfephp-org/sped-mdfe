@@ -1613,7 +1613,7 @@ class Make extends BaseMake
                 false,
                 "CNPJ do responsável pelo pagamento do Vale-Pedágio"
             );
-        }else{
+        } else {
             $this->dom->addChild(
                 $disp,
                 "CPFPg",
@@ -1839,16 +1839,6 @@ class Make extends BaseMake
             if (empty($this->rodo)) {
                 $this->rodo = $this->dom->createElement("rodo");
             }
-            if (!empty($this->infCIOT)) {
-                $this->dom->appChild($this->infANTT, $this->infCIOT, '');
-            }
-            if (!empty($this->aDisp)) {
-                $valePed = $this->dom->createElement("valePed");
-                foreach ($this->aDisp as $node) {
-                    $this->dom->appChild($valePed, $node, '');
-                }
-                $this->dom->appChild($this->infANTT, $valePed, '');
-            }
             if (!empty($this->infANTT)) {
                 if (!empty($this->aDisp)) {
                     $valePed = $this->dom->createElement("valePed");
@@ -1946,4 +1936,3 @@ class Make extends BaseMake
         }
     }
 }
-
