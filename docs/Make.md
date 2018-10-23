@@ -237,6 +237,7 @@ $elem = $make->tagPropVeicTracao($std);
 ```php
 $std = new stdClass();
 $std->xNome = 'Condutor 1';
+$std->CPF = '54749355011';
 
 $elem = $make->tagCondutor($std);
 ```

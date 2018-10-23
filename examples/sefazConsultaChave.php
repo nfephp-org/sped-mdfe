@@ -25,7 +25,6 @@ try{
     $st = new Standardize($resp);
     $std = $st->toStd();
     echo "<pre>";
-    var_dump($resp);
     var_dump($std);
 }catch (\Exception $e){
     echo "<pre>";

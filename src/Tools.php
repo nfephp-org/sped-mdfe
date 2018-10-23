@@ -23,8 +23,6 @@ use NFePHP\Common\Validator;
 use NFePHP\MDFe\Common\Config;
 use NFePHP\Common\Strings;
 use NFePHP\Common\Exception;
-use NFePHP\MDFe\Auxiliar\Response;
-use NFePHP\MDFe\Auxiliar\Identify;
 use NFePHP\MDFe\Common\Webservices;
 use NFePHP\MDFe\Factories\Header;
 use SoapHeader;
@@ -577,10 +575,9 @@ class Tools
         $siglaUF = $this->config->siglaUF;
 
         //carrega serviço
-        $this->servico('MDFeConsultaSituacao', $siglaUF, $tpAmb);
+        $this->servico('MDFeConsulta', $siglaUF, $tpAmb);
 
         $cons = "<consSitMDFe xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-                . "<versao>{$this->urlVersion}</versao>"
                 . "<tpAmb>$tpAmb</tpAmb>"
                 . "<xServ>CONSULTAR</xServ>"
                 . "<chMDFe>$chMDFe</chMDFe>"

@@ -645,8 +645,8 @@ class Make
     }
 
     /**
-     * tagInfContratante
-     * tag MDFe/infMDFe/infModal/rodo/infANTT/infContratante
+     * tagDisp
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/valePed/disp
      *
      * @param  stdClass $std
      * @return DOMElement
