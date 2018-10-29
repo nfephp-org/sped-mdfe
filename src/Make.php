@@ -1491,8 +1491,7 @@ class Make extends BaseMake
      * @return DOMElement
      */
     public function tagVeicProp(
-        $CPF = '',
-        $CNPJ = '',
+        $CPFCNPJ = '',
         $RNTRC = '',
         $xNome = '',
         $IE = '',
@@ -1501,20 +1500,24 @@ class Make extends BaseMake
     )
     {
         $prop = $this->dom->createElement("prop");
-        $this->dom->addChild(
-            $prop,
-            "CPF",
-            $CPF,
-            true,
-            "CPF do proprietário"
-        );
-        $this->dom->addChild(
-            $prop,
-            "CNPJ",
-            $CNPJ,
-            true,
-            "CNPJ do proprietário"
-        );
+        if (strlen($CPFCNPJ) == 11) {
+            $this->dom->addChild(
+                $prop,
+                "CPF",
+                $CPFCNPJ,
+                true,
+                "CPF do proprietário"
+            );
+        } else {
+            $this->dom->addChild(
+                $prop,
+                "CNPJ",
+                $CPFCNPJ,
+                true,
+                "CNPJ do proprietário"
+            );
+        }
+
         $this->dom->addChild(
             $prop,
             "RNTRC",
@@ -1697,10 +1700,6 @@ class Make extends BaseMake
             true,
             "Tara em KG"
         );
-        $this->dom->addArrayChild(
-            $node,
-            $condutores
-        );
         $this->dom->addChild(
             $node,
             "capKG",
@@ -1714,6 +1713,10 @@ class Make extends BaseMake
             $capM3,
             false,
             "Capacidade em M3"
+        );
+        $this->dom->addArrayChild(
+            $node,
+            $proprietarios
         );
         $this->dom->addArrayChild(
             $node,
@@ -1739,10 +1742,6 @@ class Make extends BaseMake
             $UF,
             true,
             "UF de licenciamento do veículo"
-        );
-        $this->dom->addArrayChild(
-            $node,
-            $proprietarios
         );
         return $node;
     }
