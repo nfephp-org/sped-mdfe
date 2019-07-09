@@ -60,7 +60,7 @@ class EmitType
      *
      * CNPJ do emitenteInformar zeros não significativos
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)
@@ -86,7 +86,7 @@ class EmitType
      *
      * Inscrição Estadual do emitemte
      *
-     * @param string $IE
+     * @param  string $IE
      * @return self
      */
     public function setIE($IE)
@@ -112,7 +112,7 @@ class EmitType
      *
      * Razão social ou Nome do emitente
      *
-     * @param string $xNome
+     * @param  string $xNome
      * @return self
      */
     public function setXNome($xNome)
@@ -138,7 +138,7 @@ class EmitType
      *
      * Nome fantasia do emitente
      *
-     * @param string $xFant
+     * @param  string $xFant
      * @return self
      */
     public function setXFant($xFant)
@@ -164,7 +164,7 @@ class EmitType
      *
      * Endereço do emitente
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TEndeEmiType $enderEmit
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TEndeEmiType $enderEmit
      * @return self
      */
     public function setEnderEmit(\NFePHP\MDFe\XsdType\MDFe\TEndeEmiType $enderEmit)

@@ -938,25 +938,25 @@ class Tools extends BaseTools
     {
         //montagem dos dados da mensagem SOAP
         switch ($tpEvento) {
-            case '110111':
-                //cancelamento
-                $aliasEvento = 'CancMDFe';
-                $descEvento = 'Cancelamento';
-                break;
-            case '110112':
-                //encerramento
-                $aliasEvento = 'EncMDFe';
-                $descEvento = 'Encerramento';
-                break;
-            case '110114':
-                //inclusao do condutor
-                $aliasEvento = 'EvIncCondut';
-                $descEvento = 'Inclusao Condutor';
-                break;
-            default:
-                $msg = "O código do tipo de evento informado não corresponde a "
-                . "nenhum evento estabelecido.";
-                throw new Exception\RuntimeException($msg);
+        case '110111':
+            //cancelamento
+            $aliasEvento = 'CancMDFe';
+            $descEvento = 'Cancelamento';
+            break;
+        case '110112':
+            //encerramento
+            $aliasEvento = 'EncMDFe';
+            $descEvento = 'Encerramento';
+            break;
+        case '110114':
+            //inclusao do condutor
+            $aliasEvento = 'EvIncCondut';
+            $descEvento = 'Inclusao Condutor';
+            break;
+        default:
+            $msg = "O código do tipo de evento informado não corresponde a "
+            . "nenhum evento estabelecido.";
+            throw new Exception\RuntimeException($msg);
         }
         return array('alias' => $aliasEvento, 'desc' => $descEvento);
     }

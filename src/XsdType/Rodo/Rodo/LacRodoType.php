@@ -32,7 +32,7 @@ class LacRodoType
      *
      * Número do Lacre
      *
-     * @param string $nLacre
+     * @param  string $nLacre
      * @return self
      */
     public function setNLacre($nLacre)

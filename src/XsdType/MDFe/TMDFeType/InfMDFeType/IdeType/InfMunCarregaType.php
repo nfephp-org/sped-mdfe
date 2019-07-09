@@ -39,7 +39,7 @@ class InfMunCarregaType
      *
      * Código do Município de Carregamento
      *
-     * @param string $cMunCarrega
+     * @param  string $cMunCarrega
      * @return self
      */
     public function setCMunCarrega($cMunCarrega)
@@ -65,7 +65,7 @@ class InfMunCarregaType
      *
      * Nome do Município de Carregamento
      *
-     * @param string $xMunCarrega
+     * @param  string $xMunCarrega
      * @return self
      */
     public function setXMunCarrega($xMunCarrega)

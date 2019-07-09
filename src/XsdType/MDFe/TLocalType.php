@@ -49,7 +49,7 @@ class TLocalType
      *
      * Código do município (utilizar a tabela do IBGE)
      *
-     * @param string $cMun
+     * @param  string $cMun
      * @return self
      */
     public function setCMun($cMun)
@@ -75,7 +75,7 @@ class TLocalType
      *
      * Nome do município
      *
-     * @param string $xMun
+     * @param  string $xMun
      * @return self
      */
     public function setXMun($xMun)
@@ -101,7 +101,7 @@ class TLocalType
      *
      * Sigla da UF
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)

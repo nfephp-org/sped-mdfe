@@ -59,7 +59,7 @@ class InfMDFeTranspType
      *
      * Manifesto Eletrônico de Documentos Fiscais
      *
-     * @param string $chMDFe
+     * @param  string $chMDFe
      * @return self
      */
     public function setChMDFe($chMDFe)
@@ -85,7 +85,7 @@ class InfMDFeTranspType
      *
      * Indicador de Reentrega
      *
-     * @param string $indReentrega
+     * @param  string $indReentrega
      * @return self
      */
     public function setIndReentrega($indReentrega)
@@ -103,7 +103,7 @@ class InfMDFeTranspType
      * aeronave com rede sobre um iglu.
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType $infUnidTransp
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType $infUnidTransp
      */
     public function addToInfUnidTransp(\NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType $infUnidTransp)
     {
@@ -119,7 +119,7 @@ class InfMDFeTranspType
      * carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de
      * aeronave com rede sobre um iglu.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfUnidTransp($index)
@@ -135,7 +135,7 @@ class InfMDFeTranspType
      * carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de
      * aeronave com rede sobre um iglu.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfUnidTransp($index)
@@ -166,7 +166,7 @@ class InfMDFeTranspType
      * carga, vagão, contêiner de avião, palete de aeronave com rede ou palete de
      * aeronave com rede sobre um iglu.
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType[] $infUnidTransp
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType[] $infUnidTransp
      * @return self
      */
     public function setInfUnidTransp(array $infUnidTransp)
@@ -182,7 +182,7 @@ class InfMDFeTranspType
      * perigosos.
      *
      * @return self
-     * @param PeriType $peri
+     * @param  PeriType $peri
      */
     public function addToPeri(PeriType $peri)
     {
@@ -196,7 +196,7 @@ class InfMDFeTranspType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetPeri($index)
@@ -210,7 +210,7 @@ class InfMDFeTranspType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetPeri($index)
@@ -237,7 +237,7 @@ class InfMDFeTranspType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @param PeriType[] $peri
+     * @param  PeriType[] $peri
      * @return self
      */
     public function setPeri(array $peri)

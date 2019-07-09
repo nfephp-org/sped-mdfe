@@ -71,7 +71,7 @@ class InfRespType
      * Dados obrigatórios apenas no modal Rodoviário, depois da lei 11.442/07. Para
      * os demais modais esta informação é opcional.
      *
-     * @param string $respSeg
+     * @param  string $respSeg
      * @return self
      */
     public function setRespSeg($respSeg)
@@ -101,7 +101,7 @@ class InfRespType
      * pelo seguro for (2) responsável pela contratação do transporte - pessoa
      * jurídica
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)
@@ -131,7 +131,7 @@ class InfRespType
      * pelo seguro for (2) responsável pela contratação do transporte - pessoa
      * física
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)

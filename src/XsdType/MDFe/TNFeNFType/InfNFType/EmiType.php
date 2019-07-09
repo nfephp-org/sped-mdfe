@@ -46,7 +46,7 @@ class EmiType
      *
      * CNPJ do emitente
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)
@@ -72,7 +72,7 @@ class EmiType
      *
      * Razão Social ou Nome
      *
-     * @param string $xNome
+     * @param  string $xNome
      * @return self
      */
     public function setXNome($xNome)
@@ -98,7 +98,7 @@ class EmiType
      *
      * UF do EmitenteInformar 'EX' para operações com o exterior.
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)

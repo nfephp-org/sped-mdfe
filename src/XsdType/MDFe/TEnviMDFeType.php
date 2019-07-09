@@ -39,7 +39,7 @@ class TEnviMDFeType
     /**
      * Sets a new versao
      *
-     * @param string $versao
+     * @param  string $versao
      * @return self
      */
     public function setVersao($versao)
@@ -61,7 +61,7 @@ class TEnviMDFeType
     /**
      * Sets a new idLote
      *
-     * @param string $idLote
+     * @param  string $idLote
      * @return self
      */
     public function setIdLote($idLote)
@@ -83,7 +83,7 @@ class TEnviMDFeType
     /**
      * Sets a new MDFe
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType $MDFe
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType $MDFe
      * @return self
      */
     public function setMDFe(\NFePHP\MDFe\XsdType\MDFe\TMDFeType $MDFe)

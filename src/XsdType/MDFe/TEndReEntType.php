@@ -99,7 +99,7 @@ class TEndReEntType
      *
      * Número do CNPJ
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)
@@ -125,7 +125,7 @@ class TEndReEntType
      *
      * Número do CPF
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)
@@ -151,7 +151,7 @@ class TEndReEntType
      *
      * Razão Social ou Nome
      *
-     * @param string $xNome
+     * @param  string $xNome
      * @return self
      */
     public function setXNome($xNome)
@@ -177,7 +177,7 @@ class TEndReEntType
      *
      * Logradouro
      *
-     * @param string $xLgr
+     * @param  string $xLgr
      * @return self
      */
     public function setXLgr($xLgr)
@@ -203,7 +203,7 @@ class TEndReEntType
      *
      * Número
      *
-     * @param string $nro
+     * @param  string $nro
      * @return self
      */
     public function setNro($nro)
@@ -229,7 +229,7 @@ class TEndReEntType
      *
      * Complemento
      *
-     * @param string $xCpl
+     * @param  string $xCpl
      * @return self
      */
     public function setXCpl($xCpl)
@@ -255,7 +255,7 @@ class TEndReEntType
      *
      * Bairro
      *
-     * @param string $xBairro
+     * @param  string $xBairro
      * @return self
      */
     public function setXBairro($xBairro)
@@ -283,7 +283,7 @@ class TEndReEntType
      * Código do município (utilizar a tabela do IBGE), informar 9999999 para
      * operações com o exterior.
      *
-     * @param string $cMun
+     * @param  string $cMun
      * @return self
      */
     public function setCMun($cMun)
@@ -309,7 +309,7 @@ class TEndReEntType
      *
      * Nome do município, , informar EXTERIOR para operações com o exterior.
      *
-     * @param string $xMun
+     * @param  string $xMun
      * @return self
      */
     public function setXMun($xMun)
@@ -335,7 +335,7 @@ class TEndReEntType
      *
      * Sigla da UF, , informar EX para operações com o exterior.
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)

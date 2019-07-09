@@ -5,7 +5,6 @@ namespace NFePHP\MDFe\XsdType\MDFe;
 /**
  * Class representing X509DataTypeType
  *
- *
  * XSD Type: X509DataType
  */
 class X509DataTypeType
@@ -29,7 +28,7 @@ class X509DataTypeType
     /**
      * Sets a new X509Certificate
      *
-     * @param mixed $X509Certificate
+     * @param  mixed $X509Certificate
      * @return self
      */
     public function setX509Certificate($X509Certificate)

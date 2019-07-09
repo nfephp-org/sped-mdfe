@@ -79,7 +79,7 @@ class PeriType
      * Número ONU/UNVer a legislação de transporte de produtos perigosos aplicadas
      * ao modal
      *
-     * @param string $nONU
+     * @param  string $nONU
      * @return self
      */
     public function setNONU($nONU)
@@ -107,7 +107,7 @@ class PeriType
      * Nome apropriado para embarque do produtoVer a legislação de transporte de
      * produtos perigosos aplicada ao modo de transporte
      *
-     * @param string $xNomeAE
+     * @param  string $xNomeAE
      * @return self
      */
     public function setXNomeAE($xNomeAE)
@@ -135,7 +135,7 @@ class PeriType
      * Classe ou subclasse/divisão, e risco subsidiário/risco secundárioVer a
      * legislação de transporte de produtos perigosos aplicadas ao modal
      *
-     * @param string $xClaRisco
+     * @param  string $xClaRisco
      * @return self
      */
     public function setXClaRisco($xClaRisco)
@@ -171,7 +171,7 @@ class PeriType
      * embalagem para todos os produtos, portanto haverá casos de não preenchimento
      * desse campo.
      *
-     * @param string $grEmb
+     * @param  string $grEmb
      * @return self
      */
     public function setGrEmb($grEmb)
@@ -199,7 +199,7 @@ class PeriType
      * Quantidade total por produtoPreencher conforme a legislação de transporte de
      * produtos perigosos aplicada ao modal
      *
-     * @param string $qTotProd
+     * @param  string $qTotProd
      * @return self
      */
     public function setQTotProd($qTotProd)
@@ -227,7 +227,7 @@ class PeriType
      * Quantidade e Tipo de volumesPreencher conforme a legislação de transporte de
      * produtos perigosos aplicada ao modal
      *
-     * @param string $qVolTipo
+     * @param  string $qVolTipo
      * @return self
      */
     public function setQVolTipo($qVolTipo)

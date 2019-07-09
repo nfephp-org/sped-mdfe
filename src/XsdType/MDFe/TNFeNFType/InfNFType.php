@@ -74,7 +74,7 @@ class InfNFType
      *
      * Informações do Emitente da NF
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType\EmiType $emi
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType\EmiType $emi
      * @return self
      */
     public function setEmi(\NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType\EmiType $emi)
@@ -100,7 +100,7 @@ class InfNFType
      *
      * Informações do Destinatário da NF
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType\DestType $dest
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType\DestType $dest
      * @return self
      */
     public function setDest(\NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType\DestType $dest)
@@ -126,7 +126,7 @@ class InfNFType
      *
      * Série
      *
-     * @param string $serie
+     * @param  string $serie
      * @return self
      */
     public function setSerie($serie)
@@ -152,7 +152,7 @@ class InfNFType
      *
      * Número
      *
-     * @param string $nNF
+     * @param  string $nNF
      * @return self
      */
     public function setNNF($nNF)
@@ -178,7 +178,7 @@ class InfNFType
      *
      * Data de EmissãoFormato AAAA-MM-DD
      *
-     * @param string $dEmi
+     * @param  string $dEmi
      * @return self
      */
     public function setDEmi($dEmi)
@@ -204,7 +204,7 @@ class InfNFType
      *
      * Valor Total da NF
      *
-     * @param string $vNF
+     * @param  string $vNF
      * @return self
      */
     public function setVNF($vNF)
@@ -230,7 +230,7 @@ class InfNFType
      *
      * PIN SUFRAMAPIN atribuído pela SUFRAMA para a operação.
      *
-     * @param string $PIN
+     * @param  string $PIN
      * @return self
      */
     public function setPIN($PIN)

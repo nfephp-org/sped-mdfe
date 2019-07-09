@@ -42,7 +42,7 @@ class TMDFeType
      *
      * Informações do MDF-e
      *
-     * @param InfMDFeType $infMDFe
+     * @param  InfMDFeType $infMDFe
      * @return self
      */
     public function setInfMDFe(InfMDFeType $infMDFe)
@@ -64,7 +64,7 @@ class TMDFeType
     /**
      * Sets a new Signature
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\Signature $Signature
+     * @param  \NFePHP\MDFe\XsdType\MDFe\Signature $Signature
      * @return self
      */
     public function setSignature(\NFePHP\MDFe\XsdType\MDFe\Signature $Signature)

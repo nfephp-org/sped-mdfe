@@ -64,7 +64,7 @@ class InfANTTType
      * do emitente do MDF-e junto à ANTT para exercer a atividade de transportador
      * rodoviário de cargas por conta de terceiros e mediante remuneração.
      *
-     * @param string $RNTRC
+     * @param  string $RNTRC
      * @return self
      */
     public function setRNTRC($RNTRC)
@@ -79,7 +79,7 @@ class InfANTTType
      * Dados do CIOT
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfCIOTType $infCIOT
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfCIOTType $infCIOT
      */
     public function addToInfCIOT(\NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfCIOTType $infCIOT)
     {
@@ -92,7 +92,7 @@ class InfANTTType
      *
      * Dados do CIOT
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfCIOT($index)
@@ -105,7 +105,7 @@ class InfANTTType
      *
      * Dados do CIOT
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfCIOT($index)
@@ -130,7 +130,7 @@ class InfANTTType
      *
      * Dados do CIOT
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfCIOTType[] $infCIOT
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfCIOTType[] $infCIOT
      * @return self
      */
     public function setInfCIOT(array $infCIOT)
@@ -148,7 +148,7 @@ class InfANTTType
      * determinações legais vigentes.
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType $disp
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType $disp
      */
     public function addToValePed(\NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType $disp)
     {
@@ -164,7 +164,7 @@ class InfANTTType
      * de observações gerais de uso livre pelo contribuinte, visando atender as
      * determinações legais vigentes.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetValePed($index)
@@ -180,7 +180,7 @@ class InfANTTType
      * de observações gerais de uso livre pelo contribuinte, visando atender as
      * determinações legais vigentes.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetValePed($index)
@@ -211,7 +211,7 @@ class InfANTTType
      * de observações gerais de uso livre pelo contribuinte, visando atender as
      * determinações legais vigentes.
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType[]
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType[]
      * $valePed
      * @return self
      */
@@ -227,7 +227,7 @@ class InfANTTType
      * Grupo de informações dos contratantes do serviço de transporte
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfContratanteType
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfContratanteType
      * $infContratante
      */
     public function addToInfContratante(\NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfContratanteType $infContratante)
@@ -241,7 +241,7 @@ class InfANTTType
      *
      * Grupo de informações dos contratantes do serviço de transporte
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfContratante($index)
@@ -254,7 +254,7 @@ class InfANTTType
      *
      * Grupo de informações dos contratantes do serviço de transporte
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfContratante($index)
@@ -279,7 +279,7 @@ class InfANTTType
      *
      * Grupo de informações dos contratantes do serviço de transporte
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfContratanteType[]
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\InfContratanteType[]
      * $infContratante
      * @return self
      */

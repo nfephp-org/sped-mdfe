@@ -42,7 +42,7 @@ class InfAdicType
      * Informações adicionais de interesse do FiscoNorma referenciada, informações
      * complementares, etc
      *
-     * @param string $infAdFisco
+     * @param  string $infAdFisco
      * @return self
      */
     public function setInfAdFisco($infAdFisco)
@@ -68,7 +68,7 @@ class InfAdicType
      *
      * Informações complementares de interesse do Contribuinte
      *
-     * @param string $infCpl
+     * @param  string $infCpl
      * @return self
      */
     public function setInfCpl($infCpl)

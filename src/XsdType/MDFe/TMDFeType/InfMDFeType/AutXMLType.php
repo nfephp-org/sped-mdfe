@@ -39,7 +39,7 @@ class AutXMLType
      *
      * CNPJ do autorizadoInformar zeros não significativos
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)
@@ -65,7 +65,7 @@ class AutXMLType
      *
      * CPF do autorizadoInformar zeros não significativos
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)

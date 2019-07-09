@@ -5,7 +5,6 @@ namespace NFePHP\MDFe\XsdType\MDFe;
 /**
  * Class representing SignatureValueTypeType
  *
- *
  * XSD Type: SignatureValueType
  */
 class SignatureValueTypeType
@@ -34,7 +33,7 @@ class SignatureValueTypeType
     /**
      * Gets or sets the inner value
      *
-     * @param mixed $value
+     * @param  mixed $value
      * @return mixed
      */
     public function value()
@@ -68,7 +67,7 @@ class SignatureValueTypeType
     /**
      * Sets a new Id
      *
-     * @param string $Id
+     * @param  string $Id
      * @return self
      */
     public function setId($Id)

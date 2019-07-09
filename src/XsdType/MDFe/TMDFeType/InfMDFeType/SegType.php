@@ -58,7 +58,7 @@ class SegType
      *
      * Informações do responsável pelo seguro da carga
      *
-     * @param InfRespType $infResp
+     * @param  InfRespType $infResp
      * @return self
      */
     public function setInfResp(InfRespType $infResp)
@@ -84,7 +84,7 @@ class SegType
      *
      * Informações da seguradora
      *
-     * @param InfSegType $infSeg
+     * @param  InfSegType $infSeg
      * @return self
      */
     public function setInfSeg(InfSegType $infSeg)
@@ -110,7 +110,7 @@ class SegType
      *
      * Número da ApóliceObrigatório pela lei 11.442/07 (RCTRC)
      *
-     * @param string $nApol
+     * @param  string $nApol
      * @return self
      */
     public function setNApol($nApol)
@@ -125,7 +125,7 @@ class SegType
      * Número da AverbaçãoInformar as averbações do seguro
      *
      * @return self
-     * @param string $nAver
+     * @param  string $nAver
      */
     public function addToNAver($nAver)
     {
@@ -138,7 +138,7 @@ class SegType
      *
      * Número da AverbaçãoInformar as averbações do seguro
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetNAver($index)
@@ -151,7 +151,7 @@ class SegType
      *
      * Número da AverbaçãoInformar as averbações do seguro
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetNAver($index)
@@ -176,7 +176,7 @@ class SegType
      *
      * Número da AverbaçãoInformar as averbações do seguro
      *
-     * @param string $nAver
+     * @param  string $nAver
      * @return self
      */
     public function setNAver(array $nAver)

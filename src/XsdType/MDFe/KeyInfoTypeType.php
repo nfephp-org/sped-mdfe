@@ -5,7 +5,6 @@ namespace NFePHP\MDFe\XsdType\MDFe;
 /**
  * Class representing KeyInfoTypeType
  *
- *
  * XSD Type: KeyInfoType
  */
 class KeyInfoTypeType
@@ -34,7 +33,7 @@ class KeyInfoTypeType
     /**
      * Sets a new Id
      *
-     * @param string $Id
+     * @param  string $Id
      * @return self
      */
     public function setId($Id)
@@ -56,7 +55,7 @@ class KeyInfoTypeType
     /**
      * Sets a new X509Data
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\X509DataTypeType $X509Data
+     * @param  \NFePHP\MDFe\XsdType\MDFe\X509DataTypeType $X509Data
      * @return self
      */
     public function setX509Data(\NFePHP\MDFe\XsdType\MDFe\X509DataTypeType $X509Data)

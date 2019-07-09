@@ -22,7 +22,7 @@ class ValePedType
      * Informações dos dispositivos do Vale Pedágio
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType $disp
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType $disp
      */
     public function addToDisp(\NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType $disp)
     {
@@ -35,7 +35,7 @@ class ValePedType
      *
      * Informações dos dispositivos do Vale Pedágio
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetDisp($index)
@@ -48,7 +48,7 @@ class ValePedType
      *
      * Informações dos dispositivos do Vale Pedágio
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetDisp($index)
@@ -73,7 +73,7 @@ class ValePedType
      *
      * Informações dos dispositivos do Vale Pedágio
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType[] $disp
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType\ValePedType\DispType[] $disp
      * @return self
      */
     public function setDisp(array $disp)

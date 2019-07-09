@@ -68,7 +68,7 @@ class TotType
      *
      * Quantidade total de CT-e relacionados no Manifesto
      *
-     * @param string $qCTe
+     * @param  string $qCTe
      * @return self
      */
     public function setQCTe($qCTe)
@@ -94,7 +94,7 @@ class TotType
      *
      * Quantidade total de NF-e relacionadas no Manifesto
      *
-     * @param string $qNFe
+     * @param  string $qNFe
      * @return self
      */
     public function setQNFe($qNFe)
@@ -120,7 +120,7 @@ class TotType
      *
      * Quantidade total de MDF-e relacionados no Manifesto Aquaviário
      *
-     * @param string $qMDFe
+     * @param  string $qMDFe
      * @return self
      */
     public function setQMDFe($qMDFe)
@@ -146,7 +146,7 @@ class TotType
      *
      * Valor total da carga / mercadorias transportadas
      *
-     * @param string $vCarga
+     * @param  string $vCarga
      * @return self
      */
     public function setVCarga($vCarga)
@@ -174,7 +174,7 @@ class TotType
      * Codigo da unidade de medida do Peso Bruto da Carga / Mercadorias transportadas01
      * – KG; 02 - TON
      *
-     * @param string $cUnid
+     * @param  string $cUnid
      * @return self
      */
     public function setCUnid($cUnid)
@@ -200,7 +200,7 @@ class TotType
      *
      * Peso Bruto Total da Carga / Mercadorias transportadas
      *
-     * @param string $qCarga
+     * @param  string $qCarga
      * @return self
      */
     public function setQCarga($qCarga)

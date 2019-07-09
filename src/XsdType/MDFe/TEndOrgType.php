@@ -106,7 +106,7 @@ class TEndOrgType
      *
      * Logradouro
      *
-     * @param string $xLgr
+     * @param  string $xLgr
      * @return self
      */
     public function setXLgr($xLgr)
@@ -132,7 +132,7 @@ class TEndOrgType
      *
      * Número
      *
-     * @param string $nro
+     * @param  string $nro
      * @return self
      */
     public function setNro($nro)
@@ -158,7 +158,7 @@ class TEndOrgType
      *
      * Complemento
      *
-     * @param string $xCpl
+     * @param  string $xCpl
      * @return self
      */
     public function setXCpl($xCpl)
@@ -184,7 +184,7 @@ class TEndOrgType
      *
      * Bairro
      *
-     * @param string $xBairro
+     * @param  string $xBairro
      * @return self
      */
     public function setXBairro($xBairro)
@@ -212,7 +212,7 @@ class TEndOrgType
      * Código do município (utilizar a tabela do IBGE), informar 9999999 para
      * operações com o exterior.
      *
-     * @param string $cMun
+     * @param  string $cMun
      * @return self
      */
     public function setCMun($cMun)
@@ -238,7 +238,7 @@ class TEndOrgType
      *
      * Nome do município, , informar EXTERIOR para operações com o exterior.
      *
-     * @param string $xMun
+     * @param  string $xMun
      * @return self
      */
     public function setXMun($xMun)
@@ -264,7 +264,7 @@ class TEndOrgType
      *
      * CEP
      *
-     * @param string $CEP
+     * @param  string $CEP
      * @return self
      */
     public function setCEP($CEP)
@@ -290,7 +290,7 @@ class TEndOrgType
      *
      * Sigla da UF, , informar EX para operações com o exterior.
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)
@@ -316,7 +316,7 @@ class TEndOrgType
      *
      * Código do país
      *
-     * @param string $cPais
+     * @param  string $cPais
      * @return self
      */
     public function setCPais($cPais)
@@ -342,7 +342,7 @@ class TEndOrgType
      *
      * Nome do país
      *
-     * @param string $xPais
+     * @param  string $xPais
      * @return self
      */
     public function setXPais($xPais)
@@ -368,7 +368,7 @@ class TEndOrgType
      *
      * Telefone
      *
-     * @param string $fone
+     * @param  string $fone
      * @return self
      */
     public function setFone($fone)

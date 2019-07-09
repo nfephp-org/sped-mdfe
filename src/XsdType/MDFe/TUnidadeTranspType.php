@@ -108,7 +108,7 @@ class TUnidadeTranspType
      *
      * 7 - Outros
      *
-     * @param string $tpUnidTransp
+     * @param  string $tpUnidTransp
      * @return self
      */
     public function setTpUnidTransp($tpUnidTransp)
@@ -140,7 +140,7 @@ class TUnidadeTranspType
      * Por exemplo: para rodoviário tração ou reboque deverá preencher com a placa
      * do veículo.
      *
-     * @param string $idUnidTransp
+     * @param  string $idUnidTransp
      * @return self
      */
     public function setIdUnidTransp($idUnidTransp)
@@ -155,7 +155,7 @@ class TUnidadeTranspType
      * Lacres das Unidades de Transporte
      *
      * @return self
-     * @param LacUnidTranspType $lacUnidTransp
+     * @param  LacUnidTranspType $lacUnidTransp
      */
     public function addToLacUnidTransp(LacUnidTranspType $lacUnidTransp)
     {
@@ -168,7 +168,7 @@ class TUnidadeTranspType
      *
      * Lacres das Unidades de Transporte
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetLacUnidTransp($index)
@@ -181,7 +181,7 @@ class TUnidadeTranspType
      *
      * Lacres das Unidades de Transporte
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetLacUnidTransp($index)
@@ -206,7 +206,7 @@ class TUnidadeTranspType
      *
      * Lacres das Unidades de Transporte
      *
-     * @param LacUnidTranspType[] $lacUnidTransp
+     * @param  LacUnidTranspType[] $lacUnidTransp
      * @return self
      */
     public function setLacUnidTransp(array $lacUnidTransp)
@@ -224,7 +224,7 @@ class TUnidadeTranspType
      * com rede sobre um iglu.
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType $infUnidCarga
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType $infUnidCarga
      */
     public function addToInfUnidCarga(\NFePHP\MDFe\XsdType\MDFe\TUnidCargaType $infUnidCarga)
     {
@@ -240,7 +240,7 @@ class TUnidadeTranspType
      * vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave
      * com rede sobre um iglu.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfUnidCarga($index)
@@ -256,7 +256,7 @@ class TUnidadeTranspType
      * vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave
      * com rede sobre um iglu.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfUnidCarga($index)
@@ -287,7 +287,7 @@ class TUnidadeTranspType
      * vagão, contêiner de avião, palete de aeronave com rede ou palete de aeronave
      * com rede sobre um iglu.
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType[] $infUnidCarga
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType[] $infUnidCarga
      * @return self
      */
     public function setInfUnidCarga(array $infUnidCarga)
@@ -313,7 +313,7 @@ class TUnidadeTranspType
      *
      * Quantidade rateada (Peso,Volume)
      *
-     * @param string $qtdRat
+     * @param  string $qtdRat
      * @return self
      */
     public function setQtdRat($qtdRat)

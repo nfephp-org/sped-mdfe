@@ -104,7 +104,7 @@ class InfMDFeType
      *
      * Versão do leiauteEx: "3.00"
      *
-     * @param string $versao
+     * @param  string $versao
      * @return self
      */
     public function setVersao($versao)
@@ -132,7 +132,7 @@ class InfMDFeType
      * Identificador da tag a ser assinadaInformar a chave de acesso do MDF-e e
      * precedida do literal "MDFe"
      *
-     * @param string $Id
+     * @param  string $Id
      * @return self
      */
     public function setId($Id)
@@ -158,7 +158,7 @@ class InfMDFeType
      *
      * Identificação do MDF-e
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType $ide
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType $ide
      * @return self
      */
     public function setIde(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\IdeType $ide)
@@ -184,7 +184,7 @@ class InfMDFeType
      *
      * Identificação do Emitente do Manifesto
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\EmitType $emit
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\EmitType $emit
      * @return self
      */
     public function setEmit(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\EmitType $emit)
@@ -210,7 +210,7 @@ class InfMDFeType
      *
      * Informações do modal
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfModalType $infModal
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfModalType $infModal
      * @return self
      */
     public function setInfModal(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfModalType $infModal)
@@ -236,7 +236,7 @@ class InfMDFeType
      *
      * Informações dos Documentos fiscais vinculados ao manifesto
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType $infDoc
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType $infDoc
      * @return self
      */
     public function setInfDoc(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType $infDoc)
@@ -251,7 +251,7 @@ class InfMDFeType
      * Informações de Seguro da Carga
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType $seg
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType $seg
      */
     public function addToSeg(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType $seg)
     {
@@ -264,7 +264,7 @@ class InfMDFeType
      *
      * Informações de Seguro da Carga
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetSeg($index)
@@ -277,7 +277,7 @@ class InfMDFeType
      *
      * Informações de Seguro da Carga
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetSeg($index)
@@ -302,7 +302,7 @@ class InfMDFeType
      *
      * Informações de Seguro da Carga
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType[] $seg
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\SegType[] $seg
      * @return self
      */
     public function setSeg(array $seg)
@@ -328,7 +328,7 @@ class InfMDFeType
      *
      * Totalizadores da carga transportada e seus documentos fiscais
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\TotType $tot
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\TotType $tot
      * @return self
      */
     public function setTot(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\TotType $tot)
@@ -343,7 +343,7 @@ class InfMDFeType
      * Lacres do MDF-ePreechimento opcional para os modais Rodoviário e Ferroviário
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\LacresType $lacres
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\LacresType $lacres
      */
     public function addToLacres(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\LacresType $lacres)
     {
@@ -356,7 +356,7 @@ class InfMDFeType
      *
      * Lacres do MDF-ePreechimento opcional para os modais Rodoviário e Ferroviário
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetLacres($index)
@@ -369,7 +369,7 @@ class InfMDFeType
      *
      * Lacres do MDF-ePreechimento opcional para os modais Rodoviário e Ferroviário
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetLacres($index)
@@ -394,7 +394,7 @@ class InfMDFeType
      *
      * Lacres do MDF-ePreechimento opcional para os modais Rodoviário e Ferroviário
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\LacresType[] $lacres
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\LacresType[] $lacres
      * @return self
      */
     public function setLacres(array $lacres)
@@ -410,7 +410,7 @@ class InfMDFeType
      * não significativos.
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\AutXMLType $autXML
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\AutXMLType $autXML
      */
     public function addToAutXML(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\AutXMLType $autXML)
     {
@@ -424,7 +424,7 @@ class InfMDFeType
      * Autorizados para download do XML do DF-eInformar CNPJ ou CPF. Preencher os zeros
      * não significativos.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetAutXML($index)
@@ -438,7 +438,7 @@ class InfMDFeType
      * Autorizados para download do XML do DF-eInformar CNPJ ou CPF. Preencher os zeros
      * não significativos.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetAutXML($index)
@@ -465,7 +465,7 @@ class InfMDFeType
      * Autorizados para download do XML do DF-eInformar CNPJ ou CPF. Preencher os zeros
      * não significativos.
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\AutXMLType[] $autXML
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\AutXMLType[] $autXML
      * @return self
      */
     public function setAutXML(array $autXML)
@@ -491,7 +491,7 @@ class InfMDFeType
      *
      * Informações Adicionais
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfAdicType $infAdic
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfAdicType $infAdic
      * @return self
      */
     public function setInfAdic(\NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfAdicType $infAdic)

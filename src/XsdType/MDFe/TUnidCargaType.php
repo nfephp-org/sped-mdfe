@@ -76,7 +76,7 @@ class TUnidCargaType
      *
      * 4 - Outros;
      *
-     * @param string $tpUnidCarga
+     * @param  string $tpUnidCarga
      * @return self
      */
     public function setTpUnidCarga($tpUnidCarga)
@@ -104,7 +104,7 @@ class TUnidCargaType
      * Identificação da Unidade de CargaInformar a identificação da unidade de
      * carga, por exemplo: número do container.
      *
-     * @param string $idUnidCarga
+     * @param  string $idUnidCarga
      * @return self
      */
     public function setIdUnidCarga($idUnidCarga)
@@ -119,7 +119,7 @@ class TUnidCargaType
      * Lacres das Unidades de Carga
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType\LacUnidCargaType $lacUnidCarga
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType\LacUnidCargaType $lacUnidCarga
      */
     public function addToLacUnidCarga(\NFePHP\MDFe\XsdType\MDFe\TUnidCargaType\LacUnidCargaType $lacUnidCarga)
     {
@@ -132,7 +132,7 @@ class TUnidCargaType
      *
      * Lacres das Unidades de Carga
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetLacUnidCarga($index)
@@ -145,7 +145,7 @@ class TUnidCargaType
      *
      * Lacres das Unidades de Carga
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetLacUnidCarga($index)
@@ -170,7 +170,7 @@ class TUnidCargaType
      *
      * Lacres das Unidades de Carga
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType\LacUnidCargaType[] $lacUnidCarga
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidCargaType\LacUnidCargaType[] $lacUnidCarga
      * @return self
      */
     public function setLacUnidCarga(array $lacUnidCarga)
@@ -196,7 +196,7 @@ class TUnidCargaType
      *
      * Quantidade rateada (Peso,Volume)
      *
-     * @param string $qtdRat
+     * @param  string $qtdRat
      * @return self
      */
     public function setQtdRat($qtdRat)

@@ -115,7 +115,7 @@ class VeicTracaoType
      *
      * Código interno do veículo
      *
-     * @param string $cInt
+     * @param  string $cInt
      * @return self
      */
     public function setCInt($cInt)
@@ -141,7 +141,7 @@ class VeicTracaoType
      *
      * Placa do veículo
      *
-     * @param string $placa
+     * @param  string $placa
      * @return self
      */
     public function setPlaca($placa)
@@ -167,7 +167,7 @@ class VeicTracaoType
      *
      * RENAVAM do veículo
      *
-     * @param string $RENAVAM
+     * @param  string $RENAVAM
      * @return self
      */
     public function setRENAVAM($RENAVAM)
@@ -193,7 +193,7 @@ class VeicTracaoType
      *
      * Tara em KG
      *
-     * @param string $tara
+     * @param  string $tara
      * @return self
      */
     public function setTara($tara)
@@ -219,7 +219,7 @@ class VeicTracaoType
      *
      * Capacidade em KG
      *
-     * @param string $capKG
+     * @param  string $capKG
      * @return self
      */
     public function setCapKG($capKG)
@@ -245,7 +245,7 @@ class VeicTracaoType
      *
      * Capacidade em M3
      *
-     * @param string $capM3
+     * @param  string $capM3
      * @return self
      */
     public function setCapM3($capM3)
@@ -273,7 +273,7 @@ class VeicTracaoType
      * Proprietários do Veículo.
      * Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\PropType $prop
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\PropType $prop
      * @return self
      */
     public function setProp(\NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\PropType $prop)
@@ -288,7 +288,7 @@ class VeicTracaoType
      * Informações do(s) Condutor(s) do veículo
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\CondutorType $condutor
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\CondutorType $condutor
      */
     public function addToCondutor(\NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\CondutorType $condutor)
     {
@@ -301,7 +301,7 @@ class VeicTracaoType
      *
      * Informações do(s) Condutor(s) do veículo
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetCondutor($index)
@@ -314,7 +314,7 @@ class VeicTracaoType
      *
      * Informações do(s) Condutor(s) do veículo
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetCondutor($index)
@@ -339,7 +339,7 @@ class VeicTracaoType
      *
      * Informações do(s) Condutor(s) do veículo
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\CondutorType[] $condutor
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType\CondutorType[] $condutor
      * @return self
      */
     public function setCondutor(array $condutor)
@@ -377,7 +377,7 @@ class VeicTracaoType
      *  05 - Utilitário;
      *  06 - Outros.
      *
-     * @param string $tpRod
+     * @param  string $tpRod
      * @return self
      */
     public function setTpRod($tpRod)
@@ -415,7 +415,7 @@ class VeicTracaoType
      *  04 - Porta Container;
      *  05 - Sider
      *
-     * @param string $tpCar
+     * @param  string $tpCar
      * @return self
      */
     public function setTpCar($tpCar)
@@ -441,7 +441,7 @@ class VeicTracaoType
      *
      * UF em que veículo está licenciadoSigla da UF de licenciamento do veículo.
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)

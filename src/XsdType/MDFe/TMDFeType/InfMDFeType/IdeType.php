@@ -190,7 +190,7 @@ class IdeType
      * Utilizar a
      * Tabela do IBGE de código de unidades da federação.
      *
-     * @param string $cUF
+     * @param  string $cUF
      * @return self
      */
     public function setCUF($cUF)
@@ -218,7 +218,7 @@ class IdeType
      * Tipo do Ambiente1 - Produção
      * 2 - Homologação
      *
-     * @param string $tpAmb
+     * @param  string $tpAmb
      * @return self
      */
     public function setTpAmb($tpAmb)
@@ -252,7 +252,7 @@ class IdeType
      * OBS: Deve ser preenchido com 2 para emitentes de NF-e e pelas transportadoras
      * quando estiverem fazendo transporte de carga própria
      *
-     * @param string $tpEmit
+     * @param  string $tpEmit
      * @return self
      */
     public function setTpEmit($tpEmit)
@@ -286,7 +286,7 @@ class IdeType
      *
      * 3 - CTC
      *
-     * @param string $tpTransp
+     * @param  string $tpTransp
      * @return self
      */
     public function setTpTransp($tpTransp)
@@ -314,7 +314,7 @@ class IdeType
      * Modelo do Manifesto EletrônicoUtilizar o código 58 para identificação do
      * MDF-e
      *
-     * @param string $mod
+     * @param  string $mod
      * @return self
      */
     public function setMod($mod)
@@ -342,7 +342,7 @@ class IdeType
      * Série do ManifestoInformar a série do documento fiscal (informar zero se
      * inexistente).
      *
-     * @param string $serie
+     * @param  string $serie
      * @return self
      */
     public function setSerie($serie)
@@ -368,7 +368,7 @@ class IdeType
      *
      * Número do ManifestoNúmero que identifica o Manifesto. 1 a 999999999.
      *
-     * @param string $nMDF
+     * @param  string $nMDF
      * @return self
      */
     public function setNMDF($nMDF)
@@ -396,7 +396,7 @@ class IdeType
      * Código numérico que compõe a Chave de Acesso. Código aleatório gerado pelo
      * emitente, com o objetivo de evitar acessos indevidos ao documento.
      *
-     * @param string $cMDF
+     * @param  string $cMDF
      * @return self
      */
     public function setCMDF($cMDF)
@@ -426,7 +426,7 @@ class IdeType
      * da chave de acesso do MDF-e, que deve ser calculado com a aplicação do
      * algoritmo módulo 11 (base 2,9) da chave de acesso.
      *
-     * @param string $cDV
+     * @param  string $cDV
      * @return self
      */
     public function setCDV($cDV)
@@ -454,7 +454,7 @@ class IdeType
      * Modalidade de transporte1 - Rodoviário;
      * 2 - Aéreo; 3 - Aquaviário; 4 - Ferroviário.
      *
-     * @param string $modal
+     * @param  string $modal
      * @return self
      */
     public function setModal($modal)
@@ -480,7 +480,7 @@ class IdeType
      *
      * Data e hora de emissão do ManifestoFormato AAAA-MM-DDTHH:MM:DD TZD
      *
-     * @param string $dhEmi
+     * @param  string $dhEmi
      * @return self
      */
     public function setDhEmi($dhEmi)
@@ -508,7 +508,7 @@ class IdeType
      * Forma de emissão do Manifesto (Normal ou Contingência)1 - Normal
      * ; 2 - Contingência
      *
-     * @param string $tpEmis
+     * @param  string $tpEmis
      * @return self
      */
     public function setTpEmis($tpEmis)
@@ -538,7 +538,7 @@ class IdeType
      * aplicativo do contribuinte;
      * 3- emissão MDF-e pelo contribuinte com aplicativo fornecido pelo Fisco.
      *
-     * @param string $procEmi
+     * @param  string $procEmi
      * @return self
      */
     public function setProcEmi($procEmi)
@@ -566,7 +566,7 @@ class IdeType
      * Versão do processo de emissãoInformar a versão do aplicativo emissor de
      * MDF-e.
      *
-     * @param string $verProc
+     * @param  string $verProc
      * @return self
      */
     public function setVerProc($verProc)
@@ -596,7 +596,7 @@ class IdeType
      * federação.
      * Informar 'EX' para operações com o exterior.
      *
-     * @param string $UFIni
+     * @param  string $UFIni
      * @return self
      */
     public function setUFIni($UFIni)
@@ -626,7 +626,7 @@ class IdeType
      * da federação.
      * Informar 'EX' para operações com o exterior.
      *
-     * @param string $UFFim
+     * @param  string $UFFim
      * @return self
      */
     public function setUFFim($UFFim)
@@ -641,7 +641,7 @@ class IdeType
      * Informações dos Municípios de Carregamento
      *
      * @return self
-     * @param InfMunCarregaType $infMunCarrega
+     * @param  InfMunCarregaType $infMunCarrega
      */
     public function addToInfMunCarrega(InfMunCarregaType $infMunCarrega)
     {
@@ -654,7 +654,7 @@ class IdeType
      *
      * Informações dos Municípios de Carregamento
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfMunCarrega($index)
@@ -667,7 +667,7 @@ class IdeType
      *
      * Informações dos Municípios de Carregamento
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfMunCarrega($index)
@@ -692,7 +692,7 @@ class IdeType
      *
      * Informações dos Municípios de Carregamento
      *
-     * @param InfMunCarregaType[] $infMunCarrega
+     * @param  InfMunCarregaType[] $infMunCarrega
      * @return self
      */
     public function setInfMunCarrega(array $infMunCarrega)
@@ -707,7 +707,7 @@ class IdeType
      * Informações do Percurso do MDF-e
      *
      * @return self
-     * @param InfPercursoType $infPercurso
+     * @param  InfPercursoType $infPercurso
      */
     public function addToInfPercurso(InfPercursoType $infPercurso)
     {
@@ -720,7 +720,7 @@ class IdeType
      *
      * Informações do Percurso do MDF-e
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfPercurso($index)
@@ -733,7 +733,7 @@ class IdeType
      *
      * Informações do Percurso do MDF-e
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfPercurso($index)
@@ -758,7 +758,7 @@ class IdeType
      *
      * Informações do Percurso do MDF-e
      *
-     * @param InfPercursoType[] $infPercurso
+     * @param  InfPercursoType[] $infPercurso
      * @return self
      */
     public function setInfPercurso(array $infPercurso)
@@ -784,7 +784,7 @@ class IdeType
      *
      * Data e hora previstos de inicio da viagemFormato AAAA-MM-DDTHH:MM:DD TZD
      *
-     * @param string $dhIniViagem
+     * @param  string $dhIniViagem
      * @return self
      */
     public function setDhIniViagem($dhIniViagem)

@@ -39,7 +39,7 @@ class CondutorType
      *
      * Nome do Condutor
      *
-     * @param string $xNome
+     * @param  string $xNome
      * @return self
      */
     public function setXNome($xNome)
@@ -65,7 +65,7 @@ class CondutorType
      *
      * CPF do Condutor
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)

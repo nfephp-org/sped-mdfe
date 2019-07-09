@@ -26,7 +26,9 @@ class XmlSerializer
             $xmlnsDOMAttr = new \DOMAttr('xmlns', 'http://www.portalfiscal.inf.br/mdfe');
             $dom->firstChild->appendChild($xmlnsDOMAttr);
 
-            /** @var  TMDFeType $serializable */
+            /**
+ * @var  TMDFeType $serializable 
+*/
             $IdDOMAttr = new \DOMAttr('Id', $serializable->getInfMDFe()->getId());
             $versaoDOMAttr = new \DOMAttr('versao', $serializable->getInfMDFe()->getVersao());
             $infMDFeDOMNode = $dom->getElementsByTagName('infMDFe')->item(0);
@@ -51,7 +53,9 @@ class XmlSerializer
         }
         $xpath = new DOMXPath($dom);
         foreach ($xpath->query('//*[not(normalize-space())]') as $node) {
-            /** @var \DOMNode $node */
+            /**
+ * @var \DOMNode $node 
+*/
             $node->parentNode->removeChild($node);
         }
         return $dom->saveXML();

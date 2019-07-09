@@ -60,7 +60,7 @@ class Rodo
      *
      * Grupo de informações para Agência Reguladora
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType $infANTT
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType $infANTT
      * @return self
      */
     public function setInfANTT(\NFePHP\MDFe\XsdType\Rodo\Rodo\InfANTTType $infANTT)
@@ -86,7 +86,7 @@ class Rodo
      *
      * Dados do Veículo com a Tração
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType $veicTracao
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType $veicTracao
      * @return self
      */
     public function setVeicTracao(\NFePHP\MDFe\XsdType\Rodo\Rodo\VeicTracaoType $veicTracao)
@@ -101,7 +101,7 @@ class Rodo
      * Dados dos reboques
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType $veicReboque
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType $veicReboque
      */
     public function addToVeicReboque(\NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType $veicReboque)
     {
@@ -114,7 +114,7 @@ class Rodo
      *
      * Dados dos reboques
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetVeicReboque($index)
@@ -127,7 +127,7 @@ class Rodo
      *
      * Dados dos reboques
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetVeicReboque($index)
@@ -152,7 +152,7 @@ class Rodo
      *
      * Dados dos reboques
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType[] $veicReboque
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType[] $veicReboque
      * @return self
      */
     public function setVeicReboque(array $veicReboque)
@@ -178,7 +178,7 @@ class Rodo
      *
      * Código de Agendamento no porto
      *
-     * @param string $codAgPorto
+     * @param  string $codAgPorto
      * @return self
      */
     public function setCodAgPorto($codAgPorto)
@@ -193,7 +193,7 @@ class Rodo
      * Lacres
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\LacRodoType $lacRodo
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\LacRodoType $lacRodo
      */
     public function addToLacRodo(\NFePHP\MDFe\XsdType\Rodo\Rodo\LacRodoType $lacRodo)
     {
@@ -206,7 +206,7 @@ class Rodo
      *
      * Lacres
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetLacRodo($index)
@@ -219,7 +219,7 @@ class Rodo
      *
      * Lacres
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetLacRodo($index)
@@ -244,7 +244,7 @@ class Rodo
      *
      * Lacres
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\LacRodoType[] $lacRodo
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\LacRodoType[] $lacRodo
      * @return self
      */
     public function setLacRodo(array $lacRodo)

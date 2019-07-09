@@ -75,7 +75,7 @@ class DispType
      * Vale-Pedágio os dispositivos do Vale-Pedágio.
      *  - Informar os zeros não significativos.
      *
-     * @param string $CNPJForn
+     * @param  string $CNPJForn
      * @return self
      */
     public function setCNPJForn($CNPJForn)
@@ -107,7 +107,7 @@ class DispType
      * emitente do MDF-e.
      *  - Informar os zeros não significativos.
      *
-     * @param string $CNPJPg
+     * @param  string $CNPJPg
      * @return self
      */
     public function setCNPJPg($CNPJPg)
@@ -135,7 +135,7 @@ class DispType
      * CNPJ do responsável pelo pagamento do Vale-PedágioInformar os zeros não
      * significativos.
      *
-     * @param string $CPFPg
+     * @param  string $CPFPg
      * @return self
      */
     public function setCPFPg($CPFPg)
@@ -163,7 +163,7 @@ class DispType
      * Número do comprovante de compraNúmero de ordem do comprovante de compra do
      * Vale-Pedágio fornecido para cada veículo ou combinação veicular, por viagem.
      *
-     * @param string $nCompra
+     * @param  string $nCompra
      * @return self
      */
     public function setNCompra($nCompra)
@@ -191,7 +191,7 @@ class DispType
      * Valor do Vale-PedagioNúmero de ordem do comprovante de compra do Vale-Pedágio
      * fornecido para cada veículo ou combinação veicular, por viagem.
      *
-     * @param string $vValePed
+     * @param  string $vValePed
      * @return self
      */
     public function setVValePed($vValePed)

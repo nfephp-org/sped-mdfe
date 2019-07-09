@@ -51,7 +51,7 @@ class InfCIOTType
      * Código Identificador da Operação de TransporteTambém Conhecido como conta
      * frete
      *
-     * @param string $CIOT
+     * @param  string $CIOT
      * @return self
      */
     public function setCIOT($CIOT)
@@ -79,7 +79,7 @@ class InfCIOTType
      * Número do CPF responsável pela geração do CIOTInformar os zeros não
      * significativos.
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)
@@ -107,7 +107,7 @@ class InfCIOTType
      * Número do CNPJ responsável pela geração do CIOTInformar os zeros não
      * significativos.
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)

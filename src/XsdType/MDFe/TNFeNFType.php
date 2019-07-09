@@ -42,7 +42,7 @@ class TNFeNFType
      *
      * Informações da NF-e
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFeType $infNFe
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFeType $infNFe
      * @return self
      */
     public function setInfNFe(\NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFeType $infNFe)
@@ -68,7 +68,7 @@ class TNFeNFType
      *
      * Informações da NF mod 1 e 1A
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType $infNF
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType $infNF
      * @return self
      */
     public function setInfNF(\NFePHP\MDFe\XsdType\MDFe\TNFeNFType\InfNFType $infNF)

@@ -5,7 +5,6 @@ namespace NFePHP\MDFe\XsdType\MDFe;
 /**
  * Class representing TransformTypeType
  *
- *
  * XSD Type: TransformType
  */
 class TransformTypeType
@@ -34,7 +33,7 @@ class TransformTypeType
     /**
      * Sets a new Algorithm
      *
-     * @param string $Algorithm
+     * @param  string $Algorithm
      * @return self
      */
     public function setAlgorithm($Algorithm)
@@ -47,7 +46,7 @@ class TransformTypeType
      * Adds as XPath
      *
      * @return self
-     * @param string $XPath
+     * @param  string $XPath
      */
     public function addToXPath($XPath)
     {
@@ -58,7 +57,7 @@ class TransformTypeType
     /**
      * isset XPath
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetXPath($index)
@@ -69,7 +68,7 @@ class TransformTypeType
     /**
      * unset XPath
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetXPath($index)
@@ -90,7 +89,7 @@ class TransformTypeType
     /**
      * Sets a new XPath
      *
-     * @param string[] $XPath
+     * @param  string[] $XPath
      * @return self
      */
     public function setXPath(array $XPath)

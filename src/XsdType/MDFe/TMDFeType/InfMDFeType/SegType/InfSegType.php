@@ -40,7 +40,7 @@ class InfSegType
      *
      * Nome da Seguradora
      *
-     * @param string $xSeg
+     * @param  string $xSeg
      * @return self
      */
     public function setXSeg($xSeg)
@@ -68,7 +68,7 @@ class InfSegType
      * Número do CNPJ da seguradoraObrigatório apenas se responsável pelo seguro for
      * (2) responsável pela contratação do transporte - pessoa jurídica
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)

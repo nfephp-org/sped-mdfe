@@ -26,7 +26,7 @@ class DigestMethodType
     /**
      * Sets a new Algorithm
      *
-     * @param string $Algorithm
+     * @param  string $Algorithm
      * @return self
      */
     public function setAlgorithm($Algorithm)

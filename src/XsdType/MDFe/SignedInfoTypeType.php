@@ -8,7 +8,6 @@ use NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType\SignatureMethodType;
 /**
  * Class representing SignedInfoTypeType
  *
- *
  * XSD Type: SignedInfoType
  */
 class SignedInfoTypeType
@@ -48,7 +47,7 @@ class SignedInfoTypeType
     /**
      * Sets a new Id
      *
-     * @param string $Id
+     * @param  string $Id
      * @return self
      */
     public function setId($Id)
@@ -70,7 +69,7 @@ class SignedInfoTypeType
     /**
      * Sets a new CanonicalizationMethod
      *
-     * @param CanonicalizationMethodType $CanonicalizationMethod
+     * @param  CanonicalizationMethodType $CanonicalizationMethod
      * @return self
      */
     public function setCanonicalizationMethod(CanonicalizationMethodType $CanonicalizationMethod)
@@ -92,7 +91,7 @@ class SignedInfoTypeType
     /**
      * Sets a new SignatureMethod
      *
-     * @param SignatureMethodType $SignatureMethod
+     * @param  SignatureMethodType $SignatureMethod
      * @return self
      */
     public function setSignatureMethod(SignatureMethodType $SignatureMethod)
@@ -114,7 +113,7 @@ class SignedInfoTypeType
     /**
      * Sets a new Reference
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType $Reference
+     * @param  \NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType $Reference
      * @return self
      */
     public function setReference(\NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType $Reference)

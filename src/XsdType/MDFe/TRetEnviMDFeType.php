@@ -73,7 +73,7 @@ class TRetEnviMDFeType
     /**
      * Sets a new versao
      *
-     * @param string $versao
+     * @param  string $versao
      * @return self
      */
     public function setVersao($versao)
@@ -103,7 +103,7 @@ class TRetEnviMDFeType
      * 1 - Produção
      * 2 - Homologação
      *
-     * @param mixed $tpAmb
+     * @param  mixed $tpAmb
      * @return self
      */
     public function setTpAmb($tpAmb)
@@ -129,7 +129,7 @@ class TRetEnviMDFeType
      *
      * Identificação da UF
      *
-     * @param string $cUF
+     * @param  string $cUF
      * @return self
      */
     public function setCUF($cUF)
@@ -155,7 +155,7 @@ class TRetEnviMDFeType
      *
      * Versão do Aplicativo que recebeu o Arquivo.
      *
-     * @param string $verAplic
+     * @param  string $verAplic
      * @return self
      */
     public function setVerAplic($verAplic)
@@ -181,7 +181,7 @@ class TRetEnviMDFeType
      *
      * Código do status da mensagem enviada.
      *
-     * @param string $cStat
+     * @param  string $cStat
      * @return self
      */
     public function setCStat($cStat)
@@ -207,7 +207,7 @@ class TRetEnviMDFeType
      *
      * Descrição literal do status do serviço solicitado.
      *
-     * @param string $xMotivo
+     * @param  string $xMotivo
      * @return self
      */
     public function setXMotivo($xMotivo)
@@ -233,7 +233,7 @@ class TRetEnviMDFeType
      *
      * Dados do Recibo do Arquivo
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TRetEnviMDFeType\InfRecType $infRec
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TRetEnviMDFeType\InfRecType $infRec
      * @return self
      */
     public function setInfRec(\NFePHP\MDFe\XsdType\MDFe\TRetEnviMDFeType\InfRecType $infRec)

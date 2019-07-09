@@ -35,7 +35,7 @@ class InfPercursoType
      * Sigla das Unidades da Federação do percurso do veículo.Não é necessário
      * repetir as UF de Início e Fim
      *
-     * @param string $UFPer
+     * @param  string $UFPer
      * @return self
      */
     public function setUFPer($UFPer)

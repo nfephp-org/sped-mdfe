@@ -95,7 +95,7 @@ class VeicReboqueType
      *
      * Código interno do veículo
      *
-     * @param string $cInt
+     * @param  string $cInt
      * @return self
      */
     public function setCInt($cInt)
@@ -121,7 +121,7 @@ class VeicReboqueType
      *
      * Placa do veículo
      *
-     * @param string $placa
+     * @param  string $placa
      * @return self
      */
     public function setPlaca($placa)
@@ -147,7 +147,7 @@ class VeicReboqueType
      *
      * RENAVAM do veículo
      *
-     * @param string $RENAVAM
+     * @param  string $RENAVAM
      * @return self
      */
     public function setRENAVAM($RENAVAM)
@@ -173,7 +173,7 @@ class VeicReboqueType
      *
      * Tara em KG
      *
-     * @param string $tara
+     * @param  string $tara
      * @return self
      */
     public function setTara($tara)
@@ -199,7 +199,7 @@ class VeicReboqueType
      *
      * Capacidade em KG
      *
-     * @param string $capKG
+     * @param  string $capKG
      * @return self
      */
     public function setCapKG($capKG)
@@ -225,7 +225,7 @@ class VeicReboqueType
      *
      * Capacidade em M3
      *
-     * @param string $capM3
+     * @param  string $capM3
      * @return self
      */
     public function setCapM3($capM3)
@@ -253,7 +253,7 @@ class VeicReboqueType
      * Proprietários do Veículo.
      * Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType\PropType $prop
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType\PropType $prop
      * @return self
      */
     public function setProp(\NFePHP\MDFe\XsdType\Rodo\Rodo\VeicReboqueType\PropType $prop)
@@ -291,7 +291,7 @@ class VeicReboqueType
      *  04 - Porta Container;
      *  05 - Sider
      *
-     * @param string $tpCar
+     * @param  string $tpCar
      * @return self
      */
     public function setTpCar($tpCar)
@@ -317,7 +317,7 @@ class VeicReboqueType
      *
      * UF em que veículo está licenciadoSigla da UF de licenciamento do veículo.
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)

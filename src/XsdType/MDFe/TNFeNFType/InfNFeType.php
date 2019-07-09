@@ -39,7 +39,7 @@ class InfNFeType
      *
      * Chave de acesso da NF-e
      *
-     * @param string $chNFe
+     * @param  string $chNFe
      * @return self
      */
     public function setChNFe($chNFe)
@@ -65,7 +65,7 @@ class InfNFeType
      *
      * PIN SUFRAMAPIN atribuído pela SUFRAMA para a operação.
      *
-     * @param string $PIN
+     * @param  string $PIN
      * @return self
      */
     public function setPIN($PIN)

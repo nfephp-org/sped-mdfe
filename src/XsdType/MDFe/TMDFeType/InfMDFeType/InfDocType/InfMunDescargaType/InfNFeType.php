@@ -64,7 +64,7 @@ class InfNFeType
      *
      * Nota Fiscal Eletrônica
      *
-     * @param string $chNFe
+     * @param  string $chNFe
      * @return self
      */
     public function setChNFe($chNFe)
@@ -90,7 +90,7 @@ class InfNFeType
      *
      * Segundo código de barras
      *
-     * @param string $SegCodBarra
+     * @param  string $SegCodBarra
      * @return self
      */
     public function setSegCodBarra($SegCodBarra)
@@ -116,7 +116,7 @@ class InfNFeType
      *
      * Indicador de Reentrega
      *
-     * @param string $indReentrega
+     * @param  string $indReentrega
      * @return self
      */
     public function setIndReentrega($indReentrega)
@@ -132,7 +132,7 @@ class InfNFeType
      * preenchido com as informações das unidades de transporte utilizadas.
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType $infUnidTransp
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType $infUnidTransp
      */
     public function addToInfUnidTransp(\NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType $infUnidTransp)
     {
@@ -146,7 +146,7 @@ class InfNFeType
      * Informações das Unidades de Transporte (Carreta/Reboque/Vagão)Deve ser
      * preenchido com as informações das unidades de transporte utilizadas.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfUnidTransp($index)
@@ -160,7 +160,7 @@ class InfNFeType
      * Informações das Unidades de Transporte (Carreta/Reboque/Vagão)Deve ser
      * preenchido com as informações das unidades de transporte utilizadas.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfUnidTransp($index)
@@ -187,7 +187,7 @@ class InfNFeType
      * Informações das Unidades de Transporte (Carreta/Reboque/Vagão)Deve ser
      * preenchido com as informações das unidades de transporte utilizadas.
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType[] $infUnidTransp
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TUnidadeTranspType[] $infUnidTransp
      * @return self
      */
     public function setInfUnidTransp(array $infUnidTransp)
@@ -203,7 +203,7 @@ class InfNFeType
      * perigosos.
      *
      * @return self
-     * @param PeriType $peri
+     * @param  PeriType $peri
      */
     public function addToPeri(PeriType $peri)
     {
@@ -217,7 +217,7 @@ class InfNFeType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetPeri($index)
@@ -231,7 +231,7 @@ class InfNFeType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetPeri($index)
@@ -258,7 +258,7 @@ class InfNFeType
      * Preenchido quando for transporte de produtos classificados pela ONU como
      * perigosos.
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType[] $peri
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType\PeriType[] $peri
      * @return self
      */
     public function setPeri(array $peri)

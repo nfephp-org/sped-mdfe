@@ -17,7 +17,8 @@ class Oids
             
     /**
      * getOid
-     * @param type $key
+     *
+     * @param  type $key
      * @return mixed
      */
     public static function getOid($key)

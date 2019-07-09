@@ -39,7 +39,7 @@ class InfModalType
      *
      * Versão do leiaute específico para o Modal
      *
-     * @param string $versaoModal
+     * @param  string $versaoModal
      * @return self
      */
     public function setVersaoModal($versaoModal)
@@ -65,7 +65,7 @@ class InfModalType
      *
      * Informações do modal Rodoviário
      *
-     * @param \NFePHP\MDFe\XsdType\Rodo\Rodo $rodo
+     * @param  \NFePHP\MDFe\XsdType\Rodo\Rodo $rodo
      * @return self
      */
     public function setRodo(\NFePHP\MDFe\XsdType\Rodo\Rodo $rodo)

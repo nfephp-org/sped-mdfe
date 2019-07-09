@@ -59,7 +59,7 @@ class DestType
      * zeros não significativos.
      * Não informar o conteúdo da TAG se a operação for realizada com o Exterior.
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)
@@ -85,7 +85,7 @@ class DestType
      *
      * CPF do DestinatárioInformar os zeros não significativos.
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)
@@ -111,7 +111,7 @@ class DestType
      *
      * Razão Social ou Nome
      *
-     * @param string $xNome
+     * @param  string $xNome
      * @return self
      */
     public function setXNome($xNome)
@@ -137,7 +137,7 @@ class DestType
      *
      * UF do DestinatárioInformar 'EX' para operações com o exterior.
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)

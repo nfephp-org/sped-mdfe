@@ -46,7 +46,7 @@ class InfRecType
      *
      * Número do Recibo
      *
-     * @param string $nRec
+     * @param  string $nRec
      * @return self
      */
     public function setNRec($nRec)
@@ -72,7 +72,7 @@ class InfRecType
      *
      * Data e hora do recebimento, no formato AAAA-MM-DDTHH:MM:SS
      *
-     * @param \DateTime $dhRecbto
+     * @param  \DateTime $dhRecbto
      * @return self
      */
     public function setDhRecbto(\DateTime $dhRecbto)
@@ -98,7 +98,7 @@ class InfRecType
      *
      * Tempo médio de resposta do serviço (em segundos) dos últimos 5 minutos
      *
-     * @param integer $tMed
+     * @param  integer $tMed
      * @return self
      */
     public function setTMed($tMed)

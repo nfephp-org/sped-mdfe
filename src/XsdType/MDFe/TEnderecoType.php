@@ -99,7 +99,7 @@ class TEnderecoType
      *
      * Logradouro
      *
-     * @param string $xLgr
+     * @param  string $xLgr
      * @return self
      */
     public function setXLgr($xLgr)
@@ -125,7 +125,7 @@ class TEnderecoType
      *
      * Número
      *
-     * @param string $nro
+     * @param  string $nro
      * @return self
      */
     public function setNro($nro)
@@ -151,7 +151,7 @@ class TEnderecoType
      *
      * Complemento
      *
-     * @param string $xCpl
+     * @param  string $xCpl
      * @return self
      */
     public function setXCpl($xCpl)
@@ -177,7 +177,7 @@ class TEnderecoType
      *
      * Bairro
      *
-     * @param string $xBairro
+     * @param  string $xBairro
      * @return self
      */
     public function setXBairro($xBairro)
@@ -205,7 +205,7 @@ class TEnderecoType
      * Código do município (utilizar a tabela do IBGE), informar 9999999 para
      * operações com o exterior.
      *
-     * @param string $cMun
+     * @param  string $cMun
      * @return self
      */
     public function setCMun($cMun)
@@ -231,7 +231,7 @@ class TEnderecoType
      *
      * Nome do município, informar EXTERIOR para operações com o exterior.
      *
-     * @param string $xMun
+     * @param  string $xMun
      * @return self
      */
     public function setXMun($xMun)
@@ -257,7 +257,7 @@ class TEnderecoType
      *
      * CEPInformar os zeros não significativos
      *
-     * @param string $CEP
+     * @param  string $CEP
      * @return self
      */
     public function setCEP($CEP)
@@ -283,7 +283,7 @@ class TEnderecoType
      *
      * Sigla da UF, informar EX para operações com o exterior.
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)
@@ -309,7 +309,7 @@ class TEnderecoType
      *
      * Código do paísUtilizar a tabela do BACEN
      *
-     * @param string $cPais
+     * @param  string $cPais
      * @return self
      */
     public function setCPais($cPais)
@@ -335,7 +335,7 @@ class TEnderecoType
      *
      * Nome do país
      *
-     * @param string $xPais
+     * @param  string $xPais
      * @return self
      */
     public function setXPais($xPais)

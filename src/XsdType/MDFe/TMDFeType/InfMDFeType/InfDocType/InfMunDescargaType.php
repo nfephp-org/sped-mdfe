@@ -66,7 +66,7 @@ class InfMunDescargaType
      *
      * Código do Município de Descarregamento
      *
-     * @param string $cMunDescarga
+     * @param  string $cMunDescarga
      * @return self
      */
     public function setCMunDescarga($cMunDescarga)
@@ -92,7 +92,7 @@ class InfMunDescargaType
      *
      * Nome do Município de Descarregamento
      *
-     * @param string $xMunDescarga
+     * @param  string $xMunDescarga
      * @return self
      */
     public function setXMunDescarga($xMunDescarga)
@@ -108,7 +108,7 @@ class InfMunDescargaType
      * transporte
      *
      * @return self
-     * @param InfCTeType $infCTe
+     * @param  InfCTeType $infCTe
      */
     public function addToInfCTe(InfCTeType $infCTe)
     {
@@ -122,7 +122,7 @@ class InfMunDescargaType
      * Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de
      * transporte
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfCTe($index)
@@ -136,7 +136,7 @@ class InfMunDescargaType
      * Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de
      * transporte
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfCTe($index)
@@ -163,7 +163,7 @@ class InfMunDescargaType
      * Conhecimentos de Tranporte - usar este grupo quando for prestador de serviço de
      * transporte
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType[] $infCTe
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfCTeType[] $infCTe
      * @return self
      */
     public function setInfCTe(array $infCTe)
@@ -178,7 +178,7 @@ class InfMunDescargaType
      * Nota Fiscal Eletronica
      *
      * @return self
-     * @param InfNFeType $infNFe
+     * @param  InfNFeType $infNFe
      */
     public function addToInfNFe(InfNFeType $infNFe)
     {
@@ -191,7 +191,7 @@ class InfMunDescargaType
      *
      * Nota Fiscal Eletronica
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfNFe($index)
@@ -204,7 +204,7 @@ class InfMunDescargaType
      *
      * Nota Fiscal Eletronica
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfNFe($index)
@@ -229,7 +229,7 @@ class InfMunDescargaType
      *
      * Nota Fiscal Eletronica
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType[] $infNFe
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType\InfNFeType[] $infNFe
      * @return self
      */
     public function setInfNFe(array $infNFe)
@@ -245,7 +245,7 @@ class InfMunDescargaType
      * (vide regras MOC)
      *
      * @return self
-     * @param InfMDFeTranspType $infMDFeTransp
+     * @param  InfMDFeTranspType $infMDFeTransp
      */
     public function addToInfMDFeTransp(InfMDFeTranspType $infMDFeTransp)
     {
@@ -259,7 +259,7 @@ class InfMunDescargaType
      * Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário
      * (vide regras MOC)
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfMDFeTransp($index)
@@ -273,7 +273,7 @@ class InfMunDescargaType
      * Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário
      * (vide regras MOC)
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfMDFeTransp($index)
@@ -300,7 +300,7 @@ class InfMunDescargaType
      * Manifesto Eletrônico de Documentos Fiscais. Somente para modal Aquaviário
      * (vide regras MOC)
      *
-     * @param InfMDFeTranspType[] $infMDFeTransp
+     * @param  InfMDFeTranspType[] $infMDFeTransp
      * @return self
      */
     public function setInfMDFeTransp(array $infMDFeTransp)

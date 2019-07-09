@@ -39,7 +39,7 @@ class InfContratanteType
      *
      * Número do CPF do contratente do serviçoInformar os zeros não significativos.
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)
@@ -65,7 +65,7 @@ class InfContratanteType
      *
      * Número do CNPJ do contratante do serviçoInformar os zeros não significativos.
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)

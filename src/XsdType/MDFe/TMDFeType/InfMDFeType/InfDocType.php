@@ -23,7 +23,7 @@ class InfDocType
      * Informações dos Municípios de descarregamento
      *
      * @return self
-     * @param InfMunDescargaType $infMunDescarga
+     * @param  InfMunDescargaType $infMunDescarga
      */
     public function addToInfMunDescarga(InfMunDescargaType $infMunDescarga)
     {
@@ -36,7 +36,7 @@ class InfDocType
      *
      * Informações dos Municípios de descarregamento
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetInfMunDescarga($index)
@@ -49,7 +49,7 @@ class InfDocType
      *
      * Informações dos Municípios de descarregamento
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetInfMunDescarga($index)
@@ -74,7 +74,7 @@ class InfDocType
      *
      * Informações dos Municípios de descarregamento
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType[] $infMunDescarga
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TMDFeType\InfMDFeType\InfDocType\InfMunDescargaType[] $infMunDescarga
      * @return self
      */
     public function setInfMunDescarga(array $infMunDescarga)

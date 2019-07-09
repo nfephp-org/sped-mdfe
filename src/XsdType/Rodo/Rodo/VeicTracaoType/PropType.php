@@ -80,7 +80,7 @@ class PropType
      *
      * Número do CPFInformar os zeros não significativos.
      *
-     * @param string $CPF
+     * @param  string $CPF
      * @return self
      */
     public function setCPF($CPF)
@@ -106,7 +106,7 @@ class PropType
      *
      * Número do CNPJInformar os zeros não significativos.
      *
-     * @param string $CNPJ
+     * @param  string $CNPJ
      * @return self
      */
     public function setCNPJ($CNPJ)
@@ -138,7 +138,7 @@ class PropType
      * para exercer a atividade de transportador rodoviário de cargas por conta de
      * terceiros e mediante remuneração.
      *
-     * @param string $RNTRC
+     * @param  string $RNTRC
      * @return self
      */
     public function setRNTRC($RNTRC)
@@ -164,7 +164,7 @@ class PropType
      *
      * Razão Social ou Nome do proprietário
      *
-     * @param string $xNome
+     * @param  string $xNome
      * @return self
      */
     public function setXNome($xNome)
@@ -190,7 +190,7 @@ class PropType
      *
      * Inscrição Estadual
      *
-     * @param string $IE
+     * @param  string $IE
      * @return self
      */
     public function setIE($IE)
@@ -216,7 +216,7 @@ class PropType
      *
      * UF
      *
-     * @param string $UF
+     * @param  string $UF
      * @return self
      */
     public function setUF($UF)
@@ -248,7 +248,7 @@ class PropType
      *  1-TAC Independente; ou
      *  2 – Outros.
      *
-     * @param string $tpProp
+     * @param  string $tpProp
      * @return self
      */
     public function setTpProp($tpProp)

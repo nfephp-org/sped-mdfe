@@ -5,7 +5,6 @@ namespace NFePHP\MDFe\XsdType\MDFe;
 /**
  * Class representing SignatureTypeType
  *
- *
  * XSD Type: SignatureType
  */
 class SignatureTypeType
@@ -44,7 +43,7 @@ class SignatureTypeType
     /**
      * Sets a new Id
      *
-     * @param string $Id
+     * @param  string $Id
      * @return self
      */
     public function setId($Id)
@@ -66,7 +65,7 @@ class SignatureTypeType
     /**
      * Sets a new SignedInfo
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType $SignedInfo
+     * @param  \NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType $SignedInfo
      * @return self
      */
     public function setSignedInfo(\NFePHP\MDFe\XsdType\MDFe\SignedInfoTypeType $SignedInfo)
@@ -88,7 +87,7 @@ class SignatureTypeType
     /**
      * Sets a new SignatureValue
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\SignatureValueTypeType $SignatureValue
+     * @param  \NFePHP\MDFe\XsdType\MDFe\SignatureValueTypeType $SignatureValue
      * @return self
      */
     public function setSignatureValue(\NFePHP\MDFe\XsdType\MDFe\SignatureValueTypeType $SignatureValue)
@@ -110,7 +109,7 @@ class SignatureTypeType
     /**
      * Sets a new KeyInfo
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\KeyInfoTypeType $KeyInfo
+     * @param  \NFePHP\MDFe\XsdType\MDFe\KeyInfoTypeType $KeyInfo
      * @return self
      */
     public function setKeyInfo(\NFePHP\MDFe\XsdType\MDFe\KeyInfoTypeType $KeyInfo)

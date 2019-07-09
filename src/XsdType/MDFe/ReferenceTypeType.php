@@ -7,7 +7,6 @@ use NFePHP\MDFe\XsdType\MDFe\ReferenceTypeType\DigestMethodType;
 /**
  * Class representing ReferenceTypeType
  *
- *
  * XSD Type: ReferenceType
  */
 class ReferenceTypeType
@@ -57,7 +56,7 @@ class ReferenceTypeType
     /**
      * Sets a new Id
      *
-     * @param string $Id
+     * @param  string $Id
      * @return self
      */
     public function setId($Id)
@@ -79,7 +78,7 @@ class ReferenceTypeType
     /**
      * Sets a new URI
      *
-     * @param string $URI
+     * @param  string $URI
      * @return self
      */
     public function setURI($URI)
@@ -101,7 +100,7 @@ class ReferenceTypeType
     /**
      * Sets a new Type
      *
-     * @param string $Type
+     * @param  string $Type
      * @return self
      */
     public function setType($Type)
@@ -114,7 +113,7 @@ class ReferenceTypeType
      * Adds as Transform
      *
      * @return self
-     * @param \NFePHP\MDFe\XsdType\MDFe\TransformTypeType $Transform
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TransformTypeType $Transform
      */
     public function addToTransforms(\NFePHP\MDFe\XsdType\MDFe\TransformTypeType $Transform)
     {
@@ -125,7 +124,7 @@ class ReferenceTypeType
     /**
      * isset Transforms
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return boolean
      */
     public function issetTransforms($index)
@@ -136,7 +135,7 @@ class ReferenceTypeType
     /**
      * unset Transforms
      *
-     * @param scalar $index
+     * @param  scalar $index
      * @return void
      */
     public function unsetTransforms($index)
@@ -157,7 +156,7 @@ class ReferenceTypeType
     /**
      * Sets a new Transforms
      *
-     * @param \NFePHP\MDFe\XsdType\MDFe\TransformTypeType[] $Transforms
+     * @param  \NFePHP\MDFe\XsdType\MDFe\TransformTypeType[] $Transforms
      * @return self
      */
     public function setTransforms(array $Transforms)
@@ -179,7 +178,7 @@ class ReferenceTypeType
     /**
      * Sets a new DigestMethod
      *
-     * @param DigestMethodType $DigestMethod
+     * @param  DigestMethodType $DigestMethod
      * @return self
      */
     public function setDigestMethod(DigestMethodType $DigestMethod)
@@ -201,7 +200,7 @@ class ReferenceTypeType
     /**
      * Sets a new DigestValue
      *
-     * @param mixed $DigestValue
+     * @param  mixed $DigestValue
      * @return self
      */
     public function setDigestValue($DigestValue)
