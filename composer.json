@@ -1,5 +1,5 @@
 {
-    "name": "nfephp-org/sped-mdfe",
+    "name": "joaoroyosilva/sped-mdfe",
     "type": "library",
     "description": "API para geração e comunicação da MDFe com as SEFAZ autorizadoras.",
     "keywords": ["mdfe", "sped", "nfephp"],
