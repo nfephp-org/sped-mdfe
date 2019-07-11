@@ -21,6 +21,7 @@ namespace NFePHP\MDFe;
 use DOMElement;
 use NFePHP\MDFe\Base\BaseMake;
 use NFePHP\MDFe\DateTime\DateTime;
+use NFePHP\MDFe\Strings\Strings;
 use RuntimeException;
 use stdClass;
 
@@ -122,7 +123,15 @@ class Make extends BaseMake
      * @var DOMElement
      */
     protected $infRespTec;
+    /**
+     * @var DOMElement
+     */
+    protected $qrCodMDFe;
 
+    /**
+     * @var DOMElement
+     */
+    protected $infMDFeSupl;
 
     // Arrays
     private $aInfMunCarrega = array(); //array de DOMNode
@@ -186,8 +195,12 @@ class Make extends BaseMake
         }
         //Responsável Técnico
         $this->dom->appChild($this->infMDFe, $this->infRespTec, 'Falta tag "infMDFe"');
+        //QrCode
+        $this->dom->appChild($this->infMDFeSupl, $this->qrCodMDFe, 'Falta tag "qrCodMDFe');
         //[1] tag infMDFe (1 A01)
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
+        //infMDFeSupl
+        $this->dom->appChild($this->MDFe,$this->infMDFeSupl,'Falta a tag "infMDFeSupl');
         //[0] tag MDFe
         $this->dom->appChild($this->dom, $this->MDFe, 'Falta DOMDocument');
         // testa da chave
@@ -706,13 +719,44 @@ class Make extends BaseMake
     }
 
     /**
+     * Informações suplementares da Nota Fiscal
+     * @param stdClass $std
+     * @return DOMElement
+     */
+    public function taginfMDFeSupl()
+    {
+
+        $infMDFeSupl = $this->dom->createElement("infMDFeSupl");
+        $this->infMDFeSupl = $infMDFeSupl;
+        return $infMDFeSupl;
+    }
+
+    /**
+     * Add QRCode Tag to signed XML from a MDFe
+     * @param DOMDocument $dom
+     * @return string
+     */
+    public function tagQRCode()
+    {
+        $qrCodMDFe =  $this->dom->addChild(
+            $this->infMDFeSupl,
+            'qrCodMDFe',
+            "http://dfe-portal.svrs.rs.gov.br/mdfe/QRCode?chMDFe={$this->chMDFe}&tpAmb={$this->tpAmb}",
+            true, 'QRCode de consulta'
+        );
+        $this->qrCodMDFe = $qrCodMDFe;
+        return $qrCodMDFe;
+    }
+
+
+    /**
      * Informações do Responsável técnico ZD01 pai A01
      * tag MDFe/infMDFe/infRespTec (opcional)
      * @param stdClass $std
      * @return DOMElement
      * @throws RuntimeException
      */
-    public function taginfRespTec($CNPJ= '', $xContato= '', $email= '', $fone= '', $CSRT= '', $idCSRT = '')
+    public function taginfRespTec($CNPJ = '', $xContato = '', $email = '', $fone = '', $CSRT = '', $idCSRT = '')
     {
         $infRespTec = $this->dom->createElement("infRespTec");
         $this->dom->addChild(
@@ -733,7 +777,7 @@ class Make extends BaseMake
         );
         $this->dom->addChild(
             $infRespTec,
-           'email',
+            'email',
             $email,
             true,
             "Informar o e-mail da pessoa a ser contatada na empresa "
@@ -1743,6 +1787,7 @@ class Make extends BaseMake
         $this->aDisp[] = $disp;
         return $disp;
     }
+
 
     /**
      * zTagVeiculo
