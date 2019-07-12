@@ -200,7 +200,7 @@ class Make extends BaseMake
         //[1] tag infMDFe (1 A01)
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         //infMDFeSupl
-        $this->dom->appChild($this->MDFe,$this->infMDFeSupl,'Falta a tag "infMDFeSupl');
+        $this->dom->appChild($this->MDFe, $this->infMDFeSupl, 'Falta a tag "infMDFeSupl');
         //[0] tag MDFe
         $this->dom->appChild($this->dom, $this->MDFe, 'Falta DOMDocument');
         // testa da chave
@@ -271,7 +271,8 @@ class Make extends BaseMake
         $verProc = '',
         $UFIni = '',
         $UFFim = '',
-        $dhIniViagem = ''
+        $dhIniViagem = '',
+        $indCarregaPosterior = ''
     )
     {
 
@@ -393,12 +394,23 @@ class Make extends BaseMake
             true,
             $identificador . "Sigla da UF do Descarregamento"
         );
+
+        $this->dom->addArrayChild($ide, $this->aInfMunCarrega);
+        $this->dom->addArrayChild($ide, $this->aInfPercurso);
+
         $this->dom->addChild(
             $ide,
             "dhIniViagem",
             $dhIniViagem,
             false,
             $identificador . "Data e hora previstos de inicio da viagem"
+        );
+        $this->dom->addChild(
+            $ide,
+            "indCarregaPosterior",
+            $indCarregaPosterior,
+            false,
+            $identificador . "Indicador de MDF-e com inclusão da Carga posterior a emissão por evento de inclusão de DF-e"
         );
         $this->mod = $mod;
         $this->ide = $ide;
@@ -738,7 +750,7 @@ class Make extends BaseMake
      */
     public function tagQRCode()
     {
-        $qrCodMDFe =  $this->dom->addChild(
+        $qrCodMDFe = $this->dom->addChild(
             $this->infMDFeSupl,
             'qrCodMDFe',
             "http://dfe-portal.svrs.rs.gov.br/mdfe/QRCode?chMDFe={$this->chMDFe}&tpAmb={$this->tpAmb}",
@@ -1917,8 +1929,8 @@ class Make extends BaseMake
      */
     protected function zTagIde()
     {
-        $this->dom->addArrayChild($this->ide, $this->aInfMunCarrega);
-        $this->dom->addArrayChild($this->ide, $this->aInfPercurso);
+     //   $this->dom->addArrayChild($this->ide, $this->aInfMunCarrega);
+       // $this->dom->addArrayChild($this->ide, $this->aInfPercurso);
     }
 
     /**

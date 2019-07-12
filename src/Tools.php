@@ -65,9 +65,9 @@ class Tools extends BaseTools
      * imprime
      * Imprime o documento eletrônico (MDFe, CCe, Inut.)
      *
-     * @param  string $pathXml
-     * @param  string $pathDestino
-     * @param  string $printer
+     * @param string $pathXml
+     * @param string $pathDestino
+     * @param string $printer
      * @return string
      */
     public function imprime($pathXml = '', $pathDestino = '', $printer = '')
@@ -76,16 +76,17 @@ class Tools extends BaseTools
         //PrintMDFe
         return "$pathXml $pathDestino $printer";
     }
+
     /**
      * enviaMail
      * Envia a MDFe por email aos destinatários
      * Caso $aMails esteja vazio serão obtidos os email do destinatário  e
      * os emails que estiverem registrados nos campos obsCont do xml
      *
-     * @param  string  $pathXml
-     * @param  array   $aMails
-     * @param  string  $templateFile path completo ao arquivo template html do corpo do email
-     * @param  boolean $comPdf       se true o sistema irá renderizar o DANFE e anexa-lo a mensagem
+     * @param string $pathXml
+     * @param array $aMails
+     * @param string $templateFile path completo ao arquivo template html do corpo do email
+     * @param boolean $comPdf se true o sistema irá renderizar o DANFE e anexa-lo a mensagem
      * @return boolean
      */
     public function enviaMail($pathXml = '', $aMails = array(), $templateFile = '', $comPdf = false)
@@ -102,9 +103,9 @@ class Tools extends BaseTools
      * Adiciona o protocolo de autorização de uso da MDFe
      * NOTA: exigência da SEFAZ, a MDFe somente é válida com o seu respectivo protocolo
      *
-     * @param  string  $pathMDFefile
-     * @param  string  $pathProtfile
-     * @param  boolean $saveFile
+     * @param string $pathMDFefile
+     * @param string $pathProtfile
+     * @param boolean $saveFile
      * @return string
      * @throws Exception\RuntimeException
      */
@@ -209,7 +210,7 @@ class Tools extends BaseTools
                 $tpAmb,
                 $filename,
                 $procXML,
-                'enviadas'.DIRECTORY_SEPARATOR.'aprovadas',
+                'enviadas' . DIRECTORY_SEPARATOR . 'aprovadas',
                 $anomes
             );
         }
@@ -221,9 +222,9 @@ class Tools extends BaseTools
      * Adiciona a tga de cancelamento a uma MDFe já autorizada
      * NOTA: não é requisito da SEFAZ, mas auxilia na identificação das MDFe que foram canceladas
      *
-     * @param  string $pathMDFefile
-     * @param  string $pathCancfile
-     * @param  bool   $saveFile
+     * @param string $pathMDFefile
+     * @param string $pathCancfile
+     * @param bool $saveFile
      * @return string
      * @throws Exception\RuntimeException
      */
@@ -296,22 +297,22 @@ class Tools extends BaseTools
                         $tpAmb,
                         $filename,
                         $procXML,
-                        'enviadas'.DIRECTORY_SEPARATOR.'aprovadas',
+                        'enviadas' . DIRECTORY_SEPARATOR . 'aprovadas',
                         $anomes
                     );
                 }
                 break;
             }
         }
-        return (string) $procXML;
+        return (string)$procXML;
     }
 
 
     /**
      * verificaValidade
      *
-     * @param  string $pathXmlFile
-     * @param  array  $aRetorno
+     * @param string $pathXmlFile
+     * @param array $aRetorno
      * @return boolean
      * @throws Exception\InvalidArgumentException
      */
@@ -329,7 +330,7 @@ class Tools extends BaseTools
         $docmdfe = new Dom();
         $docmdfe->loadXMLFile($pathXmlFile);
         $tpAmb = $docmdfe->getNodeValue('tpAmb');
-        $chMDFe  = $docmdfe->getChave('infMDFe');
+        $chMDFe = $docmdfe->getChave('infMDFe');
         $this->sefazConsultaChave($chMDFe, $tpAmb, $aRetorno);
         if ($aRetorno['cStat'] != '100') {
             return false;
@@ -340,8 +341,8 @@ class Tools extends BaseTools
     /**
      * assina
      *
-     * @param  string  $xml
-     * @param  boolean $saveFile
+     * @param string $xml
+     * @param boolean $saveFile
      * @return string
      * @throws Exception\RuntimeException
      */
@@ -353,10 +354,10 @@ class Tools extends BaseTools
     /**
      * sefazEnviaLote
      *
-     * @param    string $xml
-     * @param    string $tpAmb
-     * @param    string $idLote
-     * @param    array  $aRetorno
+     * @param string $xml
+     * @param string $tpAmb
+     * @param string $idLote
+     * @param array $aRetorno
      * @return   string
      * @throws   Exception\InvalidArgumentException
      * @throws   Exception\RuntimeException
@@ -367,7 +368,8 @@ class Tools extends BaseTools
         $tpAmb = '2',
         $idLote = '',
         &$aRetorno = array()
-    ) {
+    )
+    {
         if (empty($xml)) {
             $msg = "Pelo menos uma MDFe deve ser informada.";
             throw new Exception\InvalidArgumentException($msg);
@@ -394,7 +396,7 @@ class Tools extends BaseTools
         }
         //montagem dos dados da mensagem SOAP
         $cons = "<enviMDFe xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-                . "<idLote>$idLote</idLote>$sxml</enviMDFe>";
+            . "<idLote>$idLote</idLote>$sxml</enviMDFe>";
         //valida a mensagem com o xsd
         //if (! $this->zValidMessage($cons, 'mdfe', 'enviMDFe', $version)) {
         //    $msg = 'Falha na validação. '.$this->error;
@@ -404,7 +406,7 @@ class Tools extends BaseTools
         $body = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$cons</mdfeDadosMsg>";
         $method = $this->urlMethod;
 
-        if (! $this->validarXml($xml) || sizeof($this->errors)) {
+        if (!$this->validarXml($xml) || sizeof($this->errors)) {
             $msg = "";
             header('Content-type: text/html; charset=UTF-8');
             echo "<h3>XML NÃO VALIDADO!</h3>";
@@ -412,7 +414,7 @@ class Tools extends BaseTools
             echo htmlspecialchars($tools->soapDebug);
             echo print_r($tools->errors);
             echo "</pre>";
-            die("msg=>".$msg."XML=>".$xml);
+            die("msg=>" . $msg . "XML=>" . $xml);
             exit;
         }
         //envia a solicitação via SOAP
@@ -426,15 +428,15 @@ class Tools extends BaseTools
         //$this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
-        return (string) $retorno;
+        return (string)$retorno;
     }
 
     /**
      * sefazConsultaRecibo
      *
-     * @param    string $recibo
-     * @param    string $tpAmb
-     * @param    array  $aRetorno
+     * @param string $recibo
+     * @param string $tpAmb
+     * @param array $aRetorno
      * @return   string
      * @throws   Exception\InvalidArgumentException
      * @throws   Exception\RuntimeException
@@ -490,16 +492,16 @@ class Tools extends BaseTools
         //$this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
-        return (string) $retorno;
+        return (string)$retorno;
     }
 
     /**
      * sefazConsultaChave
      * Consulta o status da MDFe pela chave de 44 digitos
      *
-     * @param    string $chave
-     * @param    string $tpAmb
-     * @param    array  $aRetorno
+     * @param string $chave
+     * @param string $tpAmb
+     * @param array $aRetorno
      * @return   string
      * @throws   Exception\InvalidArgumentException
      * @throws   Exception\RuntimeException
@@ -530,10 +532,10 @@ class Tools extends BaseTools
             throw new Exception\RuntimeException($msg);
         }
         $cons = "<consSitMDFe xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-                . "<tpAmb>$tpAmb</tpAmb>"
-                . "<xServ>CONSULTAR</xServ>"
-                . "<chMDFe>$chMDFe</chMDFe>"
-                . "</consSitMDFe>";
+            . "<tpAmb>$tpAmb</tpAmb>"
+            . "<xServ>CONSULTAR</xServ>"
+            . "<chMDFe>$chMDFe</chMDFe>"
+            . "</consSitMDFe>";
         //valida a mensagem com o xsd
         //if (! $this->zValidMessage($cons, 'mdfe', 'consSitMDFe', $version)) {
         //    $msg = 'Falha na validação. '.$this->error;
@@ -559,7 +561,7 @@ class Tools extends BaseTools
         //tratar dados de retorno
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
 
-        return (string) $retorno;
+        return (string)$retorno;
     }
 
     /**
@@ -568,9 +570,9 @@ class Tools extends BaseTools
      * NOTA : Este serviço será removido no futuro, segundo da Receita/SEFAZ devido
      * ao excesso de mau uso !!!
      *
-     * @param    string $siglaUF  sigla da unidade da Federação
-     * @param    string $tpAmb    tipo de ambiente 1-produção e 2-homologação
-     * @param    array  $aRetorno parametro passado por referencia contendo a resposta da consulta em um array
+     * @param string $siglaUF sigla da unidade da Federação
+     * @param string $tpAmb tipo de ambiente 1-produção e 2-homologação
+     * @param array $aRetorno parametro passado por referencia contendo a resposta da consulta em um array
      * @return   mixed string XML do retorno do webservice, ou false se ocorreu algum erro
      * @throws   Exception\RuntimeException
      * @internal function zLoadServico (Common\Base\BaseTools)
@@ -622,17 +624,17 @@ class Tools extends BaseTools
         //$this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
-        return (string) $retorno;
+        return (string)$retorno;
     }
 
     /**
      * sefazCancela
      *
-     * @param  string $chave
-     * @param  string $tpAmb
-     * @param  string $xJust
-     * @param  string $nProt
-     * @param  array  $aRetorno
+     * @param string $chave
+     * @param string $tpAmb
+     * @param string $xJust
+     * @param string $nProt
+     * @param array $aRetorno
      * @return string
      * @throws Exception\InvalidArgumentException
      */
@@ -643,7 +645,8 @@ class Tools extends BaseTools
         $nProt = '',
         $xJust = '',
         &$aRetorno = array()
-    ) {
+    )
+    {
         if ($tpAmb == '') {
             $tpAmb = $this->aConfig['tpAmb'];
         }
@@ -669,7 +672,7 @@ class Tools extends BaseTools
             $nSeqEvento = '1';
         }
         $tagAdic = "<evCancMDFe><descEvento>Cancelamento</descEvento>"
-                . "<nProt>$nProt</nProt><xJust>$xJust</xJust></evCancMDFe>";
+            . "<nProt>$nProt</nProt><xJust>$xJust</xJust></evCancMDFe>";
 
         $cOrgao = '';
 
@@ -681,12 +684,12 @@ class Tools extends BaseTools
     /**
      * sefazEncerra
      *
-     * @param  string $chave
-     * @param  string $tpAmb
-     * @param  string $nProt
-     * @param  string $cUF
-     * @param  string $cMun
-     * @param  array  $aRetorno
+     * @param string $chave
+     * @param string $tpAmb
+     * @param string $nProt
+     * @param string $cUF
+     * @param string $cMun
+     * @param array $aRetorno
      * @return string
      * @throws Exception\InvalidArgumentException
      */
@@ -698,7 +701,8 @@ class Tools extends BaseTools
         $cUF = '',
         $cMun = '',
         &$aRetorno = array()
-    ) {
+    )
+    {
         if ($tpAmb == '') {
             $tpAmb = $this->aConfig['tpAmb'];
         }
@@ -720,8 +724,8 @@ class Tools extends BaseTools
         }
         $dtEnc = date('Y-m-d');
         $tagAdic = "<evEncMDFe><descEvento>Encerramento</descEvento>"
-                . "<nProt>$nProt</nProt><dtEnc>$dtEnc</dtEnc><cUF>$cUF</cUF>"
-                . "<cMun>$cMun</cMun></evEncMDFe>";
+            . "<nProt>$nProt</nProt><dtEnc>$dtEnc</dtEnc><cUF>$cUF</cUF>"
+            . "<cMun>$cMun</cMun></evEncMDFe>";
 
         $cOrgao = '';
 
@@ -733,12 +737,12 @@ class Tools extends BaseTools
     /**
      * sefazIncluiCondutor
      *
-     * @param  string $chave
-     * @param  string $tpAmb
-     * @param  string $nSeqEvento
-     * @param  string $xNome
-     * @param  string $cpf
-     * @param  array  $aRetorno
+     * @param string $chave
+     * @param string $tpAmb
+     * @param string $nSeqEvento
+     * @param string $xNome
+     * @param string $cpf
+     * @param array $aRetorno
      * @return string
      * @throws Exception\InvalidArgumentException
      */
@@ -749,7 +753,8 @@ class Tools extends BaseTools
         $xNome = '',
         $cpf = '',
         &$aRetorno = array()
-    ) {
+    )
+    {
         if ($tpAmb == '') {
             $tpAmb = $this->aConfig['tpAmb'];
         }
@@ -766,7 +771,64 @@ class Tools extends BaseTools
         }
         //monta mensagem
         $tagAdic = "<evIncCondutorMDFe><descEvento>Inclusao Condutor</descEvento>"
-                . "<condutor><xNome>$xNome</xNome><CPF>$cpf</CPF></condutor></evIncCondutorMDFe>";
+            . "<condutor><xNome>$xNome</xNome><CPF>$cpf</CPF></condutor></evIncCondutorMDFe>";
+
+        $cOrgao = '';
+
+        $retorno = $this->zSefazEvento($siglaUF, $chMDFe, $cOrgao, $tpAmb, $tpEvento, $nSeqEvento, $tagAdic);
+        $aRetorno = $this->aLastRetEvent;
+        return $retorno;
+    }
+
+
+    /**
+     * sefazIncluiDFe
+     *
+     * @param string $chave
+     * @param string $nProt
+     * @param string $tpAmb
+     * @param string $nSeqEvento
+     * @param string $cMunCarrega
+     * @param string $xMunCarrega
+     * @param string $infDoc
+     * @param string $cMunDescarga
+     * @param string $xMunDescarga
+     * @param array $aRetorno
+     * @return string
+     * @throws Exception\InvalidArgumentException
+     */
+    public function sefazIncluiDFe(
+        $chave = '',
+        $nProt = '',
+        $tpAmb = '2',
+        $nSeqEvento = '1',
+        $cMunCarrega = '',
+        $xMunCarrega = '',
+        $infDoc = '',
+        $cMunDescarga = '',
+        $xMunDescarga = '',
+        &$aRetorno = array()
+    )
+    {
+        if ($tpAmb == '') {
+            $tpAmb = $this->aConfig['tpAmb'];
+        }
+        $chMDFe = preg_replace('/[^0-9]/', '', $chave);
+        if (strlen($chMDFe) != 44) {
+            $msg = "Uma chave de MDFe válida não foi passada como parâmetro $chMDFe.";
+            throw new Exception\InvalidArgumentException($msg);
+        }
+        $siglaUF = self::zGetSigla(substr($chMDFe, 0, 2));
+        //estabelece o codigo do tipo de evento Inclusão de DF-e
+        $tpEvento = '110115';
+        if ($nSeqEvento == '') {
+            $nSeqEvento = '1';
+        }
+        //monta mensagem
+        $tagAdic = "<evIncDFeMDFe><descEvento>Inclusao DF-e</descEvento>"
+            . "<nProt>$nProt</nProt><cMunCarrega>$cMunCarrega</cMunCarrega><xMunCarrega>$xMunCarrega</xMunCarrega>"
+            . "<infDoc><cMunDescarga>$cMunDescarga</cMunDescarga><xMunDescarga>$xMunDescarga</xMunDescarga>"
+            . "<chNFe>$infDoc</chNFe></infDoc></evIncDFeMDFe>";
 
         $cOrgao = '';
 
@@ -778,9 +840,9 @@ class Tools extends BaseTools
     /**
      * sefazConsultaNaoEncerrados
      *
-     * @param  string $tpAmb
-     * @param  string $cnpj
-     * @param  array  $aRetorno
+     * @param string $tpAmb
+     * @param string $cnpj
+     * @param array $aRetorno
      * @return string
      * @throws Exception\RuntimeException
      */
@@ -806,8 +868,8 @@ class Tools extends BaseTools
             throw new Exception\RuntimeException($msg);
         }
         $cons = "<consMDFeNaoEnc xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-                . "<tpAmb>$tpAmb</tpAmb>"
-                . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ><CNPJ>$cnpj</CNPJ></consMDFeNaoEnc>";
+            . "<tpAmb>$tpAmb</tpAmb>"
+            . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ><CNPJ>$cnpj</CNPJ></consMDFeNaoEnc>";
         //valida mensagem com xsd
         //if (! $this->zValidMessage($cons, 'mdfe', 'consMDFeNaoEnc', $version)) {
         //    $msg = 'Falha na validação. '.$this->error;
@@ -832,19 +894,19 @@ class Tools extends BaseTools
         //$this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
-        return (string) $retorno;
+        return (string)$retorno;
     }
 
     /**
      * zSefazEvento
      *
-     * @param    string $siglaUF
-     * @param    string $chave
-     * @param    string $cOrgao
-     * @param    string $tpAmb
-     * @param    string $tpEvento
-     * @param    string $nSeqEvento
-     * @param    string $tagAdic
+     * @param string $siglaUF
+     * @param string $chave
+     * @param string $cOrgao
+     * @param string $tpAmb
+     * @param string $tpEvento
+     * @param string $nSeqEvento
+     * @param string $tagAdic
      * @return   string
      * @throws   Exception\RuntimeException
      * @internal function zLoadServico (Common\Base\BaseTools)
@@ -857,7 +919,8 @@ class Tools extends BaseTools
         $tpEvento = '',
         $nSeqEvento = '1',
         $tagAdic = ''
-    ) {
+    )
+    {
         if ($tpAmb == '') {
             $tpAmb = $this->aConfig['tpAmb'];
         }
@@ -878,7 +941,7 @@ class Tools extends BaseTools
         $cnpj = $this->aConfig['cnpj'];
         $dhEvento = date("Y-m-d\TH:i:sP");
         $sSeqEvento = str_pad($nSeqEvento, 2, "0", STR_PAD_LEFT);
-        $eventId = "ID".$tpEvento.$chave.$sSeqEvento;
+        $eventId = "ID" . $tpEvento . $chave . $sSeqEvento;
         if ($cOrgao == '') {
             $cOrgao = $this->urlcUF;
         }
@@ -924,13 +987,13 @@ class Tools extends BaseTools
         //$this->zGravaFile('mdfe', $tpAmb, $filename, $retorno);
         //tratar dados de retorno
         $this->aLastRetEvent = Response::readReturnSefaz($servico, $retorno);
-        return (string) $retorno;
+        return (string)$retorno;
     }
 
     /**
      * zTpEv
      *
-     * @param  string $tpEvento
+     * @param string $tpEvento
      * @return array
      * @throws Exception\RuntimeException
      */
@@ -938,25 +1001,30 @@ class Tools extends BaseTools
     {
         //montagem dos dados da mensagem SOAP
         switch ($tpEvento) {
-        case '110111':
-            //cancelamento
-            $aliasEvento = 'CancMDFe';
-            $descEvento = 'Cancelamento';
-            break;
-        case '110112':
-            //encerramento
-            $aliasEvento = 'EncMDFe';
-            $descEvento = 'Encerramento';
-            break;
-        case '110114':
-            //inclusao do condutor
-            $aliasEvento = 'EvIncCondut';
-            $descEvento = 'Inclusao Condutor';
-            break;
-        default:
-            $msg = "O código do tipo de evento informado não corresponde a "
-            . "nenhum evento estabelecido.";
-            throw new Exception\RuntimeException($msg);
+            case '110111':
+                //cancelamento
+                $aliasEvento = 'CancMDFe';
+                $descEvento = 'Cancelamento';
+                break;
+            case '110112':
+                //encerramento
+                $aliasEvento = 'EncMDFe';
+                $descEvento = 'Encerramento';
+                break;
+            case '110114':
+                //inclusao do condutor
+                $aliasEvento = 'EvIncCondut';
+                $descEvento = 'Inclusao Condutor';
+                break;
+            case '110115':
+                //inclusao do DF-e
+                $aliasEvento = 'EvIncDFe';
+                $descEvento = 'Inclusao DFe';
+                break;
+            default:
+                $msg = "O código do tipo de evento informado não corresponde a "
+                    . "nenhum evento estabelecido.";
+                throw new Exception\RuntimeException($msg);
         }
         return array('alias' => $aliasEvento, 'desc' => $descEvento);
     }
@@ -966,7 +1034,7 @@ class Tools extends BaseTools
      * Valida qualquer xml do sistema MDFe com seu xsd
      * NOTA: caso não exista um arquivo xsd apropriado retorna false
      *
-     * @param  string $xml path ou conteudo do xml
+     * @param string $xml path ou conteudo do xml
      * @return boolean
      */
     public function validarXml($xml = '')
@@ -976,18 +1044,18 @@ class Tools extends BaseTools
         if ($schem == '') {
             $this->errors[] = "Não foi possível identificar o documento";
         }
-        $xsdFile = $aResp['Id'].'_v'.$aResp['versao'].'.xsd';
-        $xsdPath = $this->rootDir.DIRECTORY_SEPARATOR .
+        $xsdFile = $aResp['Id'] . '_v' . $aResp['versao'] . '.xsd';
+        $xsdPath = $this->rootDir . DIRECTORY_SEPARATOR .
             'schemes' .
             DIRECTORY_SEPARATOR .
             $this->aConfig['schemesMDFe'] .
             DIRECTORY_SEPARATOR .
             $xsdFile;
-        if (! is_file($xsdPath)) {
+        if (!is_file($xsdPath)) {
             $this->errors[] = "O arquivo XSD $xsdFile não foi localizado.";
             return false;
         }
-        if (! ValidXsd::validar($aResp['xml'], $xsdPath)) {
+        if (!ValidXsd::validar($aResp['xml'], $xsdPath)) {
             $this->errors[] = ValidXsd::$errors;
             return false;
         }
