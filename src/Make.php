@@ -753,7 +753,7 @@ class Make extends BaseMake
         $qrCodMDFe = $this->dom->addChild(
             $this->infMDFeSupl,
             'qrCodMDFe',
-            "http://dfe-portal.svrs.rs.gov.br/mdfe/QRCode?chMDFe={$this->chMDFe}&tpAmb={$this->tpAmb}",
+            "https://dfe-portal.svrs.rs.gov.br/mdfe/QRCode?chMDFe={$this->chMDFe}&tpAmb={$this->tpAmb}",
             true, 'QRCode de consulta'
         );
         $this->qrCodMDFe = $qrCodMDFe;
