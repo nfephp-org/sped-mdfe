@@ -2,16 +2,13 @@
 
 namespace NFePHP\MDFe;
 
-use NFePHP\Common\Base\BaseTools;
-use NFePHP\Common\DateTime\DateTime;
-use NFePHP\Common\Dom\Dom;
-use NFePHP\Common\Dom\ValidXsd;
-use NFePHP\Common\Exception;
-use NFePHP\Common\Files;
-use NFePHP\Common\LotNumber\LotNumber;
-use NFePHP\Common\Strings\Strings;
-use NFePHP\MDFe\Auxiliar\Identify;
-use NFePHP\MDFe\Auxiliar\Response;
+use NFePHP\Common\Strings;
+use NFePHP\Common\Signer;
+use NFePHP\Common\UFList;
+use NFePHP\MDFe\Factories\Events;
+use NFePHP\MDFe\Common\Tools as ToolsCommon;
+use RuntimeException;
+use InvalidArgumentException;
 
 /**
  * Classe principal para a comunicação com a SEFAZ
@@ -23,7 +20,7 @@ use NFePHP\MDFe\Auxiliar\Response;
  * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  * @author    Roberto L. Machado <linux.rlm at gmail dot com>
  */
-class Tools extends BaseTools
+class Tools extends ToolsCommon
 {
     /**
      * errrors
@@ -834,7 +831,7 @@ class Tools extends BaseTools
         $aRetorno = Response::readReturnSefaz($servico, $retorno);
         return (string) $retorno;
     }
-    
+
     /**
      * zSefazEvento
      *
