@@ -2,14 +2,13 @@
 
 namespace NFePHP\MDFe;
 
-use NFePHP\Common\Strings;
+use DOMDocument;
 use NFePHP\MDFe\Common\Standardize;
 use NFePHP\MDFe\Exception\DocumentsException;
-use DOMDocument;
 
 class Complements
 {
-    protected static $urlPortal = 'http://www.portalfiscal.inf.br/cte';
+    protected static $urlPortal = 'http://www.portalfiscal.inf.br/mdfe';
 
     /**
      * Authorize document adding his protocol
@@ -21,7 +20,7 @@ class Complements
     {
         $st = new Standardize();
         $key = ucfirst($st->whichIs($request));
-        if ($key != 'CTe' && $key != 'CTeOS' && $key != 'EventoCTe' && $key != 'InutCTe') {
+        if ($key != 'MDFe' && $key != 'EventoMDFe') {
             //wrong document, this document is not able to recieve a protocol
             throw DocumentsException::wrongDocument(0, $key);
         }
@@ -30,92 +29,23 @@ class Complements
     }
 
     /**
-     * Authorize Inutilization of numbers
+     * Authorize MDFe
      * @param string $request
      * @param string $response
      * @return string
      * @throws InvalidArgumentException
      */
-    protected static function addInutCTeProtocol($request, $response)
-    {
-        $req = new DOMDocument('1.0', 'UTF-8');
-        $req->preserveWhiteSpace = false;
-        $req->formatOutput = false;
-        $req->loadXML($request);
-        $inutCTe = $req->getElementsByTagName('inutCTe')->item(0);
-        $versao = $inutCTe->getAttribute("versao");
-        $infInut = $req->getElementsByTagName('infInut')->item(0);
-        $tpAmb = $infInut->getElementsByTagName('tpAmb')->item(0)->nodeValue;
-        $cUF = $infInut->getElementsByTagName('cUF')->item(0)->nodeValue;
-        $ano = $infInut->getElementsByTagName('ano')->item(0)->nodeValue;
-        $cnpj = $infInut->getElementsByTagName('CNPJ')->item(0)->nodeValue;
-        $mod = $infInut->getElementsByTagName('mod')->item(0)->nodeValue;
-        $serie = $infInut->getElementsByTagName('serie')->item(0)->nodeValue;
-        $nCTIni = $infInut->getElementsByTagName('nCTIni')->item(0)->nodeValue;
-        $nCTFin = $infInut->getElementsByTagName('nCTFin')->item(0)->nodeValue;
-
-        $ret = new DOMDocument('1.0', 'UTF-8');
-        $ret->preserveWhiteSpace = false;
-        $ret->formatOutput = false;
-        $ret->loadXML($response);
-        $retInutCTe = $ret->getElementsByTagName('retInutCTe')->item(0);
-        if (!isset($retInutCTe)) {
-            throw DocumentsException::wrongDocument(3, "&lt;retInutCTe;");
-        }
-        $retversao = $retInutCTe->getAttribute("versao");
-        $retInfInut = $ret->getElementsByTagName('infInut')->item(0);
-        $cStat = $retInfInut->getElementsByTagName('cStat')->item(0)->nodeValue;
-        $xMotivo = $retInfInut->getElementsByTagName('xMotivo')->item(0)->nodeValue;
-        if ($cStat != 102) {
-            throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo.");
-        }
-        $rettpAmb = $retInfInut->getElementsByTagName('tpAmb')->item(0)->nodeValue;
-        $retcUF = $retInfInut->getElementsByTagName('cUF')->item(0)->nodeValue;
-        $retano = $retInfInut->getElementsByTagName('ano')->item(0)->nodeValue;
-        $retcnpj = $retInfInut->getElementsByTagName('CNPJ')->item(0)->nodeValue;
-        $retmod = $retInfInut->getElementsByTagName('mod')->item(0)->nodeValue;
-        $retserie = $retInfInut->getElementsByTagName('serie')->item(0)->nodeValue;
-        $retnCTIni = $retInfInut->getElementsByTagName('nCTIni')->item(0)->nodeValue;
-        $retnCTFin = $retInfInut->getElementsByTagName('nCTFin')->item(0)->nodeValue;
-        if ($versao != $retversao ||
-            $tpAmb != $rettpAmb ||
-            $cUF != $retcUF ||
-            $ano != $retano ||
-            $cnpj != $retcnpj ||
-            $mod != $retmod ||
-            $serie != $retserie ||
-            $nCTIni != $retnCTIni ||
-            $nCTFin != $retnCTFin
-        ) {
-            throw DocumentsException::wrongDocument(5);
-        }
-        return self::join(
-            $req->saveXML($inutCTe),
-            $ret->saveXML($retInutCTe),
-            'procInutCTe',
-            $versao
-        );
-    }
-
-    /**
-     * Authorize CTe
-     * @param string $request
-     * @param string $response
-     * @return string
-     * @throws InvalidArgumentException
-     */
-    protected static function addCTeProtocol($request, $response)
+    protected static function addMDFeProtocol($request, $response)
     {
         $req = new DOMDocument('1.0', 'UTF-8');
         $req->preserveWhiteSpace = false;
         $req->formatOutput = false;
         $req->loadXML($request);
 
-        $cte = $req->getElementsByTagName('CTe')->item(0);
-        $infCTe = $req->getElementsByTagName('infCte')->item(0);
-        $versao = $infCTe->getAttribute("versao");
-        $chave = preg_replace('/[^0-9]/', '', $infCTe->getAttribute("Id"));
-        $digCTe = $req->getElementsByTagName('DigestValue')
+        $mdfe = $req->getElementsByTagName('MDFe')->item(0);
+        $infMDFe = $req->getElementsByTagName('infMDFe')->item(0);
+        $versao = $infMDFe->getAttribute("versao");
+        $digMDFe = $req->getElementsByTagName('DigestValue')
             ->item(0)
             ->nodeValue;
 
@@ -123,9 +53,9 @@ class Complements
         $ret->preserveWhiteSpace = false;
         $ret->formatOutput = false;
         $ret->loadXML($response);
-        $retProt = $ret->getElementsByTagName('protCTe')->item(0);
+        $retProt = $ret->getElementsByTagName('protMDFe')->item(0);
         if (!isset($retProt)) {
-            throw DocumentsException::wrongDocument(3, "&lt;protCTe&gt;");
+            throw DocumentsException::wrongDocument(3, "&lt;protMDFe&gt;");
         }
         $infProt = $ret->getElementsByTagName('infProt')->item(0);
         $cStat = $infProt->getElementsByTagName('cStat')->item(0)->nodeValue;
@@ -136,77 +66,16 @@ class Complements
             $digProt = $dig->nodeValue;
         }
         //100 Autorizado
-        //150 Autorizado fora do prazo
-        //110 Uso Denegado
-        //205 CTe Denegada
-        $cstatpermit = ['100', '150', '110', '205'];
-        if (!in_array($cStat, $cstatpermit)) {
+        if ($cStat != '100') {
             throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo");
         }
-        if ($digCTe !== $digProt) {
+        if ($digMDFe !== $digProt) {
             throw DocumentsException::wrongDocument(5, "O digest é diferente");
         }
         return self::join(
-            $req->saveXML($cte),
+            $req->saveXML($mdfe),
             $ret->saveXML($retProt),
-            'cteProc',
-            $versao
-        );
-    }
-
-    /**
-     * Authorize CTeOS
-     * @param string $request
-     * @param string $response
-     * @return string
-     * @throws InvalidArgumentException
-     */
-    protected static function addCTeOSProtocol($request, $response)
-    {
-        $req = new DOMDocument('1.0', 'UTF-8');
-        $req->preserveWhiteSpace = false;
-        $req->formatOutput = false;
-        $req->loadXML($request);
-
-        $cte = $req->getElementsByTagName('CTeOS')->item(0);
-        $infCTe = $req->getElementsByTagName('infCte')->item(0);
-        $versao = $infCTe->getAttribute("versao");
-        $chave = preg_replace('/[^0-9]/', '', $infCTe->getAttribute("Id"));
-        $digCTe = $req->getElementsByTagName('DigestValue')
-            ->item(0)
-            ->nodeValue;
-
-        $ret = new DOMDocument('1.0', 'UTF-8');
-        $ret->preserveWhiteSpace = false;
-        $ret->formatOutput = false;
-        $ret->loadXML($response);
-        $retProt = $ret->getElementsByTagName('protCTe')->item(0);
-        if (!isset($retProt)) {
-            throw DocumentsException::wrongDocument(3, "&lt;protCTe&gt;");
-        }
-        $infProt = $ret->getElementsByTagName('infProt')->item(0);
-        $cStat = $infProt->getElementsByTagName('cStat')->item(0)->nodeValue;
-        $xMotivo = $infProt->getElementsByTagName('xMotivo')->item(0)->nodeValue;
-        $dig = $infProt->getElementsByTagName("digVal")->item(0);
-        $digProt = '000';
-        if (isset($dig)) {
-            $digProt = $dig->nodeValue;
-        }
-        //100 Autorizado
-        //150 Autorizado fora do prazo
-        //110 Uso Denegado
-        //205 CTe Denegada
-        $cstatpermit = ['100', '150', '110', '205'];
-        if (!in_array($cStat, $cstatpermit)) {
-            throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo");
-        }
-        if ($digCTe !== $digProt) {
-            throw DocumentsException::wrongDocument(5, "O digest é diferente");
-        }
-        return self::join(
-            $req->saveXML($cte),
-            $ret->saveXML($retProt),
-            'cteOSProc',
+            'mdfeProc',
             $versao
         );
     }
@@ -218,41 +87,39 @@ class Complements
      * @return string
      * @throws InvalidArgumentException
      */
-    protected static function addEventoCTeProtocol($request, $response)
+    protected static function addEventoMDFeProtocol($request, $response)
     {
         $ev = new \DOMDocument('1.0', 'UTF-8');
         $ev->preserveWhiteSpace = false;
         $ev->formatOutput = false;
         $ev->loadXML($request);
-        //extrai numero do lote do envio
-        //$envLote = $ev->getElementsByTagName('idLote')->item(0)->nodeValue;
         //extrai tag evento do xml origem (solicitação)
-        $event = $ev->getElementsByTagName('eventoCTe')->item(0);
+        $event = $ev->getElementsByTagName('eventoMDFe')->item(0);
         $versao = $event->getAttribute('versao');
 
         $ret = new \DOMDocument('1.0', 'UTF-8');
         $ret->preserveWhiteSpace = false;
         $ret->formatOutput = false;
         $ret->loadXML($response);
-        //extrai numero do lote da resposta
-//        $resLote = $ret->getElementsByTagName('idLote')->item(0)->nodeValue;
         //extrai a rag retEvento da resposta (retorno da SEFAZ)
-        $retEv = $ret->getElementsByTagName('retEventoCTe')->item(0);
+        $retEv = $ret->getElementsByTagName('retEventoMDFe')->item(0);
         $cStat = $retEv->getElementsByTagName('cStat')->item(0)->nodeValue;
         $xMotivo = $retEv->getElementsByTagName('xMotivo')->item(0)->nodeValue;
         $tpEvento = $retEv->getElementsByTagName('tpEvento')->item(0)->nodeValue;
-        $cStatValids = ['135', '136'];
         if ($tpEvento == '110111') {
-            $cStatValids[] = '155';
+            $node = 'procCancMDFe';
+        } else if ($tpEvento == '110112') {
+            $node = 'procEncMDFe';
+        } else {
+            throw DocumentsException::wrongDocument(4, "Evento não disponivel.");
         }
-        if (!in_array($cStat, $cStatValids)) {
+        if ($cStat != '135') {
             throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo");
         }
-
         return self::join(
             $ev->saveXML($event),
             $ret->saveXML($retEv),
-            'procEventoCTe',
+            $node,
             $versao
         );
     }

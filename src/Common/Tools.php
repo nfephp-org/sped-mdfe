@@ -374,14 +374,12 @@ class Tools
      * @param string $service
      * @param string $uf
      * @param string $tpAmb
-     * @param bool $ignoreContingency
      * @return void
      */
     protected function servico(
         $service,
         $uf,
-        $tpAmb,
-        $ignoreContingency = false
+        $tpAmb
     )
     {
         $ambiente = $tpAmb == 1 ? "producao" : "homologacao";
