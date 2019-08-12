@@ -11,7 +11,7 @@ use NFePHP\MDFe\Factories\Events;
 /**
  * Classe principal para a comunicação com a SEFAZ
  *
- * @author    Roberto L. Machado <linux.rlm at gmail dot com>
+ * @author    Cleiton Perin <cperin20 at gmail dot com>
  * @package   nfephp-org/sped-mdfe
  * @copyright 2008-2019 NFePHP
  * @license   http://www.gnu.org/licenses/lesser.html LGPL v3

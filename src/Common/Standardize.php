@@ -13,14 +13,13 @@ namespace NFePHP\MDFe\Common;
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
  * @category  NFePHP
- * @link      http://github.com/nfephp-org/sped-nfe for the canonical source repository
+ * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  */
 
 use NFePHP\Common\Validator;
-use NFePHP\CTe\Exception\DocumentsException;
-use Symfony\Component\Yaml\Yaml;
-use DOMDocument;
+use NFePHP\MDFe\Exception\DocumentsException;
 use stdClass;
+use Symfony\Component\Yaml\Yaml;
 
 class Standardize
 {
@@ -93,7 +92,7 @@ class Standardize
                 return $key;
             }
         }
-        //documento does not belong to the SPED-NFe project
+        //documento does not belong to the SPED-MDFe project
         throw DocumentsException::wrongDocument(7);
     }
 

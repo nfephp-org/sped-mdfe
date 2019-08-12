@@ -12,7 +12,7 @@ namespace NFePHP\MDFe\Common;
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
  * @category  NFePHP
- * @link      http://github.com/nfephp-org/sped-nfe for the canonical source repository
+ * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  */
 
 use DOMDocument;
@@ -56,11 +56,6 @@ class Tools
      * @var int
      */
     public $tpAmb = 2;
-    /**
-     * contingency class
-     * @var Contingency
-     */
-    public $contingency;
     /**
      * soap class
      * @var SoapInterface
@@ -173,7 +168,6 @@ class Tools
      * load Digital Certificate,
      * map all paths,
      * set timezone and
-     * and instanciate Contingency::class
      * @param string $configJson content of config in json format
      * @param Certificate $certificate
      */
@@ -187,7 +181,6 @@ class Tools
         $this->setEnvironmentTimeZone($this->config->siglaUF);
         $this->certificate = $certificate;
         $this->setEnvironment($this->config->tpAmb);
-        $this->contingency = new Contingency();
     }
 
     /**
@@ -432,7 +425,7 @@ class Tools
         //montagem do SOAP Header
         $this->objHeader = new \SOAPHeader(
             $this->urlNamespace,
-            'cteCabecMsg',
+            'mdfeCabecMsg',
             ['cUF' => $this->urlcUF, 'versaoDados' => $this->urlVersion]
         );
     }

@@ -13,7 +13,7 @@ namespace NFePHP\MDFe\Common;
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
  * @category  NFePHP
- * @link      http://github.com/nfephp-org/sped-nfe for the canonical source repository
+ * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  */
 
 use SimpleXMLElement;

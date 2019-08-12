@@ -20,7 +20,7 @@ Este pacote está em desenvolvimento, não é funcional e não deve ser utilizad
 
 Este pacote visa fornecer os meios para gerar, assinar e enviar os dados relativos ao projeto Sped MDFe.
 
-Este pacote faz parte da API NFePHP e atende aos parâmetros das PSR2 e PSR4, bem como é desenvolvida para adequar as versões ATIVAS do PHP e aos layouts da NFe em vigor.
+Este pacote faz parte da API NFePHP e atende aos parâmetros das PSR2 e PSR4, bem como é desenvolvida para adequar as versões ATIVAS do PHP e aos layouts da MDFe em vigor.
 
 ## Install
 
