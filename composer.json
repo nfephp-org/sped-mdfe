@@ -2,9 +2,17 @@
     "name": "nfephp-org/sped-mdfe",
     "type": "library",
     "description": "API para geração e comunicação da MDFe com as SEFAZ autorizadoras.",
-    "keywords": ["mdfe", "sped", "nfephp"],
+    "keywords": [
+        "mdfe",
+        "sped",
+        "nfephp"
+    ],
     "homepage": "https://github.com/nfephp-org/sped-mdfe",
-    "license": ["GPL-3.0+","LGPL-3.0+","MIT"],
+    "license": [
+        "GPL-3.0+",
+        "LGPL-3.0+",
+        "MIT"
+    ],
     "authors": [
         {
             "name": "Roberto L. Machado",
@@ -13,13 +21,19 @@
             "role": "Developer"
         },
         {
+            "name": "Cleiton Perin",
+            "email": "cperin20@gmail.com.br",
+            "homepage": "https://www.facebook.com/cperin20",
+            "role": "Developer"
+        },
+        {
             "name": "Comunidade NFePHP",
             "homepage": "https://github.com/nfephp-org/sped-mdfe/graphs/contributors"
         }
     ],
     "require": {
-        "php" : "~7.0",
-        "nfephp-org/sped-common" : "^5.0",
+        "php": "~7.0",
+        "nfephp-org/sped-common": "^5.0",
         "justinrainbow/json-schema": "^5.2"
     },
     "require-dev": {
@@ -27,17 +41,16 @@
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.3"
     },
-  "repositories": [
-
-  ],
+    "repositories": [
+    ],
     "autoload": {
         "psr-4": {
-          "NFePHP\\MDFe\\": "src/"
+            "NFePHP\\MDFe\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-          "Tests\\NFePHP\\MDFe\\": "tests/"
+            "Tests\\NFePHP\\MDFe\\": "tests/"
         }
     },
     "scripts": {
