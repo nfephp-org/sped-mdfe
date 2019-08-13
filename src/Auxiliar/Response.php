@@ -127,7 +127,7 @@ class Response
             'cStat' => $dom->getValue($tag, 'cStat'),
             'xMotivo' => $dom->getValue($tag, 'xMotivo'),
             'nRec' => $dom->getValue($tag, 'nRec'),
-            'cUF' => $dom->getValue($tag, 'tpAmb'),
+            'cUF' => $dom->getValue($tag, 'cUF'),
             'aProt' => self::zGetProt($dom, $tag)
         );
         return $aResposta;
