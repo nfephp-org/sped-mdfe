@@ -26,10 +26,7 @@ try {
 
     $tools = new Tools(json_encode($config), $certificate);
 
-    $chave = '41171081450900000132580010000001021000000107';
-    $xJust = 'Teste de cancelamento';
-    $nProt = '32165498754';
-    $resp = $tools->sefazCancela($chave, $xJust, $nProt);
+    $resp = $tools->sefazStatus();
 
     $st = new Standardize();
     $std = $st->toStd($resp);

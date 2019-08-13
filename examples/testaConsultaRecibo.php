@@ -1,29 +1,40 @@
 <?php
-/**@category  Teste
- * @package   Spedmdfeexamples
- * @copyright 2009-2016 NFePHP
- * @name      testaConsultaRecibo.php
- * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
- * @link      http://github.com/nfephp-org/sped-cte for the canonical source repository
- * @author    Maison K. Sakamoto <maison.sakamoto@gmail.com> 
- * 
- * TESTE PARA A VERSÃO 3.0 do MDFe
- */
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 include_once '../bootstrap.php';
 
+use NFePHP\Common\Certificate;
+use NFePHP\MDFe\Common\Standardize;
 use NFePHP\MDFe\Tools;
 
-$tools = new Tools('../config/config.json');
+$config = [
+    "atualizacao" => date('Y-m-d H:i:s'),
+    "tpAmb" => 2,
+    "razaosocial" => 'FÁBRICA DE SOFTWARE MATRIZ',
+    "cnpj" => '22545265000108',
+    "ie" => '9069531021',
+    "siglaUF" => 'PR',
+    "versao" => '3.00'
+];
 
-$aResposta = array();
-$recibo = '419000003800442';
-//$recibo = '431000010352151';
-$tpAmb = '2';
-$retorno = $tools->sefazConsultaRecibo($recibo, $tpAmb, $aResposta);
-echo '<pre>';
-//echo htmlspecialchars($cteTools->soapDebug);
-print_r($aResposta);
-echo "</pre>";
+try {
+    $certificate = Certificate::readPfx(
+        base64_decode(''),
+        ''
+    );
+
+    $tools = new Tools(json_encode($config), $certificate);
+
+    $recibo = '32165498754';
+    $resp = $tools->sefazConsultaRecibo($recibo);
+
+    $st = new Standardize();
+    $std = $st->toStd($resp);
+
+    echo '<pre>';
+    print_r($std);
+    echo "</pre>";
+} catch (Exception $e) {
+    echo $e->getMessage();
+}

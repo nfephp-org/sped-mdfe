@@ -264,10 +264,11 @@ class Tools extends ToolsCommon
             $this->config->siglaUF,
             $this->tpAmb
         );
+        $cnpj = $this->config->cnpj;
         $request = "<consMDFeNaoEnc xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
             . "<tpAmb>$this->tpAmb</tpAmb>"
             . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ>"
-            . "<CNPJ>$this->config->cnpj</CNPJ>"
+            . "<CNPJ>$cnpj</CNPJ>"
             . "</consMDFeNaoEnc>";
         $this->lastRequest = $request;
         $parameters = ['mdfeDadosMsg' => $request];

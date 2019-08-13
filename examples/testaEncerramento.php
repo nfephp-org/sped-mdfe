@@ -1,36 +1,43 @@
 <?php
-/**@category  Teste
- * @package   Spedmdfeexamples
- * @copyright 2009-2016 NFePHP
- * @name      testaEncerramento.php
- * @license   http://www.gnu.org/licenses/gpl.html GNU/GPL v.3
- * @link      http://github.com/nfephp-org/sped-cte for the canonical source repository
- * @author    Maison K. Sakamoto <maison.sakamoto@gmail.com> 
- * 
- * TESTE PARA A VERSÃO 3.0 do MDFe
- */
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
 include_once '../bootstrap.php';
 
+use NFePHP\Common\Certificate;
+use NFePHP\MDFe\Common\Standardize;
 use NFePHP\MDFe\Tools;
 
-$tools = new Tools('../config/config.json');
+$config = [
+    "atualizacao" => date('Y-m-d H:i:s'),
+    "tpAmb" => 2,
+    "razaosocial" => 'FÁBRICA DE SOFTWARE MATRIZ',
+    "cnpj" => '22545265000108',
+    "ie" => '9069531021',
+    "siglaUF" => 'PR',
+    "versao" => '3.00'
+];
 
-$offset = timezone_offset_get(new DateTimeZone('America/Sao_Paulo'), new DateTime());
-$tz = sprintf("%s%02d:%02d", ( $offset >= 0 ) ? '+' : '-', abs($offset / 3600), abs($offset % 3600));
-$tools->aConfig['tz']= $tz;
-$aRetorno = array();
-$retorno = $tools->sefazEncerra(
-    $chave = '41171081450900000132580010000001011000000100',
-    $tpAmb = '2',
-    $nSeqEvento = '',
-    $nProt = '941170000021575',
-    $cUF = '42',
-    $cMun = '4202404',
-    $aRetorno
-);
-echo '<pre>';
-print_r($aRetorno);
-echo "</pre>";
+try {
+    $certificate = Certificate::readPfx(
+        base64_decode(''),
+        ''
+    );
+
+    $tools = new Tools(json_encode($config), $certificate);
+
+    $chave = '41171081450900000132580010000001021000000107';
+    $nProt = '32165498754';
+    $cUF = '41';
+    $cMun = '4108403';
+    $resp = $tools->sefazEncerra($chave, $nProt, $cUF, $cMun);
+
+    $st = new Standardize();
+    $std = $st->toStd($resp);
+
+    echo '<pre>';
+    print_r($std);
+    echo "</pre>";
+} catch (Exception $e) {
+    echo $e->getMessage();
+}
