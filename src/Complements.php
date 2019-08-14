@@ -108,7 +108,7 @@ class Complements
         $tpEvento = $retEv->getElementsByTagName('tpEvento')->item(0)->nodeValue;
         if ($tpEvento == '110111') {
             $node = 'procCancMDFe';
-        } else if ($tpEvento == '110112') {
+        } elseif ($tpEvento == '110112') {
             $node = 'procEncMDFe';
         } else {
             throw DocumentsException::wrongDocument(4, "Evento não disponivel.");

@@ -32,8 +32,8 @@ class Tools extends ToolsCommon
     public function sefazEnviaLote(
         $aXml,
         $idLote = ''
-    )
-    {
+    ) {
+    
         if (!is_array($aXml)) {
             throw new \InvalidArgumentException('Os XML das MDFe devem ser passados em um array.');
         }
@@ -196,8 +196,8 @@ class Tools extends ToolsCommon
         $nProt = '',
         $cUF = '',
         $cMun = ''
-    )
-    {
+    ) {
+    
         $tpEvento = 110112;
         $nSeqEvento = 1;
         $dtEnc = date('Y-m-d');
@@ -231,8 +231,8 @@ class Tools extends ToolsCommon
         $nSeqEvento = '1',
         $xNome = '',
         $cpf = ''
-    )
-    {
+    ) {
+    
         $tpEvento = 110114;
         $tagAdic = "<evIncCondutorMDFe>"
             . "<descEvento>Inclusao Condutor</descEvento>"
@@ -294,8 +294,8 @@ class Tools extends ToolsCommon
         $tpEvento,
         $nSeqEvento = 1,
         $tagAdic = ''
-    )
-    {
+    ) {
+    
         //carrega serviço
         $servico = 'MDFeRecepcaoEvento';
         $this->servico(
@@ -340,5 +340,4 @@ class Tools extends ToolsCommon
         $this->lastResponse = $this->sendRequest($body, $parameters);
         return $this->lastResponse;
     }
-
 }

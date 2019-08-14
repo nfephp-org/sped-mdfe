@@ -28,8 +28,8 @@ class QRCode
      */
     public static function putQRTag(
         \DOMDocument $dom
-    )
-    {
+    ) {
+    
         $mdfe = $dom->getElementsByTagName('MDFe')->item(0);
         $infMDFe = $dom->getElementsByTagName('infMDFe')->item(0);
         $ide = $dom->getElementsByTagName('ide')->item(0);
@@ -43,5 +43,4 @@ class QRCode
         $dom->formatOutput = false;
         return $dom->saveXML();
     }
-
 }
