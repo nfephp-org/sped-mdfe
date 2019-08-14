@@ -26,7 +26,11 @@ try {
 
     $tools = new Tools(json_encode($config), $certificate);
 
-    $resp = $tools->sefazConsultaNaoEncerrados();
+    $chave = '41190822545265000108580260000000081326846774';
+    $nSeqEvento = '1';
+    $xNome = 'CLEITON';
+    $cpf = '01234567890';
+    $resp = $tools->sefazIncluiCondutor($chave, $nSeqEvento, $xNome, $cpf);
 
     $st = new Standardize();
     $std = $st->toStd($resp);

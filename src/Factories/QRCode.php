@@ -29,15 +29,16 @@ class QRCode
     public static function putQRTag(
         \DOMDocument $dom
     ) {
-    
+
         $mdfe = $dom->getElementsByTagName('MDFe')->item(0);
         $infMDFe = $dom->getElementsByTagName('infMDFe')->item(0);
         $ide = $dom->getElementsByTagName('ide')->item(0);
         $chMDFe = preg_replace('/[^0-9]/', '', $infMDFe->getAttribute("Id"));
         $tpAmb = $ide->getElementsByTagName('tpAmb')->item(0)->nodeValue;
-        $qrcode = "https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode?chMDFe=$chMDFe&tpAmb=$tpAmb";
+        $urlQRCode = "https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode?chMDFe=$chMDFe&tpAmb=$tpAmb";
         $infMDFeSupl = $dom->createElement("infMDFeSupl");
-        $infMDFeSupl->appendChild($dom->createElement('qrCodMDFe', $qrcode));
+        $qrCode = $infMDFeSupl->appendChild($dom->createElement('qrCodMDFe'));
+        $qrCode->appendChild($dom->createCDATASection($urlQRCode));
         $signature = $dom->getElementsByTagName('Signature')->item(0);
         $mdfe->insertBefore($infMDFeSupl, $signature);
         $dom->formatOutput = false;

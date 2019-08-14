@@ -6,7 +6,6 @@ use NFePHP\Common\Signer;
 use NFePHP\Common\Strings;
 use NFePHP\Common\UFList;
 use NFePHP\MDFe\Common\Tools as ToolsCommon;
-use NFePHP\MDFe\Factories\Events;
 
 /**
  * Classe principal para a comunicação com a SEFAZ
@@ -24,7 +23,7 @@ class Tools extends ToolsCommon
     /**
      * @author Cleiton Perin
      *
-     * @param string $aXml
+     * @param array $aXml
      * @param string $idLote
      * @return   string
      * @throws   Exception\InvalidArgumentException
@@ -33,7 +32,7 @@ class Tools extends ToolsCommon
         $aXml,
         $idLote = ''
     ) {
-    
+
         if (!is_array($aXml)) {
             throw new \InvalidArgumentException('Os XML das MDFe devem ser passados em um array.');
         }
@@ -100,6 +99,9 @@ class Tools extends ToolsCommon
      */
     public function sefazConsultaChave($chave, $tpAmb = null)
     {
+        if (empty($tpAmb)) {
+            $tpAmb = $this->tpAmb;
+        }
         //carrega serviço
         $servico = 'MDFeConsulta';
         $this->servico(
@@ -197,7 +199,8 @@ class Tools extends ToolsCommon
         $cUF = '',
         $cMun = ''
     ) {
-    
+
+
         $tpEvento = 110112;
         $nSeqEvento = 1;
         $dtEnc = date('Y-m-d');
@@ -232,7 +235,8 @@ class Tools extends ToolsCommon
         $xNome = '',
         $cpf = ''
     ) {
-    
+
+
         $tpEvento = 110114;
         $tagAdic = "<evIncCondutorMDFe>"
             . "<descEvento>Inclusao Condutor</descEvento>"
@@ -295,7 +299,8 @@ class Tools extends ToolsCommon
         $nSeqEvento = 1,
         $tagAdic = ''
     ) {
-    
+
+
         //carrega serviço
         $servico = 'MDFeRecepcaoEvento';
         $this->servico(

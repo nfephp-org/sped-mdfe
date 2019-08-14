@@ -374,7 +374,7 @@ class Tools
         $uf,
         $tpAmb
     ) {
-    
+
         $ambiente = $tpAmb == 1 ? "producao" : "homologacao";
         $webs = new Webservices($this->getXmlUrlPath());
         $sigla = $uf;

@@ -12,15 +12,15 @@ $config = [
     "atualizacao" => date('Y-m-d H:i:s'),
     "tpAmb" => 2,
     "razaosocial" => 'FÁBRICA DE SOFTWARE MATRIZ',
-    "cnpj" => '22545265000108',
-    "ie" => '9069531021',
+    "cnpj" => '',
+    "ie" => '',
     "siglaUF" => 'PR',
     "versao" => '3.00'
 ];
 
 try {
     $certificate = Certificate::readPfx(
-        base64_decode(''),
+        '',
         ''
     );
 

@@ -12,23 +12,23 @@ $config = [
     "atualizacao" => date('Y-m-d H:i:s'),
     "tpAmb" => 2,
     "razaosocial" => 'FÁBRICA DE SOFTWARE MATRIZ',
-    "cnpj" => '22545265000108',
-    "ie" => '9069531021',
+    "cnpj" => '',
+    "ie" => '',
     "siglaUF" => 'PR',
     "versao" => '3.00'
 ];
 
 try {
     $certificate = Certificate::readPfx(
-        base64_decode(''),
+        '',
         ''
     );
 
     $tools = new Tools(json_encode($config), $certificate);
 
-    $chave = '41171081450900000132580010000001021000000107';
+    $chave = '41190822545265000108580260000000071582000342';
     $xJust = 'Teste de cancelamento';
-    $nProt = '32165498754';
+    $nProt = '941190000019643';
     $resp = $tools->sefazCancela($chave, $xJust, $nProt);
 
     $st = new Standardize();
