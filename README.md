@@ -21,9 +21,9 @@ Este pacote está em desenvolvimento, não é funcional e não deve ser utilizad
 [![Stars][ico-stars]][link-stars]
 [![Chat][ico-gitter]][link-gitter]
 
-Este pacote visa fornecer os meios para gerar, assinar e anviar os dados relativos ao projeto Sped MDFe.
+Este pacote visa fornecer os meios para gerar, assinar e enviar os dados relativos ao projeto Sped MDFe.
 
-Este pacote faz parte da API NFePHP e atende aos parâmetros das PSR2 e PSR4, bem como é desenvolvida para de adequar as versões ATIVAS do PHP e aos layouts da NFe em vigor.
+Este pacote faz parte da API NFePHP e atende aos parâmetros das PSR2 e PSR4, bem como é desenvolvida para adequar as versões ATIVAS do PHP e aos layouts da MDFe em vigor.
 
 ## Install
 
@@ -41,7 +41,7 @@ $ composer test
 
 ## Contributing
 
-Para contribuir por favor observe o [CONTRIBUTING](CONTRIBUTING.md) e o  [Código de Conduta](CONDUCT.md) parea detalhes.
+Para contribuir por favor observe o [CONTRIBUTING](CONTRIBUTING.md) e o  [Código de Conduta](CONDUCT.md) para detalhes.
 
 ## Security
 

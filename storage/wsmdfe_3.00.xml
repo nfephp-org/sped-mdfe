@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WS>
+    <UF>
+        <sigla>RS</sigla>
+        <homologacao>
+            <MDFeRecepcao method='mdfeRecepcaoLote' operation='MDFeRecepcao' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx</MDFeRecepcao>
+            <MDFeRetRecepcao method='mdfeRetRecepcao' operation='MDFeRetRecepcao' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx</MDFeRetRecepcao>
+            <MDFeRecepcaoEvento method='mdfeRecepcaoEvento' operation='MDFeRecepcaoEvento' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx</MDFeRecepcaoEvento>
+            <MDFeConsulta method='mdfeConsultaMDF' operation='MDFeConsulta' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsulta>
+            <MDFeStatusServico method='mdfeStatusServicoMDF' operation='MDFeStatusServico' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx</MDFeStatusServico>
+            <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
+        </homologacao>
+        <producao>
+            <MDFeRecepcao method='mdfeRecepcaoLote' operation='MDFeRecepcao' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx</MDFeRecepcao>
+            <MDFeRetRecepcao method='mdfeRetRecepcao' operation='MDFeRetRecepcao' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx</MDFeRetRecepcao>
+            <MDFeRecepcaoEvento method='mdfeRecepcaoEvento' operation='MDFeRecepcaoEvento' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx</MDFeRecepcaoEvento>
+            <MDFeConsulta method='mdfeConsultaMDF' operation='MDFeConsulta' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsulta>
+            <MDFeStatusServico method='mdfeStatusServicoMDF' operation='MDFeStatusServico' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx</MDFeStatusServico>
+            <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
+        </producao>
+    </UF>
+</WS>
