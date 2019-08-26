@@ -30,7 +30,8 @@ try {
     $nProt = '941190000019648';
     $cUF = '41';
     $cMun = '4108403';
-    $resp = $tools->sefazEncerra($chave, $nProt, $cUF, $cMun);
+    $dtEnc = 'Y-m-d'; // Opcional, caso nao seja preenchido pegara HOJE
+    $resp = $tools->sefazEncerra($chave, $nProt, $cUF, $cMun, $dtEnc);
 
     $st = new Standardize();
     $std = $st->toStd($resp);

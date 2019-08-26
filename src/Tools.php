@@ -33,6 +33,7 @@ class Tools extends ToolsCommon
         $idLote = ''
     ) {
 
+
         if (!is_array($aXml)) {
             throw new \InvalidArgumentException('Os XML das MDFe devem ser passados em um array.');
         }
@@ -191,19 +192,24 @@ class Tools extends ToolsCommon
      * @param string $nProt
      * @param string $cUF
      * @param string $cMun
+     * @param string $dtEnc
      * @return string
      */
     public function sefazEncerra(
         $chave = '',
         $nProt = '',
         $cUF = '',
-        $cMun = ''
+        $cMun = '',
+        $dtEnc = ''
     ) {
+    
 
 
         $tpEvento = 110112;
         $nSeqEvento = 1;
-        $dtEnc = date('Y-m-d');
+        if ($dtEnc == '') {
+            $dtEnc = date('Y-m-d');
+        }
         $tagAdic = "<evEncMDFe>"
             . "<descEvento>Encerramento</descEvento>"
             . "<nProt>$nProt</nProt>"
@@ -235,6 +241,7 @@ class Tools extends ToolsCommon
         $xNome = '',
         $cpf = ''
     ) {
+
 
 
         $tpEvento = 110114;
@@ -299,6 +306,7 @@ class Tools extends ToolsCommon
         $nSeqEvento = 1,
         $tagAdic = ''
     ) {
+
 
 
         //carrega serviço
