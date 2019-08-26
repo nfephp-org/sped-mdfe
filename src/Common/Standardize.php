@@ -41,21 +41,18 @@ class Standardize
     public $rootTagList = [
         'enviMDFe',
         'retEnviMDFe',
-        'retMDFe',
-        'protMDFe',
-        'consReciMDFe',
         'retConsReciMDFe',
         'consSitMDFe',
         'retConsSitMDFe',
         'retConsMDFeNaoEnc',
-        'consStatServMDFe',
         'retConsStatServMDFe',
         'eventoMDFe',
         'retEventoMDFe',
         'evCancMDFe',
         'evEncMDFe',
         'evIncCondutorMDFe',
-        'evIncDFeMDFe'
+        'evIncDFeMDFe',
+        'MDFe'
     ];
 
     /**
