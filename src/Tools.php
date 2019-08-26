@@ -32,7 +32,7 @@ class Tools extends ToolsCommon
         $aXml,
         $idLote = ''
     ) {
-    
+
 
         if (!is_array($aXml)) {
             throw new \InvalidArgumentException('Os XML das MDFe devem ser passados em um array.');
@@ -241,7 +241,7 @@ class Tools extends ToolsCommon
         $xNome = '',
         $cpf = ''
     ) {
-    
+
 
 
         $tpEvento = 110114;
@@ -306,7 +306,7 @@ class Tools extends ToolsCommon
         $nSeqEvento = 1,
         $tagAdic = ''
     ) {
-    
+
 
 
         //carrega serviço
