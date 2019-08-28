@@ -96,57 +96,68 @@ $mdfe->tagenderEmit($std);
  * Grupo rodo ( Rodoviário )
  */
  
-	/* Grupo infANTT */ 
-	$stdinfANTT = new \stdClass();
-	$stdinfANTT->RNTRC = '12345678';
-		/* informações do CIOT */
-		$stdinfCIOT = new \stdClass();
-		$stdinfCIOT->CIOT = '123456789012';
-		$stdinfCIOT->CPF = '11122233344';
-		$stdinfCIOT->CNPJ = '111222333444455';
+    /* Grupo infANTT */
+    $stdinfANTT = new \stdClass();
+    $stdinfANTT->RNTRC = '12345678';
+        /* informações do CIOT */
+        $stdinfCIOT = new \stdClass();
+        $stdinfCIOT->CIOT = '123456789012';
+        $stdinfCIOT->CPF = '11122233344';
+        $stdinfCIOT->CNPJ = '11222333444455';
 
-	$stdinfANTT->infCIOT = $stdinfCIOT;
-		
-		/* informações do contratante */
-		$stdinfContratante = new \stdClass();
-		$stdinfContratante ->CNPJ = '09230232000372';
-		$stdinfANTT->infContratante = $stdinfContratante;
+    $stdinfANTT->infCIOT = [$stdinfCIOT];
 
-	$mdfe->taginfANTT($stdinfANTT);
-	/* fim infANTT */
+        /* informações do Vale Pedágio */
+        $stdvalePed = new \stdClass();
+        $stdvalePed->CNPJForn = '11222333444455';
+        $stdvalePed->CNPJPg = '66777888999900';
+        $stdvalePed->CPFPg = '11122233355';
+        $stdvalePed->nCompra = '777778888999999';
+        $stdvalePed->vValePed = '100.00';
 
-	/* Grupo veicTracao */
-	$stdveicTracao = new \stdClass();
-	$stdveicTracao->cInt = '01';
-	$stdveicTracao->placa = 'DBL6040';
-	$stdveicTracao->tara = '8350';
-	$stdveicTracao->capKG = '8350';
-	$stdveicTracao->tpRod = '03';
-	$stdveicTracao->tpCar = '02';
-	$stdveicTracao->UF = 'PA';
+    $stdinfANTT->valePed = [$stdvalePed];
+        
+        /* informações do contratante */
+        $stdinfContratante = new \stdClass();
+        $stdinfContratante ->CNPJ = '09230232000372';
+        
+    $stdinfANTT->infContratante = [$stdinfContratante];
 
-	$stdcondutor = new \stdClass();
-	$stdcondutor->xNome = 'JOAO DA SILVA';
-	$stdcondutor->CPF = '11122233344';
+    $mdfe->taginfANTT($stdinfANTT);
+    /* fim infANTT */
 
-	$stdveicTracao->condutor = $stdcondutor;
+    /* Grupo veicTracao */
+    $stdveicTracao = new \stdClass();
+    $stdveicTracao->cInt = '01';
+    $stdveicTracao->placa = 'DBL6040';
+    $stdveicTracao->tara = '8350';
+    $stdveicTracao->capKG = '8350';
+    $stdveicTracao->tpRod = '03';
+    $stdveicTracao->tpCar = '02';
+    $stdveicTracao->UF = 'PA';
 
-	$mdfe->tagveicTracao($stdveicTracao);
+    $stdcondutor = new \stdClass();
+    $stdcondutor->xNome = 'JOAO DA SILVA';
+    $stdcondutor->CPF = '11122233344';
 
-	/* fim veicTracao */
+    $stdveicTracao->condutor = $stdcondutor;
 
-	/* Grupo veicReboque */
-	$stdveicReboque = new \stdClass();
-	$stdveicReboque->cInt = '02';
-	$stdveicReboque->placa = 'XXX1111';
-	$stdveicReboque->tara = '8350';
-	$stdveicReboque->capKG = '15000';
-	$stdveicReboque->tpCar = '02';
-	$stdveicReboque->UF = 'SP';
+    $mdfe->tagveicTracao($stdveicTracao);
 
-	$mdfe->tagveicReboque($stdveicReboque);
+    /* fim veicTracao */
 
-	/* fim veicReboque */
+    /* Grupo veicReboque */
+    $stdveicReboque = new \stdClass();
+    $stdveicReboque->cInt = '02';
+    $stdveicReboque->placa = 'XXX1111';
+    $stdveicReboque->tara = '8350';
+    $stdveicReboque->capKG = '15000';
+    $stdveicReboque->tpCar = '02';
+    $stdveicReboque->UF = 'SP';
+
+    $mdfe->tagveicReboque($stdveicReboque);
+
+    /* fim veicReboque */
 
 /* fim rodo */
 
@@ -165,49 +176,49 @@ $std->chCTe = '35310800000000000372570010001999091000027765';
 $std->SegCodBarra = '012345678901234567890123456789012345';
 $std->indReentrega = '1';
 
-	/* Informações das Unidades de Transporte (Carreta/Reboque/Vagão) */
-	$stdinfUnidTransp = new \stdClass();
-	$stdinfUnidTransp->tpUnidTrans = '1';
-	$stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    /* Informações das Unidades de Transporte (Carreta/Reboque/Vagão) */
+    $stdinfUnidTransp = new \stdClass();
+    $stdinfUnidTransp->tpUnidTrans = '1';
+    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
 
-		/* Lacres das Unidades de Transporte */
-		$stdlacUnidTransp = new \stdClass();
-		$stdlacUnidTransp->nLacre = ['00000001','00000002'];
+        /* Lacres das Unidades de Transporte */
+        $stdlacUnidTransp = new \stdClass();
+        $stdlacUnidTransp->nLacre = ['00000001','00000002'];
 
-		$stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
+        $stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
 
-		/* Informações das Unidades de Carga (Containeres/ULD/Outros) */
-		$stdinfUnidCarga = new \stdClass();
-		$stdinfUnidCarga->tpUnidCarga = '1';
-		$stdinfUnidCarga->idUnidCarga = '01234567890123456789';
-		
-			/* Lacres das Unidades de Carga */
-			$stdlacUnidCarga = new \stdClass();
-			$stdlacUnidCarga->nLacre = ['00000001','00000002'];
+        /* Informações das Unidades de Carga (Containeres/ULD/Outros) */
+        $stdinfUnidCarga = new \stdClass();
+        $stdinfUnidCarga->tpUnidCarga = '1';
+        $stdinfUnidCarga->idUnidCarga = '01234567890123456789';
+        
+            /* Lacres das Unidades de Carga */
+            $stdlacUnidCarga = new \stdClass();
+            $stdlacUnidCarga->nLacre = ['00000001','00000002'];
 
-		$stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
-		$stdinfUnidCarga->qtdRat = '3.50';
+        $stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
+        $stdinfUnidCarga->qtdRat = '3.50';
 
-	$stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
-	$stdinfUnidTransp->qtdRat = '3.50';
-		
-	$std->infUnidTransp = $stdinfUnidTransp;
+    $stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
+    $stdinfUnidTransp->qtdRat = '3.50';
+        
+    $std->infUnidTransp = $stdinfUnidTransp;
 
-	/* transporte de produtos classificados pela ONU como perigosos */
-	$stdperi = new \stdClass();
-	$stdperi->nONU = '1234';
-	$stdperi->xNomeAE = 'testeNome';
-	$stdperi->xClaRisco = 'testeClaRisco';
-	$stdperi->grEmb = 'testegrEmb';
-	$stdperi->qTotProd = '1';
-	$stdperi->qVolTipo = '1';
-	$std->peri = $stdperi;
+    /* transporte de produtos classificados pela ONU como perigosos */
+    $stdperi = new \stdClass();
+    $stdperi->nONU = '1234';
+    $stdperi->xNomeAE = 'testeNome';
+    $stdperi->xClaRisco = 'testeClaRisco';
+    $stdperi->grEmb = 'testegrEmb';
+    $stdperi->qTotProd = '1';
+    $stdperi->qVolTipo = '1';
+    $std->peri = $stdperi;
 
-	/* Grupo de informações da Entrega Parcial (Corte de Voo) */
-	$stdinfEntregaParcial = new \stdClass();
-	$stdinfEntregaParcial->qtdTotal = '1234.56';
-	$stdinfEntregaParcial->qtdParcial = '1234.56';
-	$std->infEntregaParcial = $stdinfEntregaParcial;
+    /* Grupo de informações da Entrega Parcial (Corte de Voo) */
+    $stdinfEntregaParcial = new \stdClass();
+    $stdinfEntregaParcial->qtdTotal = '1234.56';
+    $stdinfEntregaParcial->qtdParcial = '1234.56';
+    $std->infEntregaParcial = $stdinfEntregaParcial;
 
 $mdfe->taginfCTe($std);
 
@@ -223,43 +234,43 @@ $std->chNFe = '35310800000000000372570010001999091000099999';
 $std->SegCodBarra = '012345678901234567890123456789012345';
 $std->indReentrega = '1';
 
-	// Informações das Unidades de Transporte (Carreta/Reboque/Vagão) 
-	$stdinfUnidTransp = new \stdClass();
-	$stdinfUnidTransp->tpUnidTrans = '1';
-	$stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
+    $stdinfUnidTransp = new \stdClass();
+    $stdinfUnidTransp->tpUnidTrans = '1';
+    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
 
-		// Lacres das Unidades de Transporte 
-		$stdlacUnidTransp = new \stdClass();
-		$stdlacUnidTransp->nLacre = ['00000001','00000002'];
+        // Lacres das Unidades de Transporte
+        $stdlacUnidTransp = new \stdClass();
+        $stdlacUnidTransp->nLacre = ['00000001','00000002'];
 
-		$stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
+        $stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
 
-		// Informações das Unidades de Carga (Containeres/ULD/Outros) 
-		$stdinfUnidCarga = new \stdClass();
-		$stdinfUnidCarga->tpUnidCarga = '1';
-		$stdinfUnidCarga->idUnidCarga = '01234567890123456789';
-		
-			// lacres das Unidades de Carga 
-			$stdlacUnidCarga = new \stdClass();
-			$stdlacUnidCarga->nLacre = ['00000001','00000002'];
+        // Informações das Unidades de Carga (Containeres/ULD/Outros)
+        $stdinfUnidCarga = new \stdClass();
+        $stdinfUnidCarga->tpUnidCarga = '1';
+        $stdinfUnidCarga->idUnidCarga = '01234567890123456789';
+        
+            // lacres das Unidades de Carga
+            $stdlacUnidCarga = new \stdClass();
+            $stdlacUnidCarga->nLacre = ['00000001','00000002'];
 
-		$stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
-		$stdinfUnidCarga->qtdRat = '3.50';
+        $stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
+        $stdinfUnidCarga->qtdRat = '3.50';
 
-	$stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
-	$stdinfUnidTransp->qtdRat = '3.50';
-		
-	$std->infUnidTransp = $stdinfUnidTransp;
+    $stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
+    $stdinfUnidTransp->qtdRat = '3.50';
+        
+    $std->infUnidTransp = $stdinfUnidTransp;
 
-	// transporte de produtos classificados pela ONU como perigosos 
-	$stdperi = new \stdClass();
-	$stdperi->nONU = '1234';
-	$stdperi->xNomeAE = 'testeNome';
-	$stdperi->xClaRisco = 'testeClaRisco';
-	$stdperi->grEmb = 'testegrEmb';
-	$stdperi->qTotProd = '1';
-	$stdperi->qVolTipo = '1';
-	$std->peri = $stdperi;
+    // transporte de produtos classificados pela ONU como perigosos
+    $stdperi = new \stdClass();
+    $stdperi->nONU = '1234';
+    $stdperi->xNomeAE = 'testeNome';
+    $stdperi->xClaRisco = 'testeClaRisco';
+    $stdperi->grEmb = 'testegrEmb';
+    $stdperi->qTotProd = '1';
+    $stdperi->qVolTipo = '1';
+    $std->peri = $stdperi;
 
 $mdfe->taginfNFe($std);
 
@@ -269,43 +280,43 @@ $std = new \stdClass();
 $std->chNFe = '35310800000000000372570010001999091000088888';
 $std->indReentrega = '1';
 
-	// Informações das Unidades de Transporte (Carreta/Reboque/Vagão) 
-	$stdinfUnidTransp = new \stdClass();
-	$stdinfUnidTransp->tpUnidTrans = '1';
-	$stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
+    $stdinfUnidTransp = new \stdClass();
+    $stdinfUnidTransp->tpUnidTrans = '1';
+    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
 
-		// Lacres das Unidades de Transporte 
-		$stdlacUnidTransp = new \stdClass();
-		$stdlacUnidTransp->nLacre = ['00000001','00000002'];
+        // Lacres das Unidades de Transporte
+        $stdlacUnidTransp = new \stdClass();
+        $stdlacUnidTransp->nLacre = ['00000001','00000002'];
 
-		$stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
+        $stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
 
-		// Informações das Unidades de Carga (Containeres/ULD/Outros) 
-		$stdinfUnidCarga = new \stdClass();
-		$stdinfUnidCarga->tpUnidCarga = '1';
-		$stdinfUnidCarga->idUnidCarga = '01234567890123456789';
-		
-			// lacres das Unidades de Carga 
-			$stdlacUnidCarga = new \stdClass();
-			$stdlacUnidCarga->nLacre = ['00000001','00000002'];
+        // Informações das Unidades de Carga (Containeres/ULD/Outros)
+        $stdinfUnidCarga = new \stdClass();
+        $stdinfUnidCarga->tpUnidCarga = '1';
+        $stdinfUnidCarga->idUnidCarga = '01234567890123456789';
+        
+            // lacres das Unidades de Carga
+            $stdlacUnidCarga = new \stdClass();
+            $stdlacUnidCarga->nLacre = ['00000001','00000002'];
 
-		$stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
-		$stdinfUnidCarga->qtdRat = '3.50';
+        $stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
+        $stdinfUnidCarga->qtdRat = '3.50';
 
-	$stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
-	$stdinfUnidTransp->qtdRat = '3.50';
-		
-	$std->infUnidTransp = $stdinfUnidTransp;
+    $stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
+    $stdinfUnidTransp->qtdRat = '3.50';
+        
+    $std->infUnidTransp = $stdinfUnidTransp;
 
-	// transporte de produtos classificados pela ONU como perigosos 
-	$stdperi = new \stdClass();
-	$stdperi->nONU = '1234';
-	$stdperi->xNomeAE = 'testeNome';
-	$stdperi->xClaRisco = 'testeClaRisco';
-	$stdperi->grEmb = 'testegrEmb';
-	$stdperi->qTotProd = '1';
-	$stdperi->qVolTipo = '1';
-	$std->peri = $stdperi;
+    // transporte de produtos classificados pela ONU como perigosos
+    $stdperi = new \stdClass();
+    $stdperi->nONU = '1234';
+    $stdperi->xNomeAE = 'testeNome';
+    $stdperi->xClaRisco = 'testeClaRisco';
+    $stdperi->grEmb = 'testegrEmb';
+    $stdperi->qTotProd = '1';
+    $stdperi->qVolTipo = '1';
+    $std->peri = $stdperi;
 
 $mdfe->taginfMDFeTransp($std);
 
@@ -315,10 +326,10 @@ $mdfe->taginfMDFeTransp($std);
 $std = new \stdClass();
 $std->respSeg = '1';
 
-	/* Informações da seguradora */
-	$stdinfSeg = new \stdClass();
-	$stdinfSeg->xSeg = 'SOMPO SEGUROS';
-	$stdinfSeg->CNPJ = '11222333444455';
+    /* Informações da seguradora */
+    $stdinfSeg = new \stdClass();
+    $stdinfSeg->xSeg = 'SOMPO SEGUROS';
+    $stdinfSeg->CNPJ = '11222333444455';
 
 $std->infSeg = $stdinfSeg;
 $std->nApol = '11223344555';
@@ -360,5 +371,4 @@ $mdfe->taginfAdic($std);
 /* fim grupo Informações Adicionais */
 
 $xml = $mdfe->getXML(); // O conteúdo do XML fica armazenado na variável $xml
-file_put_contents('teste.xml',$xml);
-
+file_put_contents('teste.xml', $xml);
