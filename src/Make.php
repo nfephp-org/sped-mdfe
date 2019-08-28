@@ -112,6 +112,10 @@ class Make
      */
     private $infUnidTransp = '';
     /**
+     * @type array|\DOMNode
+     */
+    private $aInfPercurso = [];
+    /**
      * @type string|\DOMNode
      */
     private $veicTracao = '';
@@ -144,6 +148,10 @@ class Make
         $this->dom->formatOutput = false;
     }
 
+    /**
+     * Retorns the xml
+     * @return xml
+     */
     public function getXML()
     {
         if (empty($this->xml)) {
@@ -202,7 +210,7 @@ class Make
         $this->dom->appChild($this->emit, $this->enderEmit, 'Falta tag "enderEmit"');
         $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "emit"');
         if (! empty($this->rodo)) {
-            $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "infModal"');
+            $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "rodo"');
         }
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infModal"');
         $this->dom->appChild($this->infMDFe, $this->infDoc, 'Falta tag "infDoc"');
@@ -229,7 +237,22 @@ class Make
     /**
      * Informações de identificação da MDFe
      * tag MDFe/infMDFe/ide
-     * @param  stdClass $std
+     * @param  int cUF Código da UF
+     * @param  int tpAmb Tipo do Ambiente
+     * @param  int tpEmit Tipo do Emitente
+     * @param  string tpTransp Tipo do Transportador
+     * @param  int mod Modelo do Manifesto Eletrônico
+     * @param  int serie Série do Manifesto
+     * @param  int nMDF Número do Manifesto
+     * @param  int cMDF Código aleatório
+     * @param  int cDV Digito verificador
+     * @param  int modal Modalidade de transporte
+     * @param  date dhEmi Data e hora de emissão
+     * @param  int tpEmis Forma de emissão
+     * @param  int procEmi Identificação do processo de emissão
+     * @param  string verProc Versão do processo
+     * @param  string ufIni Sigla da UF do Carregamento
+     * @param  string ufFim Sigla da UF do Descarregamento
      * @return DOMElement
      */
     public function tagide(stdClass $std)
@@ -239,6 +262,7 @@ class Make
             'cUF',
             'tpAmb',
             'tpEmit',
+            'tpTransp',
             'mod',
             'serie',
             'nMDF',
@@ -278,6 +302,13 @@ class Make
             $std->tpEmit,
             true,
             $identificador . "Indicador da tipo de emitente"
+        );
+        $this->dom->addChild(
+            $ide,
+            "tpTransp",
+            $std->tpTransp,
+            false,
+            $identificador . "Tipo do Transportador"
         );
         $this->dom->addChild(
             $ide,
@@ -375,8 +406,8 @@ class Make
      *
      * tag MDFe/infMDFe/ide/infMunCarrega
      *
-     * @param  string $cMunCarrega
-     * @param  string $xMunCarrega
+     * @param  int cMunCarrega Código do Município de Carregamento
+     * @param  string xMunCarrega Nome do Município de Carregamento
      *
      * @return DOMElement
      */
@@ -412,7 +443,7 @@ class Make
      *
      * tag MDFe/infMDFe/ide/infPercurso
      *
-     * @param  string $ufPer
+     * @param  array ufPer Sigla das Unidades da Federação do percurso do veículo
      *
      * @return DOMElement
      */
@@ -423,16 +454,18 @@ class Make
         ];
 
         $std = $this->equilizeParameters($std, $possible);
-        $infPercurso = $this->dom->createElement("infPercurso");
-        $this->dom->addChild(
-            $infPercurso,
-            "UFPer",
-            $std->UFPer,
-            true,
-            "Sigla das Unidades da Federação do percurso"
-        );
-        $this->aInfPercurso[] = $infPercurso;
-        return $infPercurso;
+        foreach ($std->UFPer as $nItem => $UFPer) {
+            $infPercurso = $this->dom->createElement("infPercurso");
+            $this->dom->addChild(
+                $infPercurso,
+                "UFPer",
+                $UFPer,
+                true,
+                "Sigla das Unidades da Federação do percurso"
+            );
+            $this->aInfPercurso[] = $infPercurso;
+        }
+        return $this->aInfPercurso;
     }
 
     /**
@@ -440,10 +473,10 @@ class Make
      * Identificação do emitente da MDFe
      * tag MDFe/infMDFe/emit
      *
-     * @param  string $cnpj
-     * @param  string $numIE
-     * @param  string $xNome
-     * @param  string $xFant
+     * @param  int CNPJ CNPJ do emitente
+     * @param  int IE Inscrição Estadual do emitente
+     * @param  string xNome Razão social
+     * @param  string xFant Nome fantasia
      *
      * @return DOMElement
      */
@@ -495,16 +528,16 @@ class Make
      * Endereço do emitente [30] pai [25]
      * tag MDFe/infMDFe/emit/endEmit
      *
-     * @param  string $xLgr
-     * @param  string $nro
-     * @param  string $xCpl
-     * @param  string $xBairro
-     * @param  string $cMun
-     * @param  string $xMun
-     * @param  string $cep
-     * @param  string $UF
-     * @param  string $fone
-     * @param  string $email
+     * @param  string xLgr Logradouro
+     * @param  string nro Número
+     * @param  string xCpl Complemento
+     * @param  string xBairro Bairro
+     * @param  int cMun Código do município
+     * @param  string xMun Nome do município
+     * @param  int CEP CEP
+     * @param  string UF Sigla da UF
+     * @param  int fone Telefone
+     * @param  string email Endereço de E-mail
      *
      * @return DOMElement
      */
@@ -604,9 +637,8 @@ class Make
      * tagInfMunDescarga
      * tag MDFe/infMDFe/infDoc/infMunDescarga
      *
-     * @param  integer $nItem
-     * @param  string  $cMunDescarga
-     * @param  string  $xMunDescarga
+     * @param  int  cMunDescarga Código do Município
+     * @param  string  xMunDescarga Nome do Município
      *
      * @return DOMElement
      */
@@ -644,6 +676,17 @@ class Make
         return $infMunDescarga;
     }
 
+    /**
+     * taginfANTT
+     * tag MDFe/infMDFe/rodo/taginfANTT
+     *
+     * @param  int RNTRC Registro Nacional de Transportadores
+     * @param  stdClass  infCIOT Dados do CIOT
+     * @param  stdClass  valePed Informações de Vale Pedágio
+     * @param  stdClass  infContratante informações dos contratantes
+     *
+     * @return DOMElement
+     */
     public function taginfANTT(stdClass $std)
     {
         $possible = [
@@ -774,7 +817,7 @@ class Make
             }
         }
         
-        $this->dom->appChild($rodo, $infANTT, 'Falta tag "ide"');
+        $this->dom->appChild($rodo, $infANTT, 'Falta tag "infANTT"');
         $this->rodo = $rodo;
         return $this->rodo;
     }
@@ -783,12 +826,12 @@ class Make
      * taginfCTe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe
      *
-     * @param  integer chCTe
-     * @param  string  SegCodBarra
-     * @param  string  indReentrega
-     * @param  string  infUnidTransp
-     * @param  string  peri
-     * @param  string  infEntregaParcial
+     * @param  int chCTe Chave de acesso
+     * @param  int SegCodBarra Segundo código de barras
+     * @param  int indReentrega Indicador de Reentrega
+     * @param  stdClass infUnidTransp Informações das Unidades de Transporte
+     * @param  stdClass peri Produtos classificados pela ONU como perigosos
+     * @param  stdClass infEntregaParcial Entrega Parcial
      *
      * @return DOMElement
      */
@@ -854,7 +897,7 @@ class Make
                 true,
                 "Quantidade de volumes enviados no MDF-e"
             );
-            $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "$peri"');
+            $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "infEntregaParcial"');
         }
         $this->dom->appChild($this->aInfMunDescarga, $infCTe, 'Falta tag "infCTe"');
         return $infCTe;
@@ -864,12 +907,12 @@ class Make
      * tagperi
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/peri
      *
-     * @param  integer nONU
-     * @param  string  xNomeAE
-     * @param  string  xClaRisco
-     * @param  string  grEmb
-     * @param  string  qTotProd
-     * @param  string  qVolTipo
+     * @param  string nONU Número ONU/UN
+     * @param  string xNomeAE Nome apropriado para embarque
+     * @param  string xClaRisco Classe ou subclasse/divisão
+     * @param  string grEmb Grupo de Embalagem
+     * @param  string qTotProd Quantidade total por produto
+     * @param  string qVolTipo Quantidade e Tipo de volumes
      *
      * @return DOMElement
      */
@@ -934,11 +977,11 @@ class Make
      * taginfNFe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
      *
-     * @param  integer chNFe
-     * @param  string  SegCodBarra
-     * @param  string  indReentrega
-     * @param  string  infUnidTransp
-     * @param  string  peri
+     * @param  int chNFe Chave de acesso
+     * @param  int SegCodBarra Segundo código de barras
+     * @param  int indReentrega Indicador de Reentrega
+     * @param  stdClass infUnidTransp Informações das Unidades de Transporte
+     * @param  stdClass peri Produtos classificados pela ONU como perigosos
      *
      * @return DOMElement
      */
@@ -980,7 +1023,7 @@ class Make
         }
         if ($std->peri != null) {
             $peri = $this->tagperi($std->peri);
-            $this->dom->appChild($infNFe, $peri, 'Falta tag "$peri"');
+            $this->dom->appChild($infNFe, $peri, 'Falta tag "peri"');
         }
         $this->dom->appChild($this->aInfMunDescarga, $infNFe, 'Falta tag "infNFe"');
         return $infNFe;
@@ -990,10 +1033,10 @@ class Make
      * taginfMDFeTransp
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infMDFeTransp
      *
-     * @param  integer chMDFe
-     * @param  string  indReentrega
-     * @param  string  infUnidTransp
-     * @param  string  peri
+     * @param  int chMDFe Chave de acesso
+     * @param  int indReentrega Indicador de Reentrega
+     * @param  stdClass infUnidTransp Informações das Unidades de Transporte
+     * @param  stdClass peri Produtos classificados pela ONU como perigosos
      *
      * @return DOMElement
      */
@@ -1006,16 +1049,16 @@ class Make
             'peri'
         ];
         $std = $this->equilizeParameters($std, $possible);
-        $infNFeTransp = $this->dom->createElement("infNFeTransp");
+        $infMDFeTransp = $this->dom->createElement("infMDFeTransp");
         $this->dom->addChild(
-            $infNFeTransp,
+            $infMDFeTransp,
             "chNFe",
             $std->chNFe,
             true,
             "Chave de Acesso NFe"
         );
         $this->dom->addChild(
-            $infNFeTransp,
+            $infMDFeTransp,
             "indReentrega",
             $std->indReentrega,
             false,
@@ -1023,25 +1066,25 @@ class Make
         );
         if ($std->infUnidTransp != null) {
             $infUnidTransp = $this->taginfUnidTransp($std->infUnidTransp);
-            $this->dom->appChild($infNFeTransp, $infUnidTransp, 'Falta tag "infUnidTransp"');
+            $this->dom->appChild($infMDFeTransp, $infUnidTransp, 'Falta tag "infUnidTransp"');
         }
         if ($std->peri != null) {
             $peri = $this->tagperi($std->peri);
-            $this->dom->appChild($infNFeTransp, $peri, 'Falta tag "$peri"');
+            $this->dom->appChild($infMDFeTransp, $peri, 'Falta tag "peri"');
         }
-        $this->dom->appChild($this->aInfMunDescarga, $infNFeTransp, 'Falta tag "infNFe"');
-        return $infNFeTransp;
+        $this->dom->appChild($this->aInfMunDescarga, $infMDFeTransp, 'Falta tag "infMDFeTransp"');
+        return $infMDFeTransp;
     }
 
     /**
      * taginfUnidTransp
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/infUnidTransp
      *
-     * @param  integer tpUnidTrans
-     * @param  string  idUnidTrans
-     * @param  string  qtdRat
-     * @param  string  lacUnidTransp
-     * @param  string  infUnidCarga
+     * @param  int tpUnidTrans Tipo da Unidade de Transporte
+     * @param  string idUnidTrans Identificação da Unidade de Transporte
+     * @param  int qtdRat Quantidade rateada
+     * @param  stdClass lacUnidTransp Lacres das Unidades de Transporte
+     * @param  stdClass infUnidCarga Informações das Unidades de Carga
      *
      * @return DOMElement
      */
@@ -1084,7 +1127,7 @@ class Make
                     true,
                     "Número do lacre"
                 );
-                $this->dom->appChild($infUnidTransp, $lacUnidTransp, 'Falta tag "infUnidTransp"');
+                $this->dom->appChild($infUnidTransp, $lacUnidTransp, 'Falta tag "lacUnidTransp"');
             }
         }
         if ($std->infUnidCarga != null) {
@@ -1105,10 +1148,10 @@ class Make
      * taginfUnidCarga
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/infUnidCarga
      *
-     * @param  integer tpUnidCarga
-     * @param  string  idUnidCarga
-     * @param  string  lacUnidCarga
-     * @param  string  qtdRat
+     * @param  int tpUnidCarga Tipo da Unidade de Carga
+     * @param  string idUnidCarga Identificação da Unidade de Carga
+     * @param  stdClass lacUnidCarga Lacres das Unidades de Carga
+     * @param  int qtdRat Quantidade rateada
      *
      * @return DOMElement
      */
@@ -1168,12 +1211,12 @@ class Make
      * tagseg
      * tag MDFe/infMDFe/seg
      *
-     * @param  string $respSeg
-     * @param  string $CNPJ
-     * @param  string $CPF
-     * @param  string $infSeg
-     * @param  string $nApol
-     * @param  string $nAver
+     * @param  int respSeg Responsável pelo seguro
+     * @param  int CNPJ Número do CNPJ
+     * @param  int CPF Número do CPF
+     * @param  stdClass infSeg Informações da seguradora
+     * @param  string nApol Número da Apólice
+     * @param  string nAver Número da Averbação
      *
      * @return DOMElement
      */
@@ -1261,12 +1304,12 @@ class Make
      * tagTot
      * tag MDFe/infMDFe/tot
      *
-     * @param  string $qCTe
-     * @param  string $qNFe
-     * @param  string $qMDFe
-     * @param  string $vCarga
-     * @param  string $cUnid
-     * @param  string $qCarga
+     * @param  int qCTe Quantidade total de CT-e
+     * @param  int qNFe Quantidade total de NF-e
+     * @param  int qMDFe Quantidade total de MDF-e
+     * @param  int vCarga Valor total da carga
+     * @param  int cUnid Código da unidade de medida
+     * @param  int qCarga Peso Bruto Total da Carga
      *
      * @return DOMElement
      */
@@ -1332,7 +1375,7 @@ class Make
      * tagLacres
      * tag MDFe/infMDFe/lacres
      *
-     * @param  string $nLacre
+     * @param  int nLacre número do lacre
      *
      * @return DOMElement
      */
@@ -1363,8 +1406,8 @@ class Make
      * Grupo de Informações Adicionais Z01 pai A01
      * tag MDFe/infMDFe/infAdic (opcional)
      *
-     * @param  string $infAdFisco
-     * @param  string $infCpl
+     * @param  string infAdFisco Informações adicionais
+     * @param  string infCpl Informações complementares
      *
      * @return DOMElement
      */
@@ -1400,8 +1443,8 @@ class Make
      *
      * Autorizados para download do XML do MDF-e
      *
-     * @param string $cnpj
-     * @param string $cpf
+     * @param int CNPJ CNPJ do autorizado
+     * @param int CPF CPF do autorizado
      *
      * @return DOMElement
      */
@@ -1434,8 +1477,6 @@ class Make
     /**
      * buildInfModal
      * tag MDFe/infMDFe/infModal
-     *
-     * @param  string $versaoModal
      *
      * @return DOMElement
      */
@@ -1722,7 +1763,7 @@ class Make
      * tagInfTermDescarreg
      * tag MDFe/infMDFe/infModal/Aqua/infTermDescarreg
      *
-     * @param  string $cTermDescarreg
+     * @param  string cTermDescarreg
      *
      * @return DOMElement
      */
@@ -1744,7 +1785,7 @@ class Make
      * tagInfEmbComb
      * tag MDFe/infMDFe/infModal/Aqua/infEmbComb
      *
-     * @param  string $cEmbComb
+     * @param  string cEmbComb
      *
      * @return DOMElement
      */
@@ -1767,21 +1808,17 @@ class Make
      * tagVeicTracao
      * tag MDFe/infMDFe/infModal/rodo/veicTracao
      *
-     * @param  string $cInt
-     * @param  string $placa
-     * @param  string $tara
-     * @param  string $capKG
-     * @param  string $capM3
-     * @param  string $tpRod
-     * @param  string $tpCar
-     * @param  string $UF
-     * @param  string $propRNTRC
-     * @param  string $propCPF
-     * @param  string $propCNPJ
-     * @param  string $propXNome
-     * @param  string $propIE
-     * @param  string $propUF
-     * @param  string $propTpProp
+     * @param  string cInt Código interno do veículo
+     * @param  string placa Placa do veículo
+     * @param  string RENAVAM RENAVAM do veículo
+     * @param  int tara Tara em KG
+     * @param  int capKG Capacidade em KG
+     * @param  int capM3 Capacidade em M3
+     * @param  stdClass prop Proprietários do Veículo
+     * @param  stdClass condutor Informações do(s) Condutor(es) do
+     * @param  int tpRod Tipo de Rodado
+     * @param  int tpCar Tipo de Carroceria
+     * @param  string UF UF em que veículo está licenciado
      *
      * @return DOMElement
      */
@@ -1962,20 +1999,15 @@ class Make
      * tagVeicReboque
      * tag MDFe/infMDFe/infModal/rodo/VeicReboque
      *
-     * @param string $cInt
-     * @param string $placa
-     * @param string $tara
-     * @param string $capKG
-     * @param string $capM3
-     * @param string $propRNTRC
-     * @param string $propCPF
-     * @param string $propCNPJ
-     * @param string $propXNome
-     * @param string $propIE
-     * @param string $propUF
-     * @param string $propTpProp
-     * @param string $tpCar
-     * @param string $UF
+     * @param string cInt Código interno do veículo
+     * @param string placa Placa do veículo
+     * @param string RENAVAM RENAVAM do veículo
+     * @param int tara Tara em KG
+     * @param int capKG Capacidade em KG
+     * @param int capM3 Capacidade em M3
+     * @param stdClass Proprietários do Veículo
+     * @param int tpCar Tipo de Carroceria
+     * @param string UF UF em que veículo está licenciado
      *
      * @return DOMElement
      */
@@ -2122,7 +2154,7 @@ class Make
      * tagcodAgPorto
      * tag MDFe/infMDFe/infModal/rodo/codAgPorto
      *
-     * @param  string codAgPorto
+     * @param  string codAgPorto Código de Agendamento no porto
      *
      * @return DOMElement
      */
@@ -2146,7 +2178,7 @@ class Make
      * taglacRodo
      * tag MDFe/infMDFe/infModal/rodo/lacRodo
      *
-     * @param  string nLacre
+     * @param  string nLacre Número do Lacre
      *
      * @return DOMElement
      */
@@ -2186,6 +2218,7 @@ class Make
     }
 
     /**
+     * buildTagIde
      * Adiciona as tags
      * infMunCarrega e infPercurso
      * a tag ide

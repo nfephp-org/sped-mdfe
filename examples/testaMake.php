@@ -31,25 +31,14 @@ $std->xMunCarrega = 'GUARULHOS';
 $mdfe->taginfMunCarrega($std);
 
 $std = new \stdClass();
-$std->UFPer = 'MG';
-$mdfe->taginfPercurso($std);
-
-$std = new \stdClass();
-$std->UFPer = 'GO';
-$mdfe->taginfPercurso($std);
-
-$std = new \stdClass();
-$std->UFPer = 'TO';
-$mdfe->taginfPercurso($std);
-
-$std = new \stdClass();
-$std->UFPer = 'MA';
+$std->UFPer = ['MG','GO','TO','MA'];
 $mdfe->taginfPercurso($std);
 
 $std = new \stdClass();
 $std->cUF = '35';
 $std->tpAmb = '1';
 $std->tpEmit = '1';
+$std->tpTransp = 'ETC';
 $std->mod = '58';
 $std->serie = '0';
 $std->nMDF = '5766';
