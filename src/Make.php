@@ -162,7 +162,7 @@ class Make
     }
 
     /**
-     * Returns the model of MDFe
+     * Returns the model of NFe 55 or 65
      * @return int
      */
     public function getModelo()
@@ -182,7 +182,7 @@ class Make
     /**
      * MDFe xml mount method
      * this function returns TRUE on success or FALSE on error
-     * The xml of the MDFe must be retrieved by the getXML() function or
+     * The xml of the MDFe must be retrieved by the getXML() function or
      * directly by the public property $xml
      * @return boolean
      */
@@ -206,7 +206,9 @@ class Make
         }
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infModal"');
         $this->dom->appChild($this->infMDFe, $this->infDoc, 'Falta tag "infDoc"');
-        $this->dom->appChild($this->infMDFe, $this->seg, 'Falta tag "seg"');
+        if (!empty($this->seg)){
+            $this->dom->appChild($this->infMDFe, $this->seg, 'Falta tag "seg"');
+        }
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "tot"');
         foreach ($this->lacres as $lacres) {
             $this->dom->appChild($this->infMDFe, $lacres, 'Falta tag "lacres"');
@@ -214,11 +216,14 @@ class Make
         foreach ($this->autXML as $autXML) {
             $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "autXML"');
         }
-        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infAdic"');
+        if (!empty($this->infAdic)){
+            $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infAdic"');
+        }
         
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "infMDFe"');
         
         $this->dom->appendChild($this->MDFe);
+
         // testa da chave
         $this->checkMDFKey($this->dom);
         $this->xml = $this->dom->saveXML();
@@ -638,7 +643,7 @@ class Make
             true,
             "Nome do Município de Descarga"
         );
-        $this->dom->appChild($infDoc, $infMunDescarga, 'Falta tag "infMunDescarga"');
+        $this->dom->appChild($infDoc, $infMunDescarga, 'Falta tag "ide"');
         $this->infDoc = $infDoc;
         $this->aInfMunDescarga = $infMunDescarga;
         return $infMunDescarga;
@@ -669,33 +674,31 @@ class Make
                 'CPF',
                 'CNPJ'
             ];
-            foreach ($std->infCIOT as $nItem => $infCIOT) {
-                $stdinfCIOT = $this->equilizeParameters($infCIOT, $possible);
-                $infCIOT = $this->dom->createElement("infCIOT");
-                $this->dom->addChild(
-                    $infCIOT,
-                    "CIOT",
-                    $stdinfCIOT->CIOT,
-                    true,
-                    "CIOT"
-                );
-                
-                $this->dom->addChild(
-                    $infCIOT,
-                    "CPF",
-                    $stdinfCIOT->CPF,
-                    false,
-                    "CPF"
-                );
-                $this->dom->addChild(
-                    $infCIOT,
-                    "CNPJ",
-                    $stdinfCIOT->CNPJ,
-                    false,
-                    "CNPJ"
-                );
-                $this->dom->appChild($infANTT, $infCIOT, 'Falta tag "infCIOT"');
-            }
+            $stdinfCIOT = $this->equilizeParameters($std->infCIOT, $possible);
+            $infCIOT = $this->dom->createElement("infCIOT");
+            $this->dom->addChild(
+                $infCIOT,
+                "CIOT",
+                $stdinfCIOT->CIOT,
+                true,
+                "CIOT"
+            );
+            
+            $this->dom->addChild(
+                $infCIOT,
+                "CPF",
+                $stdinfCIOT->CPF,
+                false,
+                "CPF"
+            );
+            $this->dom->addChild(
+                $infCIOT,
+                "CNPJ",
+                $stdinfCIOT->CNPJ,
+                false,
+                "CNPJ"
+            );
+            $this->dom->appChild($infANTT, $infCIOT, 'Falta tag "infCIOT"');
         }
         if ($std->valePed != null) {
             $possible = [
@@ -705,73 +708,69 @@ class Make
                 'nCompra',
                 'vValePed'
             ];
-            foreach ($std->valePed as $nItem => $valePed) {
-                $stdvalePed = $this->equilizeParameters($valePed, $possible);
-                $valePed = $this->dom->createElement("valePed");
-                $disp = $this->dom->createElement("disp");
-                $this->dom->addChild(
-                    $disp,
-                    "CNPJForn",
-                    $stdvalePed->CNPJForn,
-                    false,
-                    "CNPJForn"
-                );
-                $this->dom->addChild(
-                    $disp,
-                    "CNPJPg",
-                    $stdvalePed->CNPJPg,
-                    false,
-                    "CNPJPg"
-                );
-                $this->dom->addChild(
-                    $disp,
-                    "CPFPg",
-                    $stdvalePed->CPFPg,
-                    false,
-                    "CPFPg"
-                );
-                $this->dom->addChild(
-                    $disp,
-                    "nCompra",
-                    $stdvalePed->nCompra,
-                    false,
-                    "nCompra"
-                );
-                $this->dom->addChild(
-                    $disp,
-                    "vValePed",
-                    $stdvalePed->vValePed,
-                    false,
-                    "vValePed"
-                );
-                $this->dom->appChild($valePed, $disp, 'Falta tag "disp"');
-                $this->dom->appChild($infANTT, $valePed, 'Falta tag "valePed"');
-            }
+            $stdvalePed = $this->equilizeParameters($std->valePed, $possible);
+            $valePed = $this->dom->createElement("valePed");
+            $disp = $this->dom->createElement("disp");
+            $this->dom->addChild(
+                $disp,
+                "CNPJForn",
+                $stdvalePed->CNPJForn,
+                false,
+                "CNPJForn"
+            );
+            $this->dom->addChild(
+                $disp,
+                "CNPJPg",
+                $stdvalePed->CNPJPg,
+                false,
+                "CNPJPg"
+            );
+            $this->dom->addChild(
+                $disp,
+                "CPFPg",
+                $stdvalePed->CPFPg,
+                false,
+                "CPFPg"
+            );
+            $this->dom->addChild(
+                $disp,
+                "nCompra",
+                $stdvalePed->nCompra,
+                false,
+                "nCompra"
+            );
+            $this->dom->addChild(
+                $disp,
+                "vValePed",
+                $stdvalePed->vValePed,
+                false,
+                "vValePed"
+            );
+            $this->dom->appChild($valePed, $disp, 'Falta tag "disp"');
+            $this->dom->appChild($infANTT, $valePed, 'Falta tag "valePed"');
         }
         if ($std->infContratante != null) {
             $possible = [
                 'CPF',
                 'CNPJ'
             ];
-            foreach ($std->infContratante as $nItem => $infContratante) {
-                $stdinfContratante = $this->equilizeParameters($infContratante, $possible);
-                $infContratante = $this->dom->createElement("infContratante");
-                $this->dom->addChild(
-                    $infContratante,
-                    "CPF",
-                    $stdinfContratante->CPF,
-                    false,
-                    "CPF"
-                );
-                $this->dom->addChild(
-                    $infContratante,
-                    "CNPJ",
-                    $stdinfContratante->CNPJ,
-                    false,
-                    "CNPJ"
-                );
-                $this->dom->appChild($infANTT, $infContratante, 'Falta tag "infContratante"');
-            }
+            $stdinfContratante = $this->equilizeParameters($std->infContratante, $possible);
+            $infContratante = $this->dom->createElement("infContratante");
+            $this->dom->addChild(
+                $infContratante,
+                "CPF",
+                $stdinfContratante->CPF,
+                false,
+                "CPF"
+            );
+            $this->dom->addChild(
+                $infContratante,
+                "CNPJ",
+                $stdinfContratante->CNPJ,
+                false,
+                "CNPJ"
+            );
+            $this->dom->appChild($infANTT, $infContratante, 'Falta tag "infContratante"');
         }
         
         $this->dom->appChild($rodo, $infANTT, 'Falta tag "ide"');
@@ -1048,8 +1047,8 @@ class Make
     public function taginfUnidTransp(stdClass $std)
     {
         $possible = [
-            'tpUnidTrans',
-            'idUnidTrans',
+            'tpUnidTransp',
+            'idUnidTransp',
             'qtdRat',
             'lacUnidTransp',
             'infUnidCarga'
@@ -1058,15 +1057,15 @@ class Make
         $infUnidTransp = $this->dom->createElement("infUnidTransp");
         $this->dom->addChild(
             $infUnidTransp,
-            "tpUnidTrans",
-            $std->tpUnidTrans,
+            "tpUnidTransp",
+            $std->tpUnidTransp,
             true,
             "Tipo da Unidade de Transporte"
         );
         $this->dom->addChild(
             $infUnidTransp,
-            "idUnidTrans",
-            $std->idUnidTrans,
+            "idUnidTransp",
+            $std->idUnidTransp,
             false,
             "Identificação da Unidade de Transporte"
         );
@@ -2235,12 +2234,14 @@ class Make
             $tpEmis,
             $cNF
         );
+
         //caso a chave contida na NFe esteja errada
         //substituir a chave
         if ($chaveMontada != $chave) {
             $ide->getElementsByTagName('cDV')->item(0)->nodeValue = substr($chaveMontada, -1);
             $infMDFe = $dom->getElementsByTagName("infMDFe")->item(0);
             $infMDFe->setAttribute("Id", "MDFe" . $chaveMontada);
+            $infMDFe->setAttribute("versao", $this->versao);
             $this->chMDFe = $chaveMontada;
         }
     }
