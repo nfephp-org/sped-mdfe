@@ -307,12 +307,37 @@ class Tools
         $dom->loadXML($signed);
         //exception will be throw if MDFe is not valid
         $method = 'mdfe';
+
         $infMDFeSupl = !empty($dom->getElementsByTagName('infMDFeSupl')->item(0));
         if (!$infMDFeSupl) {
             $signed = $this->addQRCode($dom);
         }
+        $modal = (int) $dom->getElementsByTagName('modal')->item(0)->nodeValue;
+        //validate
         $this->isValid($this->versao, $signed, $method);
+        //validate modal
+        switch ($modal) {
+            case 1:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'rodo'), $method . 'ModalRodoviario');
+                break;
+            case 2:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'aereo'), $method . 'ModalAereo');
+                break;
+            case 3:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'aquav'), $method . 'ModalAquaviario');
+                break;
+            case 4:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'ferrov'), $method . 'ModalFerroviario');
+                break;
+        }
         return $signed;
+    }
+
+    public function getModalXML($dom, $modal)
+    {
+        $modal = $dom->getElementsByTagName($modal)->item(0);
+        $modal->setAttribute("xmlns", "http://www.portalfiscal.inf.br/mdfe");
+        return $dom->saveXML($modal);
     }
 
     /**
@@ -382,13 +407,13 @@ class Tools
         if ($stdServ === false) {
             throw new \RuntimeException(
                 "Nenhum serviço foi localizado para esta unidade "
-                . "da federação [$sigla]."
+                    . "da federação [$sigla]."
             );
         }
         if (empty($stdServ->$service->url)) {
             throw new \RuntimeException(
                 "Este serviço [$service] não está disponivel para esta "
-                . "unidade da federação [$uf] ou para este modelo"
+                    . "unidade da federação [$uf] ou para este modelo"
             );
         }
         //recuperação do cUF
@@ -439,7 +464,7 @@ class Tools
     protected function sendRequest($request, array $parameters = [])
     {
         $this->checkSoap();
-        return (string)$this->soap->send(
+        return (string) $this->soap->send(
             $this->urlService,
             $this->urlMethod,
             $this->urlAction,

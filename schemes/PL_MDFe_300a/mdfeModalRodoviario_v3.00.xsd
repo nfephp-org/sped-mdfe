@@ -283,7 +283,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs
 												<xs:documentation>Tipo Proprietário</xs:documentation>
 												<xs:documentation>Preencher com:
 												0-TAC Agregado;
-												1-TAC Independente; 
+												1-TAC Independente;
 												2 – Outros.</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
@@ -506,7 +506,7 @@ Só preenchido quando o veículo não pertencer à empresa emitente do MDF-e</xs
 												<xs:documentation>Tipo Proprietário</xs:documentation>
 												<xs:documentation>Preencher com:
 												0-TAC Agregado;
-												1-TAC Independente;  
+												1-TAC Independente;
 												2 – Outros.</xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
