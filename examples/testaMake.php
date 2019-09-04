@@ -129,7 +129,7 @@ $mdfe->tagenderEmit($std);
     $stdcondutor->xNome = 'JOAO DA SILVA';
     $stdcondutor->CPF = '11122233344';
 
-    $stdveicTracao->condutor = $stdcondutor;
+    $stdveicTracao->condutor = [$stdcondutor];
 
     $mdfe->tagveicTracao($stdveicTracao);
 
