@@ -214,25 +214,25 @@ class Make
         
         $this->infMDFe = $this->dom->createElement("infMDFe");
 
-        $this->dom->appChild($this->infMDFe, $this->ide, 'Falta tag "ide"');
-        $this->dom->appChild($this->emit, $this->enderEmit, 'Falta tag "enderEmit"');
-        $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "emit"');
+        $this->dom->appChild($this->infMDFe, $this->ide, 'Falta tag "infMDFe"');
+        $this->dom->appChild($this->emit, $this->enderEmit, 'Falta tag "emit"');
+        $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "infMDFe"');
         if (! empty($this->rodo)) {
-            $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "rodo"');
+            $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "infModal"');
         }
-        $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infModal"');
-        $this->dom->appChild($this->infMDFe, $this->infDoc, 'Falta tag "infDoc"');
-        $this->dom->appChild($this->infMDFe, $this->seg, 'Falta tag "seg"');
-        $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "tot"');
+        $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infMDFe"');
+        $this->dom->appChild($this->infMDFe, $this->infDoc, 'Falta tag "infMDFe"');
+        $this->dom->appChild($this->infMDFe, $this->seg, 'Falta tag "infMDFe"');
+        $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "infMDFe"');
         foreach ($this->aLacres as $lacre) {
-            $this->dom->appChild($this->infMDFe, $lacre, 'Falta tag "lacres"');
+            $this->dom->appChild($this->infMDFe, $lacre, 'Falta tag "infMDFe"');
         }
         foreach ($this->autXML as $autXML) {
-            $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "autXML"');
+            $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "infMDFe"');
         }
-        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infAdic"');
+        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
         
-        $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "infMDFe"');
+        $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         
         $this->dom->appendChild($this->MDFe);
         // testa da chave
@@ -707,7 +707,7 @@ class Make
                     false,
                     "CNPJ"
                 );
-                $this->dom->appChild($infANTT, $infCIOT, 'Falta tag "infCIOT"');
+                $this->dom->appChild($infANTT, $infCIOT, 'Falta tag "$infANTT"');
             }
         }
         if ($std->valePed != null) {
@@ -757,8 +757,8 @@ class Make
                     false,
                     "vValePed"
                 );
-                $this->dom->appChild($valePed, $disp, 'Falta tag "disp"');
-                $this->dom->appChild($infANTT, $valePed, 'Falta tag "valePed"');
+                $this->dom->appChild($valePed, $disp, 'Falta tag "valePed"');
+                $this->dom->appChild($infANTT, $valePed, 'Falta tag "infANTT"');
             }
         }
         if ($std->infContratante != null) {
@@ -783,11 +783,11 @@ class Make
                     false,
                     "CNPJ"
                 );
-                $this->dom->appChild($infANTT, $infContratante, 'Falta tag "infContratante"');
+                $this->dom->appChild($infANTT, $infContratante, 'Falta tag "infANTT"');
             }
         }
         
-        $this->dom->appChild($rodo, $infANTT, 'Falta tag "infANTT"');
+        $this->dom->appChild($rodo, $infANTT, 'Falta tag "rodo"');
         $this->rodo = $rodo;
         return $this->rodo;
     }
@@ -834,11 +834,11 @@ class Make
         );
         if ($std->infUnidTransp != null) {
             $infUnidTransp = $this->taginfUnidTransp($std->infUnidTransp);
-            $this->dom->appChild($infCTe, $infUnidTransp, 'Falta tag "infUnidTransp"');
+            $this->dom->appChild($infCTe, $infUnidTransp, 'Falta tag "infCTe"');
         }
         if ($std->peri != null) {
             $peri = $this->tagperi($std->peri);
-            $this->dom->appChild($infCTe, $peri, 'Falta tag "$peri"');
+            $this->dom->appChild($infCTe, $peri, 'Falta tag "infCTe"');
         }
         if ($std->infEntregaParcial != null) {
             $possible = [
@@ -861,9 +861,9 @@ class Make
                 true,
                 "Quantidade de volumes enviados no MDF-e"
             );
-            $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "infEntregaParcial"');
+            $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "infCTe"');
         }
-        $this->dom->appChild($this->aInfMunDescarga, $infCTe, 'Falta tag "infCTe"');
+        $this->dom->appChild($this->aInfMunDescarga, $infCTe, 'Falta tag "infMunDescarga"');
         return $infCTe;
     }
 
@@ -972,13 +972,13 @@ class Make
         );
         if ($std->infUnidTransp != null) {
             $infUnidTransp = $this->taginfUnidTransp($std->infUnidTransp);
-            $this->dom->appChild($infNFe, $infUnidTransp, 'Falta tag "infUnidTransp"');
+            $this->dom->appChild($infNFe, $infUnidTransp, 'Falta tag "infNFe"');
         }
         if ($std->peri != null) {
             $peri = $this->tagperi($std->peri);
-            $this->dom->appChild($infNFe, $peri, 'Falta tag "peri"');
+            $this->dom->appChild($infNFe, $peri, 'Falta tag "infNFe"');
         }
-        $this->dom->appChild($this->aInfMunDescarga, $infNFe, 'Falta tag "infNFe"');
+        $this->dom->appChild($this->aInfMunDescarga, $infNFe, 'Falta tag "infMunDescarga"');
         return $infNFe;
     }
 
@@ -1015,13 +1015,13 @@ class Make
         );
         if ($std->infUnidTransp != null) {
             $infUnidTransp = $this->taginfUnidTransp($std->infUnidTransp);
-            $this->dom->appChild($infMDFeTransp, $infUnidTransp, 'Falta tag "infUnidTransp"');
+            $this->dom->appChild($infMDFeTransp, $infUnidTransp, 'Falta tag "infMDFeTransp"');
         }
         if ($std->peri != null) {
             $peri = $this->tagperi($std->peri);
-            $this->dom->appChild($infMDFeTransp, $peri, 'Falta tag "peri"');
+            $this->dom->appChild($infMDFeTransp, $peri, 'Falta tag "infMDFeTransp"');
         }
-        $this->dom->appChild($this->aInfMunDescarga, $infMDFeTransp, 'Falta tag "infMDFeTransp"');
+        $this->dom->appChild($this->aInfMunDescarga, $infMDFeTransp, 'Falta tag "infMunDescarga"');
         return $infMDFeTransp;
     }
 
@@ -1071,12 +1071,12 @@ class Make
                     true,
                     "Número do lacre"
                 );
-                $this->dom->appChild($infUnidTransp, $lacUnidTransp, 'Falta tag "lacUnidTransp"');
+                $this->dom->appChild($infUnidTransp, $lacUnidTransp, 'Falta tag "infUnidTransp"');
             }
         }
         if ($std->infUnidCarga != null) {
             $infUnidCarga = $this->taginfUnidCarga($std->infUnidCarga);
-            $this->dom->appChild($infUnidTransp, $infUnidCarga, 'Falta tag "infUnidCarga"');
+            $this->dom->appChild($infUnidTransp, $infUnidCarga, 'Falta tag "infUnidTransp"');
         }
         $this->dom->addChild(
             $infUnidTransp,
@@ -1133,7 +1133,7 @@ class Make
                     true,
                     "Número do lacre"
                 );
-                $this->dom->appChild($infUnidCarga, $lacUnidCarga, 'Falta tag "lacUnidCarga"');
+                $this->dom->appChild($infUnidCarga, $lacUnidCarga, 'Falta tag "infUnidCarga"');
             }
         }
         $this->dom->addChild(
@@ -1188,7 +1188,7 @@ class Make
             false,
             "Número do CPF do responsável pelo seguro"
         );
-        $this->dom->appChild($seg, $infResp, 'Falta tag "infResp"');
+        $this->dom->appChild($seg, $infResp, 'Falta tag "seg"');
         if ($std->infSeg != null) {
             $possible = [
                 'xSeg',
@@ -1210,7 +1210,7 @@ class Make
                 false,
                 "Número do CNPJ da seguradora"
             );
-            $this->dom->appChild($seg, $infSeg, 'Falta tag "infSeg"');
+            $this->dom->appChild($seg, $infSeg, 'Falta tag "seg"');
         }
         $this->dom->addChild(
             $seg,
@@ -1853,7 +1853,7 @@ class Make
                 true,
                 "Tipo Proprietário"
             );
-            $this->dom->appChild($veicTracao, $prop, 'Falta tag "prop"');
+            $this->dom->appChild($veicTracao, $prop, 'Falta tag "veicTracao"');
         }
         
         if ($std->condutor != null) {
@@ -1878,7 +1878,7 @@ class Make
 					true,
 					"CPF do Condutor "
 				);
-				$this->dom->appChild($veicTracao, $tagcondutor, 'Falta tag "condutor"');
+				$this->dom->appChild($veicTracao, $tagcondutor, 'Falta tag "veicTracao"');
 			}
         }
         $this->dom->addChild(
@@ -1903,7 +1903,7 @@ class Make
             "UF de licenciamento do veículo"
         );
 
-        $this->dom->appChild($this->rodo, $veicTracao, 'Falta tag "veicTracao"');
+        $this->dom->appChild($this->rodo, $veicTracao, 'Falta tag "rodo"');
         return $this->rodo;
     }
 
@@ -2032,7 +2032,7 @@ class Make
                 true,
                 "Tipo Proprietário"
             );
-            $this->dom->appChild($veicReboque, $prop, 'Falta tag "prop"');
+            $this->dom->appChild($veicReboque, $prop, 'Falta tag "veicReboque"');
         }
         $this->dom->addChild(
             $veicReboque,
@@ -2049,7 +2049,7 @@ class Make
             "UF de licenciamento do veículo"
         );
 
-        $this->dom->appChild($this->rodo, $veicReboque, 'Falta tag "veicReboque"');
+        $this->dom->appChild($this->rodo, $veicReboque, 'Falta tag "rodo"');
         return $this->rodo;
     }
 
@@ -2097,7 +2097,7 @@ class Make
             false,
             "Número do Lacre"
         );
-        $this->dom->appChild($this->rodo, $lacRodo, 'Falta tag "lacRodo"');
+        $this->dom->appChild($this->rodo, $lacRodo, 'Falta tag "rodo"');
         return $this->rodo;
     }
 
