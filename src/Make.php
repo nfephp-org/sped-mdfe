@@ -1038,8 +1038,8 @@ class Make
     public function taginfUnidTransp(stdClass $std)
     {
         $possible = [
-            'tpUnidTrans',
-            'idUnidTrans',
+            'tpUnidTransp',
+            'idUnidTransp',
             'qtdRat',
             'lacUnidTransp',
             'infUnidCarga'
@@ -1048,15 +1048,15 @@ class Make
         $infUnidTransp = $this->dom->createElement("infUnidTransp");
         $this->dom->addChild(
             $infUnidTransp,
-            "tpUnidTrans",
-            $std->tpUnidTrans,
+            "tpUnidTransp",
+            $std->tpUnidTransp,
             true,
             "Tipo da Unidade de Transporte"
         );
         $this->dom->addChild(
             $infUnidTransp,
-            "idUnidTrans",
-            $std->idUnidTrans,
+            "idUnidTransp",
+            $std->idUnidTransp,
             false,
             "Identificação da Unidade de Transporte"
         );
