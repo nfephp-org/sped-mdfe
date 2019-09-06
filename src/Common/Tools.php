@@ -150,6 +150,11 @@ class Tools
     /**
      * @var array
      */
+    /**
+     * @var string
+     */
+    protected $typePerson = 'J';
+
     protected $soapnamespaces = [
         'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
         'xmlns:xsd' => "http://www.w3.org/2001/XMLSchema",
@@ -181,6 +186,7 @@ class Tools
         $this->setEnvironmentTimeZone($this->config->siglaUF);
         $this->certificate = $certificate;
         $this->setEnvironment($this->config->tpAmb);
+        $this->typePerson = $this->getTypeOfPersonFromCertificate();
     }
 
     /**
@@ -201,6 +207,31 @@ class Tools
     {
         $this->verAplic = $ver;
     }
+
+    /**
+     * Return J or F from existing type in ASN.1 certificate
+     * J - pessoa juridica (CNPJ)
+     * F - pessoa física (CPF)
+     * @return string
+     */
+    public function getTypeOfPersonFromCertificate()
+    {
+        $cnpj = $this->certificate->getCnpj();
+        $type = 'J';
+        if (substr($cnpj, 0, 1) === 'N') {
+            //não é CNPJ, então verificar se é CPF
+            $cpf = $this->certificate->getCpf();
+            if (substr($cpf, 0, 1) !== 'N') {
+                $type = 'F';
+            } else {
+                //não foi localizado nem CNPJ e nem CPF esse certificado não é usável
+                //throw new RuntimeException('Faltam elementos CNPJ/CPF no certificado digital.');
+                $type = '';
+            }
+        }
+        return $type;
+    }
+
 
     /**
      * Load Soap Class

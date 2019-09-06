@@ -202,7 +202,7 @@ class Tools extends ToolsCommon
         $cMun = '',
         $dtEnc = ''
     ) {
-    
+
 
 
         $tpEvento = 110112;
@@ -252,6 +252,7 @@ class Tools extends ToolsCommon
             . "<CPF>$cpf</CPF>"
             . "</condutor>"
             . "</evIncCondutorMDFe>";
+
         return $this->sefazEvento(
             $this->config->siglaUF,
             $chave,
@@ -325,9 +326,13 @@ class Tools extends ToolsCommon
         $request = "<eventoMDFe xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
             . "<infEvento Id=\"$eventId\">"
             . "<cOrgao>$cOrgao</cOrgao>"
-            . "<tpAmb>$this->tpAmb</tpAmb>"
-            . "<CNPJ>$cnpj</CNPJ>"
-            . "<chMDFe>$chave</chMDFe>"
+            . "<tpAmb>$this->tpAmb</tpAmb>";
+        if ($this->typePerson === 'J') {
+            $request .= "<CNPJ>$cnpj</CNPJ>";
+        } else {
+            $request .= "<CPF>$cnpj</CPF>";
+        }
+        $request .= "<chMDFe>$chave</chMDFe>"
             . "<dhEvento>$dhEvento</dhEvento>"
             . "<tpEvento>$tpEvento</tpEvento>"
             . "<nSeqEvento>$nSeqEvento</nSeqEvento>"
