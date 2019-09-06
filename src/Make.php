@@ -470,6 +470,7 @@ class Make
     {
         $possible = [
             'CNPJ',
+            'CPF',
             'IE',
             'xNome',
             'xFant'
@@ -484,6 +485,13 @@ class Make
             $std->CNPJ,
             true,
             $identificador . "CNPJ do emitente"
+        );
+        $this->dom->addChild(
+            $this->emit,
+            "CPF",
+            $std->CPF,
+            true,
+            $identificador . "CPF do emitente"
         );
         $this->dom->addChild(
             $this->emit,
