@@ -167,8 +167,8 @@ $std->indReentrega = '1';
 
     /* Informações das Unidades de Transporte (Carreta/Reboque/Vagão) */
     $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTrans = '1';
-    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    $stdinfUnidTransp->tpUnidTransp = '1';
+    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
         /* Lacres das Unidades de Transporte */
         $stdlacUnidTransp = new \stdClass();
@@ -225,8 +225,8 @@ $std->indReentrega = '1';
 
     // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
     $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTrans = '1';
-    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    $stdinfUnidTransp->tpUnidTransp = '1';
+    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
         // Lacres das Unidades de Transporte
         $stdlacUnidTransp = new \stdClass();
@@ -271,8 +271,8 @@ $std->indReentrega = '1';
 
     // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
     $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTrans = '1';
-    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    $stdinfUnidTransp->tpUnidTransp = '1';
+    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
         // Lacres das Unidades de Transporte
         $stdlacUnidTransp = new \stdClass();
