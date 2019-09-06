@@ -110,6 +110,8 @@ class Complements
             $node = 'procCancMDFe';
         } elseif ($tpEvento == '110112') {
             $node = 'procEncMDFe';
+        } elseif ($tpEvento == '110114') {
+            $node = 'procIncCondutor';
         } else {
             throw DocumentsException::wrongDocument(4, "Evento não disponivel.");
         }
