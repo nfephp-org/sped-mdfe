@@ -102,7 +102,7 @@ class Make
     /**
      * @type string|\DOMNode
      */
-    private $lacres = [];
+    private $aLacres = [];
     /**
      * @type string|\DOMNode
      */
@@ -172,6 +172,18 @@ class Make
      */
     private $valePed = '';
     /**
+     * @type array|\DOMNode
+     */
+    private $aInfMunDescarga = [];
+    /**
+     * @type array|\DOMNode
+     */
+    private $aInfMunCarrega = [];
+    /**
+     * @type array|\DOMNode
+     */
+    private $aInfPercurso = [];
+    /**
      * @type string|\DOMNode
      */
     private $veicTracao = '';
@@ -207,6 +219,10 @@ class Make
         $this->dom->formatOutput = false;
     }
 
+    /**
+     * Retorns the xml
+     * @return xml
+     */
     public function getXML()
     {
         if (empty($this->xml)) {
@@ -260,7 +276,6 @@ class Make
         $this->buildInfModal();
 
         $this->infMDFe = $this->dom->createElement("infMDFe");
-
         $this->dom->appChild($this->infMDFe, $this->ide, 'Falta tag "ide"');
         if ($this->infMunCarrega) {
             $this->dom->addArrayChild($this->ide, $this->infMunCarrega, 'Falta tag "infMunCarrega"');
@@ -337,22 +352,19 @@ class Make
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "tot"');
         foreach ($this->lacres as $lacres) {
             $this->dom->appChild($this->infMDFe, $lacres, 'Falta tag "lacres"');
+
         }
         foreach ($this->autXML as $autXML) {
-            $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "autXML"');
+            $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "infMDFe"');
         }
         if (!empty($this->infAdic)) {
             $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infAdic"');
         }
-
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "infMDFe"');
-
         $this->dom->appendChild($this->MDFe);
-
         // testa da chave
         $this->checkMDFKey($this->dom);
         $this->xml = $this->dom->saveXML();
-
         return true;
     }
 
@@ -512,9 +524,7 @@ class Make
      *
      * tag MDFe/infMDFe/ide/infMunCarrega
      *
-     * @param  string $cMunCarrega
-     * @param  string $xMunCarrega
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfMunCarrega(stdClass $std)
@@ -549,8 +559,7 @@ class Make
      *
      * tag MDFe/infMDFe/ide/infPercurso
      *
-     * @param  string $ufPer
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfPercurso(stdClass $std)
@@ -577,11 +586,7 @@ class Make
      * Identificação do emitente da MDFe
      * tag MDFe/infMDFe/emit
      *
-     * @param  string $cnpj
-     * @param  string $numIE
-     * @param  string $xNome
-     * @param  string $xFant
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagemit(stdClass $std)
@@ -644,17 +649,7 @@ class Make
      * Endereço do emitente [30] pai [25]
      * tag MDFe/infMDFe/emit/endEmit
      *
-     * @param  string $xLgr
-     * @param  string $nro
-     * @param  string $xCpl
-     * @param  string $xBairro
-     * @param  string $cMun
-     * @param  string $xMun
-     * @param  string $cep
-     * @param  string $UF
-     * @param  string $fone
-     * @param  string $email
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagenderEmit(stdClass $std)
@@ -963,10 +958,7 @@ class Make
      * tagInfMunDescarga
      * tag MDFe/infMDFe/infDoc/infMunDescarga
      *
-     * @param  integer $nItem
-     * @param  string  $cMunDescarga
-     * @param  string  $xMunDescarga
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfMunDescarga(stdClass $std)
@@ -995,18 +987,12 @@ class Make
         $this->infMunDescarga[] = $infMunDescarga;
         return $infMunDescarga;
     }
-
+      
     /**
      * taginfCTe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe
      *
-     * @param  integer chCTe
-     * @param  string  SegCodBarra
-     * @param  string  indReentrega
-     * @param  string  infUnidTransp
-     * @param  string  peri
-     * @param  string  infEntregaParcial
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfCTe(stdClass $std)
@@ -1052,6 +1038,7 @@ class Make
             foreach ($std->peri as  $value) {
                 $this->dom->appChild($infCTe, $this->tagperi($value), 'Falta tag "peri"');
             }
+
         }
         if ($std->infEntregaParcial != null) {
             $possible = [
@@ -1075,7 +1062,7 @@ class Make
                 true,
                 $identificadorparcial . "Quantidade de volumes enviados no MDF-e"
             );
-            $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "$peri"');
+            $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "infCTe"');
         }
         $this->infCTe[count($this->infMunDescarga) - 1][] = $infCTe;
         return $infCTe;
@@ -1085,13 +1072,7 @@ class Make
      * tagperi
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/peri
      *
-     * @param  integer nONU
-     * @param  string  xNomeAE
-     * @param  string  xClaRisco
-     * @param  string  grEmb
-     * @param  string  qTotProd
-     * @param  string  qVolTipo
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagperi(stdClass $std)
@@ -1155,12 +1136,7 @@ class Make
      * taginfNFe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
      *
-     * @param  integer chNFe
-     * @param  string  SegCodBarra
-     * @param  string  indReentrega
-     * @param  string  infUnidTransp
-     * @param  string  peri
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfNFe(stdClass $std)
@@ -1213,11 +1189,7 @@ class Make
      * taginfMDFeTransp
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infMDFeTransp
      *
-     * @param  integer chMDFe
-     * @param  string  indReentrega
-     * @param  string  infUnidTransp
-     * @param  string  peri
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfMDFeTransp(stdClass $std)
@@ -1260,12 +1232,7 @@ class Make
      * taginfUnidTransp
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/infUnidTransp
      *
-     * @param  integer tpUnidTrans
-     * @param  string  idUnidTrans
-     * @param  string  qtdRat
-     * @param  string  lacUnidTransp
-     * @param  string  infUnidCarga
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfUnidTransp(stdClass $std)
@@ -1298,7 +1265,7 @@ class Make
                 'nLacre'
             ];
             $stdlacUnidTransp = $this->equilizeParameters($std->lacUnidTransp, $possible);
-            foreach ($stdlacUnidTransp->nLacre as $nItem => $nLacre) {
+            foreach ($stdlacUnidTransp->nLacre as $nLacre) {
                 $lacUnidTransp = $this->dom->createElement("lacUnidTransp");
                 $this->dom->addChild(
                     $lacUnidTransp,
@@ -1314,6 +1281,7 @@ class Make
             foreach ($std->infUnidCarga as  $value) {
                 $this->dom->appChild($infUnidTransp, $this->taginfUnidCarga($value), 'Falta tag "infUnidCarga"');
             }
+
         }
         $this->dom->addChild(
             $infUnidTransp,
@@ -1329,11 +1297,7 @@ class Make
      * taginfUnidCarga
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/infUnidCarga
      *
-     * @param  integer tpUnidCarga
-     * @param  string  idUnidCarga
-     * @param  string  lacUnidCarga
-     * @param  string  qtdRat
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfUnidCarga(stdClass $std)
@@ -1365,7 +1329,7 @@ class Make
                 'nLacre'
             ];
             $stdlacUnidCarga = $this->equilizeParameters($std->lacUnidCarga, $possible);
-            foreach ($stdlacUnidCarga->nLacre as $nItem => $nLacre) {
+            foreach ($stdlacUnidCarga->nLacre as $nLacre) {
                 $lacUnidCarga = $this->dom->createElement("lacUnidCarga");
                 $this->dom->addChild(
                     $lacUnidCarga,
@@ -1374,7 +1338,7 @@ class Make
                     true,
                     "Número do lacre"
                 );
-                $this->dom->appChild($infUnidCarga, $lacUnidCarga, 'Falta tag "lacUnidCarga"');
+                $this->dom->appChild($infUnidCarga, $lacUnidCarga, 'Falta tag "infUnidCarga"');
             }
         }
         $this->dom->addChild(
@@ -1391,13 +1355,7 @@ class Make
      * tagseg
      * tag MDFe/infMDFe/seg
      *
-     * @param  string $respSeg
-     * @param  string $CNPJ
-     * @param  string $CPF
-     * @param  string $infSeg
-     * @param  string $nApol
-     * @param  string $nAver
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagseg(stdClass $std)
@@ -1434,7 +1392,7 @@ class Make
             false,
             "Número do CPF do responsável pelo seguro"
         );
-        $this->dom->appChild($seg, $infResp, 'Falta tag "infResp"');
+        $this->dom->appChild($seg, $infResp, 'Falta tag "seg"');
         if ($std->infSeg != null) {
             $possible = [
                 'xSeg',
@@ -1456,7 +1414,7 @@ class Make
                 false,
                 "Número do CNPJ da seguradora"
             );
-            $this->dom->appChild($seg, $infSeg, 'Falta tag "infSeg"');
+            $this->dom->appChild($seg, $infSeg, 'Falta tag "seg"');
         }
         $this->dom->addChild(
             $seg,
@@ -1466,7 +1424,7 @@ class Make
             "Número da Apólice"
         );
         if ($std->nAver != null) {
-            foreach ($std->nAver as $nItem => $nAver) {
+            foreach ($std->nAver as $nAver) {
                 $this->dom->addChild(
                     $seg,
                     "nAver",
@@ -1484,13 +1442,7 @@ class Make
      * tagTot
      * tag MDFe/infMDFe/tot
      *
-     * @param  string $qCTe
-     * @param  string $qNFe
-     * @param  string $qMDFe
-     * @param  string $vCarga
-     * @param  string $cUnid
-     * @param  string $qCarga
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagtot(stdClass $std)
@@ -1555,8 +1507,7 @@ class Make
      * tagLacres
      * tag MDFe/infMDFe/lacres
      *
-     * @param  string $nLacre
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taglacres(stdClass $std)
@@ -1565,20 +1516,18 @@ class Make
             'nLacre'
         ];
         $std = $this->equilizeParameters($std, $possible);
-        if ($std->nLacre != null) {
-            foreach ($std->nLacre as $nItem => $nLacre) {
-                $lacres = $this->dom->createElement("lacres");
-                $this->dom->addChild(
-                    $lacres,
-                    "nLacre",
-                    $nLacre,
-                    false,
-                    "Número do lacre"
-                );
-                $this->lacres[] = $lacres; //array de DOMNode
-            }
-        }
-        return $this->lacres;
+		foreach ($std->nLacre as $nLacre) {
+			$lacres = $this->dom->createElement("lacres");
+			$this->dom->addChild(
+				$lacres,
+				"nLacre",
+				$nLacre,
+				false,
+				"Número do lacre"
+			);
+			$this->aLacres[] = $lacres; //array de DOMNode
+		}
+        return $this->aLacres;
     }
 
     /**
@@ -1586,9 +1535,7 @@ class Make
      * Grupo de Informações Adicionais Z01 pai A01
      * tag MDFe/infMDFe/infAdic (opcional)
      *
-     * @param  string $infAdFisco
-     * @param  string $infCpl
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taginfAdic(stdClass $std)
@@ -1623,9 +1570,7 @@ class Make
      *
      * Autorizados para download do XML do MDF-e
      *
-     * @param string $cnpj
-     * @param string $cpf
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagautXML(stdClass $std)
@@ -1657,8 +1602,6 @@ class Make
     /**
      * buildInfModal
      * tag MDFe/infMDFe/infModal
-     *
-     * @param  string $versaoModal
      *
      * @return DOMElement
      */
@@ -2131,7 +2074,7 @@ class Make
      * tagInfEmbComb
      * tag MDFe/infMDFe/infModal/Aqua/infEmbComb
      *
-     * @param  string $cEmbComb
+     * @param  string cEmbComb
      *
      * @return DOMElement
      */
@@ -2199,22 +2142,7 @@ class Make
      * tagVeicTracao
      * tag MDFe/infMDFe/infModal/rodo/veicTracao
      *
-     * @param  string $cInt
-     * @param  string $placa
-     * @param  string $tara
-     * @param  string $capKG
-     * @param  string $capM3
-     * @param  string $tpRod
-     * @param  string $tpCar
-     * @param  string $UF
-     * @param  string $propRNTRC
-     * @param  string $propCPF
-     * @param  string $propCNPJ
-     * @param  string $propXNome
-     * @param  string $propIE
-     * @param  string $propUF
-     * @param  string $propTpProp
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
 
@@ -2343,7 +2271,7 @@ class Make
                 true,
                 $identificadorProp . "Tipo Proprietário"
             );
-            $this->dom->appChild($veicTracao, $prop, 'Falta tag "prop"');
+            $this->dom->appChild($veicTracao, $prop, 'Falta tag "veicTracao"');
         }
         if ($std->condutor) {
             foreach ($std->condutor as $value) {
@@ -2379,21 +2307,7 @@ class Make
      * tagVeicReboque
      * tag MDFe/infMDFe/infModal/rodo/VeicReboque
      *
-     * @param string $cInt
-     * @param string $placa
-     * @param string $tara
-     * @param string $capKG
-     * @param string $capM3
-     * @param string $propRNTRC
-     * @param string $propCPF
-     * @param string $propCNPJ
-     * @param string $propXNome
-     * @param string $propIE
-     * @param string $propUF
-     * @param string $propTpProp
-     * @param string $tpCar
-     * @param string $UF
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagveicReboque(stdClass $std)
@@ -2516,7 +2430,7 @@ class Make
                 true,
                 $identificadorprop . "Tipo Proprietário"
             );
-            $this->dom->appChild($veicReboque, $prop, 'Falta tag "prop"');
+            $this->dom->appChild($veicReboque, $prop, 'Falta tag "veicReboque"');
         }
         $this->dom->addChild(
             $veicReboque,
@@ -2540,8 +2454,7 @@ class Make
      * tagcodAgPorto
      * tag MDFe/infMDFe/infModal/rodo/codAgPorto
      *
-     * @param  string codAgPorto
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function tagcodAgPorto(stdClass $std)
@@ -2564,8 +2477,7 @@ class Make
      * taglacRodo
      * tag MDFe/infMDFe/infModal/rodo/lacRodo
      *
-     * @param  string nLacre
-     *
+     * @param  stdClass $std
      * @return DOMElement
      */
     public function taglacRodo(stdClass $std)

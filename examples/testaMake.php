@@ -31,25 +31,14 @@ $std->xMunCarrega = 'GUARULHOS';
 $mdfe->taginfMunCarrega($std);
 
 $std = new \stdClass();
-$std->UFPer = 'MG';
-$mdfe->taginfPercurso($std);
-
-$std = new \stdClass();
-$std->UFPer = 'GO';
-$mdfe->taginfPercurso($std);
-
-$std = new \stdClass();
-$std->UFPer = 'TO';
-$mdfe->taginfPercurso($std);
-
-$std = new \stdClass();
-$std->UFPer = 'MA';
+$std->UFPer = ['MG','GO','TO','MA'];
 $mdfe->taginfPercurso($std);
 
 $std = new \stdClass();
 $std->cUF = '35';
 $std->tpAmb = '1';
 $std->tpEmit = '1';
+$std->tpTransp = 'ETC';
 $std->mod = '58';
 $std->serie = '0';
 $std->nMDF = '5766';
@@ -140,7 +129,7 @@ $mdfe->tagenderEmit($std);
     $stdcondutor->xNome = 'JOAO DA SILVA';
     $stdcondutor->CPF = '11122233344';
 
-    $stdveicTracao->condutor = $stdcondutor;
+    $stdveicTracao->condutor = [$stdcondutor];
 
     $mdfe->tagveicTracao($stdveicTracao);
 
@@ -178,8 +167,8 @@ $std->indReentrega = '1';
 
     /* Informações das Unidades de Transporte (Carreta/Reboque/Vagão) */
     $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTrans = '1';
-    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    $stdinfUnidTransp->tpUnidTransp = '1';
+    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
         /* Lacres das Unidades de Transporte */
         $stdlacUnidTransp = new \stdClass();
@@ -236,8 +225,8 @@ $std->indReentrega = '1';
 
     // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
     $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTrans = '1';
-    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    $stdinfUnidTransp->tpUnidTransp = '1';
+    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
         // Lacres das Unidades de Transporte
         $stdlacUnidTransp = new \stdClass();
@@ -282,8 +271,8 @@ $std->indReentrega = '1';
 
     // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
     $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTrans = '1';
-    $stdinfUnidTransp->idUnidTrans = 'AAA-1111';
+    $stdinfUnidTransp->tpUnidTransp = '1';
+    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
         // Lacres das Unidades de Transporte
         $stdlacUnidTransp = new \stdClass();
