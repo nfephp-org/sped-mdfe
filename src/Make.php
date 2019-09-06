@@ -198,7 +198,7 @@ class Make
     /**
      * MDFe xml mount method
      * this function returns TRUE on success or FALSE on error
-     * The xml of the MDFe must be retrieved by the getXML() function or
+     * The xml of the MDFe must be retrieved by the getXML() function or
      * directly by the public property $xml
      * @return boolean
      */
@@ -222,7 +222,9 @@ class Make
         }
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infMDFe"');
         $this->dom->appChild($this->infMDFe, $this->infDoc, 'Falta tag "infMDFe"');
-        $this->dom->appChild($this->infMDFe, $this->seg, 'Falta tag "infMDFe"');
+        if (! empty($this->seg)) {
+            $this->dom->appChild($this->infMDFe, $this->seg, 'Falta tag "infMDFe"');
+        }
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "infMDFe"');
         foreach ($this->aLacres as $lacre) {
             $this->dom->appChild($this->infMDFe, $lacre, 'Falta tag "infMDFe"');
@@ -230,8 +232,9 @@ class Make
         foreach ($this->autXML as $autXML) {
             $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "infMDFe"');
         }
-        $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
-        
+        if (! empty($this->infAdic)) {
+            $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infMDFe"');
+        }
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "MDFe"');
         
         $this->dom->appendChild($this->MDFe);
@@ -1035,8 +1038,8 @@ class Make
     public function taginfUnidTransp(stdClass $std)
     {
         $possible = [
-            'tpUnidTrans',
-            'idUnidTrans',
+            'tpUnidTransp',
+            'idUnidTransp',
             'qtdRat',
             'lacUnidTransp',
             'infUnidCarga'
@@ -1045,15 +1048,15 @@ class Make
         $infUnidTransp = $this->dom->createElement("infUnidTransp");
         $this->dom->addChild(
             $infUnidTransp,
-            "tpUnidTrans",
-            $std->tpUnidTrans,
+            "tpUnidTransp",
+            $std->tpUnidTransp,
             true,
             "Tipo da Unidade de Transporte"
         );
         $this->dom->addChild(
             $infUnidTransp,
-            "idUnidTrans",
-            $std->idUnidTrans,
+            "idUnidTransp",
+            $std->idUnidTransp,
             false,
             "Identificação da Unidade de Transporte"
         );
@@ -2153,7 +2156,7 @@ class Make
         $cnpj = $emit->getElementsByTagName('CNPJ')->item(0)->nodeValue;
         $mod = $ide->getElementsByTagName('mod')->item(0)->nodeValue;
         $serie = $ide->getElementsByTagName('serie')->item(0)->nodeValue;
-        $nNF = $ide->getElementsByTagName('nMDF')->item(0)->nodeValue;
+        $nMDF = $ide->getElementsByTagName('nMDF')->item(0)->nodeValue;
         $tpEmis = $ide->getElementsByTagName('tpEmis')->item(0)->nodeValue;
         $cNF = $ide->getElementsByTagName('cMDF')->item(0)->nodeValue;
         $chave = str_replace('MDFe', '', $infMDFe->getAttribute("Id"));
@@ -2165,7 +2168,7 @@ class Make
             $cnpj,
             $mod,
             $serie,
-            $nNF,
+            $nMDF,
             $tpEmis,
             $cNF
         );
@@ -2175,6 +2178,7 @@ class Make
             $ide->getElementsByTagName('cDV')->item(0)->nodeValue = substr($chaveMontada, -1);
             $infMDFe = $dom->getElementsByTagName("infMDFe")->item(0);
             $infMDFe->setAttribute("Id", "MDFe" . $chaveMontada);
+            $infMDFe->setAttribute("versao", $this->versao);
             $this->chMDFe = $chaveMontada;
         }
     }
