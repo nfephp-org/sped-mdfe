@@ -352,7 +352,6 @@ class Make
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "tot"');
         foreach ($this->lacres as $lacres) {
             $this->dom->appChild($this->infMDFe, $lacres, 'Falta tag "lacres"');
-
         }
         foreach ($this->autXML as $autXML) {
             $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "infMDFe"');
@@ -2537,7 +2536,7 @@ class Make
         }
         $mod = $ide->getElementsByTagName('mod')->item(0)->nodeValue;
         $serie = $ide->getElementsByTagName('serie')->item(0)->nodeValue;
-        $nNF = $ide->getElementsByTagName('nMDF')->item(0)->nodeValue;
+        $nMDF = $ide->getElementsByTagName('nMDF')->item(0)->nodeValue;
         $tpEmis = $ide->getElementsByTagName('tpEmis')->item(0)->nodeValue;
         $cNF = $ide->getElementsByTagName('cMDF')->item(0)->nodeValue;
         $chave = str_replace('MDFe', '', $infMDFe->getAttribute("Id"));
@@ -2549,7 +2548,7 @@ class Make
             $doc,
             $mod,
             $serie,
-            $nNF,
+            $nMDF,
             $tpEmis,
             $cNF
         );
