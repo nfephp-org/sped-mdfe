@@ -470,6 +470,7 @@ class Make
     {
         $possible = [
             'CNPJ',
+            'CPF',
             'IE',
             'xNome',
             'xFant'
@@ -482,8 +483,15 @@ class Make
             $this->emit,
             "CNPJ",
             $std->CNPJ,
-            true,
+            false,
             $identificador . "CNPJ do emitente"
+        );
+        $this->dom->addChild(
+            $this->emit,
+            "CPF",
+            $std->CPF,
+            false,
+            $identificador . "CPF do emitente"
         );
         $this->dom->addChild(
             $this->emit,
@@ -2150,7 +2158,11 @@ class Make
         $emit = $dom->getElementsByTagName("emit")->item(0);
         $cUF = $ide->getElementsByTagName('cUF')->item(0)->nodeValue;
         $dhEmi = $ide->getElementsByTagName('dhEmi')->item(0)->nodeValue;
-        $cnpj = $emit->getElementsByTagName('CNPJ')->item(0)->nodeValue;
+        if (!empty($emit->getElementsByTagName('CNPJ')->item(0)->nodeValue)) {
+            $doc = $emit->getElementsByTagName('CNPJ')->item(0)->nodeValue;
+        } else {
+            $doc = $emit->getElementsByTagName('CPF')->item(0)->nodeValue;
+        }
         $mod = $ide->getElementsByTagName('mod')->item(0)->nodeValue;
         $serie = $ide->getElementsByTagName('serie')->item(0)->nodeValue;
         $nNF = $ide->getElementsByTagName('nMDF')->item(0)->nodeValue;
@@ -2162,7 +2174,7 @@ class Make
             $cUF,
             $dt->format('y'),
             $dt->format('m'),
-            $cnpj,
+            $doc,
             $mod,
             $serie,
             $nNF,
