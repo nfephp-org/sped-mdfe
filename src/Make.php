@@ -158,6 +158,7 @@ class Make
 
     /**
      * Retorns the xml
+     *
      * @return xml
      */
     public function getXML()
@@ -170,6 +171,7 @@ class Make
 
     /**
      * Retorns the key number of NFe (44 digits)
+     *
      * @return string
      */
     public function getChave()
@@ -179,6 +181,7 @@ class Make
 
     /**
      * Returns the model of MDFe
+     *
      * @return int
      */
     public function getModelo()
@@ -188,6 +191,7 @@ class Make
 
     /**
      * Call method of xml assembly. For compatibility only.
+     *
      * @return boolean
      */
     public function montaMDFe()
@@ -200,6 +204,7 @@ class Make
      * this function returns TRUE on success or FALSE on error
      * The xml of the MDFe must be retrieved by the getXML() function or
      * directly by the public property $xml
+     *
      * @return boolean
      */
     public function monta()
@@ -245,6 +250,7 @@ class Make
     /**
      * Informações de identificação da MDFe
      * tag MDFe/infMDFe/ide
+     *
      * @param  stdClass $std
      * @return DOMElement
      */
@@ -1320,17 +1326,17 @@ class Make
             'nLacre'
         ];
         $std = $this->equilizeParameters($std, $possible);
-		foreach ($std->nLacre as $nLacre) {
-			$lacres = $this->dom->createElement("lacres");
-			$this->dom->addChild(
-				$lacres,
-				"nLacre",
-				$nLacre,
-				false,
-				"Número do lacre"
-			);
-			$this->aLacres[] = $lacres; //array de DOMNode
-		}
+        foreach ($std->nLacre as $nLacre) {
+            $lacres = $this->dom->createElement("lacres");
+            $this->dom->addChild(
+                $lacres,
+                "nLacre",
+                $nLacre,
+                false,
+                "Número do lacre"
+            );
+            $this->aLacres[] = $lacres; //array de DOMNode
+        }
         return $this->aLacres;
     }
 
@@ -1421,12 +1427,12 @@ class Make
      * tagAereo
      * tag MDFe/infMDFe/infModal/aereo
      *
-     * @param  string $nac
-     * @param  string $matr
-     * @param  string $nVoo
-     * @param  string $cAerEmb
-     * @param  string $cAerDes
-     * @param  string $dVoo
+     * @param string $nac
+     * @param string $matr
+     * @param string $nVoo
+     * @param string $cAerEmb
+     * @param string $cAerDes
+     * @param string $dVoo
      *
      * @return DOMElement
      */
@@ -1490,11 +1496,11 @@ class Make
      * tagTrem
      * tag MDFe/infMDFe/infModal/ferrov/trem
      *
-     * @param  string $xPref
-     * @param  string $dhTrem
-     * @param  string $xOri
-     * @param  string $xDest
-     * @param  string $qVag
+     * @param string $xPref
+     * @param string $dhTrem
+     * @param string $xOri
+     * @param string $xDest
+     * @param string $qVag
      *
      * @return DOMElement
      */
@@ -1550,10 +1556,10 @@ class Make
      * tagVag
      * tag MDFe/infMDFe/infModal/ferrov/trem/vag
      *
-     * @param  string $serie
-     * @param  string $nVag
-     * @param  string $nSeq
-     * @param  string $tonUtil
+     * @param string $serie
+     * @param string $nVag
+     * @param string $nSeq
+     * @param string $tonUtil
      *
      * @return DOMElement
      */
@@ -1601,12 +1607,12 @@ class Make
      * tagAqua
      * tag MDFe/infMDFe/infModal/Aqua
      *
-     * @param  string $cnpjAgeNav
-     * @param  string $tpEmb
-     * @param  string $cEmbar
-     * @param  string $nViagem
-     * @param  string $cPrtEmb
-     * @param  string $cPrtDest
+     * @param string $cnpjAgeNav
+     * @param string $tpEmb
+     * @param string $cEmbar
+     * @param string $nViagem
+     * @param string $cPrtEmb
+     * @param string $cPrtDest
      *
      * @return DOMElement
      */
@@ -1670,7 +1676,7 @@ class Make
      * tagInfTermCarreg
      * tag MDFe/infMDFe/infModal/Aqua/infTermCarreg
      *
-     * @param  string $cTermCarreg
+     * @param string $cTermCarreg
      *
      * @return DOMElement
      */
@@ -1692,7 +1698,7 @@ class Make
      * tagInfTermDescarreg
      * tag MDFe/infMDFe/infModal/Aqua/infTermDescarreg
      *
-     * @param  string cTermDescarreg
+     * @param string cTermDescarreg
      *
      * @return DOMElement
      */
@@ -1714,7 +1720,7 @@ class Make
      * tagInfEmbComb
      * tag MDFe/infMDFe/infModal/Aqua/infEmbComb
      *
-     * @param  string cEmbComb
+     * @param string cEmbComb
      *
      * @return DOMElement
      */
@@ -1870,24 +1876,24 @@ class Make
                 'CPF'
             ];
             foreach ($std->condutor as $condutor) {
-				$stdcondutor = $this->equilizeParameters($condutor, $possible);
-				$tagcondutor = $this->dom->createElement("condutor");
-				$this->dom->addChild(
-					$tagcondutor,
-					"xNome",
-					$stdcondutor->xNome,
-					true,
-					"Nome do Condutor "
-				);
-				$this->dom->addChild(
-					$tagcondutor,
-					"CPF",
-					$stdcondutor->CPF,
-					true,
-					"CPF do Condutor "
-				);
-				$this->dom->appChild($veicTracao, $tagcondutor, 'Falta tag "veicTracao"');
-			}
+                $stdcondutor = $this->equilizeParameters($condutor, $possible);
+                $tagcondutor = $this->dom->createElement("condutor");
+                $this->dom->addChild(
+                    $tagcondutor,
+                    "xNome",
+                    $stdcondutor->xNome,
+                    true,
+                    "Nome do Condutor "
+                );
+                $this->dom->addChild(
+                    $tagcondutor,
+                    "CPF",
+                    $stdcondutor->CPF,
+                    true,
+                    "CPF do Condutor "
+                );
+                $this->dom->appChild($veicTracao, $tagcondutor, 'Falta tag "veicTracao"');
+            }
         }
         $this->dom->addChild(
             $veicTracao,
@@ -2194,8 +2200,9 @@ class Make
     /**
      * Includes missing or unsupported properties in stdClass
      * Replace all unsuported chars
-     * @param stdClass $std
-     * @param array $possible
+     *
+     * @param  stdClass $std
+     * @param  array    $possible
      * @return stdClass
      */
     protected function equilizeParameters(stdClass $std, $possible)
