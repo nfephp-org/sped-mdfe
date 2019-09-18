@@ -506,7 +506,7 @@ class Make
             $this->emit,
             "IE",
             $std->IE,
-            true,
+            false,
             $identificador . "Inscrição Estadual do emitente"
         );
         $this->dom->addChild(

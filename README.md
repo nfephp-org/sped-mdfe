@@ -1,13 +1,8 @@
-# SPED-MDFE
+# SPED-MDFE v3.00a
 
-API para geração e comunicação das MDFe com as SEFAZ autorizadoras.
+Framework para geração e comunicação dos MDFe com as SEFAZ autorizadoras.
 
-## Contributing
-**ATENÇÂO: A versão atual corresponde a vesão 3.00 do layout da SEFAZ, tanto na branch "master" como na branch "v3.0". As contribuições para a proxima versão do layout da SEFAZ 3.0 devem ser feitas exclusivamente na branch v3.0. Assim que tivermos uma versão estável será lançada uma realese e a Branch "master" será atualizada com esses códigos.**
-
-## APENAS EM DESENVOLVIMENTO !!
-
-Este pacote está em desenvolvimento, não é funcional e não deve ser utilizado para nada além de testes. 
+*sped-mdfe é um framework para geração MDFe e eventos na comunicação com as SEFAZ autorizadoras.*
 
 [![Build Status][ico-travis]][link-travis]
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
@@ -21,33 +16,38 @@ Este pacote está em desenvolvimento, não é funcional e não deve ser utilizad
 [![Stars][ico-stars]][link-stars]
 [![Chat][ico-gitter]][link-gitter]
 
+## Objetivo
+
 Este pacote visa fornecer os meios para gerar, assinar e enviar os dados relativos ao projeto Sped MDFe.
 
 Este pacote faz parte da API NFePHP e atende aos parâmetros das PSR2 e PSR4, bem como é desenvolvida para adequar as versões ATIVAS do PHP e aos layouts da MDFe em vigor.
 
 ## Install
 
-EM BREVE
+```sh
+composer require nfephp-org/sped-mdfe:dev-master
+```
 
 ## Change log
 
 Acompanhe o [CHANGELOG](CHANGELOG.md) para maiores informações sobre as alterações recentes.
 
-## Testing
-
-``` bash
-$ composer test
-```
-
 ## Contributing
 
 Para contribuir por favor observe o [CONTRIBUTING](CONTRIBUTING.md) e o  [Código de Conduta](CONDUCT.md) para detalhes.
+
+## Pull Request
+
+Para que seu Pull Request seja aceito ele deve estar seguindo os padrões descritos neste documento <http://www.walkeralencar.com/PHPCodeStandards.pdf>
 
 ## Security
 
 Caso você encontre algum problema relativo a segurança, por favor envie um email diretamente aos mantenedores do pacote ao invés de abrir um ISSUE.
 
 ## Credits
+
+- Cleiton Perin (Owner)
+- Roberto L. Machado (Owner)
 
 ## License
 
