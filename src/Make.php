@@ -1817,7 +1817,7 @@ class Make
                 'xNome',
                 'IE',
                 'UF',
-                'TpProp'
+                'tpProp'
             ];
             $stdprop = $this->equilizeParameters($std->prop, $possible);
             $prop = $this->dom->createElement("prop");
@@ -1825,14 +1825,14 @@ class Make
                 $prop,
                 "CPF",
                 $stdprop->CPF,
-                true,
+                false,
                 "Número do CPF"
             );
             $this->dom->addChild(
                 $prop,
                 "CNPJ",
                 $stdprop->CNPJ,
-                true,
+                false,
                 "Número do CNPJ"
             );
             $this->dom->addChild(
@@ -1865,8 +1865,8 @@ class Make
             );
             $this->dom->addChild(
                 $prop,
-                "TpProp",
-                $stdprop->TpProp,
+                "tpProp",
+                $stdprop->tpProp,
                 true,
                 "Tipo Proprietário"
             );
@@ -1996,7 +1996,7 @@ class Make
                 'xNome',
                 'IE',
                 'UF',
-                'TpProp'
+                'tpProp'
             ];
             $stdprop = $this->equilizeParameters($std->prop, $possible);
             $prop = $this->dom->createElement("prop");
@@ -2004,14 +2004,14 @@ class Make
                 $prop,
                 "CPF",
                 $stdprop->CPF,
-                true,
+                false,
                 "Número do CPF"
             );
             $this->dom->addChild(
                 $prop,
                 "CNPJ",
                 $stdprop->CNPJ,
-                true,
+                false,
                 "Número do CNPJ"
             );
             $this->dom->addChild(
@@ -2044,8 +2044,8 @@ class Make
             );
             $this->dom->addChild(
                 $prop,
-                "TpProp",
-                $stdprop->TpProp,
+                "tpProp",
+                $stdprop->tpProp,
                 true,
                 "Tipo Proprietário"
             );
