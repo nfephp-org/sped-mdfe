@@ -317,6 +317,7 @@ class Tools extends ToolsCommon
             $this->tpAmb
         );
         $cnpj = $this->config->cnpj;
+        $sigla = strlen($cnpj) == 11 ? 'CPF' : 'CNPJ';
         $dt = new \DateTime();
         $dhEvento = $dt->format('Y-m-d\TH:i:sP');
         $sSeqEvento = str_pad($nSeqEvento, 2, "0", STR_PAD_LEFT);
@@ -326,7 +327,7 @@ class Tools extends ToolsCommon
             . "<infEvento Id=\"$eventId\">"
             . "<cOrgao>$cOrgao</cOrgao>"
             . "<tpAmb>$this->tpAmb</tpAmb>"
-            . "<CNPJ>$cnpj</CNPJ>"
+            . "<$sigla>$cnpj</$sigla>"
             . "<chMDFe>$chave</chMDFe>"
             . "<dhEvento>$dhEvento</dhEvento>"
             . "<tpEvento>$tpEvento</tpEvento>"
