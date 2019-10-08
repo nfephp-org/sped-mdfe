@@ -26,6 +26,7 @@ use RuntimeException;
 use InvalidArgumentException;
 use DOMElement;
 use DateTime;
+use Exception;
 
 class Make
 {
@@ -138,8 +139,27 @@ class Make
     /**
      * @type string|\DOMNode
      */
-    private $aqua = '';
-
+    private $aquav = '';
+    /**
+     * @type array
+     */
+    private $infTermCarreg = [];
+    /**
+     * @type array
+     */
+    private $infTermDescarreg = [];
+    /**
+     * @type array
+     */
+    private $infEmbComb = [];
+    /**
+     * @type array
+     */
+    private $infUnidCargaVazia = [];
+    /**
+     * @type array
+     */
+    private $infUnidTranspVazia = [];
     /**
      * @var boolean
      */
@@ -224,6 +244,24 @@ class Make
         $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "infMDFe"');
         if (! empty($this->rodo)) {
             $this->dom->appChild($this->infModal, $this->rodo, 'Falta tag "infModal"');
+        }
+        if (!empty($this->aquav)) {
+            $this->dom->appChild($this->infModal, $this->aquav, 'Falta tag "infModal"');
+            foreach ($this->infTermCarreg as $termCarreg) {
+                $this->dom->appChild($this->aquav, $termCarreg, 'Falta tag "aquav"');
+            }
+            foreach ($this->infTermDescarreg as $termDescarreg) {
+                $this->dom->appChild($this->aquav, $termDescarreg, 'Falta tag "aquav"');
+            }
+            foreach ($this->infEmbComb as $embComb) {
+                $this->dom->appChild($this->aquav, $embComb, 'Falta tag "aquav"');
+            }
+            foreach ($this->infUnidCargaVazia as $unidCargaVazia) {
+                $this->dom->appChild($this->aquav, $unidCargaVazia, 'Falta tag "aquav"');
+            }
+            foreach ($this->infUnidTranspVazia as $unidTranspVazia) {
+                $this->dom->appChild($this->aquav, $unidTranspVazia, 'Falta tag "aquav"');
+            }
         }
         $this->dom->appChild($this->infMDFe, $this->infModal, 'Falta tag "infMDFe"');
         $this->dom->appChild($this->infMDFe, $this->infDoc, 'Falta tag "infMDFe"');
@@ -1009,7 +1047,7 @@ class Make
     public function taginfMDFeTransp(stdClass $std)
     {
         $possible = [
-            'chNFe',
+            'chMDFe',
             'indReentrega',
             'infUnidTransp',
             'peri'
@@ -1018,8 +1056,8 @@ class Make
         $infMDFeTransp = $this->dom->createElement("infMDFeTransp");
         $this->dom->addChild(
             $infMDFeTransp,
-            "chNFe",
-            $std->chNFe,
+            "chMDFe",
+            $std->chMDFe,
             true,
             "Chave de Acesso NFe"
         );
@@ -1605,141 +1643,282 @@ class Make
         $this->aVag[] = $vag;
         return $vag;
     }
-    
+
     /**
-     * tagAqua
-     * tag MDFe/infMDFe/infModal/Aqua
+     * tagaquav
+     * tag MDFe/infMDFe/infModal/aquav
      *
-     * @param string $cnpjAgeNav
-     * @param string $tpEmb
-     * @param string $cEmbar
-     * @param string $nViagem
-     * @param string $cPrtEmb
-     * @param string $cPrtDest
-     *
+     * @param stdClass $std
      * @return DOMElement
      */
-    
-    public function tagAqua(
-        $cnpjAgeNav = '',
-        $tpEmb = '',
-        $cEmbar = '',
-        $nViagem = '',
-        $cPrtEmb = '',
-        $cPrtDest = ''
-    ) {
-        $aqua = $this->dom->createElement("Aqua");
+    public function tagaquav(stdClass $std)
+    {
+        $possible = [
+            "irin",
+            "tpEmb",
+            "cEmbar",
+            "xEmbar",
+            "nViag",
+            "cPrtEmb",
+            "cPrtDest",
+            "prtTrans",
+            "tpNav",
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $aquav = $this->dom->createElement("aquav");
+
         $this->dom->addChild(
-            $aqua,
-            "CNPJAgeNav",
-            $cnpjAgeNav,
+            $aquav,
+            "irin",
+            $std->irin,
             true,
-            "CNPJ da Agência de Navegação"
+            "Irin do navio"
         );
         $this->dom->addChild(
-            $aqua,
+            $aquav,
             "tpEmb",
-            $tpEmb,
+            $std->tpEmb,
             true,
             "Código do tipo de embarcação"
         );
         $this->dom->addChild(
-            $aqua,
+            $aquav,
             "cEmbar",
-            $cEmbar,
+            $std->cEmbar,
             true,
             "Código da Embarcação"
         );
         $this->dom->addChild(
-            $aqua,
-            "nViagem",
-            $nViagem,
+            $aquav,
+            "xEmbar",
+            $std->xEmbar,
+            true,
+            "Nome da embarcação"
+        );
+        $this->dom->addChild(
+            $aquav,
+            "nViag",
+            $std->nViag,
             true,
             "Número da Viagem"
         );
         $this->dom->addChild(
-            $aqua,
+            $aquav,
             "cPrtEmb",
-            $cPrtEmb,
+            $std->cPrtEmb,
             true,
             "Código do Porto de Embarque"
         );
         $this->dom->addChild(
-            $aqua,
+            $aquav,
             "cPrtDest",
-            $cPrtDest,
+            $std->cPrtDest,
             true,
             "Código do Porto de Destino"
         );
-        $this->aqua = $aqua;
-        return $aqua;
+        $this->dom->addChild(
+            $aquav,
+            "prtTrans",
+            $std->prtTrans,
+            false,
+            "Porto de Transbordo"
+        );
+        $this->dom->addChild(
+            $aquav,
+            "tpNav",
+            $std->tpNav,
+            false,
+            "Tipo de Navegação"
+        );
+
+        $this->aquav = $aquav;
+
+        return $this->aquav;
     }
-    
+
     /**
      * tagInfTermCarreg
-     * tag MDFe/infMDFe/infModal/Aqua/infTermCarreg
+     * tag MDFe/infMDFe/infModal/aquav/infTermCarreg
      *
-     * @param string $cTermCarreg
-     *
+     * @param stdClass $std
      * @return DOMElement
      */
-    public function taginfTermCarreg(
-        $cTermCarreg = ''
-    ) {
+    public function taginfTermCarreg(stdClass $std)
+    {
+        $possible = [
+            "cTermCarreg",
+            "xTermCarreg"
+        ];
+        $std = $this->equilizeParameters($std, $possible);
         $infTermCarreg = $this->dom->createElement("infTermCarreg");
+
         $this->dom->addChild(
             $infTermCarreg,
             "cTermCarreg",
-            $cTermCarreg,
+            $std->cTermCarreg,
             true,
             "Código do Terminal de Carregamento"
         );
-        $this->aInfTermCarreg[] = $infTermCarreg;
+
+        $this->dom->addChild(
+            $infTermCarreg,
+            "xTermCarreg",
+            $std->xTermCarreg,
+            true,
+            "Nome do Terminal de Carregamento"
+        );
+
+        $this->infTermCarreg[] = $infTermCarreg;
+
         return $infTermCarreg;
     }
+
     /**
-     * tagInfTermDescarreg
-     * tag MDFe/infMDFe/infModal/Aqua/infTermDescarreg
+     * tagInfTermCarreg
+     * tag MDFe/infMDFe/infModal/aquav/infTermDescarreg
      *
-     * @param string cTermDescarreg
-     *
+     * @param stdClass $std
      * @return DOMElement
      */
-    public function taginfTermDescarreg(
-        $cTermDescarreg = ''
-    ) {
+    public function taginfTermDescarreg(stdClass $std)
+    {
+        $possible = [
+            "cTermDescarreg",
+            "xTermDescarreg"
+        ];
+        $std = $this->equilizeParameters($std, $possible);
         $infTermDescarreg = $this->dom->createElement("infTermDescarreg");
+
         $this->dom->addChild(
             $infTermDescarreg,
-            "cTermCarreg",
-            $cTermDescarreg,
+            "cTermDescarreg",
+            $std->cTermDescarreg,
             true,
-            "Código do Terminal de Descarregamento"
+            "Código do Terminal de Carregamento"
         );
-        $this->aInfTermDescarreg[] = $infTermDescarreg;
+
+        $this->dom->addChild(
+            $infTermDescarreg,
+            "xTermDescarreg",
+            $std->xTermDescarreg,
+            true,
+            "Nome do Terminal de Carregamento"
+        );
+
+        $this->infTermDescarreg[] = $infTermDescarreg;
+
         return $infTermDescarreg;
     }
+
     /**
-     * tagInfEmbComb
-     * tag MDFe/infMDFe/infModal/Aqua/infEmbComb
+     * tagInfTermCarreg
+     * tag MDFe/infMDFe/infModal/aquav/infEmbComb
      *
-     * @param string cEmbComb
-     *
+     * @param stdClass $std
      * @return DOMElement
      */
-    public function taginfEmbComb(
-        $cEmbComb = ''
-    ) {
+    public function taginfEmbComb(stdClass $std)
+    {
+        $possible = [
+            "cEmbComb",
+            "xBalsa"
+        ];
+        $std = $this->equilizeParameters($std, $possible);
         $infEmbComb = $this->dom->createElement("infEmbComb");
+
         $this->dom->addChild(
             $infEmbComb,
             "cEmbComb",
-            $cEmbComb,
+            $std->cEmbComb,
             true,
             "Código da embarcação do comboio"
         );
-        $this->aInfEmbComb[] = $infEmbComb;
+
+        $this->dom->addChild(
+            $infEmbComb,
+            "xBalsa",
+            $std->xBalsa,
+            true,
+            "Identificador da Balsa"
+        );
+
+        $this->infEmbComb[] = $infEmbComb;
+
         return $infEmbComb;
+    }
+
+    /**
+     * tagInfTermCarreg
+     * tag MDFe/infMDFe/infModal/aquav/infUnidCargaVazia
+     *
+     * @param stdClass $std
+     * @return DOMElement
+     */
+    public function taginfUnidCargaVazia(stdClass $std)
+    {
+        $possible = [
+            "idUnidCargaVazia",
+            "tpUnidCargaVazia"
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $infUnidCargaVazia = $this->dom->createElement("infUnidCargaVazia");
+
+        $this->dom->addChild(
+            $infUnidCargaVazia,
+            "idUnidCargaVazia",
+            $std->idUnidCargaVazia,
+            true,
+            "Identificação da unidades de carga vazia"
+        );
+
+        $this->dom->addChild(
+            $infUnidCargaVazia,
+            "tpUnidCargaVazia",
+            $std->tpUnidCargaVazia,
+            true,
+            "Tipo da unidade de carga vazia"
+        );
+
+        $this->infUnidCargaVazia[] = $infUnidCargaVazia;
+
+        return $infUnidCargaVazia;
+    }
+
+    /**
+     * tagInfTermCarreg
+     * tag MDFe/infMDFe/infModal/aquav/infUnidTranspVazia
+     *
+     * @param stdClass $std
+     * @return DOMElement
+     */
+    public function taginfUnidTranspVazia(stdClass $std)
+    {
+        $possible = [
+            "idUnidTranspVazia",
+            "tpUnidTranspVazia"
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $infUnidTranspVazia = $this->dom->createElement("infUnidTranspVazia");
+
+        $this->dom->addChild(
+            $infUnidTranspVazia,
+            "idUnidTranspVazia",
+            $std->idUnidTranspVazia,
+            true,
+            "Identificação da unidades de transporte vazia"
+        );
+
+        $this->dom->addChild(
+            $infUnidTranspVazia,
+            "tpUnidTranspVazia",
+            $std->tpUnidTranspVazia,
+            true,
+            "Tipo da unidade de transporte vazia"
+        );
+
+        $this->infUnidTranspVazia[] = $infUnidTranspVazia;
+
+        return $infUnidTranspVazia;
     }
     
     /**
@@ -1749,7 +1928,6 @@ class Make
      * @param  stdClass $std
      * @return DOMElement
      */
-
     public function tagveicTracao(stdClass $std)
     {
         $possible = [
