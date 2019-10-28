@@ -7,32 +7,25 @@ require_once '../bootstrap.php';
 use NFePHP\MDFe\Make;
 
 $config = [
-   "atualizacao" => "2019-06-15 08:29:21",
-   "tpAmb" => 2,
-   "razaosocial" => "SOFTWARE & HARDWARE INFORMATICA - ME",
-   "siglaUF" => "SP",
-   "cnpj" => "11222333444455",
-   "inscricaomunicipal" => "11223",
-   "codigomunicipio" => "3518800",
-   "schemes" => "V3",
-   "versao" => "3.00"
+    "atualizacao" => "2019-06-15 08:29:21",
+    "tpAmb" => 2,
+    "razaosocial" => "SOFTWARE & HARDWARE INFORMATICA - ME",
+    "siglaUF" => "SP",
+    "cnpj" => "11222333444455",
+    "inscricaomunicipal" => "11223",
+    "codigomunicipio" => "3518800",
+    "schemes" => "V3",
+    "versao" => "3.00"
 ];
 
 $configJson = json_encode($config);
 
-$mdfe = new NFePHP\MDFe\Make();
+$mdfe = new Make();
+$mdfe->setOnlyAscii(true);
 
 /*
  * Grupo ide ( Identificação )
  */
-$std = new \stdClass();
-$std->cMunCarrega = '3518800';
-$std->xMunCarrega = 'GUARULHOS';
-$mdfe->taginfMunCarrega($std);
-
-$std = new \stdClass();
-$std->UFPer = ['MG','GO','TO','MA'];
-$mdfe->taginfPercurso($std);
 
 $std = new \stdClass();
 $std->cUF = '35';
@@ -51,11 +44,28 @@ $std->procEmi = '0';
 $std->verProc = '1.6';
 $std->UFIni = 'SP';
 $std->UFFim = 'PA';
+$std->dhIniViagem = '2019-04-04T16:31:48-03:00';
+$std->indCanalVerde = '1';
+$std->indCarregaPosterior = '1';
 $mdfe->tagide($std);
+
+// for {
+$infMunCarrega = new stdClass();
+$infMunCarrega->cMunCarrega = '3518800';
+$infMunCarrega->xMunCarrega = 'GUARULHOS';
+$mdfe->taginfMunCarrega($infMunCarrega);
+// }
+
+// for
+$infPercurso = new \stdClass();
+$infPercurso->UFPer = "PR";
+$mdfe->taginfPercurso($infPercurso);
+// }
+
 /*
  * fim ide
  */
- 
+
 /*
  * Grupo emit ( Emitente )
  */
@@ -80,140 +90,173 @@ $mdfe->tagenderEmit($std);
 /*
  * fim emit
  */
- 
+
 /*
  * Grupo rodo ( Rodoviário )
  */
- 
-    /* Grupo infANTT */
-    $stdinfANTT = new \stdClass();
-    $stdinfANTT->RNTRC = '12345678';
-        /* informações do CIOT */
-        $stdinfCIOT = new \stdClass();
-        $stdinfCIOT->CIOT = '123456789012';
-        $stdinfCIOT->CPF = '11122233344';
-        $stdinfCIOT->CNPJ = '11222333444455';
 
-    $stdinfANTT->infCIOT = [$stdinfCIOT];
+/* Grupo infANTT */
+$infANTT = new \stdClass();
+$infANTT->RNTRC = '12345678';
+$mdfe->taginfANTT($infANTT);
 
-        /* informações do Vale Pedágio */
-        $stdvalePed = new \stdClass();
-        $stdvalePed->CNPJForn = '11222333444455';
-        $stdvalePed->CNPJPg = '66777888999900';
-        $stdvalePed->CPFPg = '11122233355';
-        $stdvalePed->nCompra = '777778888999999';
-        $stdvalePed->vValePed = '100.00';
+/* informações do CIOT */
+// for {
+$infCIOT = new \stdClass();
+$infCIOT->CIOT = '123456789012';
+$infCIOT->CPF = '11122233344';
+$infCIOT->CNPJ = '11222333444455';
+$mdfe->taginfCIOT($infCIOT);
+// }
 
-    $stdinfANTT->valePed = [$stdvalePed];
-        
-        /* informações do contratante */
-        $stdinfContratante = new \stdClass();
-        $stdinfContratante ->CNPJ = '09230232000372';
-        
-    $stdinfANTT->infContratante = [$stdinfContratante];
+/* informações do Vale Pedágio */
+// for {
+$valePed = new \stdClass();
+$valePed->CNPJForn = '11222333444455';
+$valePed->CNPJPg = '66777888999900';
+$valePed->CPFPg = '11122233355';
+$valePed->nCompra = '777778888999999';
+$valePed->vValePed = '100.00';
+$mdfe->tagdisp($valePed);
+// }
 
-    $mdfe->taginfANTT($stdinfANTT);
-    /* fim infANTT */
+/* informações do contratante */
+// for {
+$infContratante = new \stdClass();
+$infContratante->CNPJ = '09230232000372';
+$mdfe->taginfContratante($infContratante);
+// }
 
-    /* Grupo veicTracao */
-    $stdveicTracao = new \stdClass();
-    $stdveicTracao->cInt = '01';
-    $stdveicTracao->placa = 'DBL6040';
-    $stdveicTracao->tara = '8350';
-    $stdveicTracao->capKG = '8350';
-    $stdveicTracao->tpRod = '03';
-    $stdveicTracao->tpCar = '02';
-    $stdveicTracao->UF = 'PA';
+/* fim infANTT */
 
-    $stdcondutor = new \stdClass();
-    $stdcondutor->xNome = 'JOAO DA SILVA';
-    $stdcondutor->CPF = '11122233344';
+/* Grupo veicTracao */
+$veicTracao = new \stdClass();
+$veicTracao->cInt = '01';
+$veicTracao->placa = 'DBL6040';
+$veicTracao->tara = '8350';
+$veicTracao->capKG = '8350';
+$veicTracao->tpRod = '03';
+$veicTracao->tpCar = '02';
+$veicTracao->UF = 'PA';
 
-    $stdveicTracao->condutor = [$stdcondutor];
+$condutor = new \stdClass();
+$condutor->xNome = 'JOAO DA SILVA';
+$condutor->CPF = '11122233344';
+$veicTracao->condutor = [$condutor];
 
-    $mdfe->tagveicTracao($stdveicTracao);
+$prop = new \stdClass();
+$prop->CPF = '01234567890';
+$prop->CNPJ = '';
+$prop->RNTRC = '12345678';
+$prop->xNome = 'JOAO DA SILVA';
+$prop->IE = '03857164';
+$prop->UF = 'PR';
+$prop->tpProp = '1';
+$veicTracao->prop = $prop;
 
-    /* fim veicTracao */
+$mdfe->tagveicTracao($veicTracao);
 
-    /* Grupo veicReboque */
-    $stdveicReboque = new \stdClass();
-    $stdveicReboque->cInt = '02';
-    $stdveicReboque->placa = 'XXX1111';
-    $stdveicReboque->tara = '8350';
-    $stdveicReboque->capKG = '15000';
-    $stdveicReboque->tpCar = '02';
-    $stdveicReboque->UF = 'SP';
+/* fim veicTracao */
 
-    $mdfe->tagveicReboque($stdveicReboque);
+/* Grupo veicReboque */
+$veicReboque = new \stdClass();
+$veicReboque->cInt = '02';
+$veicReboque->placa = 'XXX1111';
+$veicReboque->tara = '8350';
+$veicReboque->capKG = '15000';
+$veicReboque->tpCar = '02';
+$veicReboque->UF = 'SP';
 
-    /* fim veicReboque */
+$prop = new \stdClass();
+$prop->CPF = '01234567890';
+$prop->CNPJ = '';
+$prop->RNTRC = '12345678';
+$prop->xNome = 'JOAO DA SILVA';
+$prop->IE = '03857164';
+$prop->UF = 'PR';
+$prop->tpProp = '1';
+$veicReboque->prop = $prop;
 
+$mdfe->tagveicReboque($veicReboque);
+/* fim veicReboque */
+
+$lacRodo = new \stdClass();
+$lacRodo->nLacre = '1502400';
+$mdfe->taglacRodo($lacRodo);
 /* fim rodo */
 
 /*
  * Grupo infDoc ( Documentos fiscais )
  */
-
-$std = new \stdClass();
-$std->cMunDescarga = '1502400';
-$std->xMunDescarga = 'CASTANHAL';
-$mdfe->taginfMunDescarga($std);
+$infMunDescarga = new \stdClass();
+$infMunDescarga->cMunDescarga = '1502400';
+$infMunDescarga->xMunDescarga = 'CASTANHAL';
+$infMunDescarga->nItem = 0;
+$mdfe->taginfMunDescarga($infMunDescarga);
 
 /* infCTe */
 $std = new \stdClass();
 $std->chCTe = '35310800000000000372570010001999091000027765';
 $std->SegCodBarra = '012345678901234567890123456789012345';
 $std->indReentrega = '1';
+$std->nItem = 0;
 
-    /* Informações das Unidades de Transporte (Carreta/Reboque/Vagão) */
-    $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTransp = '1';
-    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
+/* Informações das Unidades de Transporte (Carreta/Reboque/Vagão) */
+$stdinfUnidTransp = new \stdClass();
+$stdinfUnidTransp->tpUnidTransp = '1';
+$stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
-        /* Lacres das Unidades de Transporte */
-        $stdlacUnidTransp = new \stdClass();
-        $stdlacUnidTransp->nLacre = ['00000001','00000002'];
+/* Lacres das Unidades de Transporte */
+$stdlacUnidTransp = new \stdClass();
+$stdlacUnidTransp->nLacre = ['00000001', '00000002'];
 
-        $stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
+$stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
 
-        /* Informações das Unidades de Carga (Containeres/ULD/Outros) */
-        $stdinfUnidCarga = new \stdClass();
-        $stdinfUnidCarga->tpUnidCarga = '1';
-        $stdinfUnidCarga->idUnidCarga = '01234567890123456789';
-        
-            /* Lacres das Unidades de Carga */
-            $stdlacUnidCarga = new \stdClass();
-            $stdlacUnidCarga->nLacre = ['00000001','00000002'];
+/* Informações das Unidades de Carga (Containeres/ULD/Outros) */
+$stdinfUnidCarga = new \stdClass();
+$stdinfUnidCarga->tpUnidCarga = '1';
+$stdinfUnidCarga->idUnidCarga = '01234567890123456789';
 
-        $stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
-        $stdinfUnidCarga->qtdRat = '3.50';
+/* Lacres das Unidades de Carga */
+$stdlacUnidCarga = new \stdClass();
+$stdlacUnidCarga->nLacre = ['00000001', '00000002'];
 
-    $stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
-    $stdinfUnidTransp->qtdRat = '3.50';
-        
-    $std->infUnidTransp = $stdinfUnidTransp;
+$stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
+$stdinfUnidCarga->qtdRat = '3.50';
 
-    /* transporte de produtos classificados pela ONU como perigosos */
-    $stdperi = new \stdClass();
-    $stdperi->nONU = '1234';
-    $stdperi->xNomeAE = 'testeNome';
-    $stdperi->xClaRisco = 'testeClaRisco';
-    $stdperi->grEmb = 'testegrEmb';
-    $stdperi->qTotProd = '1';
-    $stdperi->qVolTipo = '1';
-    $std->peri = $stdperi;
+$stdinfUnidTransp->infUnidCarga = [$stdinfUnidCarga];
+$stdinfUnidTransp->qtdRat = '3.50';
 
-    /* Grupo de informações da Entrega Parcial (Corte de Voo) */
-    $stdinfEntregaParcial = new \stdClass();
-    $stdinfEntregaParcial->qtdTotal = '1234.56';
-    $stdinfEntregaParcial->qtdParcial = '1234.56';
-    $std->infEntregaParcial = $stdinfEntregaParcial;
+$std->infUnidTransp = [$stdinfUnidTransp];
+
+/* transporte de produtos classificados pela ONU como perigosos */
+$stdperi = new \stdClass();
+$stdperi->nONU = '1234';
+$stdperi->xNomeAE = 'testeNome';
+$stdperi->xClaRisco = 'testeClaRisco';
+$stdperi->grEmb = 'testegrEmb';
+$stdperi->qTotProd = '1';
+$stdperi->qVolTipo = '1';
+$std->peri = [$stdperi];
+
+/* Grupo de informações da Entrega Parcial (Corte de Voo) */
+$stdinfEntregaParcial = new \stdClass();
+$stdinfEntregaParcial->qtdTotal = '1234.56';
+$stdinfEntregaParcial->qtdParcial = '1234.56';
+$std->infEntregaParcial = $stdinfEntregaParcial;
 
 $mdfe->taginfCTe($std);
+
+$infMunDescarga = new \stdClass();
+$infMunDescarga->cMunDescarga = '1502400';
+$infMunDescarga->xMunDescarga = 'CASTANHAL';
+$infMunDescarga->nItem = 1;
+$mdfe->taginfMunDescarga($infMunDescarga);
 
 /* infCTe */
 $std = new \stdClass();
 $std->chCTe = '35310800000000000372570010001998991000614492';
+$std->nItem = 1;
 $mdfe->taginfCTe($std);
 
 /* infNFe */
@@ -222,90 +265,92 @@ $std = new \stdClass();
 $std->chNFe = '35310800000000000372570010001999091000099999';
 $std->SegCodBarra = '012345678901234567890123456789012345';
 $std->indReentrega = '1';
+$std->nItem = 0;
 
-    // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
-    $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTransp = '1';
-    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
+// Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
+$stdinfUnidTransp = new \stdClass();
+$stdinfUnidTransp->tpUnidTransp = '1';
+$stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
-        // Lacres das Unidades de Transporte
-        $stdlacUnidTransp = new \stdClass();
-        $stdlacUnidTransp->nLacre = ['00000001','00000002'];
+// Lacres das Unidades de Transporte
+$stdlacUnidTransp = new \stdClass();
+$stdlacUnidTransp->nLacre = ['00000001', '00000002'];
 
-        $stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
+$stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
 
-        // Informações das Unidades de Carga (Containeres/ULD/Outros)
-        $stdinfUnidCarga = new \stdClass();
-        $stdinfUnidCarga->tpUnidCarga = '1';
-        $stdinfUnidCarga->idUnidCarga = '01234567890123456789';
-        
-            // lacres das Unidades de Carga
-            $stdlacUnidCarga = new \stdClass();
-            $stdlacUnidCarga->nLacre = ['00000001','00000002'];
+// Informações das Unidades de Carga (Containeres/ULD/Outros)
+$stdinfUnidCarga = new \stdClass();
+$stdinfUnidCarga->tpUnidCarga = '1';
+$stdinfUnidCarga->idUnidCarga = '01234567890123456789';
 
-        $stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
-        $stdinfUnidCarga->qtdRat = '3.50';
+// lacres das Unidades de Carga
+$stdlacUnidCarga = new \stdClass();
+$stdlacUnidCarga->nLacre = ['00000001', '00000002'];
 
-    $stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
-    $stdinfUnidTransp->qtdRat = '3.50';
-        
-    $std->infUnidTransp = $stdinfUnidTransp;
+$stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
+$stdinfUnidCarga->qtdRat = '3.50';
 
-    // transporte de produtos classificados pela ONU como perigosos
-    $stdperi = new \stdClass();
-    $stdperi->nONU = '1234';
-    $stdperi->xNomeAE = 'testeNome';
-    $stdperi->xClaRisco = 'testeClaRisco';
-    $stdperi->grEmb = 'testegrEmb';
-    $stdperi->qTotProd = '1';
-    $stdperi->qVolTipo = '1';
-    $std->peri = $stdperi;
+$stdinfUnidTransp->infUnidCarga = [$stdinfUnidCarga];
+$stdinfUnidTransp->qtdRat = '3.50';
+
+$std->infUnidTransp = [$stdinfUnidTransp];
+
+// transporte de produtos classificados pela ONU como perigosos
+$stdperi = new \stdClass();
+$stdperi->nONU = '1234';
+$stdperi->xNomeAE = 'testeNome';
+$stdperi->xClaRisco = 'testeClaRisco';
+$stdperi->grEmb = 'testegrEmb';
+$stdperi->qTotProd = '1';
+$stdperi->qVolTipo = '1';
+$std->peri = [$stdperi];
 
 $mdfe->taginfNFe($std);
 
 /* infMDFeTransp */
 
 $std = new \stdClass();
-$std->chNFe = '35310800000000000372570010001999091000088888';
+$std->chMDFe = '35310800000000000372570010001999091000088888';
 $std->indReentrega = '1';
+$std->nItem = 0;
 
-    // Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
-    $stdinfUnidTransp = new \stdClass();
-    $stdinfUnidTransp->tpUnidTransp = '1';
-    $stdinfUnidTransp->idUnidTransp = 'AAA-1111';
+// Informações das Unidades de Transporte (Carreta/Reboque/Vagão)
+$stdinfUnidTransp = new \stdClass();
+$stdinfUnidTransp->tpUnidTransp = '1';
+$stdinfUnidTransp->idUnidTransp = 'AAA-1111';
 
-        // Lacres das Unidades de Transporte
-        $stdlacUnidTransp = new \stdClass();
-        $stdlacUnidTransp->nLacre = ['00000001','00000002'];
+// Lacres das Unidades de Transporte
+$stdlacUnidTransp = new \stdClass();
+$stdlacUnidTransp->nLacre = ['00000001', '00000002'];
 
-        $stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
+$stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
 
-        // Informações das Unidades de Carga (Containeres/ULD/Outros)
-        $stdinfUnidCarga = new \stdClass();
-        $stdinfUnidCarga->tpUnidCarga = '1';
-        $stdinfUnidCarga->idUnidCarga = '01234567890123456789';
-        
-            // lacres das Unidades de Carga
-            $stdlacUnidCarga = new \stdClass();
-            $stdlacUnidCarga->nLacre = ['00000001','00000002'];
+// Informações das Unidades de Carga (Containeres/ULD/Outros)
+$stdinfUnidCarga = new \stdClass();
+$stdinfUnidCarga->tpUnidCarga = '1';
+$stdinfUnidCarga->idUnidCarga = '01234567890123456789';
 
-        $stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
-        $stdinfUnidCarga->qtdRat = '3.50';
+// lacres das Unidades de Carga
+$stdlacUnidCarga = new \stdClass();
+$stdlacUnidCarga->nLacre = ['00000001', '00000002'];
 
-    $stdinfUnidTransp->infUnidCarga = $stdinfUnidCarga;
-    $stdinfUnidTransp->qtdRat = '3.50';
-        
-    $std->infUnidTransp = $stdinfUnidTransp;
+$stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
+$stdinfUnidCarga->qtdRat = '3.50';
 
-    // transporte de produtos classificados pela ONU como perigosos
-    $stdperi = new \stdClass();
-    $stdperi->nONU = '1234';
-    $stdperi->xNomeAE = 'testeNome';
-    $stdperi->xClaRisco = 'testeClaRisco';
-    $stdperi->grEmb = 'testegrEmb';
-    $stdperi->qTotProd = '1';
-    $stdperi->qVolTipo = '1';
-    $std->peri = $stdperi;
+$stdinfUnidTransp->infUnidCarga = [$stdinfUnidCarga];
+$stdinfUnidTransp->qtdRat = '3.50';
+
+$std->infUnidTransp = [$stdinfUnidTransp];
+
+// transporte de produtos classificados pela ONU como perigosos
+$stdperi = new \stdClass();
+$stdperi->nONU = '1234';
+$stdperi->xNomeAE = 'testeNome';
+$stdperi->xClaRisco = 'testeClaRisco';
+$stdperi->grEmb = 'testegrEmb';
+$stdperi->qTotProd = '1';
+$stdperi->qVolTipo = '1';
+$std->peri = [$stdperi];
 
 $mdfe->taginfMDFeTransp($std);
 
@@ -315,20 +360,19 @@ $mdfe->taginfMDFeTransp($std);
 $std = new \stdClass();
 $std->respSeg = '1';
 
-    /* Informações da seguradora */
-    $stdinfSeg = new \stdClass();
-    $stdinfSeg->xSeg = 'SOMPO SEGUROS';
-    $stdinfSeg->CNPJ = '11222333444455';
+/* Informações da seguradora */
+$stdinfSeg = new \stdClass();
+$stdinfSeg->xSeg = 'SOMPO SEGUROS';
+$stdinfSeg->CNPJ = '11222333444455';
 
 $std->infSeg = $stdinfSeg;
 $std->nApol = '11223344555';
-$std->nAver = ['0572012190000000000007257001000199899140','0572012190000000000007257001000199708140'];
+$std->nAver = ['0572012190000000000007257001000199899140', '0572012190000000000007257001000199708140'];
 $mdfe->tagseg($std);
 /* fim grupo Seguro */
 
 /* grupo de totais */
 $std = new \stdClass();
-$std->qCTe = '02';
 $std->vCarga = '580042.92';
 $std->cUnid = '01';
 $std->qCarga = '35454.9400';
@@ -336,28 +380,27 @@ $mdfe->tagtot($std);
 /* fim grupo de totais */
 
 /* grupo de lacres */
+// for {
 $std = new \stdClass();
-$std->nLacre = ['0000001','0000002'];
+$std->nLacre = '0000001';
 $mdfe->taglacres($std);
+// }
 /* fim grupo de lacres */
 
 /* grupo Autorizados para download do XML do DF-e */
+// for {
 $std = new \stdClass();
 $std->CNPJ = '11122233344455';
 $mdfe->tagautXML($std);
-
-$std = new \stdClass();
-$std->CPF = '11122233344';
-$mdfe->tagautXML($std);
-
-/* fim grupo de lacres */
-
+// }
 
 /* grupo Informações Adicionais */
 $std = new \stdClass();
 $std->infCpl = 'Contrato No 007018 2 CARR BBB1111';
+$std->infAdFisco = 'Contrato No 007018 2 CARR BBB1111';
 $mdfe->taginfAdic($std);
 /* fim grupo Informações Adicionais */
 
 $xml = $mdfe->getXML(); // O conteúdo do XML fica armazenado na variável $xml
-file_put_contents('teste.xml', $xml);
+header("Content-type: text/xml");
+echo $mdfe->getXML();

@@ -5,6 +5,7 @@ namespace NFePHP\MDFe;
 use DOMDocument;
 use NFePHP\MDFe\Common\Standardize;
 use NFePHP\MDFe\Exception\DocumentsException;
+use NFePHP\Common\Strings;
 
 class Complements
 {
@@ -143,5 +144,71 @@ class Complements
         $xml .= $second;
         $xml .= "</$nodename>";
         return $xml;
+    }
+
+
+    /**
+     * Add cancel protocol to a autorized MDFE
+     * if event is not a cancellation will return
+     * the same autorized MDFE passing
+     * NOTE: This action is not necessary, I use only for my needs to
+     * leave the MDFE marked as Canceled in order to avoid mistakes
+     * after its cancellation.
+     * @param string $MDFE content of autorized MDFE XML
+     * @param string $cancelamento content of SEFAZ response
+     * @return string
+     * @throws \InvalidArgumentException
+     */
+    public static function cancelRegister($mdfe, $cancelamento)
+    {
+        $procXML = $mdfe;
+        $dommdfe = new DOMDocument('1.0', 'utf-8');
+        $dommdfe->formatOutput = false;
+        $dommdfe->preserveWhiteSpace = false;
+        $dommdfe->loadXML($mdfe);
+        $proMDFe = $dommdfe->getElementsByTagName('protMDFe')->item(0);
+        if (empty($proMDFe)) {
+            //not protocoladed MDFe
+            throw DocumentsException::wrongDocument(1);
+        }
+        $chaveMdfe = $proMDFe->getElementsByTagName('chMDFe')->item(0)->nodeValue;
+        $domcanc = new DOMDocument('1.0', 'utf-8');
+        $domcanc->formatOutput = false;
+        $domcanc->preserveWhiteSpace = false;
+        $domcanc->loadXML($cancelamento);
+        $eventos = $domcanc->getElementsByTagName('retEventoMDFe');
+        foreach ($eventos as $evento) {
+            $infEvento = $evento->getElementsByTagName('infEvento')->item(0);
+            $cStat = $infEvento->getElementsByTagName('cStat')
+                ->item(0)
+                ->nodeValue;
+            $nProt = $infEvento->getElementsByTagName('nProt')
+                ->item(0)
+                ->nodeValue;
+            $chaveEvento = $infEvento->getElementsByTagName('chMDFe')
+                ->item(0)
+                ->nodeValue;
+            $tpEvento = $infEvento->getElementsByTagName('tpEvento')
+                ->item(0)
+                ->nodeValue;
+            if (
+                in_array($cStat, ['135', '136', '155'])
+                && $tpEvento == '110111'
+                && $chaveEvento == $chaveMdfe
+            ) {
+                $proMDFe->getElementsByTagName('cStat')
+                    ->item(0)
+                    ->nodeValue = '101';
+                $proMDFe->getElementsByTagName('nProt')
+                    ->item(0)
+                    ->nodeValue = $nProt;
+                $proMDFe->getElementsByTagName('xMotivo')
+                    ->item(0)
+                    ->nodeValue = 'Cancelamento de MDF-e homologado';
+                $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
+                break;
+            }
+        }
+        return $procXML;
     }
 }
