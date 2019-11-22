@@ -27,7 +27,8 @@ class QRCode
      * @throws DocumentsException
      */
     public static function putQRTag(
-        \DOMDocument $dom, $certificate
+        \DOMDocument $dom,
+        $certificate
     ) {
         $mdfe = $dom->getElementsByTagName('MDFe')->item(0);
         $infMDFe = $dom->getElementsByTagName('infMDFe')->item(0);

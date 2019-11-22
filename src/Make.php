@@ -1681,7 +1681,7 @@ class Make
          */
         if ($modal == '1') {
             $this->tagrodo();
-        } else if ($modal == '4') {
+        } elseif ($modal == '4') {
             $this->tagferrov();
         }
         return $infModal;

@@ -191,8 +191,7 @@ class Complements
             $tpEvento = $infEvento->getElementsByTagName('tpEvento')
                 ->item(0)
                 ->nodeValue;
-            if (
-                in_array($cStat, ['135', '136', '155'])
+            if (in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMdfe
             ) {
