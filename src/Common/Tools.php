@@ -532,7 +532,8 @@ class Tools
     protected function addQRCode(DOMDocument $dom, $certificate)
     {
         $signed = QRCode::putQRTag(
-            $dom, $certificate
+            $dom,
+            $certificate
         );
         return Strings::clearXmlString($signed);
     }
