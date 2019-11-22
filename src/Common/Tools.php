@@ -341,8 +341,10 @@ class Tools
 
         $infMDFeSupl = !empty($dom->getElementsByTagName('infMDFeSupl')->item(0));
         if (!$infMDFeSupl) {
-            $signed = $this->addQRCode($dom);
+            $signed = $this->addQRCode($dom, $this->certificate);
         }
+        //$qrCode = $dom->getElementsByTagName('qrCode')->item(0)->nodeValue;
+        
         $modal = (int) $dom->getElementsByTagName('modal')->item(0)->nodeValue;
         //validate
         $this->isValid($this->versao, $signed, $method);
@@ -527,10 +529,10 @@ class Tools
      * @param DOMDocument $dom
      * @return string
      */
-    protected function addQRCode(DOMDocument $dom)
+    protected function addQRCode(DOMDocument $dom, $certificate)
     {
         $signed = QRCode::putQRTag(
-            $dom
+            $dom, $certificate
         );
         return Strings::clearXmlString($signed);
     }
