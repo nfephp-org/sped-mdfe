@@ -4,7 +4,7 @@
         <sigla>RS</sigla>
         <homologacao>
             <MDFeRecepcao method='mdfeRecepcaoLote' operation='MDFeRecepcao' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx</MDFeRecepcao>
-            <MDFeRecepcaoSinc method='mdfeRecepcao' operation='MDFeRecepcao' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRecepcaoSinc/MDFeRecepcaoSinc.asmx</MDFeRecepcaoSinc>
+            <MDFeRecepcaoSinc method='mdfeRecepcao' operation='MDFeRecepcaoSinc' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRecepcaoSinc/MDFeRecepcaoSinc.asmx</MDFeRecepcaoSinc>
             <MDFeRetRecepcao method='mdfeRetRecepcao' operation='MDFeRetRecepcao' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx</MDFeRetRecepcao>
             <MDFeRecepcaoEvento method='mdfeRecepcaoEvento' operation='MDFeRecepcaoEvento' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx</MDFeRecepcaoEvento>
             <MDFeConsulta method='mdfeConsultaMDF' operation='MDFeConsulta' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsulta>
@@ -13,7 +13,7 @@
         </homologacao>
         <producao>
             <MDFeRecepcao method='mdfeRecepcaoLote' operation='MDFeRecepcao' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFerecepcao/MDFeRecepcao.asmx</MDFeRecepcao>
-            <MDFeRecepcaoSinc method='mdfeRecepcao' operation='MDFeRecepcao' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoSinc/MDFeRecepcaoSinc.asmx</MDFeRecepcaoSinc>
+            <MDFeRecepcaoSinc method='mdfeRecepcao' operation='MDFeRecepcaoSinc' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoSinc/MDFeRecepcaoSinc.asmx</MDFeRecepcaoSinc>
             <MDFeRetRecepcao method='mdfeRetRecepcao' operation='MDFeRetRecepcao' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRetRecepcao/MDFeRetRecepcao.asmx</MDFeRetRecepcao>
             <MDFeRecepcaoEvento method='mdfeRecepcaoEvento' operation='MDFeRecepcaoEvento' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcaoEvento/MDFeRecepcaoEvento.asmx</MDFeRecepcaoEvento>
             <MDFeConsulta method='mdfeConsultaMDF' operation='MDFeConsulta' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsulta>

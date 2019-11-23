@@ -14,7 +14,7 @@ $config = [
     "cnpj" => "11222333444455",
     "inscricaomunicipal" => "11223",
     "codigomunicipio" => "3518800",
-    "schemes" => "V3",
+    "schemes" => "PL_MDFe_300a",
     "versao" => "3.00"
 ];
 
@@ -38,13 +38,13 @@ $std->nMDF = '5766';
 $std->cMDF = '00025563';
 $std->cDV = '5';
 $std->modal = '1';
-$std->dhEmi = '2019-04-04T16:31:48-03:00';
+$std->dhEmi = '2019-04-23T06:00:48-03:00';
 $std->tpEmis = '2';
 $std->procEmi = '0';
 $std->verProc = '1.6';
 $std->UFIni = 'SP';
 $std->UFFim = 'PA';
-$std->dhIniViagem = '2019-04-04T16:31:48-03:00';
+$std->dhIniViagem = '2019-04-23T06:00:48-03:00';
 $std->indCanalVerde = '1';
 $std->indCarregaPosterior = '1';
 $mdfe->tagide($std);

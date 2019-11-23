@@ -18,15 +18,12 @@ namespace NFePHP\MDFe;
  * @author    Cleiton Perin <cperin20 at gmail dot com>
  */
 
-use NFePHP\Common\Keys;
-use NFePHP\Common\DOMImproved as Dom;
-use NFePHP\Common\Strings;
-use stdClass;
-use RuntimeException;
-use InvalidArgumentException;
 use DOMElement;
-use DateTime;
-use Exception;
+use NFePHP\Common\DOMImproved as Dom;
+use NFePHP\Common\Keys;
+use NFePHP\Common\Strings;
+use RuntimeException;
+use stdClass;
 
 class Make
 {

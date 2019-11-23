@@ -25,19 +25,28 @@ class Tools extends ToolsCommon
      *
      * @param array $aXml
      * @param string $idLote
+     * @param int $indSinc flag to use synchronous communication
      * @return   string
      * @throws   Exception\InvalidArgumentException
      */
     public function sefazEnviaLote(
         $aXml,
-        $idLote = ''
+        $idLote = '',
+        $indSinc = 0
     ) {
 
 
         if (!is_array($aXml)) {
             throw new \InvalidArgumentException('Os XML das MDFe devem ser passados em um array.');
         }
+        if ($indSinc == 1 && count($aXml) > 1) {
+            throw new \InvalidArgumentException('Envio sincrono deve ser usado para enviar '
+                . 'uma UNICA mdfe por vez. Você está tentando enviar varias.');
+        }
         $servico = 'MDFeRecepcao';
+        if ($indSinc == 1) {
+            $servico = 'MDFeRecepcaoSinc';
+        }
         $sxml = implode("", $aXml);
         $sxml = preg_replace("/<\?xml.*?\?>/", "", $sxml);
         $this->servico(
@@ -51,6 +60,9 @@ class Tools extends ToolsCommon
             . "</enviMDFe>";
         $this->isValid($this->urlVersion, $request, 'enviMDFe');
         $this->lastRequest = $request;
+        if ($indSinc == 1) {
+            $request = base64_encode(gzencode($sxml));
+        }
         //montagem dos dados da mensagem SOAP
         $parameters = ['mdfeDadosMsg' => $request];
         $body = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$request</mdfeDadosMsg>";
