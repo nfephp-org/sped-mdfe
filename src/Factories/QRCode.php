@@ -27,15 +27,20 @@ class QRCode
      * @throws DocumentsException
      */
     public static function putQRTag(
-        \DOMDocument $dom
+        \DOMDocument $dom,
+        $certificate
     ) {
-
         $mdfe = $dom->getElementsByTagName('MDFe')->item(0);
         $infMDFe = $dom->getElementsByTagName('infMDFe')->item(0);
         $ide = $dom->getElementsByTagName('ide')->item(0);
+        $tpEmis = $ide->getElementsByTagName('tpEmis')->item(0)->nodeValue;
         $chMDFe = preg_replace('/[^0-9]/', '', $infMDFe->getAttribute("Id"));
+        $sign = '';
+        if ($tpEmis == 2) {
+            $sign = "&sign=" . base64_encode($certificate->sign($chMDFe));
+        }
         $tpAmb = $ide->getElementsByTagName('tpAmb')->item(0)->nodeValue;
-        $urlQRCode = "https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode?chMDFe=$chMDFe&tpAmb=$tpAmb";
+        $urlQRCode = "https://dfe-portal.svrs.rs.gov.br/mdfe/qrCode?chMDFe=$chMDFe&tpAmb=$tpAmb{$sign}";
         $infMDFeSupl = $dom->createElement("infMDFeSupl");
         $qrCode = $infMDFeSupl->appendChild($dom->createElement('qrCodMDFe'));
         $qrCode->appendChild($dom->createCDATASection($urlQRCode));

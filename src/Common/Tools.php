@@ -150,6 +150,11 @@ class Tools
     /**
      * @var array
      */
+    /**
+     * @var string
+     */
+    protected $typePerson = 'J';
+
     protected $soapnamespaces = [
         'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
         'xmlns:xsd' => "http://www.w3.org/2001/XMLSchema",
@@ -181,6 +186,7 @@ class Tools
         $this->setEnvironmentTimeZone($this->config->siglaUF);
         $this->certificate = $certificate;
         $this->setEnvironment($this->config->tpAmb);
+        $this->typePerson = $this->getTypeOfPersonFromCertificate();
     }
 
     /**
@@ -201,6 +207,31 @@ class Tools
     {
         $this->verAplic = $ver;
     }
+
+    /**
+     * Return J or F from existing type in ASN.1 certificate
+     * J - pessoa juridica (CNPJ)
+     * F - pessoa física (CPF)
+     * @return string
+     */
+    public function getTypeOfPersonFromCertificate()
+    {
+        $cnpj = $this->certificate->getCnpj();
+        $type = 'J';
+        if (substr($cnpj, 0, 1) === 'N') {
+            //não é CNPJ, então verificar se é CPF
+            $cpf = $this->certificate->getCpf();
+            if (substr($cpf, 0, 1) !== 'N') {
+                $type = 'F';
+            } else {
+                //não foi localizado nem CNPJ e nem CPF esse certificado não é usável
+                //throw new RuntimeException('Faltam elementos CNPJ/CPF no certificado digital.');
+                $type = '';
+            }
+        }
+        return $type;
+    }
+
 
     /**
      * Load Soap Class
@@ -307,12 +338,39 @@ class Tools
         $dom->loadXML($signed);
         //exception will be throw if MDFe is not valid
         $method = 'mdfe';
+
         $infMDFeSupl = !empty($dom->getElementsByTagName('infMDFeSupl')->item(0));
         if (!$infMDFeSupl) {
-            $signed = $this->addQRCode($dom);
+            $signed = $this->addQRCode($dom, $this->certificate);
         }
+        //$qrCode = $dom->getElementsByTagName('qrCode')->item(0)->nodeValue;
+        
+        $modal = (int) $dom->getElementsByTagName('modal')->item(0)->nodeValue;
+        //validate
         $this->isValid($this->versao, $signed, $method);
+        //validate modal
+        switch ($modal) {
+            case 1:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'rodo'), $method . 'ModalRodoviario');
+                break;
+            case 2:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'aereo'), $method . 'ModalAereo');
+                break;
+            case 3:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'aquav'), $method . 'ModalAquaviario');
+                break;
+            case 4:
+                $this->isValid($this->versao, $this->getModalXML($dom, 'ferrov'), $method . 'ModalFerroviario');
+                break;
+        }
         return $signed;
+    }
+
+    public function getModalXML($dom, $modal)
+    {
+        $modal = $dom->getElementsByTagName($modal)->item(0);
+        $modal->setAttribute("xmlns", "http://www.portalfiscal.inf.br/mdfe");
+        return $dom->saveXML($modal);
     }
 
     /**
@@ -382,13 +440,13 @@ class Tools
         if ($stdServ === false) {
             throw new \RuntimeException(
                 "Nenhum serviço foi localizado para esta unidade "
-                . "da federação [$sigla]."
+                    . "da federação [$sigla]."
             );
         }
         if (empty($stdServ->$service->url)) {
             throw new \RuntimeException(
                 "Este serviço [$service] não está disponivel para esta "
-                . "unidade da federação [$uf] ou para este modelo"
+                    . "unidade da federação [$uf] ou para este modelo"
             );
         }
         //recuperação do cUF
@@ -439,7 +497,7 @@ class Tools
     protected function sendRequest($request, array $parameters = [])
     {
         $this->checkSoap();
-        return (string)$this->soap->send(
+        return (string) $this->soap->send(
             $this->urlService,
             $this->urlMethod,
             $this->urlAction,
@@ -471,10 +529,11 @@ class Tools
      * @param DOMDocument $dom
      * @return string
      */
-    protected function addQRCode(DOMDocument $dom)
+    protected function addQRCode(DOMDocument $dom, $certificate)
     {
         $signed = QRCode::putQRTag(
-            $dom
+            $dom,
+            $certificate
         );
         return Strings::clearXmlString($signed);
     }
