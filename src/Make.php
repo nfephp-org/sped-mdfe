@@ -369,8 +369,10 @@ class Make
             $this->dom->addArrayChild($this->infMDFe, $this->seg, 'Falta tag "seg"');
         }
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "tot"');
-        foreach ($this->lacres as $lacres) {
-            $this->dom->appChild($this->infMDFe, $lacres, 'Falta tag "lacres"');
+        if (!empty($this->lacres)) {
+            foreach ($this->lacres as $lacres) {
+                $this->dom->appChild($this->infMDFe, $lacres, 'Falta tag "lacres"');
+            }
         }
         foreach ($this->autXML as $autXML) {
             $this->dom->appChild($this->infMDFe, $autXML, 'Falta tag "infMDFe"');
