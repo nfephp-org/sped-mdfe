@@ -19,7 +19,6 @@ namespace NFePHP\MDFe\Common;
 use NFePHP\Common\Validator;
 use NFePHP\MDFe\Exception\DocumentsException;
 use stdClass;
-use Symfony\Component\Yaml\Yaml;
 
 class Standardize
 {
@@ -149,17 +148,4 @@ class Standardize
         return json_decode($this->json, true);
     }
 
-    /**
-     * Returns YAML from XML
-     * @param string $xml
-     * @return string
-     */
-    public function toYaml($xml = null)
-    {
-        if (!empty($xml)) {
-            $this->toStd($xml);
-        }
-        $array = $this->toArray();
-        return Yaml::dump($array, 6, 4);
-    }
 }
