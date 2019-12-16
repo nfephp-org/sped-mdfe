@@ -1502,22 +1502,40 @@ class Make
     public function tagtot(stdClass $std)
     {
         $possible = [
+            'qCTe',
+            'qNFe',
+            'qMDFe',
             'vCarga',
             'cUnid',
             'qCarga'
         ];
         $std = $this->equilizeParameters($std, $possible);
-        $std->qCTe = count($this->infCTe);
-        if ($std->qCTe == 0) {
-            $std->qCTe = '';
+        if (!isset($std->qCTe)) {
+            $std->qCTe = 0;
+            foreach ($this->infCTe as $infCTe) {
+                $std->qCTe += count($infCTe);
+            }
+            if ($std->qCTe == 0) {
+                $std->qCTe = '';
+            }
         }
-        $std->qNFe = count($this->infNFe);
-        if ($std->qNFe == 0) {
-            $std->qNFe = '';
+        if (!isset($std->qNFe)) {
+            $std->qNFe = 0;
+            foreach ($this->infNFe as $infNFe) {
+                $std->qNFe += count($infNFe);
+            }
+            if ($std->qNFe == 0) {
+                $std->qNFe = '';
+            }
         }
-        $std->qMDFe = count($this->infMDFeTransp);
-        if ($std->qMDFe == 0) {
-            $std->qMDFe = '';
+        if (!isset($std->qMDFe)) {
+            $std->qMDFe = 0;
+            foreach ($this->infMDFeTransp as $infMDFeTransp) {
+                $std->qMDFe += count($infMDFeTransp);
+            }
+            if ($std->qMDFe == 0) {
+                $std->qMDFe = '';
+            }
         }
         $tot = $this->dom->createElement("tot");
         $this->dom->addChild(
