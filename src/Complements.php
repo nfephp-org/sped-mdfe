@@ -191,6 +191,9 @@ class Complements
             $tpEvento = $infEvento->getElementsByTagName('tpEvento')
                 ->item(0)
                 ->nodeValue;
+            $proMDFe->getElementsByTagName('nProt')
+                ->item(0)
+                ->nodeValue = $nProt;
             if (in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMdfe
@@ -198,16 +201,30 @@ class Complements
                 $proMDFe->getElementsByTagName('cStat')
                     ->item(0)
                     ->nodeValue = '101';
-                $proMDFe->getElementsByTagName('nProt')
-                    ->item(0)
-                    ->nodeValue = $nProt;
                 $proMDFe->getElementsByTagName('xMotivo')
                     ->item(0)
                     ->nodeValue = 'Cancelamento de MDF-e homologado';
                 $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
                 break;
+            } else if (in_array($cStat, ['135', '136', '155'])
+                && $tpEvento == '110112'
+                && $chaveEvento == $chaveMdfe
+            ) {
+                $proMDFe->getElementsByTagName('cStat')
+                    ->item(0)
+                    ->nodeValue = '103';
+                $proMDFe->getElementsByTagName('xMotivo')
+                    ->item(0)
+                    ->nodeValue = 'Encerramento de MDF-e homologado';
+                $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
+                break;
             }
         }
         return $procXML;
+    }
+
+    public static function closeRegister($mdfe, $encerramento)
+    {
+        return self::cancelRegister($mdfe, $encerramento);
     }
 }
