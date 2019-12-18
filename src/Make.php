@@ -280,9 +280,6 @@ class Make
     public function monta()
     {
         $this->errors = $this->dom->errors;
-        if (count($this->errors) > 0) {
-            return false;
-        }
         //cria a tag raiz da MDFe
         $this->buildMDFe();
         $this->buildInfModal();
@@ -385,6 +382,9 @@ class Make
         // testa da chave
         $this->checkMDFKey($this->dom);
         $this->xml = $this->dom->saveXML();
+        if (count($this->errors) > 0) {
+            throw new RuntimeException('Existem erros nas tags. Obtenha os erros com getErrors().');
+        }
         return true;
     }
 
@@ -2738,6 +2738,15 @@ class Make
             $infMDFe->setAttribute("versao", $this->versao);
             $this->chMDFe = $chaveMontada;
         }
+    }
+
+    /**
+     * Retorna os erros detectados
+     * @return array
+     */
+    public function getErrors()
+    {
+        return $this->errors;
     }
 
     /**
