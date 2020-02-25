@@ -1707,10 +1707,18 @@ class Make
     private function buildIde()
     {
         $this->dom->appChild($this->infMDFe, $this->ide, 'Falta tag "ide"');
-        $UFFim = $this->ide->getElementsByTagName('UFFim')->item(0);
         foreach ($this->infPercurso as $percurso) {
-            $this->dom->insertAfter($percurso, $UFFim);
+            $node = $this->ide->getElementsByTagName('infPercurso')->item(0);
+            if (empty($node)) {
+                $node = $this->ide->getElementsByTagName('UFFim')->item(0);
+            } else {
+                if ($this->ide->getElementsByTagName('infPercurso')->length > 1) {
+                    $node = $this->ide->getElementsByTagName('infPercurso')->item($this->ide->getElementsByTagName('infPercurso')->length - 1);
+                }
+            }
+            $this->dom->insertAfter($percurso, $node);
         }
+        $UFFim = $this->ide->getElementsByTagName('UFFim')->item(0);
         foreach ($this->infMunCarrega as $munCarrega) {
             $this->dom->insertAfter($munCarrega, $UFFim);
         }
