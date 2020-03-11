@@ -113,6 +113,12 @@ class Make
      * @type string|\DOMNode
      */
     private $infContratante = [];
+/**
+ * @type string|\DOMNode
+ */
+private $infPag = [];
+
+
     /**
      * @type string|\DOMNode
      */
@@ -2681,6 +2687,18 @@ class Make
         $this->infRespTec = $infRespTec;
         return $infRespTec;
     }
+
+
+/**
+ * Metodo responsavel pela NT 2020-01
+ * 
+ * @author Vanderlei Cavassin
+ * @param stdClass $std
+ * @return DOMElement
+ * @throws RuntimeException
+ */
+public function tag
+
 
     /**
      * buildMDFe
