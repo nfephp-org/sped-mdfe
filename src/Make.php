@@ -92,6 +92,10 @@ class Make
     /**
      * @type string|\DOMNode
      */
+    private $prodPred = [];
+    /**
+     * @type string|\DOMNode
+     */
     private $infMunDescarga = [];
     /**
      * @type string|\DOMNode
@@ -288,6 +292,9 @@ class Make
         $this->dom->appChild($this->emit, $this->enderEmit, 'Falta tag "enderEmit"');
         $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "emit"');
         if ($this->rodo) {
+            if (empty($this->prodPred)) {
+                $this->errors[] = "Tag prodPred é obrigatória para modal rodoviário!";
+            }
             if ($this->infANTT) {
                 if ($this->infCIOT) {
                     $this->dom->addArrayChild($this->infANTT, $this->infCIOT, 'Falta tag "infCIOT"');
@@ -364,6 +371,9 @@ class Make
         }
         if (!empty($this->seg)) {
             $this->dom->addArrayChild($this->infMDFe, $this->seg, 'Falta tag "seg"');
+        }
+        if (!empty($this->prodPred)) {
+            $this->dom->addArrayChild($this->infMDFe, $this->prodPred, 'Falta tag "prodPred"');
         }
         $this->dom->appChild($this->infMDFe, $this->tot, 'Falta tag "tot"');
         if (!empty($this->lacres)) {
@@ -934,27 +944,45 @@ class Make
     public function taginfContratante(stdClass $std)
     {
         $possible = [
+            'xNome',
             'CPF',
-            'CNPJ'
+            'CPF',
+            'idEstrangeiro'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $identificador = '[4] <infContratante> - ';
         $infContratante = $this->dom->createElement("infContratante");
+
+        $this->dom->addChild(
+            $infContratante,
+            "xNome",
+            $std->xNome,
+            false,
+            $identificador . "Nome do contratante do serviço"
+        );
         if ($std->CPF) {
             $this->dom->addChild(
                 $infContratante,
                 "CPF",
                 $std->CPF,
                 true,
-                $identificador . "Número do CPF do contratente do serviço"
+                $identificador . "Número do CPF do contratante do serviço"
             );
-        } else {
+        } else if ($std->CNPJ) {
             $this->dom->addChild(
                 $infContratante,
                 "CNPJ",
                 $std->CNPJ,
                 true,
-                $identificador . "Número do CNPJ do contratente do serviço"
+                $identificador . "Número do CNPJ do contratante do serviço"
+            );
+        } else {
+            $this->dom->addChild(
+                $infContratante,
+                "idEstrangeiro",
+                $std->idEstrangeiro,
+                true,
+                $identificador . "Identificador do contratante do serviço em caso de ser estrangeiro"
             );
         }
         $this->infContratante[] = $infContratante;
@@ -1490,6 +1518,55 @@ class Make
         }
         $this->seg[] = $seg;
         return $seg;
+    }
+
+    /**
+     * tagprodPred
+     * tag MDFe/infMDFe/prodPred
+     *
+     * @param  stdClass $std
+     * @return DOMElement
+     */
+    public function tagprodPred($std)
+    {
+        $possible = [
+            'tpCarga',
+            'xProd',
+            'cEAN',
+            'NCM'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $prodPred = $this->dom->createElement("prodPred");
+        $this->dom->addChild(
+            $prodPred,
+            "tpCarga",
+            $std->tpCarga,
+            true,
+            "Tipo da Carga. 01-Granel sólido; 02-Granel líquido; 03-Frigorificada; 04-Conteinerizada; 05-Carga Geral; 06-Neogranel; 07-Perigosa (granel sólido); 08-Perigosa (granel líquido); 09-Perigosa (carga frigorificada); 10-Perigosa (conteinerizada); 11-Perigosa (carga geral)."
+        );
+        $this->dom->addChild(
+            $prodPred,
+            "xProd",
+            $std->xProd,
+            true,
+            "Descrição do produto predominante"
+        );
+        $this->dom->addChild(
+            $prodPred,
+            "cEAN",
+            $std->cEAN,
+            false,
+            "GTIN (Global Trade Item Number) do produto, antigo código EAN ou código de barras"
+        );
+        $this->dom->addChild(
+            $prodPred,
+            "NCM",
+            $std->NCM,
+            false,
+            "Código NCM"
+        );
+        $this->prodPred[] = $prodPred;
+        return $prodPred;
     }
 
     /**
