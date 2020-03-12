@@ -113,11 +113,10 @@ class Make
      * @type string|\DOMNode
      */
     private $infContratante = [];
-/**
- * @type string|\DOMNode
- */
-private $infPag = [];
-
+    /**
+     * @type string|\DOMNode
+     */
+    private $infPag = [];
 
     /**
      * @type string|\DOMNode
@@ -306,7 +305,13 @@ private $infPag = [];
                 }
                 if ($this->infContratante) {
                     $this->dom->addArrayChild($this->infANTT, $this->infContratante, 'Falta tag "infContratante"');
+                    
                 }
+                if ($this->infPag) {
+                    //var_dump($this->infContratante);
+                    $this->dom->addArrayChild($this->infANTT, $this->infPag, 'Falta tag "infpag"');
+                }
+
                 $this->dom->appChild($this->rodo, $this->infANTT, 'Falta tag "infANTT"');
             }
             if ($this->veicTracao) {
@@ -2641,7 +2646,7 @@ private $infPag = [];
             $std->CNPJ,
             true,
             "Informar o CNPJ da pessoa jurídica responsável pelo sistema "
-            . "utilizado na emissão do documento fiscal eletrônico"
+                . "utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2649,7 +2654,7 @@ private $infPag = [];
             $std->xContato,
             true,
             "Informar o nome da pessoa a ser contatada na empresa desenvolvedora "
-            . "do sistema utilizado na emissão do documento fiscal eletrônico"
+                . "do sistema utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2657,7 +2662,7 @@ private $infPag = [];
             $std->email,
             true,
             "Informar o e-mail da pessoa a ser contatada na empresa "
-            . "desenvolvedora do sistema."
+                . "desenvolvedora do sistema."
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2665,7 +2670,7 @@ private $infPag = [];
             $std->fone,
             true,
             "Informar o telefone da pessoa a ser contatada na empresa "
-            . "desenvolvedora do sistema."
+                . "desenvolvedora do sistema."
         );
         if (!empty($std->CSRT) && !empty($std->idCSRT)) {
             $this->csrt = $std->CSRT;
@@ -2689,16 +2694,68 @@ private $infPag = [];
     }
 
 
-/**
- * Metodo responsavel pela NT 2020-01
- * 
- * @author Vanderlei Cavassin
- * @param stdClass $std
- * @return DOMElement
- * @throws RuntimeException
- */
-public function tag
+    /**
+     * Metodo responsavel pela NT 2020-01
+     * 
+     * @author Vanderlei Cavassin
+     * @param stdClass $std
+     * @return DOMElement
+     * @throws RuntimeException
+     */
+    public function taginfPag(stdClass $std)
+    {
+        $possible = [
+            'xNome',
+            'CPF',
+            'CNPJ',
+            'idEstrangeiro'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $infPag = $this->dom->createElement("infPag");
+        $identificador = '[4] <disp> - ';
+        $this->dom->addChild(
+            $infPag,
+            "xNome",
+            $std->xNome,
+            true,
+            $identificador . "Nome do responsável pelo pgto"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "CPF",
+            $std->CPF,
+            false,
+            $identificador . "Número do CPF do responsável pelo pgto"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "CNPJ",
+            $std->CNPJ,
+            false,
+            $identificador . "Número do CNPJ do responsável pelo pgto"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "idEstrangeiro",
+            $std->idEstrangeiro,
+            false,
+            $identificador . "Identificador do responsável pelo pgto em caso de ser estrangeiro"
+        );
+        $this->infPag[] = $infPag;
+        return $infPag;
+    }
 
+    /**
+     * Componentes do Pagamento do Frete
+     * @author Vanderlei Cavassin
+     * @param stdClass
+     * 
+     */
+    public function CompPag(stdClass $std)
+    {
+
+        
+    }
 
     /**
      * buildMDFe

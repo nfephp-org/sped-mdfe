@@ -132,6 +132,15 @@ $mdfe->tagdisp($valePed);
 $infContratante = new \stdClass();
 $infContratante->CNPJ = '09230232000372';
 $mdfe->taginfContratante($infContratante);
+
+$pagto = new \stdClass();
+$pagto->xNome = "VANDE TESTE";
+//$pagto->CPF = "07040551985";
+$pagto->CNPJ = "12345678912345";
+$pagto->idEstrangeiro = "asdassdas65asd6";
+$mdfe->taginfPag($pagto);
+
+
 // }
 
 /* fim infANTT */
@@ -184,53 +193,6 @@ $std->indReentrega = '1';
 $std->nItem = 0;
 
 
-/*
-/* Informações das Unidades de Transporte (Carreta/Reboque/Vagão) 
-$stdinfUnidTransp = new \stdClass();
-$stdinfUnidTransp->tpUnidTransp = '1';
-$stdinfUnidTransp->idUnidTransp = 'AAA-1111';
-
-/* Lacres das Unidades de Transporte 
-$stdlacUnidTransp = new \stdClass();
-$stdlacUnidTransp->nLacre = ['00000001', '00000002'];
-
-$stdinfUnidTransp->lacUnidTransp = $stdlacUnidTransp;
-
-/* Informações das Unidades de Carga (Containeres/ULD/Outros) 
-$stdinfUnidCarga = new \stdClass();
-$stdinfUnidCarga->tpUnidCarga = '1';
-$stdinfUnidCarga->idUnidCarga = '01234567890123456789';
-
-/* Lacres das Unidades de Carga 
-$stdlacUnidCarga = new \stdClass();
-$stdlacUnidCarga->nLacre = ['00000001', '00000002'];
-
-$stdinfUnidCarga->lacUnidCarga = $stdlacUnidCarga;
-$stdinfUnidCarga->qtdRat = '3.50';
-
-$stdinfUnidTransp->infUnidCarga = [$stdinfUnidCarga];
-$stdinfUnidTransp->qtdRat = '3.50';
-
-$std->infUnidTransp = [$stdinfUnidTransp];
-*/
-
-
-/* transporte de produtos classificados pela ONU como perigosos 
-$stdperi = new \stdClass();
-$stdperi->nONU = '1234';
-$stdperi->xNomeAE = 'testeNome';
-$stdperi->xClaRisco = 'testeClaRisco';
-$stdperi->grEmb = 'testegrEmb';
-$stdperi->qTotProd = '1';
-$stdperi->qVolTipo = '1';
-$std->peri = [$stdperi];
-
-/* Grupo de informações da Entrega Parcial (Corte de Voo) 
-$stdinfEntregaParcial = new \stdClass();
-$stdinfEntregaParcial->qtdTotal = '1234.56';
-$stdinfEntregaParcial->qtdParcial = '1234.56';
-$std->infEntregaParcial = $stdinfEntregaParcial;
-*/
 $mdfe->taginfCTe($std);
 
 
@@ -283,7 +245,7 @@ $mdfe->taginfAdic($std);
 
 try {
     //$xml = $mdfe->getXML(); // O conteúdo do XML fica armazenado na variável $xml
-    header("Content-type: text/xml");
+    //header("Content-type: text/xml");
     $xml = $mdfe->getXML();
 
 
@@ -295,4 +257,5 @@ try {
     echo $xmlAssinado;
 } catch (Exception $e) {
     echo $e->getMessage();
+    var_dump($mdfe->getErrors());
 }
