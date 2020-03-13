@@ -16,6 +16,7 @@ namespace NFePHP\MDFe;
  * @license   http://www.gnu.org/licenses/lesser.html LGPL v3
  * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  * @author    Cleiton Perin <cperin20 at gmail dot com>
+ * @author    Vanderlei Cavassin <cavassin.vanderlei at gmail dot com>
  */
 
 use DOMElement;
@@ -312,7 +313,6 @@ class Make
                 }
                 if ($this->infContratante) {
                     $this->dom->addArrayChild($this->infANTT, $this->infContratante, 'Falta tag "infContratante"');
-                    
                 }
                 if ($this->infPag) {
                     //var_dump($this->infContratante);
@@ -2774,7 +2774,6 @@ class Make
     /**
      * Metodo responsavel pela NT 2020-01
      * 
-     * @author Vanderlei Cavassin <cavassin.vanderlei@gmail.com>
      * @param stdClass $std
      * @return DOMElement
      * @throws RuntimeException
@@ -2785,7 +2784,11 @@ class Make
             'xNome',
             'CPF',
             'CNPJ',
-            'idEstrangeiro'
+            'idEstrangeiro',
+            'vContrato',
+            'indPag',
+            'infPrazo',
+            'infBanc'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $infPag = $this->dom->createElement("infPag");
@@ -2818,15 +2821,37 @@ class Make
             false,
             $identificador . "Identificador do responsável pelo pgto em caso de ser estrangeiro"
         );
-
-
-
         if ($std->Comp) {
             foreach ($std->Comp as $value) {
                 $this->dom->appChild($infPag, $this->CompPag($value), 'Falta tag "Comp"');
             }
         }
-        
+        $this->dom->addChild(
+            $infPag,
+            "vContrato",
+            $std->vContrato,
+            true,
+            $identificador . "Valor total do contrato"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "indPag",
+            $std->indPag,
+            false,
+            $identificador . "Indicador da Forma de Pagamento"
+        );
+
+        if ($std->infPrazo) {
+            foreach ($std->infPrazo as $value) {
+                $this->dom->appChild($infPag, $this->infPrazo($value), 'Falta tag "infPrazo"');
+            }
+        }
+        if ($std->infBanc) {
+            foreach ($std->infBanc as $value) {
+                $this->dom->appChild($infPag, $this->infBanc($value), 'Falta tag "infBanc"');
+            }
+        }
+
 
         $this->infPag[] = $infPag;
         return $infPag;
@@ -2834,7 +2859,6 @@ class Make
 
     /**
      * Componentes do Pagamento do Frete
-     * @author Vanderlei Cavassin
      * @param stdClass
      * 
      */
@@ -2874,6 +2898,87 @@ class Make
 
         return $comp;
     }
+
+
+    /***
+     * 
+     */
+    private function infPrazo(stdClass $std)
+    {
+        $possible = [
+            'nParcela',
+            'dVenc',
+            'vParcela'
+        ];
+
+        $stdPraz = $this->equilizeParameters($std, $possible);
+        $prazo = $this->dom->createElement("infPrazo");
+        $identificador = '[4] <infPrazo> - ';
+
+        $this->dom->addChild(
+            $prazo,
+            "nParcela",
+            $stdPraz->nParcela,
+            false,
+            $identificador . "Número da parcela"
+        );
+        $this->dom->addChild(
+            $prazo,
+            "dVenc",
+            $stdPraz->dVenc,
+            false,
+            $identificador . "Data de vencimento da Parcela (AAAA-MMDD)"
+        );
+
+        $this->dom->addChild(
+            $prazo,
+            "vParcela",
+            $stdPraz->vParcela,
+            true,
+            $identificador . "Valor da Parcela"
+        );
+
+        return $prazo;
+    }
+
+    private function infBanc(stdClass $std)
+    {
+        $possible = [
+            'codBanco',
+            'codAgencia',
+            'CNPJIPEF'
+        ];
+
+        $stdBanco = $this->equilizeParameters($std, $possible);
+        $banco = $this->dom->createElement("infBanc");
+        $identificador = '[4] <infBanc> - ';
+
+        $this->dom->addChild(
+            $banco,
+            "codBanco",
+            $stdBanco->codBanco,
+            true,
+            $identificador . "Número do banco"
+        );
+        $this->dom->addChild(
+            $banco,
+            "codAgencia",
+            $stdBanco->codAgencia,
+            true,
+            $identificador . "Número da Agência"
+        );
+
+        $this->dom->addChild(
+            $banco,
+            "CNPJIPEF",
+            $stdBanco->CNPJIPEF,
+            false,
+            $identificador . "Número do CNPJ da Instituição de pagamento Eletrônico do Frete"
+        );
+
+        return $banco;
+    }
+
 
     /**
      * buildMDFe

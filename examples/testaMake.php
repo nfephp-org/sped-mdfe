@@ -6,6 +6,7 @@ require_once '../bootstrap.php';
 
 use NFePHP\MDFe\Make;
 use NFePHP\Common\Certificate;
+use NFePHP\MDFe\Common\Standardize;
 use NFePHP\MDFe\Tools;
 
 $config = [
@@ -40,13 +41,13 @@ $std->nMDF = '11';
 $std->cMDF = '00000002';
 $std->cDV = '2';
 $std->modal = '1';
-$std->dhEmi = '2020-03-11T09:50:00-03:00';
+$std->dhEmi = '2020-03-13T11:20:00-03:00';
 $std->tpEmis = '1';
 $std->procEmi = '0';
 $std->verProc = 'SysconWeb_1.0';
 $std->UFIni = 'SC';
 $std->UFFim = 'SC';
-$std->dhIniViagem = '2020-03-10T10:34:00-03:00';
+$std->dhIniViagem = '2020-03-13T11:30:00-03:00';
 //$std->indCanalVerde = '1';
 //$std->indCarregaPosterior = '1';
 $mdfe->tagide($std);
@@ -138,7 +139,8 @@ $mdfe->taginfContratante($infContratante);
 $pagto = new \stdClass();
 $pagto->xNome = "VANDE TESTE";
 $pagto->CPF = "00000000000";
-//$pagto->CNPJ = "000000";
+$pagto->vContrato = "135.00";
+$pagto->indPag = 1;
 //$pagto->idEstrangeiro = "VANDE TESTE";
 
 $infCom = new \stdClass();
@@ -146,6 +148,16 @@ $infCom->tpComp = '03';
 $infCom->vComp = '134.55';
 $infCom->xComp = 'descricao teste';
 $pagto->Comp = [$infCom];
+
+$infPrazo = new \stdClass();
+$infPrazo->vParcela = 134.55;
+$pagto->infPrazo = [$infPrazo];
+
+$banco = new \stdClass();
+$banco->codBanco = "001";
+$banco->codAgencia = "1";
+//$banco->CNPJIPEF = "39207541000120";
+$pagto->infBanc = [$banco];
 
 
 $mdfe->taginfPag($pagto);
@@ -195,25 +207,32 @@ $infMunDescarga->xMunDescarga = 'CONCORDIA';
 $infMunDescarga->nItem = 0;
 $mdfe->taginfMunDescarga($infMunDescarga);
 
-/* infCTe */
-
-$pred = new \stdClass();
-$pred->tpCarga = "03";
-$pred->xProd = "Carnes Congeladas";
-//$pred->cEAN = "";
-//$pred->NCM = "";
-$mdfe->tagprodPred($pred);
-
 
 $std = new \stdClass();
 $std->chCTe = '42200305388274000113570040000000111000000029';
-//$std->SegCodBarra = '012345678901234567890123456789012345';
-$std->indReentrega = '1';
+$std->indReentrega = '0';
 $std->nItem = 0;
-
+/*
+$std->chCTe = '42200305388274000113570040000000121000000050';
+$std->indReentrega = '1';
+$std->nItem = 1;*/
 
 $mdfe->taginfCTe($std);
 
+
+$infMunDescarga = new \stdClass();
+$infMunDescarga->cMunDescarga = '4204301';
+$infMunDescarga->xMunDescarga = 'CONCORDIA';
+$infMunDescarga->nItem = 0;
+$mdfe->taginfMunDescarga($infMunDescarga);
+
+$stda = new \stdClass();
+$stda->chCTe = '42200305388274000113570040000000121000000050';
+$stda->indReentrega = '0';
+$stda->nItem = 1;
+
+
+$mdfe->taginfCTe($stda);
 
 /* fim grupo infDoc */
 
@@ -231,6 +250,15 @@ $std->nApol = '99999';
 $std->nAver = ['99999'];
 $mdfe->tagseg($std);
 /* fim grupo Seguro */
+
+$prodpre = new \stdClass();
+$prodpre->tpCarga = "03";
+$prodpre->xProd = "produto teste";
+//$prodpre->cEAN = "";
+//$prodpre->NCM = "0123456";
+$mdfe->tagprodPred($prodpre);
+
+
 
 /* grupo de totais */
 $std = new \stdClass();
@@ -264,17 +292,32 @@ $mdfe->taginfAdic($std);
 
 try {
     //$xml = $mdfe->getXML(); // O conteúdo do XML fica armazenado na variável $xml
-    //header("Content-type: text/xml");
-    $xml = $mdfe->getXML();
+    header("Content-type: text/xml");
+    $xml = $mdfe->getXML(); 
 
 
-    //echo $xml;exit;
+    echo $xml;exit;
     $caminhoCrt = "certificado.pfx";
     $content = file_get_contents($caminhoCrt);
     $certificate = Certificate::readPfx($content, '1234');
     $tools = new Tools(json_encode($config), $certificate);
     $xmlAssinado = $tools->signMDFe($xml);
-    echo $xmlAssinado;
+
+    //echo $xmlAssinado;
+    $resp = $tools->sefazEnviaLote([$xmlAssinado], rand(1, 10000));
+
+    
+    $st = new Standardize();
+    $std = $st->toStd($resp);
+
+    sleep(3);
+
+    $resp = $tools->sefazConsultaRecibo($std->infRec->nRec);
+    $std = $st->toStd($resp);
+
+    echo '<pre>';
+    print_r($std);
+    echo "</pre>";
 } catch (Exception $e) {
     echo $e->getMessage();
     var_dump($mdfe->getErrors());
