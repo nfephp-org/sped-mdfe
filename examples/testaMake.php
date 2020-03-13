@@ -130,14 +130,24 @@ $mdfe->tagdisp($valePed);
 /* informações do contratante */
 // for {
 $infContratante = new \stdClass();
+
 $infContratante->CNPJ = '09230232000372';
 $mdfe->taginfContratante($infContratante);
 
+
 $pagto = new \stdClass();
 $pagto->xNome = "VANDE TESTE";
-//$pagto->CPF = "07040551985";
-$pagto->CNPJ = "12345678912345";
-$pagto->idEstrangeiro = "asdassdas65asd6";
+$pagto->CPF = "00000000000";
+//$pagto->CNPJ = "000000";
+//$pagto->idEstrangeiro = "VANDE TESTE";
+
+$infCom = new \stdClass();
+$infCom->tpComp = '03';
+$infCom->vComp = '134.55';
+$infCom->xComp = 'descricao teste';
+$pagto->Comp = [$infCom];
+
+
 $mdfe->taginfPag($pagto);
 
 
@@ -186,6 +196,15 @@ $infMunDescarga->nItem = 0;
 $mdfe->taginfMunDescarga($infMunDescarga);
 
 /* infCTe */
+
+$pred = new \stdClass();
+$pred->tpCarga = "03";
+$pred->xProd = "Carnes Congeladas";
+//$pred->cEAN = "";
+//$pred->NCM = "";
+$mdfe->tagprodPred($pred);
+
+
 $std = new \stdClass();
 $std->chCTe = '42200305388274000113570040000000111000000029';
 //$std->SegCodBarra = '012345678901234567890123456789012345';
@@ -249,6 +268,7 @@ try {
     $xml = $mdfe->getXML();
 
 
+    //echo $xml;exit;
     $caminhoCrt = "certificado.pfx";
     $content = file_get_contents($caminhoCrt);
     $certificate = Certificate::readPfx($content, '1234');

@@ -2774,7 +2774,7 @@ class Make
     /**
      * Metodo responsavel pela NT 2020-01
      * 
-     * @author Vanderlei Cavassin
+     * @author Vanderlei Cavassin <cavassin.vanderlei@gmail.com>
      * @param stdClass $std
      * @return DOMElement
      * @throws RuntimeException
@@ -2789,7 +2789,7 @@ class Make
         ];
         $std = $this->equilizeParameters($std, $possible);
         $infPag = $this->dom->createElement("infPag");
-        $identificador = '[4] <disp> - ';
+        $identificador = '[4] <infPag> - ';
         $this->dom->addChild(
             $infPag,
             "xNome",
@@ -2818,6 +2818,16 @@ class Make
             false,
             $identificador . "Identificador do responsável pelo pgto em caso de ser estrangeiro"
         );
+
+
+
+        if ($std->Comp) {
+            foreach ($std->Comp as $value) {
+                $this->dom->appChild($infPag, $this->CompPag($value), 'Falta tag "Comp"');
+            }
+        }
+        
+
         $this->infPag[] = $infPag;
         return $infPag;
     }
@@ -2831,7 +2841,38 @@ class Make
     public function CompPag(stdClass $std)
     {
 
-        
+        $possible = [
+            'tpComp',
+            'vComp',
+            'xComp'
+        ];
+
+        $stdComp = $this->equilizeParameters($std, $possible);
+        $comp = $this->dom->createElement("Comp");
+        $identificador = '[4] <Comp> - ';
+        $this->dom->addChild(
+            $comp,
+            "tpComp",
+            $stdComp->tpComp,
+            true,
+            $identificador . "Tipo do Componente"
+        );
+        $this->dom->addChild(
+            $comp,
+            "vComp",
+            $stdComp->vComp,
+            true,
+            $identificador . "Valor do Componente"
+        );
+        $this->dom->addChild(
+            $comp,
+            "xComp",
+            $stdComp->xComp,
+            false,
+            $identificador . "Descrição do componente do tipo Outros"
+        );
+
+        return $comp;
     }
 
     /**
