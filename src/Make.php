@@ -315,7 +315,6 @@ class Make
                     $this->dom->addArrayChild($this->infANTT, $this->infContratante, 'Falta tag "infContratante"');
                 }
                 if ($this->infPag) {
-                    //var_dump($this->infContratante);
                     $this->dom->addArrayChild($this->infANTT, $this->infPag, 'Falta tag "infpag"');
                 }
 
@@ -2772,7 +2771,7 @@ class Make
 
 
     /**
-     * Metodo responsavel pela NT 2020-01
+     * Metodo responsavel para montagem da tag ingPag - Informações do Pagamento do Frete
      * 
      * @param stdClass $std
      * @return DOMElement
@@ -2862,7 +2861,7 @@ class Make
      * @param stdClass
      * 
      */
-    public function CompPag(stdClass $std)
+    private function CompPag(stdClass $std)
     {
 
         $possible = [
@@ -2901,6 +2900,8 @@ class Make
 
 
     /***
+     * Informações do pagamento a prazo. Obs: Informar somente se indPag for à Prazo.
+     * 
      * 
      */
     private function infPrazo(stdClass $std)
@@ -2941,6 +2942,11 @@ class Make
         return $prazo;
     }
 
+
+    /**
+     * Informações bancárias.
+     * 
+     */
     private function infBanc(stdClass $std)
     {
         $possible = [
