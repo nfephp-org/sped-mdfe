@@ -1543,7 +1543,8 @@ class Make
             'tpCarga',
             'xProd',
             'cEAN',
-            'NCM'
+            'NCM',
+            'infLotacao'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $prodPred = $this->dom->createElement("prodPred");
@@ -1575,9 +1576,119 @@ class Make
             false,
             "Código NCM"
         );
+        if ($std->infLotacao) {
+            foreach ($std->infLotacao as $value) {
+                $this->dom->appChild($prodPred, $this->taginfLotacao($value), 'Falta tag "infLotacao"');
+            }
+        }
+
         $this->prodPred[] = $prodPred;
         return $prodPred;
     }
+
+
+    /**
+     * 
+     */
+    private function taginfLotacao(stdClass $std)
+    {
+        $possible = [
+            'infLocalCarrega',
+            'infLocalDescarrega'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $taginfLot = $this->dom->createElement("infLotacao");
+
+        if ($std->infLocalCarrega) {
+            foreach ($std->infLocalCarrega as $value) {
+                $this->dom->appChild($taginfLot, $this->tagLocalCarrega($value), 'Falta tag "infLocalCarrega"');
+            }
+        }
+
+        if ($std->infLocalDescarrega) {
+            foreach ($std->infLocalDescarrega as $value) {
+                $this->dom->appChild($taginfLot, $this->tagLocalDescarrega($value), 'Falta tag "infLocalDescarrega"');
+            }
+        }
+
+        return $taginfLot;
+    }
+
+    /**
+     * Informações da localização do carregamento do MDF-e de carga lotação
+     * 
+     */
+    private function tagLocalCarrega(stdClass $std)
+    {
+        $possible = [
+            'CEP',
+            'latitude',
+            'Longitude'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $tagLocalCarrega = $this->dom->createElement("infLocalCarrega");
+        $this->dom->addChild(
+            $tagLocalCarrega,
+            "CEP",
+            $std->CEP,
+            true,
+            "CEP onde foi carregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalCarrega,
+            "latitude",
+            $std->latitude,
+            true,
+            "Latitude do ponto geográfico onde foi carregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalCarrega,
+            "Longitude",
+            $std->Longitude,
+            true,
+            "Longitude do ponto geográfico onde foi carregado o MDF-e"
+        );
+
+        return $tagLocalCarrega;
+    }
+
+    /**
+     * Informações da localização do descarregamento do MDF-e de carga lotação
+     */
+
+    private function tagLocalDescarrega(stdClass $std)
+    {
+        $possible = [
+            'CEP',
+            'latitude',
+            'Longitude'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $tagLocalDescarrega = $this->dom->createElement("infLocalDescarrega");
+        $this->dom->addChild(
+            $tagLocalDescarrega,
+            "CEP",
+            $std->CEP,
+            true,
+            "CEP onde foi descarregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalDescarrega,
+            "latitude",
+            $std->latitude,
+            true,
+            "Latitude do ponto geográfico onde foi descarregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalDescarrega,
+            "Longitude",
+            $std->Longitude,
+            true,
+            "Longitude do ponto geográfico onde foi descarregado o MDF-e"
+        );
+        return $tagLocalDescarrega;
+    }
+
 
     /**
      * tagTot
