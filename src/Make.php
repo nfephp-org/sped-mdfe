@@ -122,7 +122,10 @@ class Make
      * @type string|\DOMNode
      */
     private $infPag = [];
-
+    /**
+     * @type string|\DOMNode
+     */
+    private $infLotacao = null;
     /**
      * @type string|\DOMNode
      */
@@ -301,6 +304,9 @@ class Make
             if (empty($this->prodPred)) {
                 $this->errors[] = "Tag prodPred é obrigatória para modal rodoviário!";
             }
+            if (empty($this->infLotacao) and (count($this->infCTe) + count($this->infNFe) + count($this->infMDFeTransp)) == 1) {
+                $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
+            }
             if ($this->infANTT) {
                 if ($this->infCIOT) {
                     $this->dom->addArrayChild($this->infANTT, $this->infCIOT, 'Falta tag "infCIOT"');
@@ -317,7 +323,6 @@ class Make
                 if ($this->infPag) {
                     $this->dom->addArrayChild($this->infANTT, $this->infPag, 'Falta tag "infpag"');
                 }
-
                 $this->dom->appChild($this->rodo, $this->infANTT, 'Falta tag "infANTT"');
             }
             if ($this->veicTracao) {
@@ -1576,25 +1581,17 @@ class Make
             false,
             "Código NCM"
         );
-
-
-        if (empty($std->infLotacao)  and count($this->infCTe)==1) {
-            $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
-        }
-        
         if ($std->infLotacao) {
             foreach ($std->infLotacao as $value) {
                 $this->dom->appChild($prodPred, $this->taginfLotacao($value), 'Falta tag "infLotacao"');
             }
         }
-
         $this->prodPred[] = $prodPred;
         return $prodPred;
     }
 
-
     /**
-     * 
+     *
      */
     private function taginfLotacao(stdClass $std)
     {
@@ -1603,26 +1600,23 @@ class Make
             'infLocalDescarrega'
         ];
         $std = $this->equilizeParameters($std, $possible);
-        $taginfLot = $this->dom->createElement("infLotacao");
-
+        $this->infLotacao = $this->dom->createElement("infLotacao");
         if ($std->infLocalCarrega) {
             foreach ($std->infLocalCarrega as $value) {
-                $this->dom->appChild($taginfLot, $this->tagLocalCarrega($value), 'Falta tag "infLocalCarrega"');
+                $this->dom->appChild($this->infLotacao, $this->tagLocalCarrega($value), 'Falta tag "infLocalCarrega"');
             }
         }
-
         if ($std->infLocalDescarrega) {
             foreach ($std->infLocalDescarrega as $value) {
-                $this->dom->appChild($taginfLot, $this->tagLocalDescarrega($value), 'Falta tag "infLocalDescarrega"');
+                $this->dom->appChild($this->infLotacao, $this->tagLocalDescarrega($value), 'Falta tag "infLocalDescarrega"');
             }
         }
-
-        return $taginfLot;
+        return $this->infLotacao;
     }
 
     /**
      * Informações da localização do carregamento do MDF-e de carga lotação
-     * 
+     *
      */
     private function tagLocalCarrega(stdClass $std)
     {
@@ -1654,7 +1648,6 @@ class Make
             false,
             "Longitude do ponto geográfico onde foi carregado o MDF-e"
         );
-
         return $tagLocalCarrega;
     }
 
@@ -2839,7 +2832,7 @@ class Make
             $std->CNPJ,
             true,
             "Informar o CNPJ da pessoa jurídica responsável pelo sistema "
-                . "utilizado na emissão do documento fiscal eletrônico"
+            . "utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2847,7 +2840,7 @@ class Make
             $std->xContato,
             true,
             "Informar o nome da pessoa a ser contatada na empresa desenvolvedora "
-                . "do sistema utilizado na emissão do documento fiscal eletrônico"
+            . "do sistema utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2855,7 +2848,7 @@ class Make
             $std->email,
             true,
             "Informar o e-mail da pessoa a ser contatada na empresa "
-                . "desenvolvedora do sistema."
+            . "desenvolvedora do sistema."
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2863,7 +2856,7 @@ class Make
             $std->fone,
             true,
             "Informar o telefone da pessoa a ser contatada na empresa "
-                . "desenvolvedora do sistema."
+            . "desenvolvedora do sistema."
         );
         if (!empty($std->CSRT) && !empty($std->idCSRT)) {
             $this->csrt = $std->CSRT;
@@ -2889,7 +2882,7 @@ class Make
 
     /**
      * Metodo responsavel para montagem da tag ingPag - Informações do Pagamento do Frete
-     * 
+     *
      * @param stdClass $std
      * @return DOMElement
      * @throws RuntimeException
@@ -2901,7 +2894,7 @@ class Make
             'CPF',
             'CNPJ',
             'idEstrangeiro',
-            'Comp', 
+            'Comp',
             'vContrato',
             'indPag',
             'infPrazo',
@@ -2977,7 +2970,7 @@ class Make
     /**
      * Componentes do Pagamento do Frete
      * @param stdClass
-     * 
+     *
      */
     private function CompPag(stdClass $std)
     {
@@ -3019,8 +3012,8 @@ class Make
 
     /***
      * Informações do pagamento a prazo. Obs: Informar somente se indPag for à Prazo.
-     * 
-     * 
+     *
+     *
      */
     private function infPrazo(stdClass $std)
     {
@@ -3063,7 +3056,7 @@ class Make
 
     /**
      * Informações bancárias.
-     * 
+     *
      */
     private function infBanc(stdClass $std)
     {
