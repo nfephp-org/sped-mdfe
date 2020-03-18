@@ -1576,6 +1576,12 @@ class Make
             false,
             "Código NCM"
         );
+
+
+        if (empty($std->infLotacao)  and count($this->infCTe)==1) {
+            $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
+        }
+        
         if ($std->infLotacao) {
             foreach ($std->infLotacao as $value) {
                 $this->dom->appChild($prodPred, $this->taginfLotacao($value), 'Falta tag "infLotacao"');
@@ -1638,14 +1644,14 @@ class Make
             $tagLocalCarrega,
             "latitude",
             $std->latitude,
-            true,
+            false,
             "Latitude do ponto geográfico onde foi carregado o MDF-e"
         );
         $this->dom->addChild(
             $tagLocalCarrega,
             "Longitude",
             $std->Longitude,
-            true,
+            false,
             "Longitude do ponto geográfico onde foi carregado o MDF-e"
         );
 
@@ -1676,14 +1682,14 @@ class Make
             $tagLocalDescarrega,
             "latitude",
             $std->latitude,
-            true,
+            false,
             "Latitude do ponto geográfico onde foi descarregado o MDF-e"
         );
         $this->dom->addChild(
             $tagLocalDescarrega,
             "Longitude",
             $std->Longitude,
-            true,
+            false,
             "Longitude do ponto geográfico onde foi descarregado o MDF-e"
         );
         return $tagLocalDescarrega;
@@ -2895,6 +2901,7 @@ class Make
             'CPF',
             'CNPJ',
             'idEstrangeiro',
+            'Comp', 
             'vContrato',
             'indPag',
             'infPrazo',
@@ -3089,7 +3096,7 @@ class Make
             $banco,
             "CNPJIPEF",
             $stdBanco->CNPJIPEF,
-            false,
+            true,
             $identificador . "Número do CNPJ da Instituição de pagamento Eletrônico do Frete"
         );
 
