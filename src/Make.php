@@ -16,6 +16,7 @@ namespace NFePHP\MDFe;
  * @license   http://www.gnu.org/licenses/lesser.html LGPL v3
  * @link      http://github.com/nfephp-org/sped-mdfe for the canonical source repository
  * @author    Cleiton Perin <cperin20 at gmail dot com>
+ * @author    Vanderlei Cavassin <cavassin.vanderlei at gmail dot com>
  */
 
 use DOMElement;
@@ -117,6 +118,11 @@ class Make
      * @type string|\DOMNode
      */
     private $infContratante = [];
+    /**
+     * @type string|\DOMNode
+     */
+    private $infPag = [];
+
     /**
      * @type string|\DOMNode
      */
@@ -308,6 +314,10 @@ class Make
                 if ($this->infContratante) {
                     $this->dom->addArrayChild($this->infANTT, $this->infContratante, 'Falta tag "infContratante"');
                 }
+                if ($this->infPag) {
+                    $this->dom->addArrayChild($this->infANTT, $this->infPag, 'Falta tag "infpag"');
+                }
+
                 $this->dom->appChild($this->rodo, $this->infANTT, 'Falta tag "infANTT"');
             }
             if ($this->veicTracao) {
@@ -1533,7 +1543,8 @@ class Make
             'tpCarga',
             'xProd',
             'cEAN',
-            'NCM'
+            'NCM',
+            'infLotacao'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $prodPred = $this->dom->createElement("prodPred");
@@ -1565,9 +1576,125 @@ class Make
             false,
             "Código NCM"
         );
+
+
+        if (empty($std->infLotacao)  and count($this->infCTe)==1) {
+            $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
+        }
+        
+        if ($std->infLotacao) {
+            foreach ($std->infLotacao as $value) {
+                $this->dom->appChild($prodPred, $this->taginfLotacao($value), 'Falta tag "infLotacao"');
+            }
+        }
+
         $this->prodPred[] = $prodPred;
         return $prodPred;
     }
+
+
+    /**
+     * 
+     */
+    private function taginfLotacao(stdClass $std)
+    {
+        $possible = [
+            'infLocalCarrega',
+            'infLocalDescarrega'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $taginfLot = $this->dom->createElement("infLotacao");
+
+        if ($std->infLocalCarrega) {
+            foreach ($std->infLocalCarrega as $value) {
+                $this->dom->appChild($taginfLot, $this->tagLocalCarrega($value), 'Falta tag "infLocalCarrega"');
+            }
+        }
+
+        if ($std->infLocalDescarrega) {
+            foreach ($std->infLocalDescarrega as $value) {
+                $this->dom->appChild($taginfLot, $this->tagLocalDescarrega($value), 'Falta tag "infLocalDescarrega"');
+            }
+        }
+
+        return $taginfLot;
+    }
+
+    /**
+     * Informações da localização do carregamento do MDF-e de carga lotação
+     * 
+     */
+    private function tagLocalCarrega(stdClass $std)
+    {
+        $possible = [
+            'CEP',
+            'latitude',
+            'Longitude'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $tagLocalCarrega = $this->dom->createElement("infLocalCarrega");
+        $this->dom->addChild(
+            $tagLocalCarrega,
+            "CEP",
+            $std->CEP,
+            true,
+            "CEP onde foi carregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalCarrega,
+            "latitude",
+            $std->latitude,
+            false,
+            "Latitude do ponto geográfico onde foi carregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalCarrega,
+            "Longitude",
+            $std->Longitude,
+            false,
+            "Longitude do ponto geográfico onde foi carregado o MDF-e"
+        );
+
+        return $tagLocalCarrega;
+    }
+
+    /**
+     * Informações da localização do descarregamento do MDF-e de carga lotação
+     */
+
+    private function tagLocalDescarrega(stdClass $std)
+    {
+        $possible = [
+            'CEP',
+            'latitude',
+            'Longitude'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $tagLocalDescarrega = $this->dom->createElement("infLocalDescarrega");
+        $this->dom->addChild(
+            $tagLocalDescarrega,
+            "CEP",
+            $std->CEP,
+            true,
+            "CEP onde foi descarregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalDescarrega,
+            "latitude",
+            $std->latitude,
+            false,
+            "Latitude do ponto geográfico onde foi descarregado o MDF-e"
+        );
+        $this->dom->addChild(
+            $tagLocalDescarrega,
+            "Longitude",
+            $std->Longitude,
+            false,
+            "Longitude do ponto geográfico onde foi descarregado o MDF-e"
+        );
+        return $tagLocalDescarrega;
+    }
+
 
     /**
      * tagTot
@@ -2712,7 +2839,7 @@ class Make
             $std->CNPJ,
             true,
             "Informar o CNPJ da pessoa jurídica responsável pelo sistema "
-            . "utilizado na emissão do documento fiscal eletrônico"
+                . "utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2720,7 +2847,7 @@ class Make
             $std->xContato,
             true,
             "Informar o nome da pessoa a ser contatada na empresa desenvolvedora "
-            . "do sistema utilizado na emissão do documento fiscal eletrônico"
+                . "do sistema utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2728,7 +2855,7 @@ class Make
             $std->email,
             true,
             "Informar o e-mail da pessoa a ser contatada na empresa "
-            . "desenvolvedora do sistema."
+                . "desenvolvedora do sistema."
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2736,7 +2863,7 @@ class Make
             $std->fone,
             true,
             "Informar o telefone da pessoa a ser contatada na empresa "
-            . "desenvolvedora do sistema."
+                . "desenvolvedora do sistema."
         );
         if (!empty($std->CSRT) && !empty($std->idCSRT)) {
             $this->csrt = $std->CSRT;
@@ -2758,6 +2885,224 @@ class Make
         $this->infRespTec = $infRespTec;
         return $infRespTec;
     }
+
+
+    /**
+     * Metodo responsavel para montagem da tag ingPag - Informações do Pagamento do Frete
+     * 
+     * @param stdClass $std
+     * @return DOMElement
+     * @throws RuntimeException
+     */
+    public function taginfPag(stdClass $std)
+    {
+        $possible = [
+            'xNome',
+            'CPF',
+            'CNPJ',
+            'idEstrangeiro',
+            'Comp', 
+            'vContrato',
+            'indPag',
+            'infPrazo',
+            'infBanc'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $infPag = $this->dom->createElement("infPag");
+        $identificador = '[4] <infPag> - ';
+        $this->dom->addChild(
+            $infPag,
+            "xNome",
+            $std->xNome,
+            true,
+            $identificador . "Nome do responsável pelo pgto"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "CPF",
+            $std->CPF,
+            false,
+            $identificador . "Número do CPF do responsável pelo pgto"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "CNPJ",
+            $std->CNPJ,
+            false,
+            $identificador . "Número do CNPJ do responsável pelo pgto"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "idEstrangeiro",
+            $std->idEstrangeiro,
+            false,
+            $identificador . "Identificador do responsável pelo pgto em caso de ser estrangeiro"
+        );
+        if ($std->Comp) {
+            foreach ($std->Comp as $value) {
+                $this->dom->appChild($infPag, $this->CompPag($value), 'Falta tag "Comp"');
+            }
+        }
+        $this->dom->addChild(
+            $infPag,
+            "vContrato",
+            $std->vContrato,
+            true,
+            $identificador . "Valor total do contrato"
+        );
+        $this->dom->addChild(
+            $infPag,
+            "indPag",
+            $std->indPag,
+            false,
+            $identificador . "Indicador da Forma de Pagamento"
+        );
+
+        if ($std->infPrazo) {
+            foreach ($std->infPrazo as $value) {
+                $this->dom->appChild($infPag, $this->infPrazo($value), 'Falta tag "infPrazo"');
+            }
+        }
+        if ($std->infBanc) {
+            foreach ($std->infBanc as $value) {
+                $this->dom->appChild($infPag, $this->infBanc($value), 'Falta tag "infBanc"');
+            }
+        }
+
+
+        $this->infPag[] = $infPag;
+        return $infPag;
+    }
+
+    /**
+     * Componentes do Pagamento do Frete
+     * @param stdClass
+     * 
+     */
+    private function CompPag(stdClass $std)
+    {
+
+        $possible = [
+            'tpComp',
+            'vComp',
+            'xComp'
+        ];
+
+        $stdComp = $this->equilizeParameters($std, $possible);
+        $comp = $this->dom->createElement("Comp");
+        $identificador = '[4] <Comp> - ';
+        $this->dom->addChild(
+            $comp,
+            "tpComp",
+            $stdComp->tpComp,
+            true,
+            $identificador . "Tipo do Componente"
+        );
+        $this->dom->addChild(
+            $comp,
+            "vComp",
+            $stdComp->vComp,
+            true,
+            $identificador . "Valor do Componente"
+        );
+        $this->dom->addChild(
+            $comp,
+            "xComp",
+            $stdComp->xComp,
+            false,
+            $identificador . "Descrição do componente do tipo Outros"
+        );
+
+        return $comp;
+    }
+
+
+    /***
+     * Informações do pagamento a prazo. Obs: Informar somente se indPag for à Prazo.
+     * 
+     * 
+     */
+    private function infPrazo(stdClass $std)
+    {
+        $possible = [
+            'nParcela',
+            'dVenc',
+            'vParcela'
+        ];
+
+        $stdPraz = $this->equilizeParameters($std, $possible);
+        $prazo = $this->dom->createElement("infPrazo");
+        $identificador = '[4] <infPrazo> - ';
+
+        $this->dom->addChild(
+            $prazo,
+            "nParcela",
+            $stdPraz->nParcela,
+            false,
+            $identificador . "Número da parcela"
+        );
+        $this->dom->addChild(
+            $prazo,
+            "dVenc",
+            $stdPraz->dVenc,
+            false,
+            $identificador . "Data de vencimento da Parcela (AAAA-MMDD)"
+        );
+
+        $this->dom->addChild(
+            $prazo,
+            "vParcela",
+            $stdPraz->vParcela,
+            true,
+            $identificador . "Valor da Parcela"
+        );
+
+        return $prazo;
+    }
+
+
+    /**
+     * Informações bancárias.
+     * 
+     */
+    private function infBanc(stdClass $std)
+    {
+        $possible = [
+            'codBanco',
+            'codAgencia',
+            'CNPJIPEF'
+        ];
+
+        $stdBanco = $this->equilizeParameters($std, $possible);
+        $banco = $this->dom->createElement("infBanc");
+        $identificador = '[4] <infBanc> - ';
+
+        $this->dom->addChild(
+            $banco,
+            "codBanco",
+            $stdBanco->codBanco,
+            true,
+            $identificador . "Número do banco"
+        );
+        $this->dom->addChild(
+            $banco,
+            "codAgencia",
+            $stdBanco->codAgencia,
+            true,
+            $identificador . "Número da Agência"
+        );
+
+        $this->dom->addChild(
+            $banco,
+            "CNPJIPEF",
+            $stdBanco->CNPJIPEF,
+            true,
+            $identificador . "Número do CNPJ da Instituição de pagamento Eletrônico do Frete"
+        );
+
+        return $banco;
+    }
+
 
     /**
      * buildMDFe
