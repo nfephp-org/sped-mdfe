@@ -394,6 +394,68 @@ $std->CNPJ = '11122233344455';
 $mdfe->tagautXML($std);
 // }
 
+$prodPred = new \stdClass();
+$prodPred->tpCarga = '01';
+$prodPred->xProd = 'teste';
+$prodPred->cEAN = null;
+$prodPred->NCM = null;
+
+$localCarrega = new \stdClass();
+$localCarrega->CEP = '00000000';
+$localCarrega->latitude = null;
+$localCarrega->longitude = null;
+
+$localDescarrega = new \stdClass();
+$localDescarrega->CEP = '00000000';
+$localDescarrega->latitude = null;
+$localDescarrega->longitude = null;
+
+$lotacao = new \stdClass();
+$lotacao->infLocalCarrega = $localCarrega;
+$lotacao->infLocalDescarrega = $localDescarrega;
+
+$prodPred->infLotacao = $lotacao;
+
+$mdfe->tagprodPred($prodPred);
+
+
+$infPag = new \stdClass();
+$infPag->xNome = 'JOSE';
+$infPag->CPF = '01234567890';
+$infPag->CNPJ = null;
+$infPag->idEstrangeiro = null;
+
+$componentes = [];
+// {
+$Comp = new \stdClass();
+$Comp->tpComp = '01';
+$Comp->vComp = 10.00;
+$Comp->xComp = 'NADA';
+$componentes[] = $Comp;
+// }
+$infPag->Comp = $componentes;
+$infPag->vContrato = 10.00;
+$infPag->indPag = 1;
+
+$parcelas = [];
+// {
+$infPrazo = new \stdClass();
+$infPrazo->nParcela = '001';
+$infPrazo->dVenc = '2020-04-30';
+$infPrazo->vParcela = 10.00;
+$parcelas[] = $infPrazo;
+// }
+$infPag->infPrazo = $parcelas;
+
+$infBanc = new \stdClass();
+$infBanc->codBanco = '341';
+$infBanc->codAgencia = '12345';
+$infBanc->CNPJIPEF = null;
+$infPag->infBanc = $infBanc;
+
+$mdfe->taginfPag($infPag);
+
+
 /* grupo Informações Adicionais */
 $std = new \stdClass();
 $std->infCpl = 'Contrato No 007018 2 CARR BBB1111';
