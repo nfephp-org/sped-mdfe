@@ -283,6 +283,19 @@ class Make
     }
 
     /**
+     * @param $indDoc
+     * @return int|void
+     */
+    private function contaDoc($indDoc)
+    {
+        $total = 0;
+        foreach ($indDoc as $doc) {
+            $total += count($doc);
+        }
+        return $total;
+    }
+
+    /**
      * MDFe xml mount method
      * this function returns TRUE on success or FALSE on error
      * The xml of the MDFe must be retrieved by the getXML() function or
@@ -304,7 +317,7 @@ class Make
             if (empty($this->prodPred)) {
                 $this->errors[] = "Tag prodPred é obrigatória para modal rodoviário!";
             }
-            if (empty($this->infLotacao) and (count($this->infCTe) + count($this->infNFe) + count($this->infMDFeTransp)) == 1) {
+            if (empty($this->infLotacao) and ($this->contaDoc($this->infCTe) + $this->contaDoc($this->infNFe) + $this->contaDoc($this->infMDFeTransp)) == 1) {
                 $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
             }
             if ($this->infANTT) {
