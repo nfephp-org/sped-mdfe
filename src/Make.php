@@ -314,7 +314,8 @@ class Make
         $this->dom->appChild($this->emit, $this->enderEmit, 'Falta tag "enderEmit"');
         $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "emit"');
         if ($this->rodo) {
-            if (empty($this->prodPred)) {
+            $tpEmit = $this->ide->getElementsByTagName('tpEmit')->item(0)->nodeValue;
+            if (($tpEmit == 1 || $tpEmit == 3) && empty($this->prodPred)) {
                 $this->errors[] = "Tag prodPred é obrigatória para modal rodoviário!";
             }
             if (empty($this->infLotacao) and ($this->contaDoc($this->infCTe) + $this->contaDoc($this->infNFe) + $this->contaDoc($this->infMDFeTransp)) == 1) {
