@@ -315,12 +315,12 @@ class Make
         $this->dom->appChild($this->infMDFe, $this->emit, 'Falta tag "emit"');
         if ($this->rodo) {
             $tpEmit = $this->ide->getElementsByTagName('tpEmit')->item(0)->nodeValue;
-            if (($tpEmit == 1 || $tpEmit == 3) && empty($this->prodPred)) {
+            /*if (($tpEmit == 1 || $tpEmit == 3) && empty($this->prodPred)) {
                 $this->errors[] = "Tag prodPred é obrigatória para modal rodoviário!";
             }
             if (empty($this->infLotacao) and ($this->contaDoc($this->infCTe) + $this->contaDoc($this->infNFe) + $this->contaDoc($this->infMDFeTransp)) == 1) {
                 $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
-            }
+            }*/
             if ($this->infANTT) {
                 if ($this->infCIOT) {
                     $this->dom->addArrayChild($this->infANTT, $this->infCIOT, 'Falta tag "infCIOT"');
