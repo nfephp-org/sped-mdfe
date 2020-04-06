@@ -206,7 +206,7 @@ class Complements
                     ->nodeValue = 'Cancelamento de MDF-e homologado';
                 $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
                 break;
-            } else if (in_array($cStat, ['135', '136', '155'])
+            } elseif (in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110112'
                 && $chaveEvento == $chaveMdfe
             ) {
