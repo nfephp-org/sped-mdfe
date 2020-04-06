@@ -318,7 +318,7 @@ class Make
             if (($tpEmit == 1 || $tpEmit == 3) && empty($this->prodPred)) {
                 $this->errors[] = "Tag prodPred é obrigatória para modal rodoviário!";
             }
-            if (empty($this->infLotacao) and ($this->contaDoc($this->infCTe) + $this->contaDoc($this->infNFe) + $this->contaDoc($this->infMDFeTransp)) == 1) {
+            if (($tpEmit == 1 || $tpEmit == 3) && empty($this->infLotacao) && ($this->contaDoc($this->infCTe) + $this->contaDoc($this->infNFe) + $this->contaDoc($this->infMDFeTransp)) == 1) {
                 $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
             }
             if ($this->infANTT) {
