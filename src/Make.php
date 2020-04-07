@@ -318,7 +318,7 @@ class Make
             if (($tpEmit == 1 || $tpEmit == 3) && empty($this->prodPred)) {
                 $this->errors[] = "Tag prodPred é obrigatória para modal rodoviário!";
             }
-            if (empty($this->infLotacao) and ($this->contaDoc($this->infCTe) + $this->contaDoc($this->infNFe) + $this->contaDoc($this->infMDFeTransp)) == 1) {
+            if (($tpEmit == 1 || $tpEmit == 3) && empty($this->infLotacao) && ($this->contaDoc($this->infCTe) + $this->contaDoc($this->infNFe) + $this->contaDoc($this->infMDFeTransp)) == 1) {
                 $this->errors[] = "Tag infLotacao é obrigatória quando só existir um Documento informado!";
             }
             if ($this->infANTT) {
@@ -997,7 +997,7 @@ class Make
                 true,
                 $identificador . "Número do CPF do contratante do serviço"
             );
-        } else if ($std->CNPJ) {
+        } elseif ($std->CNPJ) {
             $this->dom->addChild(
                 $infContratante,
                 "CNPJ",
@@ -2928,7 +2928,7 @@ class Make
                 true,
                 $identificador . "Número do CPF do responsável pelo pgto"
             );
-        } else if (!empty($std->CNPJ)) {
+        } elseif (!empty($std->CNPJ)) {
             $this->dom->addChild(
                 $infPag,
                 "CNPJ",
@@ -2946,7 +2946,7 @@ class Make
             );
         }
         foreach ($std->Comp as $value) {
-            $this->dom->appChild($infPag, $this->CompPag($value), 'Falta tag "Comp"');
+            $this->dom->appChild($infPag, $this->compPag($value), 'Falta tag "Comp"');
         }
         $this->dom->addChild(
             $infPag,
@@ -2977,7 +2977,7 @@ class Make
      * @param stdClass
      *
      */
-    private function CompPag(stdClass $std)
+    private function compPag(stdClass $std)
     {
         $possible = [
             'tpComp',
