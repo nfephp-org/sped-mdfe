@@ -164,7 +164,8 @@ class Tools
      * @var array
      */
     protected $availableVersions = [
-        '3.00' => 'PL_MDFe_300a'
+        '3.00' => 'PL_MDFe_300a',
+        '1.00' => 'PL_MDFe_100'
     ];
 
     /**
@@ -231,7 +232,6 @@ class Tools
         }
         return $type;
     }
-
 
     /**
      * Load Soap Class
@@ -344,7 +344,7 @@ class Tools
             $signed = $this->addQRCode($dom, $this->certificate);
         }
         //$qrCode = $dom->getElementsByTagName('qrCode')->item(0)->nodeValue;
-        
+
         $modal = (int) $dom->getElementsByTagName('modal')->item(0)->nodeValue;
         //validate
         $this->isValid($this->versao, $signed, $method);
@@ -432,7 +432,6 @@ class Tools
         $uf,
         $tpAmb
     ) {
-
         $ambiente = $tpAmb == 1 ? "producao" : "homologacao";
         $webs = new Webservices($this->getXmlUrlPath());
         $sigla = $uf;
