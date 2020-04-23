@@ -1,5 +1,5 @@
 {
-    "name": "andersonls/sped-mdfe",
+    "name": "nfephp-org/sped-mdfe",
     "type": "library",
     "description": "API para geração e comunicação da MDFe com as SEFAZ autorizadoras.",
     "keywords": [
@@ -7,7 +7,7 @@
         "sped",
         "nfephp"
     ],
-    "homepage": "https://github.com/andersonls/sped-mdfe",
+    "homepage": "https://github.com/nfephp-org/sped-mdfe",
     "license": [
         "GPL-3.0+",
         "LGPL-3.0+",
@@ -43,6 +43,13 @@
         "ext-simplexml": "*",
         "ext-libxml": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "scrutinizer/ocular": "~1.1",
+        "squizlabs/php_codesniffer": "~2.3"
+    },
+    "repositories": [
+    ],
     "autoload": {
         "psr-4": {
             "NFePHP\\MDFe\\": "src/"
@@ -51,6 +58,16 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\NFePHP\\MDFe\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpcbf": "vendor/bin/phpcbf --standard=psr2 src/ & vendor/bin/phpcbf --standard=psr2 tests/",
+        "phpcs": "vendor/bin/phpcs --standard=psr2 src/; vendor/bin/phpcs --standard=psr2 tests/"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.1.0-dev"
         }
     },
     "minimum-stability": "dev"
