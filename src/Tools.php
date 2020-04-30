@@ -34,8 +34,6 @@ class Tools extends ToolsCommon
         $idLote = '',
         $indSinc = 0
     ) {
-
-
         if (!is_array($aXml)) {
             throw new \InvalidArgumentException('Os XML das MDFe devem ser passados em um array.');
         }
@@ -253,9 +251,6 @@ class Tools extends ToolsCommon
         $xNome = '',
         $cpf = ''
     ) {
-
-
-
         $tpEvento = 110114;
         $tagAdic = "<evIncCondutorMDFe>"
             . "<descEvento>Inclusao Condutor</descEvento>"
@@ -319,9 +314,6 @@ class Tools extends ToolsCommon
         $nSeqEvento = 1,
         $tagAdic = ''
     ) {
-
-
-
         //carrega serviço
         $servico = 'MDFeRecepcaoEvento';
         $this->servico(
@@ -364,6 +356,48 @@ class Tools extends ToolsCommon
         $this->lastRequest = $request;
         $parameters = ['mdfeDadosMsg' => $request];
         $body = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$request</mdfeDadosMsg>";
+        $this->lastResponse = $this->sendRequest($body, $parameters);
+        return $this->lastResponse;
+    }
+
+    /**
+     * Service for the distribution of summary information and
+     * electronic tax documents of interest to an actor.
+     * @param integer $ultNSU  last NSU number recived
+     * @param integer $numNSU  NSU number you wish to consult
+     * @return string
+     */
+    public function sefazDistDFe(
+        $ultNSU = 0,
+        $numNSU = 0
+    ) {
+        //carrega serviço
+        $servico = 'MDFeDistribuicaoDFe';
+        $this->servico(
+            $servico,
+            $this->config->siglaUF,
+            $this->tpAmb
+        );
+        $ultNSU = str_pad($ultNSU, 15, '0', STR_PAD_LEFT);
+        $tagNSU = "<distNSU><ultNSU>$ultNSU</ultNSU></distNSU>";
+        if ($numNSU != 0) {
+            $numNSU = str_pad($numNSU, 15, '0', STR_PAD_LEFT);
+            $tagNSU = "<consNSU><NSU>$numNSU</NSU></consNSU>";
+        }
+        //monta a consulta
+        $request = "<distDFeInt xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
+            . "<tpAmb>".$this->tpAmb."</tpAmb>"
+            . ((strlen($this->config->cnpj)==14) ?
+                "<CNPJ>".$this->config->cnpj."</CNPJ>" :
+                "<CPF>".$this->config->cnpj."</CPF>"
+            )
+            . $tagNSU."</distDFeInt>";
+        //valida o xml da requisição
+        $this->isValid($this->urlVersion, $request, 'distDFeInt');
+        $this->lastRequest = $request;
+        //montagem dos dados da mensagem SOAP
+        $body = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$request</mdfeDadosMsg>";
+        $parameters = ['mdfeDadosMsg' => $request];
         $this->lastResponse = $this->sendRequest($body, $parameters);
         return $this->lastResponse;
     }
