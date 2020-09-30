@@ -52,7 +52,8 @@ class Standardize
         'evEncMDFe',
         'evIncCondutorMDFe',
         'evIncDFeMDFe',
-        'MDFe'
+        'MDFe',
+        'protMDFe'
     ];
 
     /**
