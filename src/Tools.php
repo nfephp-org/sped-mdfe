@@ -212,9 +212,6 @@ class Tools extends ToolsCommon
         $cMun = '',
         $dtEnc = ''
     ) {
-
-
-
         $tpEvento = 110112;
         $nSeqEvento = 1;
         if ($dtEnc == '') {
