@@ -557,7 +557,8 @@ class Make
             "indCarregaPosterior",
             $std->indCarregaPosterior,
             false,
-            $identificador . "Indicador de MDF-e com inclusão da Carga posterior a emissão por evento de inclusão de DF-e"
+            $identificador . "Indicador de MDF-e com inclusão da Carga posterior "
+            . "a emissão por evento de inclusão de DF-e"
         );
 
         $this->mod = $std->mod;
@@ -918,7 +919,7 @@ class Make
         $this->dom->addChild(
             $disp,
             "vValePed",
-            $std->vValePed,
+            $this->conditionalNumberFormatting($std->vValePed),
             false,
             $identificador . "Valor do Vale-Pedagio"
         );
@@ -1105,14 +1106,14 @@ class Make
             $this->dom->addChild(
                 $infEntregaParcial,
                 "qtdTotal",
-                $stdinfEntregaParcial->qtdTotal,
+                $this->conditionalNumberFormatting($stdinfEntregaParcial->qtdTotal, 4),
                 true,
                 $identificadorparcial . "Quantidade total de volumes"
             );
             $this->dom->addChild(
                 $infEntregaParcial,
                 "qtdParcial",
-                $stdinfEntregaParcial->qtdParcial,
+                $this->conditionalNumberFormatting($stdinfEntregaParcial->qtdParcial, 4),
                 true,
                 $identificadorparcial . "Quantidade de volumes enviados no MDF-e"
             );
@@ -1341,7 +1342,7 @@ class Make
         $this->dom->addChild(
             $infUnidTransp,
             "qtdRat",
-            $std->qtdRat,
+            $this->conditionalNumberFormatting($std->qtdRat),
             false,
             "Quantidade rateada (Peso,Volume) "
         );
@@ -1399,7 +1400,7 @@ class Make
         $this->dom->addChild(
             $infUnidCarga,
             "qtdRat",
-            $std->qtdRat,
+            $this->conditionalNumberFormatting($std->qtdRat),
             false,
             "Quantidade rateada (Peso,Volume) "
         );
@@ -1545,7 +1546,7 @@ class Make
         $this->dom->addChild(
             $tot,
             "vCarga",
-            $std->vCarga,
+            $this->conditionalNumberFormatting($std->vCarga),
             true,
             "Valor total da mercadoria/carga transportada"
         );
@@ -1559,7 +1560,7 @@ class Make
         $this->dom->addChild(
             $tot,
             "qCarga",
-            $std->qCarga,
+            $this->conditionalNumberFormatting($std->qCarga, 4),
             true,
             "Peso Bruto Total da Carga / Mercadoria Transportada"
         );
@@ -2600,7 +2601,6 @@ class Make
             'CSRT',
             'idCSRT'
         ];
-
         $std = $this->equilizeParameters($std, $possible);
         $infRespTec = $this->dom->createElement("infRespTec");
         $this->dom->addChild(
@@ -2711,7 +2711,6 @@ class Make
             $tpEmis,
             $cNF
         );
-
         //caso a chave contida na NFe esteja errada
         //substituir a chave
         if ($chaveMontada != $chave) {
@@ -2735,4 +2734,38 @@ class Make
     {
         return Strings::equilizeParameters($std, $possible, $this->replaceAccentedChars);
     }
+    
+        /**
+     * Formatação numerica condicional
+     * @param string|float|int|null $value
+     * @param int $decimal
+     * @return string
+     */
+    protected function conditionalNumberFormatting($value = null, $decimal = 2)
+    {
+        if (is_numeric($value)) {
+            return number_format($value, $decimal, '.', '');
+        }
+        return null;
+    }
+
+    /*
+    protected function conditionalNumberFormatting($value = null, array $decimal): string
+    {
+        if (!is_numeric($value)) {
+            return null;
+        }
+        $num = (float) $value;
+        $l = explode('.', $num);
+        $declen = 0;
+        if (!empty($l[1])) {
+            $declen = strlen($l[1]);
+        }
+        if ($declen < $decimal[0]) {
+            return number_format($num, $decimal[0], '.', '');
+        } elseif ($declen > $decimal[1]) {
+            return number_format($num, $decimal[1], '.', '');
+        }
+        return $num;
+    }*/
 }
