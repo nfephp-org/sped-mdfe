@@ -269,23 +269,25 @@ class Tools extends ToolsCommon
     /**
      * @author João Gabriel
      *
+     * @param string $chave
      * @param string $nProt
      * @param string $cMunCarrega
      * @param string $xMunCarrega
-     * @param string $infDoc
      * @param string $cMunDescarga
      * @param string $xMunDescarga
      * @param string $chNFe
+     * @param int $nSeqEvento
      * @return string
      */
     public function sefazIncluiDFe(
+        $chave = '',
         $nProt = '',
         $cMunCarrega = '',
         $xMunCarrega = '',
-        $infDoc = '',
         $cMunDescarga = '',
         $xMunDescarga = '',
-        $chNFe = ''
+        $chNFe = '',
+        $nSeqEvento = '1'
     ) {
         $tpEvento = 110115;
         $tagAdic = "<evIncDFeMDFe>"
@@ -293,10 +295,11 @@ class Tools extends ToolsCommon
             . "<nProt>$nProt</nProt>"
             . "<cMunCarrega>$cMunCarrega</cMunCarrega>"
             . "<xMunCarrega>$xMunCarrega</xMunCarrega>"
-            . "<infDoc>$infDoc</infDoc>"
+            . "<infDoc>"
             . "<cMunDescarga>$cMunDescarga</cMunDescarga>"
             . "<xMunDescarga>$xMunDescarga</xMunDescarga>"
             . "<chNFe>$chNFe</chNFe>"
+            . "</infDoc>"
             . "</evIncDFeMDFe>";
 
         return $this->sefazEvento(
