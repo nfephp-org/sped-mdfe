@@ -267,6 +267,51 @@ class Tools extends ToolsCommon
     }
 
     /**
+     * @author João Gabriel
+     *
+     * @param string $chave
+     * @param string $nProt
+     * @param string $cMunCarrega
+     * @param string $xMunCarrega
+     * @param string $cMunDescarga
+     * @param string $xMunDescarga
+     * @param string $chNFe
+     * @param int $nSeqEvento
+     * @return string
+     */
+    public function sefazIncluiDFe(
+        $chave = '',
+        $nProt = '',
+        $cMunCarrega = '',
+        $xMunCarrega = '',
+        $cMunDescarga = '',
+        $xMunDescarga = '',
+        $chNFe = '',
+        $nSeqEvento = '1'
+    ) {
+        $tpEvento = 110115;
+        $tagAdic = "<evIncDFeMDFe>"
+            . "<descEvento>Inclusao DF-e</descEvento>"
+            . "<nProt>$nProt</nProt>"
+            . "<cMunCarrega>$cMunCarrega</cMunCarrega>"
+            . "<xMunCarrega>$xMunCarrega</xMunCarrega>"
+            . "<infDoc>"
+            . "<cMunDescarga>$cMunDescarga</cMunDescarga>"
+            . "<xMunDescarga>$xMunDescarga</xMunDescarga>"
+            . "<chNFe>$chNFe</chNFe>"
+            . "</infDoc>"
+            . "</evIncDFeMDFe>";
+
+        return $this->sefazEvento(
+            $this->config->siglaUF,
+            $chave,
+            $tpEvento,
+            $nSeqEvento,
+            $tagAdic
+        );
+    }
+
+    /**
      * @author Cleiton Perin
      *
      * @return string
