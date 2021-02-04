@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WS>
+    <UF>
+        <sigla>RS</sigla>
+        <homologacao>
+            <MDFeDistribuicaoDFe method='MDFeDistribuicaoDFe' operation='MDFeDistribuicaoDFe' version='1.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeDistribuicaoDFe/MDFeDistribuicaoDFe.asmx</MDFeDistribuicaoDFe>
+        </homologacao>
+        <producao>
+            <MDFeDistribuicaoDFe method='MDFeDistribuicaoDFe' operation='MDFeDistribuicaoDFe' version='1.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeDistribuicaoDFe/MDFeDistribuicaoDFe.asmx</MDFeDistribuicaoDFe>
+        </producao>
+    </UF>
+</WS>

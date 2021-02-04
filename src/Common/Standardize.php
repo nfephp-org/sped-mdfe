@@ -52,7 +52,8 @@ class Standardize
         'evEncMDFe',
         'evIncCondutorMDFe',
         'evIncDFeMDFe',
-        'MDFe'
+        'MDFe',
+        'protMDFe'
     ];
 
     /**
@@ -147,5 +148,4 @@ class Standardize
         }
         return json_decode($this->json, true);
     }
-
 }

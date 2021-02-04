@@ -35,7 +35,7 @@ try {
     header('Content-type: text/plain; charset=UTF-8');
     echo $xmlAssinado;
     
-    //$resp = $tools->sefazEnviaLote([$xmlAssimado], rand(1, 10000));
+    //$resp = $tools->sefazEnviaLote([$xmlAssinado], rand(1, 10000));
 
     
     //$st = new Standardize();
