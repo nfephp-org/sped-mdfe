@@ -198,25 +198,15 @@ class Complements
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMdfe
             ) {
-                $proMDFe->getElementsByTagName('cStat')
-                    ->item(0)
-                    ->nodeValue = '101';
-                $proMDFe->getElementsByTagName('xMotivo')
-                    ->item(0)
-                    ->nodeValue = 'Cancelamento de MDF-e homologado';
-                $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
+                $node = $dommdfe->importNode($evento, true);
+                $dommdfe->documentElement->appendChild($node);
                 break;
             } elseif (in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110112'
                 && $chaveEvento == $chaveMdfe
             ) {
-                $proMDFe->getElementsByTagName('cStat')
-                    ->item(0)
-                    ->nodeValue = '103';
-                $proMDFe->getElementsByTagName('xMotivo')
-                    ->item(0)
-                    ->nodeValue = 'Encerramento de MDF-e homologado';
-                $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
+                $node = $dommdfe->importNode($evento, true);
+                $dommdfe->documentElement->appendChild($node);
                 break;
             }
         }
