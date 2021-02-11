@@ -161,7 +161,6 @@ class Complements
      */
     public static function cancelRegister($mdfe, $cancelamento)
     {
-        $procXML = $mdfe;
         $dommdfe = new DOMDocument('1.0', 'utf-8');
         $dommdfe->formatOutput = false;
         $dommdfe->preserveWhiteSpace = false;
@@ -210,7 +209,7 @@ class Complements
                 break;
             }
         }
-        return $procXML;
+        return $dommdfe->saveXML();
     }
 
     public static function closeRegister($mdfe, $encerramento)
