@@ -936,7 +936,9 @@ class Make
             'CNPJPg',
             'CPFPg',
             'nCompra',
-            'vValePed'
+            'vValePed',
+            'tpValePed',
+            'categCombVeic'
         ];
         $this->tagvalePed();
         $std = $this->equilizeParameters($std, $possible);
@@ -976,6 +978,20 @@ class Make
             $this->conditionalNumberFormatting($std->vValePed),
             false,
             $identificador . "Valor do Vale-Pedagio"
+        );
+        $this->dom->addChild(
+            $disp,
+            "tpValePed",
+            $std->tpValePed,
+            false,
+            $identificador . "Tipo do Vale Pedágio"
+        );
+        $this->dom->addChild(
+            $disp,
+            "categCombVeic",
+            $std->categCombVeic,
+            false,
+            $identificador . "Categoria de Combinação Veicular"
         );
         $this->disp[] = $disp;
         return $disp;
@@ -2200,7 +2216,7 @@ class Make
         $this->dom->addChild(
             $vag,
             "TU",
-            $std->TU,
+            $this->conditionalNumberFormatting($std->TU, 3),
             true,
             $identificador . "Tonelada Útil"
         );
@@ -3001,7 +3017,9 @@ class Make
             'idEstrangeiro',
             'Comp',
             'vContrato',
+            'indAltoDesemp',
             'indPag',
+            'vAdiant',
             'infPrazo',
             'infBanc'
         ];
@@ -3053,11 +3071,27 @@ class Make
         );
         $this->dom->addChild(
             $infPag,
+            "indAltoDesemp",
+            $std->indAltoDesemp,
+            false,
+            $identificador . "Indicador de operação de transporte de alto desempenho"
+        );
+        $this->dom->addChild(
+            $infPag,
             "indPag",
             $std->indPag,
             true,
             $identificador . "Indicador da Forma de Pagamento"
         );
+        if ($std->indPag == 1) {
+            $this->dom->addChild(
+                $infPag,
+                "vAdiant",
+                $this->conditionalNumberFormatting($std->vAdiant),
+                false,
+                $identificador . "Valor do Adiantamento"
+            );
+        }
         if ($std->indPag == 1) {
             foreach ($std->infPrazo as $value) {
                 $this->dom->appChild($infPag, $this->infPrazo($value), 'Falta tag "infPrazo"');
@@ -3154,7 +3188,8 @@ class Make
         $possible = [
             'codBanco',
             'codAgencia',
-            'CNPJIPEF'
+            'CNPJIPEF',
+            'PIX'
         ];
         $stdBanco = $this->equilizeParameters($std, $possible);
         $banco = $this->dom->createElement("infBanc");
@@ -3174,13 +3209,21 @@ class Make
                 true,
                 $identificador . "Número da Agência"
             );
-        } else {
+        } else if (!empty($stdBanco->CNPJIPEF)) {
             $this->dom->addChild(
                 $banco,
                 "CNPJIPEF",
                 $stdBanco->CNPJIPEF,
                 true,
                 $identificador . "Número do CNPJ da Instituição de pagamento Eletrônico do Frete"
+            );
+        } else {
+            $this->dom->addChild(
+                $banco,
+                "PIX",
+                $stdBanco->PIX,
+                true,
+                $identificador . "Chave PIX"
             );
         }
         return $banco;
