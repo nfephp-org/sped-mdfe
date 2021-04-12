@@ -42,6 +42,7 @@ class Standardize
         'retEnviMDFe',
         'retConsReciMDFe',
         'consSitMDFe',
+        'mdfeProc',
         'retConsSitMDFe',
         'retConsMDFeNaoEnc',
         'retConsStatServMDFe',
@@ -53,7 +54,7 @@ class Standardize
         'evIncCondutorMDFe',
         'evIncDFeMDFe',
         'MDFe',
-        'protMDFe'
+        'protMDFe',
     ];
 
     /**
