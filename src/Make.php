@@ -3209,7 +3209,7 @@ class Make
                 true,
                 $identificador . "Número da Agência"
             );
-        } else if (!empty($stdBanco->CNPJIPEF)) {
+        } elseif (!empty($stdBanco->CNPJIPEF)) {
             $this->dom->addChild(
                 $banco,
                 "CNPJIPEF",

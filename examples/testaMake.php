@@ -458,7 +458,7 @@ $mdfe->taginfPag($infPag);
 
 /* grupo Informações Adicionais */
 $std = new \stdClass();
-$std->infCpl = 'Contrato No 007018 2 CARR BBB1111';
+$std->infCpl = "Contrato No 007018 2 CARR \nBBB1111";
 $std->infAdFisco = 'Contrato No 007018 2 CARR BBB1111';
 $mdfe->taginfAdic($std);
 /* fim grupo Informações Adicionais */
