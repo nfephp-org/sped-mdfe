@@ -2677,15 +2677,14 @@ class Make
                 $prop,
                 "IE",
                 $stdprop->IE,
-                true,
-                $identificadorProp . "Inscrição Estadual",
-                true
+                false,
+                $identificadorProp . "Inscrição Estadual"
             );
             $this->dom->addChild(
                 $prop,
                 "UF",
                 $stdprop->UF,
-                true,
+                false,
                 $identificadorProp . "Unidade da Federação"
             );
             $this->dom->addChild(
@@ -2844,14 +2843,14 @@ class Make
                 $prop,
                 "IE",
                 $stdprop->IE,
-                true,
+                false,
                 $identificadorprop . "Inscrição Estadual"
             );
             $this->dom->addChild(
                 $prop,
                 "UF",
                 $stdprop->UF,
-                true,
+                false,
                 $identificadorprop . "Unidade da Federação"
             );
             $this->dom->addChild(
