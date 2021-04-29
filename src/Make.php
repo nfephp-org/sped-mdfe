@@ -731,14 +731,14 @@ class Make
         $this->dom->addChild(
             $this->emit,
             "xNome",
-            $std->xNome,
+            substr($std->xNome, 0, 60),
             true,
             $identificador . "Razão Social ou Nome do emitente"
         );
         $this->dom->addChild(
             $this->emit,
             "xFant",
-            $std->xFant,
+            substr($std->xFant, 0, 60),
             false,
             $identificador . "Nome fantasia do emitente"
         );
@@ -3329,24 +3329,4 @@ class Make
         }
         return null;
     }
-
-    /*
-    protected function conditionalNumberFormatting($value = null, array $decimal): string
-    {
-        if (!is_numeric($value)) {
-            return null;
-        }
-        $num = (float) $value;
-        $l = explode('.', $num);
-        $declen = 0;
-        if (!empty($l[1])) {
-            $declen = strlen($l[1]);
-        }
-        if ($declen < $decimal[0]) {
-            return number_format($num, $decimal[0], '.', '');
-        } elseif ($declen > $decimal[1]) {
-            return number_format($num, $decimal[1], '.', '');
-        }
-        return $num;
-    }*/
 }
