@@ -113,6 +113,8 @@ class Complements
             $node = 'procEncMDFe';
         } elseif ($tpEvento == '110114') {
             $node = 'procIncCondutor';
+        } elseif ($tpEvento == '110115') {
+            $node = 'procIncDFe';
         } else {
             throw DocumentsException::wrongDocument(4, "Evento não disponivel.");
         }
@@ -161,7 +163,6 @@ class Complements
      */
     public static function cancelRegister($mdfe, $cancelamento)
     {
-        $procXML = $mdfe;
         $dommdfe = new DOMDocument('1.0', 'utf-8');
         $dommdfe->formatOutput = false;
         $dommdfe->preserveWhiteSpace = false;
@@ -198,29 +199,19 @@ class Complements
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMdfe
             ) {
-                $proMDFe->getElementsByTagName('cStat')
-                    ->item(0)
-                    ->nodeValue = '101';
-                $proMDFe->getElementsByTagName('xMotivo')
-                    ->item(0)
-                    ->nodeValue = 'Cancelamento de MDF-e homologado';
-                $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
+                $node = $dommdfe->importNode($evento, true);
+                $dommdfe->documentElement->appendChild($node);
                 break;
             } elseif (in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110112'
                 && $chaveEvento == $chaveMdfe
             ) {
-                $proMDFe->getElementsByTagName('cStat')
-                    ->item(0)
-                    ->nodeValue = '103';
-                $proMDFe->getElementsByTagName('xMotivo')
-                    ->item(0)
-                    ->nodeValue = 'Encerramento de MDF-e homologado';
-                $procXML = Strings::clearProtocoledXML($dommdfe->saveXML());
+                $node = $dommdfe->importNode($evento, true);
+                $dommdfe->documentElement->appendChild($node);
                 break;
             }
         }
-        return $procXML;
+        return $dommdfe->saveXML();
     }
 
     public static function closeRegister($mdfe, $encerramento)
