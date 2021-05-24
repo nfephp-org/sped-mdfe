@@ -1,0 +1,32 @@
+name: Pipeline para o admin
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Testes PHPUnit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, intl, mysql, zlib, dom, openssl, soap, json, simplexml, libxml
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: composer install
+        run: |
+          /usr/bin/composer install --no-progress --no-suggest -o --no-ansi --no-interaction
+
+      - name: Rodando PHPUnit
+        run: |
+          composer test

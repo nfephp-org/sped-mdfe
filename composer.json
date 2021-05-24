@@ -59,7 +59,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\NFePHP\\MDFe\\": "tests/"
+            "NFePHP\\MDFe\\Tests\\": "tests/"
         }
     },
     "scripts": {
