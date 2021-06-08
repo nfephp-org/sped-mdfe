@@ -336,9 +336,6 @@ class Make
                 }
                 if ($this->valePed) {
                     $this->dom->appChild($this->infANTT, $this->valePed, 'Falta tag "valePed"');
-                    if ($this->disp) {
-                        $this->dom->addArrayChild($this->valePed, $this->disp, 'Falta tag "disp"');
-                    }
                 }
                 if ($this->infContratante) {
                     $this->dom->addArrayChild(
@@ -887,14 +884,30 @@ class Make
      * valePed
      * tag MDFe/infMDFe/infModal/rodo/infANTT/valePed
      *
+     * @param stdClass $std
      * @return DOMElement
      */
-    private function tagvalePed()
+    public function tagvalePed(stdClass $std)
     {
-        if (empty($this->valePed)) {
-            $this->valePed = $this->dom->createElement("valePed");
+        $possible = [
+            'disp',
+            'categCombVeic'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $valePed = $this->dom->createElement("valePed");
+        $identificador = '[2] <valePed> - ';
+        foreach ($std->disp as $value) {
+            $this->dom->appChild($valePed, $this->disp($value), 'Falta tag "disp"');
         }
-        return $this->valePed;
+        $this->dom->addChild(
+            $valePed,
+            "categCombVeic",
+            $std->categCombVeic,
+            false,
+            $identificador . "Categoria de Combinação Veicular"
+        );
+        $this->valePed = $valePed;
+        return $valePed;
     }
 
     /**
@@ -925,11 +938,11 @@ class Make
 
     /**
      * disp
-     * tag MDFe/infMDFe/infModal/rodo/infANTT/disp
-     *
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/valePed/disp
+     * @param stdClass $std
      * @return DOMElement
      */
-    public function tagdisp(stdClass $std)
+    private function disp(stdClass $std)
     {
         $possible = [
             'CNPJForn',
@@ -937,13 +950,11 @@ class Make
             'CPFPg',
             'nCompra',
             'vValePed',
-            'tpValePed',
-            'categCombVeic'
+            'tpValePed'
         ];
-        $this->tagvalePed();
         $std = $this->equilizeParameters($std, $possible);
-        $identificador = '[4] <disp> - ';
         $disp = $this->dom->createElement("disp");
+        $identificador = '[4] <disp> - ';
         $this->dom->addChild(
             $disp,
             "CNPJForn",
@@ -986,14 +997,6 @@ class Make
             false,
             $identificador . "Tipo do Vale Pedágio"
         );
-        $this->dom->addChild(
-            $disp,
-            "categCombVeic",
-            $std->categCombVeic,
-            false,
-            $identificador . "Categoria de Combinação Veicular"
-        );
-        $this->disp[] = $disp;
         return $disp;
     }
 

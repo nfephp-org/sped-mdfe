@@ -110,15 +110,21 @@ $mdfe->taginfCIOT($infCIOT);
 // }
 
 /* informações do Vale Pedágio */
+$stdvalePed = new \stdClass();
+
 // for {
-$valePed = new \stdClass();
-$valePed->CNPJForn = '11222333444455';
-$valePed->CNPJPg = '66777888999900';
-$valePed->CPFPg = '11122233355';
-$valePed->nCompra = '777778888999999';
-$valePed->vValePed = '100.00';
-$mdfe->tagdisp($valePed);
+$disp = new \stdClass();
+$disp->CNPJForn = '11222333444455';
+$disp->CNPJPg = '66777888999900';
+$disp->CPFPg = '11122233355';
+$disp->nCompra = '777778888999999';
+$disp->vValePed = '100.00';
+$disp->tpValePed = '01';
+$stdvalePed->disp[] = $disp;
 // }
+
+$stdvalePed->categCombVeic = '02';
+$mdfe->tagvalePed($stdvalePed);
 
 /* informações do contratante */
 // for {
