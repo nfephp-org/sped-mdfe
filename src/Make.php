@@ -141,6 +141,10 @@ class Make
     /**
      * @type string|\DOMNode
      */
+    private $categCombVeic = null;
+    /**
+     * @type string|\DOMNode
+     */
     private $infMunCarrega = [];
     /**
      * @type string|\DOMNode
@@ -338,6 +342,9 @@ class Make
                     $this->dom->appChild($this->infANTT, $this->valePed, 'Falta tag "valePed"');
                     if ($this->disp) {
                         $this->dom->addArrayChild($this->valePed, $this->disp, 'Falta tag "disp"');
+                    }
+                    if ($this->categCombVeic) {
+                        $this->dom->addArrayChild($this->valePed, $this->categCombVeic, 'Falta tag categCombVeic');
                     }
                 }
                 if ($this->infContratante) {
@@ -937,8 +944,7 @@ class Make
             'CPFPg',
             'nCompra',
             'vValePed',
-            'tpValePed',
-            'categCombVeic'
+            'tpValePed'
         ];
         $this->tagvalePed();
         $std = $this->equilizeParameters($std, $possible);
@@ -986,16 +992,28 @@ class Make
             false,
             $identificador . "Tipo do Vale Pedágio"
         );
-        $this->dom->addChild(
-            $disp,
-            "categCombVeic",
-            $std->categCombVeic,
-            false,
-            $identificador . "Categoria de Combinação Veicular"
-        );
         $this->disp[] = $disp;
         return $disp;
     }
+
+    /**
+     * disp
+     * tag MDFe/infMDFe/infModal/rodo/infANTT/valePed
+     *
+     * @return DOMElement
+     */
+    public function tagcategCombVeic(stdClass $std)
+    {
+        $possible = [
+            'categCombVeic'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $identificador = '[4] <valePed> - ';
+        $this->tagvalePed();
+        $this->categCombVeic = $this->dom->createElement("categCombVeic");
+        $this->categCombVeic->nodeValue = $std->categCombVeic;
+    }
+
 
     /**
      * infContratante
@@ -3307,8 +3325,8 @@ class Make
      * Includes missing or unsupported properties in stdClass
      * Replace all unsuported chars
      *
-     * @param  stdClass $std
-     * @param  array $possible
+     * @param stdClass $std
+     * @param array $possible
      * @return stdClass
      */
     private function equilizeParameters(stdClass $std, $possible)
