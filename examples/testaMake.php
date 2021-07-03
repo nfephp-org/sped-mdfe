@@ -123,6 +123,7 @@ $disp->tpValePed = '01';
 $stdvalePed->disp[] = $disp;
 // }
 
+
 $stdvalePed->categCombVeic = '02';
 $mdfe->tagvalePed($stdvalePed);
 
