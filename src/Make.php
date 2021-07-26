@@ -218,6 +218,10 @@ class Make
      * @var boolean
      */
     protected $replaceAccentedChars = false;
+    /**
+     * @var null
+     */
+    private $categCombVeic = null;
 
     /**
      * Função construtora cria um objeto DOMDocument
@@ -336,8 +340,15 @@ class Make
                 }
                 if ($this->valePed) {
                     $this->dom->appChild($this->infANTT, $this->valePed, 'Falta tag "valePed"');
-                    if ($this->disp) {
-                        $this->dom->addArrayChild($this->valePed, $this->disp, 'Falta tag "disp"');
+                    $this->dom->addArrayChild($this->valePed, $this->disp, 'Falta tag "disp"');
+                    if (!empty($this->categCombVeic)) {
+                        $this->dom->addChild(
+                            $this->valePed,
+                            "categCombVeic",
+                            $this->categCombVeic,
+                            false,
+                            "Categoria de Combinação Veicular"
+                        );
                     }
                 }
                 if ($this->infContratante) {
@@ -615,7 +626,7 @@ class Make
                 $std->indCarregaPosterior,
                 false,
                 $identificador . "Indicador de MDF-e com inclusão da Carga posterior"
-                    . " a emissão por evento de inclusão de DF-e"
+                . " a emissão por evento de inclusão de DF-e"
             );
         }
 
@@ -889,11 +900,10 @@ class Make
      *
      * @return DOMElement
      */
-    private function tagvalePed()
+    public function tagvalePed($categCombVeic)
     {
-        if (empty($this->valePed)) {
-            $this->valePed = $this->dom->createElement("valePed");
-        }
+        $this->valePed = $this->dom->createElement("valePed");
+        $this->categCombVeic = $categCombVeic;
         return $this->valePed;
     }
 
@@ -917,7 +927,7 @@ class Make
             $std->RNTRC,
             false,
             $identificador . "Registro Nacional de Transportadores Rodoviários"
-                . " de Carga"
+            . " de Carga"
         );
         $this->infANTT = $infANTT;
         return $infANTT;
@@ -937,10 +947,8 @@ class Make
             'CPFPg',
             'nCompra',
             'vValePed',
-            'tpValePed',
-            'categCombVeic'
+            'tpValePed'
         ];
-        $this->tagvalePed();
         $std = $this->equilizeParameters($std, $possible);
         $identificador = '[4] <disp> - ';
         $disp = $this->dom->createElement("disp");
@@ -976,7 +984,7 @@ class Make
             $disp,
             "vValePed",
             $this->conditionalNumberFormatting($std->vValePed),
-            false,
+            true,
             $identificador . "Valor do Vale-Pedagio"
         );
         $this->dom->addChild(
@@ -985,13 +993,6 @@ class Make
             $std->tpValePed,
             false,
             $identificador . "Tipo do Vale Pedágio"
-        );
-        $this->dom->addChild(
-            $disp,
-            "categCombVeic",
-            $std->categCombVeic,
-            false,
-            $identificador . "Categoria de Combinação Veicular"
         );
         $this->disp[] = $disp;
         return $disp;
@@ -1045,7 +1046,7 @@ class Make
                 $std->idEstrangeiro,
                 true,
                 $identificador . "Identificador do contratante do serviço em "
-                    . "caso de ser estrangeiro"
+                . "caso de ser estrangeiro"
             );
         }
         $this->infContratante[] = $infContratante;
@@ -1642,10 +1643,10 @@ class Make
             $std->tpCarga,
             true,
             "Tipo da Carga. 01-Granel sólido; 02-Granel líquido; "
-                . "03-Frigorificada; 04-Conteinerizada; 05-Carga Geral; "
-                . "06-Neogranel; 07-Perigosa (granel sólido); 08-Perigosa (granel "
-                . "líquido); 09-Perigosa (carga frigorificada); 10-Perigosa "
-                . "(conteinerizada); 11-Perigosa (carga geral)."
+            . "03-Frigorificada; 04-Conteinerizada; 05-Carga Geral; "
+            . "06-Neogranel; 07-Perigosa (granel sólido); 08-Perigosa (granel "
+            . "líquido); 09-Perigosa (carga frigorificada); 10-Perigosa "
+            . "(conteinerizada); 11-Perigosa (carga geral)."
         );
         $this->dom->addChild(
             $this->prodPred,
@@ -1660,7 +1661,7 @@ class Make
             $std->cEAN,
             false,
             "GTIN (Global Trade Item Number) do produto, antigo código EAN "
-                . "ou código de barras"
+            . "ou código de barras"
         );
         $this->dom->addChild(
             $this->prodPred,
@@ -2009,7 +2010,7 @@ class Make
                 if ($this->ide->getElementsByTagName('infPercurso')->length > 1) {
                     $node = $this->ide->getElementsByTagName('infPercurso')
                         ->item($this->ide->getElementsByTagName('infPercurso')
-                            ->length - 1);
+                                ->length - 1);
                 }
             }
             $this->dom->insertAfter($percurso, $node);
@@ -2953,7 +2954,7 @@ class Make
             $std->CNPJ,
             true,
             "Informar o CNPJ da pessoa jurídica responsável pelo sistema "
-                . "utilizado na emissão do documento fiscal eletrônico"
+            . "utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2961,7 +2962,7 @@ class Make
             $std->xContato,
             true,
             "Informar o nome da pessoa a ser contatada na empresa desenvolvedora "
-                . "do sistema utilizado na emissão do documento fiscal eletrônico"
+            . "do sistema utilizado na emissão do documento fiscal eletrônico"
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2969,7 +2970,7 @@ class Make
             $std->email,
             true,
             "Informar o e-mail da pessoa a ser contatada na empresa "
-                . "desenvolvedora do sistema."
+            . "desenvolvedora do sistema."
         );
         $this->dom->addChild(
             $infRespTec,
@@ -2977,7 +2978,7 @@ class Make
             $std->fone,
             true,
             "Informar o telefone da pessoa a ser contatada na empresa "
-                . "desenvolvedora do sistema."
+            . "desenvolvedora do sistema."
         );
         if (!empty($std->CSRT) && !empty($std->idCSRT)) {
             $this->csrt = $std->CSRT;
@@ -3055,7 +3056,7 @@ class Make
                 $std->idEstrangeiro,
                 true,
                 $identificador . "Identificador do responsável pelo pgto em "
-                    . "caso de ser estrangeiro"
+                . "caso de ser estrangeiro"
             );
         }
         foreach ($std->Comp as $value) {
