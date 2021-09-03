@@ -2724,7 +2724,7 @@ class Make
             $veicTracao,
             "UF",
             $std->UF,
-            true,
+            false,
             $identificador . "UF de licenciamento do veículo"
         );
         $this->veicTracao = $veicTracao;
@@ -2874,7 +2874,7 @@ class Make
             $veicReboque,
             "UF",
             $std->UF,
-            true,
+            false,
             $identificador . "UF de licenciamento do veículo"
         );
         $this->veicReboque[] = $veicReboque;
