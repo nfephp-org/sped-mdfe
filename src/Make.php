@@ -1009,7 +1009,7 @@ class Make
         $possible = [
             'xNome',
             'CPF',
-            'CPF',
+            'CNPJ',
             'idEstrangeiro'
         ];
         $std = $this->equilizeParameters($std, $possible);
