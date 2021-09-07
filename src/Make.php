@@ -2679,7 +2679,8 @@ class Make
                 "IE",
                 $stdprop->IE,
                 false,
-                $identificadorProp . "Inscrição Estadual"
+                $identificadorProp . "Inscrição Estadual",
+                true
             );
             $this->dom->addChild(
                 $prop,
@@ -2845,7 +2846,8 @@ class Make
                 "IE",
                 $stdprop->IE,
                 false,
-                $identificadorprop . "Inscrição Estadual"
+                $identificadorprop . "Inscrição Estadual",
+                true
             );
             $this->dom->addChild(
                 $prop,
