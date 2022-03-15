@@ -463,7 +463,7 @@ class Make
      * Informações de identificação da MDFe
      * tag MDFe/infMDFe/ide
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagide(stdClass $std)
@@ -640,7 +640,7 @@ class Make
      *
      * tag MDFe/infMDFe/ide/infMunCarrega
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taginfMunCarrega(stdClass $std)
@@ -674,7 +674,7 @@ class Make
      *
      * tag MDFe/infMDFe/ide/infPercurso
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taginfPercurso(stdClass $std)
@@ -700,7 +700,7 @@ class Make
      * Identificação do emitente da MDFe
      * tag MDFe/infMDFe/emit
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagemit(stdClass $std)
@@ -761,7 +761,7 @@ class Make
      * Endereço do emitente [30] pai [25]
      * tag MDFe/infMDFe/emit/endEmit
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagenderEmit(stdClass $std)
@@ -1010,7 +1010,9 @@ class Make
             'xNome',
             'CPF',
             'CNPJ',
-            'idEstrangeiro'
+            'idEstrangeiro',
+            'NroContrato',
+            'vContratoGlobal'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $identificador = '[4] <infContratante> - ';
@@ -1048,6 +1050,27 @@ class Make
                 $identificador . "Identificador do contratante do serviço em "
                 . "caso de ser estrangeiro"
             );
+        }
+        if (!empty($std->NroContrato) or !empty($std->vContratoGlobal)) {
+            $identificador = '[4] <infContrato> - ';
+            $infContrato = $this->dom->createElement("infContrato");
+
+            $this->dom->addChild(
+                $infContrato,
+                "NroContrato",
+                $std->NroContrato,
+                true,
+                $identificador . "Número do contrato do transportador com o contratante quando este existir "
+                . "para prestações continuadas"
+            );
+            $this->dom->addChild(
+                $infContrato,
+                "vContratoGlobal",
+                $this->conditionalNumberFormatting($std->vContratoGlobal),
+                true,
+                $identificador . "Valor Global do Contrato"
+            );
+            $infContratante->appendChild($infContrato);
         }
         $this->infContratante[] = $infContratante;
         return $infContratante;
@@ -1101,7 +1124,7 @@ class Make
      * tagInfMunDescarga
      * tag MDFe/infMDFe/infDoc/infMunDescarga
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taginfMunDescarga(stdClass $std)
@@ -1137,7 +1160,7 @@ class Make
      * taginfCTe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taginfCTe(stdClass $std)
@@ -1228,7 +1251,7 @@ class Make
      * tagperi
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/peri
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     private function tagperi(stdClass $std)
@@ -1292,7 +1315,7 @@ class Make
      * taginfNFe
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infNFe
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taginfNFe(stdClass $std)
@@ -1350,7 +1373,7 @@ class Make
      * taginfMDFeTransp
      * tag MDFe/infMDFe/infDoc/infMunDescarga/infMDFeTransp
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taginfMDFeTransp(stdClass $std)
@@ -1402,7 +1425,7 @@ class Make
      * taginfUnidTransp
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/infUnidTransp
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     private function taginfUnidTransp(stdClass $std)
@@ -1474,7 +1497,7 @@ class Make
      * taginfUnidCarga
      * tag MDFe/infMDFe/infDoc/infMunDescarga/(infCTe/infNFe)/infUnidCarga
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     private function taginfUnidCarga(stdClass $std)
@@ -1536,7 +1559,7 @@ class Make
      * tagseg
      * tag MDFe/infMDFe/seg
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagseg(stdClass $std)
@@ -1623,7 +1646,7 @@ class Make
      * tagprodPred
      * tag MDFe/infMDFe/prodPred
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagprodPred($std)
@@ -1791,7 +1814,7 @@ class Make
      * tagTot
      * tag MDFe/infMDFe/tot
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagtot(stdClass $std)
@@ -1883,7 +1906,7 @@ class Make
      * tagLacres
      * tag MDFe/infMDFe/lacres
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taglacres(stdClass $std)
@@ -1909,7 +1932,7 @@ class Make
      * Grupo de Informações Adicionais Z01 pai A01
      * tag MDFe/infMDFe/infAdic (opcional)
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taginfAdic(stdClass $std)
@@ -1944,7 +1967,7 @@ class Make
      *
      * Autorizados para download do XML do MDF-e
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagautXML(stdClass $std)
@@ -2533,7 +2556,7 @@ class Make
      * condutor
      * tag MDFe/infMDFe/infModal/rodo/veicTracao/condutor
      *
-     * @param  string $cEmbComb
+     * @param string $cEmbComb
      *
      * @return DOMElement
      */
@@ -2567,7 +2590,7 @@ class Make
      * tagVeicTracao
      * tag MDFe/infMDFe/infModal/rodo/veicTracao
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagveicTracao(stdClass $std)
@@ -2735,7 +2758,7 @@ class Make
      * tagVeicReboque
      * tag MDFe/infMDFe/infModal/rodo/VeicReboque
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagveicReboque(stdClass $std)
@@ -2885,7 +2908,7 @@ class Make
      * tagcodAgPorto
      * tag MDFe/infMDFe/infModal/rodo/codAgPorto
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function tagcodAgPorto(stdClass $std)
@@ -2908,7 +2931,7 @@ class Make
      * taglacRodo
      * tag MDFe/infMDFe/infModal/rodo/lacRodo
      *
-     * @param  stdClass $std
+     * @param stdClass $std
      * @return DOMElement
      */
     public function taglacRodo(stdClass $std)
@@ -3020,6 +3043,7 @@ class Make
             'indAltoDesemp',
             'indPag',
             'vAdiant',
+            'indAntecipaAdiant',
             'infPrazo',
             'infBanc'
         ];
@@ -3092,6 +3116,13 @@ class Make
                 $identificador . "Valor do Adiantamento"
             );
         }
+        $this->dom->addChild(
+            $infPag,
+            "indAntecipaAdiant",
+            $std->indAntecipaAdiant,
+            false,
+            $identificador . "Indicador de declaração de concordância em antecipar o adiantamento"
+        );
         if ($std->indPag == 1) {
             foreach ($std->infPrazo as $value) {
                 $this->dom->appChild($infPag, $this->infPrazo($value), 'Falta tag "infPrazo"');
@@ -3150,7 +3181,8 @@ class Make
         $possible = [
             'nParcela',
             'dVenc',
-            'vParcela'
+            'vParcela',
+            'tpAntecip'
         ];
         $stdPraz = $this->equilizeParameters($std, $possible);
         $prazo = $this->dom->createElement("infPrazo");
@@ -3175,6 +3207,13 @@ class Make
             $this->conditionalNumberFormatting($stdPraz->vParcela),
             true,
             $identificador . "Valor da Parcela"
+        );
+        $this->dom->addChild(
+            $prazo,
+            "tpAntecip",
+            $stdPraz->tpAntecip,
+            false,
+            $identificador . "Tipo de Permissão em relação a antecipação das parcelas"
         );
         return $prazo;
     }
@@ -3308,8 +3347,8 @@ class Make
      * Includes missing or unsupported properties in stdClass
      * Replace all unsuported chars
      *
-     * @param  stdClass $std
-     * @param  array $possible
+     * @param stdClass $std
+     * @param array $possible
      * @return stdClass
      */
     private function equilizeParameters(stdClass $std, $possible)
