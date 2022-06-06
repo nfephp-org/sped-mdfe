@@ -33,7 +33,8 @@ class Tools extends ToolsCommon
         $aXml,
         $idLote = '',
         $indSinc = 0
-    ) {
+    )
+    {
         if (!is_array($aXml)) {
             throw new \InvalidArgumentException('Os XML das MDFe devem ser passados em um array.');
         }
@@ -211,7 +212,8 @@ class Tools extends ToolsCommon
         $cUF = '',
         $cMun = '',
         $dtEnc = ''
-    ) {
+    )
+    {
         $tpEvento = 110112;
         $nSeqEvento = 1;
         if ($dtEnc == '') {
@@ -247,7 +249,8 @@ class Tools extends ToolsCommon
         $nSeqEvento = '1',
         $xNome = '',
         $cpf = ''
-    ) {
+    )
+    {
         $tpEvento = 110114;
         $tagAdic = "<evIncCondutorMDFe>"
             . "<descEvento>Inclusao Condutor</descEvento>"
@@ -288,7 +291,8 @@ class Tools extends ToolsCommon
         $xMunDescarga = '',
         $chNFe = '',
         $nSeqEvento = '1'
-    ) {
+    )
+    {
         $tpEvento = 110115;
         $tagAdic = "<evIncDFeMDFe>"
             . "<descEvento>Inclusao DF-e</descEvento>"
@@ -326,12 +330,14 @@ class Tools extends ToolsCommon
             $this->tpAmb
         );
         $cnpj = $this->config->cnpj;
+        $sigla = (strlen($cnpj) == 11) ? 'CPF' : 'CNPJ';
         $request = "<consMDFeNaoEnc xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
             . "<tpAmb>$this->tpAmb</tpAmb>"
             . "<xServ>CONSULTAR NÃO ENCERRADOS</xServ>"
-            . "<CNPJ>$cnpj</CNPJ>"
+            . "<{$sigla}>$cnpj</{$sigla}>"
             . "</consMDFeNaoEnc>";
         $this->lastRequest = $request;
+        $this->isValid($this->urlVersion, $request, 'consMDFeNaoEnc');
         $parameters = ['mdfeDadosMsg' => $request];
         $body = "<mdfeDadosMsg xmlns=\"$this->urlNamespace\">$request</mdfeDadosMsg>";
         $this->lastResponse = $this->sendRequest($body, $parameters);
@@ -355,7 +361,8 @@ class Tools extends ToolsCommon
         $tpEvento,
         $nSeqEvento = 1,
         $tagAdic = ''
-    ) {
+    )
+    {
         //carrega serviço
         $servico = 'MDFeRecepcaoEvento';
         $this->servico(
@@ -364,7 +371,7 @@ class Tools extends ToolsCommon
             $this->tpAmb
         );
         $cnpj = $this->config->cnpj;
-        $sigla = strlen($cnpj) == 11 ? 'CPF' : 'CNPJ';
+        $sigla = (strlen($cnpj) == 11) ? 'CPF' : 'CNPJ';
         $dt = new \DateTime();
         $dhEvento = $dt->format('Y-m-d\TH:i:sP');
         $sSeqEvento = str_pad($nSeqEvento, 2, "0", STR_PAD_LEFT);
@@ -374,7 +381,7 @@ class Tools extends ToolsCommon
             . "<infEvento Id=\"$eventId\">"
             . "<cOrgao>$cOrgao</cOrgao>"
             . "<tpAmb>$this->tpAmb</tpAmb>"
-            . "<$sigla>$cnpj</$sigla>"
+            . "<{$sigla}>$cnpj</{$sigla}>"
             . "<chMDFe>$chave</chMDFe>"
             . "<dhEvento>$dhEvento</dhEvento>"
             . "<tpEvento>$tpEvento</tpEvento>"
@@ -405,14 +412,15 @@ class Tools extends ToolsCommon
     /**
      * Service for the distribution of summary information and
      * electronic tax documents of interest to an actor.
-     * @param integer $ultNSU  last NSU number recived
-     * @param integer $numNSU  NSU number you wish to consult
+     * @param integer $ultNSU last NSU number recived
+     * @param integer $numNSU NSU number you wish to consult
      * @return string
      */
     public function sefazDistDFe(
         $ultNSU = 0,
         $numNSU = 0
-    ) {
+    )
+    {
         //carrega serviço
         $servico = 'MDFeDistribuicaoDFe';
         $this->servico(
@@ -428,12 +436,12 @@ class Tools extends ToolsCommon
         }
         //monta a consulta
         $request = "<distDFeInt xmlns=\"$this->urlPortal\" versao=\"$this->urlVersion\">"
-            . "<tpAmb>".$this->tpAmb."</tpAmb>"
-            . ((strlen($this->config->cnpj)==14) ?
-                "<CNPJ>".$this->config->cnpj."</CNPJ>" :
-                "<CPF>".$this->config->cnpj."</CPF>"
+            . "<tpAmb>" . $this->tpAmb . "</tpAmb>"
+            . ((strlen($this->config->cnpj) == 14) ?
+                "<CNPJ>" . $this->config->cnpj . "</CNPJ>" :
+                "<CPF>" . $this->config->cnpj . "</CPF>"
             )
-            . $tagNSU."</distDFeInt>";
+            . $tagNSU . "</distDFeInt>";
         //valida o xml da requisição
         $this->isValid($this->urlVersion, $request, 'distDFeInt');
         $this->lastRequest = $request;
