@@ -161,6 +161,10 @@ class Make
     /**
      * @type string|\DOMNode
      */
+    private $infRespTec = '';
+    /**
+     * @type string|\DOMNode
+     */
     private $rodo = '';
     /**
      * @type string|\DOMNode
@@ -447,6 +451,9 @@ class Make
         }
         if (!empty($this->infAdic)) {
             $this->dom->appChild($this->infMDFe, $this->infAdic, 'Falta tag "infAdic"');
+        }
+        if (!empty($this->infRespTec)) {
+            $this->dom->appChild($this->infMDFe, $this->infRespTec, 'Falta tag "infRespTec"');
         }
         $this->dom->appChild($this->MDFe, $this->infMDFe, 'Falta tag "infMDFe"');
         $this->dom->appendChild($this->MDFe);
