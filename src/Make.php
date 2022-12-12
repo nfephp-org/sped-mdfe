@@ -147,6 +147,10 @@ class Make
      */
     private $infPercurso = [];
     /**
+     * @type string
+     */
+    private $codAgPorto = '';
+    /**
      * @type string|\DOMNode
      */
     private $lacRodo = [];
@@ -372,6 +376,15 @@ class Make
             }
             if ($this->veicReboque) {
                 $this->dom->addArrayChild($this->rodo, $this->veicReboque, 'Falta tag "veicReboque"');
+            }
+            if ($this->codAgPorto) {
+                $this->dom->addChild(
+                    $this->rodo,
+                    "codAgPorto",
+                    $this->codAgPorto,
+                    false,
+                    "Código de Agendamento no porto"
+                );
             }
             if ($this->lacRodo) {
                 $this->dom->addArrayChild($this->rodo, $this->lacRodo, 'Falta tag "lacRodo"');
@@ -2915,23 +2928,13 @@ class Make
      * tagcodAgPorto
      * tag MDFe/infMDFe/infModal/rodo/codAgPorto
      *
-     * @param stdClass $std
-     * @return DOMElement
+     * @param string codAgPorto
+     * @return null
      */
-    public function tagcodAgPorto(stdClass $std)
+    public function tagcodAgPorto($codAgPorto)
     {
-        $possible = [
-            'codAgPorto'
-        ];
-        $std = $this->equilizeParameters($std, $possible);
-        $this->dom->addChild(
-            $this->rodo,
-            "codAgPorto",
-            $std->codAgPorto,
-            false,
-            "Código de Agendamento no porto"
-        );
-        return $this->rodo;
+        $this->codAgPorto = $codAgPorto;
+        return null;
     }
 
     /**
