@@ -355,7 +355,7 @@ class Tools extends ToolsCommon
      * @param string $tagAdic
      * @return   string
      */
-    protected function sefazEvento(
+    public function sefazEvento(
         $uf,
         $chave,
         $tpEvento,
