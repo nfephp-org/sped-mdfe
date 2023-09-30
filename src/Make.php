@@ -230,6 +230,26 @@ class Make
      * @var null
      */
     private $categCombVeic = null;
+    /**
+     * @type \DOMImproved
+     */
+    protected $dom;
+    /**
+     * @type false|string
+     */
+    protected $xml;
+    /**
+     * @type array
+     */
+    protected $lacres;
+    /**
+     * @type string
+     */
+    protected $tpAmb;    
+    /**
+    * @type string
+    */
+    protected $csrt;
 
     /**
      * Função construtora cria um objeto DOMDocument
