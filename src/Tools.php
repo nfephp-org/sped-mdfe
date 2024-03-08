@@ -204,14 +204,16 @@ class Tools extends ToolsCommon
      * @param string $cUF
      * @param string $cMun
      * @param string $dtEnc
+     * @param string $indEncPorTerceiro
      * @return string
      */
     public function sefazEncerra(
-        $chave = '',
-        $nProt = '',
-        $cUF = '',
-        $cMun = '',
-        $dtEnc = ''
+        $chave,
+        $nProt,
+        $cUF,
+        $cMun,
+        $dtEnc = '',
+        $indEncPorTerceiro = ''
     )
     {
         $tpEvento = 110112;
@@ -224,8 +226,11 @@ class Tools extends ToolsCommon
             . "<nProt>$nProt</nProt>"
             . "<dtEnc>$dtEnc</dtEnc>"
             . "<cUF>$cUF</cUF>"
-            . "<cMun>$cMun</cMun>"
-            . "</evEncMDFe>";
+            . "<cMun>$cMun</cMun>";
+        if (!empty($indEncPorTerceiro)) {
+            $tagAdic .= "<indEncPorTerceiro>$indEncPorTerceiro</indEncPorTerceiro>";
+        }
+        $tagAdic .= "</evEncMDFe>";
         return $this->sefazEvento(
             $this->config->siglaUF,
             $chave,
