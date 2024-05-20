@@ -46,6 +46,7 @@ class Standardize
         'retConsSitMDFe',
         'retConsMDFeNaoEnc',
         'retConsStatServMDFe',
+        'retDistDFeInt',
         'retMDFe',
         'eventoMDFe',
         'retEventoMDFe',

@@ -10,6 +10,7 @@
             <MDFeConsulta method='mdfeConsultaMDF' operation='MDFeConsulta' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsulta>
             <MDFeStatusServico method='mdfeStatusServicoMDF' operation='MDFeStatusServico' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx</MDFeStatusServico>
             <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version='3.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
+            <MDFeDistribuicaoDFe method='mdfeDistDFeInteresse' operation='MDFeDistribuicaoDFe' version='1.00'>https://mdfe-homologacao.svrs.rs.gov.br/ws/MDFeDistribuicaoDFe/MDFeDistribuicaoDFe.asmx</MDFeDistribuicaoDFe>
         </homologacao>
         <producao>
             <MDFeRecepcao method='mdfeRecepcaoLote' operation='MDFeRecepcao' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeRecepcao/MDFeRecepcao.asmx</MDFeRecepcao>
@@ -19,6 +20,7 @@
             <MDFeConsulta method='mdfeConsultaMDF' operation='MDFeConsulta' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsulta/MDFeConsulta.asmx</MDFeConsulta>
             <MDFeStatusServico method='mdfeStatusServicoMDF' operation='MDFeStatusServico' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeStatusServico/MDFeStatusServico.asmx</MDFeStatusServico>
             <MDFeConsNaoEnc method='mdfeConsNaoEnc' operation='MDFeConsNaoEnc' version='3.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeConsNaoEnc/MDFeConsNaoEnc.asmx</MDFeConsNaoEnc>
+            <MDFeDistribuicaoDFe method='mdfeDistDFeInteresse' operation='MDFeDistribuicaoDFe' version='1.00'>https://mdfe.svrs.rs.gov.br/ws/MDFeDistribuicaoDFe/MDFeDistribuicaoDFe.asmx</MDFeDistribuicaoDFe>
         </producao>
     </UF>
 </WS>
