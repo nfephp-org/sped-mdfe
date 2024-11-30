@@ -3,6 +3,7 @@
 limpaTAB.php
 *~
 *.pfx
+!tests/fixtures/certs/*.pfx
 *.pem
 config.json
 local

@@ -106,6 +106,11 @@ class Complements
         $retEv = $ret->getElementsByTagName('retEventoMDFe')->item(0);
         $cStat = $retEv->getElementsByTagName('cStat')->item(0)->nodeValue;
         $xMotivo = $retEv->getElementsByTagName('xMotivo')->item(0)->nodeValue;
+
+        if ($cStat != '135') {
+            throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo");
+        }
+
         $tpEvento = $retEv->getElementsByTagName('tpEvento')->item(0)->nodeValue;
         if ($tpEvento == '110111') {
             $node = 'procCancMDFe';
@@ -117,9 +122,6 @@ class Complements
             $node = 'procIncDFe';
         } else {
             throw DocumentsException::wrongDocument(4, "Evento não disponivel.");
-        }
-        if ($cStat != '135') {
-            throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo");
         }
         return self::join(
             $ev->saveXML($event),
@@ -195,14 +197,16 @@ class Complements
             $proMDFe->getElementsByTagName('nProt')
                 ->item(0)
                 ->nodeValue = $nProt;
-            if (in_array($cStat, ['135', '136', '155'])
+            if (
+                in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMdfe
             ) {
                 $node = $dommdfe->importNode($evento, true);
                 $dommdfe->documentElement->appendChild($node);
                 break;
-            } elseif (in_array($cStat, ['135', '136', '155'])
+            } elseif (
+                in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110112'
                 && $chaveEvento == $chaveMdfe
             ) {
