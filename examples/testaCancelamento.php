@@ -2,7 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-include_once '../bootstrap.php';
+include __DIR__ . '/../tests/bootstrap.php';
 
 use NFePHP\Common\Certificate;
 use NFePHP\MDFe\Common\Standardize;
@@ -12,7 +12,7 @@ $config = [
     "atualizacao" => date('Y-m-d H:i:s'),
     "tpAmb" => 2,
     "razaosocial" => 'FÁBRICA DE SOFTWARE MATRIZ',
-    "cnpj" => '',
+    "cnpj" => '06157250000116',
     "ie" => '',
     "siglaUF" => 'PR',
     "versao" => '3.00'
@@ -20,8 +20,8 @@ $config = [
 
 try {
     $certificate = Certificate::readPfx(
-        '',
-        ''
+        file_get_contents(TESTS_FIXTURES  . '/certs/cert_cnpj_06157250000116_senha_minhasenha.pfx'),
+        'minhasenha',
     );
 
     $tools = new Tools(json_encode($config), $certificate);
