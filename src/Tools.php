@@ -281,9 +281,7 @@ class Tools extends ToolsCommon
      * @param string $nProt
      * @param string $cMunCarrega
      * @param string $xMunCarrega
-     * @param string $cMunDescarga
-     * @param string $xMunDescarga
-     * @param string $chNFe
+     * @param array $infDoc
      * @param int $nSeqEvento
      * @return string
      */
@@ -292,9 +290,7 @@ class Tools extends ToolsCommon
         $nProt = '',
         $cMunCarrega = '',
         $xMunCarrega = '',
-        $cMunDescarga = '',
-        $xMunDescarga = '',
-        $chNFe = '',
+        $infDoc = [],
         $nSeqEvento = '1'
     )
     {
@@ -303,13 +299,15 @@ class Tools extends ToolsCommon
             . "<descEvento>Inclusao DF-e</descEvento>"
             . "<nProt>$nProt</nProt>"
             . "<cMunCarrega>$cMunCarrega</cMunCarrega>"
-            . "<xMunCarrega>$xMunCarrega</xMunCarrega>"
-            . "<infDoc>"
-            . "<cMunDescarga>$cMunDescarga</cMunDescarga>"
-            . "<xMunDescarga>$xMunDescarga</xMunDescarga>"
-            . "<chNFe>$chNFe</chNFe>"
-            . "</infDoc>"
-            . "</evIncDFeMDFe>";
+            . "<xMunCarrega>$xMunCarrega</xMunCarrega>";
+        foreach ($infDoc as $infDocItem) {
+            $tagAdic = $tagAdic . "<infDoc>"
+                . "<cMunDescarga>{$infDocItem['cMunDescarga']}</cMunDescarga>"
+                . "<xMunDescarga>{$infDocItem['xMunDescarga']}</xMunDescarga>"
+                . "<chNFe>{$infDocItem['chNFe']}</chNFe>"
+                . "</infDoc>";
+        }
+        $tagAdic = $tagAdic . "</evIncDFeMDFe>";
 
         return $this->sefazEvento(
             $this->config->siglaUF,
