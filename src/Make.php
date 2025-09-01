@@ -1136,7 +1136,7 @@ class Make
             $infCIOT,
             "CIOT",
             $std->CIOT,
-            true,
+            false,
             $identificador . "Código Identificador da Operação de Transporte"
         );
         if ($std->CPF) {
