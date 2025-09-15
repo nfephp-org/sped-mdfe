@@ -245,7 +245,7 @@ class Make
     /**
      * @type string
      */
-    protected $tpAmb;    
+    protected $tpAmb;
     /**
     * @type string
     */
@@ -2312,7 +2312,8 @@ class Make
             'infTermDescarreg',
             'infEmbComb',
             'infUnidCargaVazia',
-            'infUnidTranspVazia'
+            'infUnidTranspVazia',
+            'MMSI'
         ];
         $identificador = '[1] <aquav> - ';
         $std = $this->equilizeParameters($std, $possible);
@@ -2425,6 +2426,13 @@ class Make
                 );
             }
         }
+        $this->dom->addChild(
+            $aquav,
+            "MMSI",
+            $std->MMSI,
+            false,
+            $identificador . "Maritime Mobile Service Identify"
+        );
         $this->aquav = $aquav;
         return $aquav;
     }
