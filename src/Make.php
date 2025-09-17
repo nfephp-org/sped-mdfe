@@ -1212,7 +1212,9 @@ class Make
             'infEntregaParcial',
             'infUnidTransp',
             'peri',
-            'nItem'
+            'nItem',
+            'indPrestacaoParcial',
+            'infNFePrestParcial'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $infCTe = $this->dom->createElement("infCTe");
@@ -1283,8 +1285,48 @@ class Make
             );
             $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "infCTe"');
         }
+        $this->dom->addChild(
+            $infCTe,
+            "indPrestacaoParcial",
+            $std->indPrestacaoParcial,
+            false,
+            "Indicador de Prestação parcial"
+        );
+        if ($std->infNFePrestParcial) {
+            foreach ($std->infNFePrestParcial as $value) {
+                $this->dom->appChild(
+                    $infCTe,
+                    $this->taginfNFePrestParcial($value),
+                    'Falta tag "infNFePrestParcial"'
+                );
+            }
+        }
         $this->infCTe[$std->nItem][] = $infCTe;
         return $infCTe;
+    }
+
+    /**
+     * taginfNFePresParcial
+     * tag MDFe/infMDFe/infDoc/infMunDescarga/infCTe/infNFePresParcial
+     *
+     * @param stdClass $std
+     * @return DOMElement
+     */
+    private function taginfNFePrestParcial(stdClass $std)
+    {
+        $possible = [
+            'chNFe'
+        ];
+        $std = $this->equilizeParameters($std, $possible);
+        $infNFePrestParcial = $this->dom->createElement("infNFePrestParcial");
+        $this->dom->addChild(
+            $infNFePrestParcial,
+            "chNFe",
+            $std->chNFe,
+            true,
+            "Nota Fiscal Eletrônica"
+        );
+        return $infNFePrestParcial;
     }
 
     /**
