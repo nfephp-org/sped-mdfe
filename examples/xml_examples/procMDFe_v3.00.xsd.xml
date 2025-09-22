@@ -1,0 +1,380 @@
+<mdfeProc versao="string" ipTransmissor="string" nPortaCon="string" dhConexao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe" xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+  <MDFe>
+    <infMDFe versao="string" Id="string">
+      <ide>
+        <cUF>51</cUF>
+        <tpAmb>1</tpAmb>
+        <tpEmit>2</tpEmit>
+        <!--Optional:-->
+        <tpTransp>1</tpTransp>
+        <mod>58</mod>
+        <serie>string</serie>
+        <nMDF>string</nMDF>
+        <cMDF>string</cMDF>
+        <cDV>string</cDV>
+        <modal>1</modal>
+        <dhEmi>string</dhEmi>
+        <tpEmis>3</tpEmis>
+        <procEmi>0</procEmi>
+        <verProc>string</verProc>
+        <UFIni>MG</UFIni>
+        <UFFim>RO</UFFim>
+        <!--1 to 50 repetitions:-->
+        <infMunCarrega>
+          <cMunCarrega>string</cMunCarrega>
+          <xMunCarrega>string</xMunCarrega>
+        </infMunCarrega>
+        <!--0 to 25 repetitions:-->
+        <infPercurso>
+          <UFPer>CE</UFPer>
+        </infPercurso>
+        <!--Optional:-->
+        <dhIniViagem>string</dhIniViagem>
+        <!--Optional:-->
+        <indCanalVerde>1</indCanalVerde>
+        <!--Optional:-->
+        <indCarregaPosterior>1</indCarregaPosterior>
+      </ide>
+      <emit>
+        <!--You have a CHOICE of the next 2 items at this level-->
+        <CNPJ>string</CNPJ>
+        <CPF>string</CPF>
+        <!--Optional:-->
+        <IE>string</IE>
+        <xNome>string</xNome>
+        <!--Optional:-->
+        <xFant>string</xFant>
+        <enderEmit>
+          <xLgr>string</xLgr>
+          <nro>string</nro>
+          <!--Optional:-->
+          <xCpl>string</xCpl>
+          <xBairro>string</xBairro>
+          <cMun>string</cMun>
+          <xMun>string</xMun>
+          <!--Optional:-->
+          <CEP>string</CEP>
+          <UF>RN</UF>
+          <!--Optional:-->
+          <fone>string</fone>
+          <!--Optional:-->
+          <email>string</email>
+        </enderEmit>
+      </emit>
+      <infModal versaoModal="string">
+        <!--You may enter ANY elements at this point-->
+        <AnyElement/>
+      </infModal>
+      <infDoc>
+        <!--1 to 1000 repetitions:-->
+        <infMunDescarga>
+          <cMunDescarga>string</cMunDescarga>
+          <xMunDescarga>string</xMunDescarga>
+          <!--0 to 20000 repetitions:-->
+          <infCTe>
+            <chCTe>string</chCTe>
+            <!--Optional:-->
+            <SegCodBarra>string</SegCodBarra>
+            <!--Optional:-->
+            <indReentrega>1</indReentrega>
+            <!--Zero or more repetitions:-->
+            <infUnidTransp>
+              <tpUnidTransp>3</tpUnidTransp>
+              <idUnidTransp>string</idUnidTransp>
+              <!--Zero or more repetitions:-->
+              <lacUnidTransp>
+                <nLacre>string</nLacre>
+              </lacUnidTransp>
+              <!--Zero or more repetitions:-->
+              <infUnidCarga>
+                <tpUnidCarga>4</tpUnidCarga>
+                <idUnidCarga>string</idUnidCarga>
+                <!--Zero or more repetitions:-->
+                <lacUnidCarga>
+                  <nLacre>string</nLacre>
+                </lacUnidCarga>
+                <!--Optional:-->
+                <qtdRat>string</qtdRat>
+              </infUnidCarga>
+              <!--Optional:-->
+              <qtdRat>string</qtdRat>
+            </infUnidTransp>
+            <!--Zero or more repetitions:-->
+            <peri>
+              <nONU>string</nONU>
+              <!--Optional:-->
+              <xNomeAE>string</xNomeAE>
+              <!--Optional:-->
+              <xClaRisco>string</xClaRisco>
+              <!--Optional:-->
+              <grEmb>string</grEmb>
+              <qTotProd>string</qTotProd>
+              <!--Optional:-->
+              <qVolTipo>string</qVolTipo>
+            </peri>
+            <!--Optional:-->
+            <infEntregaParcial>
+              <qtdTotal>string</qtdTotal>
+              <qtdParcial>string</qtdParcial>
+            </infEntregaParcial>
+            <indPrestacaoParcial>1</indPrestacaoParcial>
+            <!--1 or more repetitions:-->
+            <infNFePrestParcial>
+              <chNFe>string</chNFe>
+            </infNFePrestParcial>
+          </infCTe>
+          <!--0 to 20000 repetitions:-->
+          <infNFe>
+            <chNFe>string</chNFe>
+            <!--Optional:-->
+            <SegCodBarra>string</SegCodBarra>
+            <!--Optional:-->
+            <indReentrega>1</indReentrega>
+            <!--Zero or more repetitions:-->
+            <infUnidTransp>
+              <tpUnidTransp>6</tpUnidTransp>
+              <idUnidTransp>string</idUnidTransp>
+              <!--Zero or more repetitions:-->
+              <lacUnidTransp>
+                <nLacre>string</nLacre>
+              </lacUnidTransp>
+              <!--Zero or more repetitions:-->
+              <infUnidCarga>
+                <tpUnidCarga>2</tpUnidCarga>
+                <idUnidCarga>string</idUnidCarga>
+                <!--Zero or more repetitions:-->
+                <lacUnidCarga>
+                  <nLacre>string</nLacre>
+                </lacUnidCarga>
+                <!--Optional:-->
+                <qtdRat>string</qtdRat>
+              </infUnidCarga>
+              <!--Optional:-->
+              <qtdRat>string</qtdRat>
+            </infUnidTransp>
+            <!--Zero or more repetitions:-->
+            <peri>
+              <nONU>string</nONU>
+              <!--Optional:-->
+              <xNomeAE>string</xNomeAE>
+              <!--Optional:-->
+              <xClaRisco>string</xClaRisco>
+              <!--Optional:-->
+              <grEmb>string</grEmb>
+              <qTotProd>string</qTotProd>
+              <!--Optional:-->
+              <qVolTipo>string</qVolTipo>
+            </peri>
+          </infNFe>
+          <!--0 to 20000 repetitions:-->
+          <infMDFeTransp>
+            <chMDFe>string</chMDFe>
+            <!--Optional:-->
+            <indReentrega>1</indReentrega>
+            <!--Zero or more repetitions:-->
+            <infUnidTransp>
+              <tpUnidTransp>5</tpUnidTransp>
+              <idUnidTransp>string</idUnidTransp>
+              <!--Zero or more repetitions:-->
+              <lacUnidTransp>
+                <nLacre>string</nLacre>
+              </lacUnidTransp>
+              <!--Zero or more repetitions:-->
+              <infUnidCarga>
+                <tpUnidCarga>1</tpUnidCarga>
+                <idUnidCarga>string</idUnidCarga>
+                <!--Zero or more repetitions:-->
+                <lacUnidCarga>
+                  <nLacre>string</nLacre>
+                </lacUnidCarga>
+                <!--Optional:-->
+                <qtdRat>string</qtdRat>
+              </infUnidCarga>
+              <!--Optional:-->
+              <qtdRat>string</qtdRat>
+            </infUnidTransp>
+            <!--Zero or more repetitions:-->
+            <peri>
+              <nONU>string</nONU>
+              <!--Optional:-->
+              <xNomeAE>string</xNomeAE>
+              <!--Optional:-->
+              <xClaRisco>string</xClaRisco>
+              <!--Optional:-->
+              <grEmb>string</grEmb>
+              <qTotProd>string</qTotProd>
+              <!--Optional:-->
+              <qVolTipo>string</qVolTipo>
+            </peri>
+          </infMDFeTransp>
+        </infMunDescarga>
+      </infDoc>
+      <!--Zero or more repetitions:-->
+      <seg>
+        <infResp>
+          <respSeg>1</respSeg>
+          <!--You have a CHOICE of the next 2 items at this level-->
+          <CNPJ>string</CNPJ>
+          <CPF>string</CPF>
+        </infResp>
+        <!--Optional:-->
+        <infSeg>
+          <xSeg>string</xSeg>
+          <CNPJ>string</CNPJ>
+        </infSeg>
+        <!--Optional:-->
+        <nApol>string</nApol>
+        <!--Zero or more repetitions:-->
+        <nAver>string</nAver>
+      </seg>
+      <!--Optional:-->
+      <prodPred>
+        <tpCarga>12</tpCarga>
+        <xProd>string</xProd>
+        <!--Optional:-->
+        <cEAN>string</cEAN>
+        <!--Optional:-->
+        <NCM>string</NCM>
+        <!--Optional:-->
+        <infLotacao>
+          <infLocalCarrega>
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <CEP>string</CEP>
+            <latitude>string</latitude>
+            <longitude>string</longitude>
+          </infLocalCarrega>
+          <infLocalDescarrega>
+            <!--You have a CHOICE of the next 2 items at this level-->
+            <CEP>string</CEP>
+            <latitude>string</latitude>
+            <longitude>string</longitude>
+          </infLocalDescarrega>
+        </infLotacao>
+      </prodPred>
+      <tot>
+        <!--Optional:-->
+        <qCTe>string</qCTe>
+        <!--Optional:-->
+        <qNFe>string</qNFe>
+        <!--Optional:-->
+        <qMDFe>string</qMDFe>
+        <vCarga>string</vCarga>
+        <cUnid>02</cUnid>
+        <qCarga>string</qCarga>
+      </tot>
+      <!--Zero or more repetitions:-->
+      <lacres>
+        <nLacre>string</nLacre>
+      </lacres>
+      <!--0 to 10 repetitions:-->
+      <autXML>
+        <!--You have a CHOICE of the next 2 items at this level-->
+        <CNPJ>string</CNPJ>
+        <CPF>string</CPF>
+      </autXML>
+      <!--Optional:-->
+      <infAdic>
+        <!--Optional:-->
+        <infAdFisco>string</infAdFisco>
+        <!--Optional:-->
+        <infCpl>string</infCpl>
+      </infAdic>
+      <!--Optional:-->
+      <infRespTec>
+        <CNPJ>string</CNPJ>
+        <xContato>string</xContato>
+        <email>string</email>
+        <fone>string</fone>
+        <idCSRT>string</idCSRT>
+        <hashCSRT>ZmxhbW1hc2ZsYW1tYXNmbGFtbWE=</hashCSRT>
+      </infRespTec>
+      <!--Optional:-->
+      <infSolicNFF>
+        <xSolic>string</xSolic>
+      </infSolicNFF>
+      <!--Optional:-->
+      <infPAA>
+        <CNPJPAA>string</CNPJPAA>
+        <PAASignature>
+          <SignatureValue>YWM=</SignatureValue>
+          <RSAKeyValue>
+            <Modulus>aG9j</Modulus>
+            <Exponent>cmFwaWR1bQ==</Exponent>
+          </RSAKeyValue>
+        </PAASignature>
+      </infPAA>
+    </infMDFe>
+    <!--Optional:-->
+    <infMDFeSupl>
+      <qrCodMDFe>stringstringstringstringstringstringstringstringstringstringstringstringstringstringstringstring</qrCodMDFe>
+    </infMDFeSupl>
+    <xd:Signature Id="string">
+      <xd:SignedInfo Id="string">
+        <xd:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        <xd:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+        <xd:Reference Id="string" URI="http://www.any.gov/speluncis/circum" Type="http://www.sample.com/praeterea/arce">
+          <xd:Transforms>
+            <xd:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+            <xd:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+          </xd:Transforms>
+          <xd:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+          <xd:DigestValue>aW1wZXJpbw==</xd:DigestValue>
+        </xd:Reference>
+      </xd:SignedInfo>
+      <xd:SignatureValue Id="string">Y2VydG8=</xd:SignatureValue>
+      <xd:KeyInfo Id="string">
+        <xd:X509Data>
+          <xd:X509Certificate>cXVpc3F1YW0=</xd:X509Certificate>
+        </xd:X509Data>
+      </xd:KeyInfo>
+    </xd:Signature>
+  </MDFe>
+  <protMDFe versao="string">
+    <infProt Id="string">
+      <tpAmb>1</tpAmb>
+      <verAplic>string</verAplic>
+      <chMDFe>string</chMDFe>
+      <dhRecbto>string</dhRecbto>
+      <!--Optional:-->
+      <nProt>string</nProt>
+      <!--Optional:-->
+      <digVal>YWM=</digVal>
+      <cStat>string</cStat>
+      <xMotivo>string</xMotivo>
+    </infProt>
+    <!--Optional:-->
+    <infFisco>
+      <cMsg>string</cMsg>
+      <xMsg>string</xMsg>
+    </infFisco>
+    <!--Optional:-->
+    <xd:Signature Id="string">
+      <xd:SignedInfo Id="string">
+        <xd:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        <xd:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+        <xd:Reference Id="string" URI="http://www.my.gov/sed/pectore" Type="http://www.sample.org/austris/annos">
+          <xd:Transforms>
+            <xd:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+            <xd:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+          </xd:Transforms>
+          <xd:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+          <xd:DigestValue>ZGFyZQ==</xd:DigestValue>
+        </xd:Reference>
+      </xd:SignedInfo>
+      <xd:SignatureValue Id="string">cmF0ZXM=</xd:SignatureValue>
+      <xd:KeyInfo Id="string">
+        <xd:X509Data>
+          <xd:X509Certificate>YmVsbGE=</xd:X509Certificate>
+        </xd:X509Data>
+      </xd:KeyInfo>
+    </xd:Signature>
+  </protMDFe>
+</mdfeProc>

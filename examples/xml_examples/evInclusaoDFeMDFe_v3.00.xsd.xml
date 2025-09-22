@@ -1,0 +1,12 @@
+<evIncDFeMDFe xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <descEvento>Inclusao DF-e</descEvento>
+  <nProt>string</nProt>
+  <cMunCarrega>string</cMunCarrega>
+  <xMunCarrega>string</xMunCarrega>
+  <!--1 or more repetitions:-->
+  <infDoc>
+    <cMunDescarga>string</cMunDescarga>
+    <xMunDescarga>string</xMunDescarga>
+    <chNFe>string</chNFe>
+  </infDoc>
+</evIncDFeMDFe>

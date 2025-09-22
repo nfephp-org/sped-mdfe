@@ -1,0 +1,40 @@
+<aquav xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <irin>string</irin>
+  <tpEmb>string</tpEmb>
+  <cEmbar>string</cEmbar>
+  <xEmbar>string</xEmbar>
+  <nViag>string</nViag>
+  <cPrtEmb>strin</cPrtEmb>
+  <cPrtDest>strin</cPrtDest>
+  <!--Optional:-->
+  <prtTrans>string</prtTrans>
+  <!--Optional:-->
+  <tpNav>1</tpNav>
+  <!--0 to 5 repetitions:-->
+  <infTermCarreg>
+    <cTermCarreg>string</cTermCarreg>
+    <xTermCarreg>string</xTermCarreg>
+  </infTermCarreg>
+  <!--0 to 5 repetitions:-->
+  <infTermDescarreg>
+    <cTermDescarreg>string</cTermDescarreg>
+    <xTermDescarreg>string</xTermDescarreg>
+  </infTermDescarreg>
+  <!--0 to 30 repetitions:-->
+  <infEmbComb>
+    <cEmbComb>string</cEmbComb>
+    <xBalsa>string</xBalsa>
+  </infEmbComb>
+  <!--Zero or more repetitions:-->
+  <infUnidCargaVazia>
+    <idUnidCargaVazia>string</idUnidCargaVazia>
+    <tpUnidCargaVazia>1</tpUnidCargaVazia>
+  </infUnidCargaVazia>
+  <!--Zero or more repetitions:-->
+  <infUnidTranspVazia>
+    <idUnidTranspVazia>string</idUnidTranspVazia>
+    <tpUnidTranspVazia>1</tpUnidTranspVazia>
+  </infUnidTranspVazia>
+  <!--Optional:-->
+  <MMSI>string</MMSI>
+</aquav>

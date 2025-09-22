@@ -1,0 +1,149 @@
+<rodo xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <!--Optional:-->
+  <infANTT>
+    <!--Optional:-->
+    <RNTRC>string</RNTRC>
+    <!--Zero or more repetitions:-->
+    <infCIOT>
+      <!--Optional:-->
+      <CIOT>string</CIOT>
+      <!--You have a CHOICE of the next 2 items at this level-->
+      <CPF>string</CPF>
+      <CNPJ>string</CNPJ>
+    </infCIOT>
+    <!--Optional:-->
+    <valePed>
+      <!--1 or more repetitions:-->
+      <disp>
+        <CNPJForn>string</CNPJForn>
+        <!--You have a CHOICE of the next 2 items at this level-->
+        <CNPJPg>string</CNPJPg>
+        <CPFPg>string</CPFPg>
+        <!--Optional:-->
+        <nCompra>string</nCompra>
+        <vValePed>string</vValePed>
+        <!--Optional:-->
+        <tpValePed>04</tpValePed>
+      </disp>
+      <!--Optional:-->
+      <categCombVeic>13</categCombVeic>
+    </valePed>
+    <!--Zero or more repetitions:-->
+    <infContratante>
+      <!--Optional:-->
+      <xNome>string</xNome>
+      <!--You have a CHOICE of the next 3 items at this level-->
+      <CPF>string</CPF>
+      <CNPJ>string</CNPJ>
+      <idEstrangeiro>string</idEstrangeiro>
+      <!--Optional:-->
+      <infContrato>
+        <NroContrato>string</NroContrato>
+        <vContratoGlobal>string</vContratoGlobal>
+      </infContrato>
+    </infContratante>
+    <!--Zero or more repetitions:-->
+    <infPag>
+      <!--Optional:-->
+      <xNome>string</xNome>
+      <!--You have a CHOICE of the next 3 items at this level-->
+      <CPF>string</CPF>
+      <CNPJ>string</CNPJ>
+      <idEstrangeiro>string</idEstrangeiro>
+      <!--1 or more repetitions:-->
+      <Comp>
+        <tpComp>03</tpComp>
+        <vComp>string</vComp>
+        <!--Optional:-->
+        <xComp>string</xComp>
+      </Comp>
+      <vContrato>string</vContrato>
+      <!--Optional:-->
+      <indAltoDesemp>1</indAltoDesemp>
+      <indPag>0</indPag>
+      <!--Optional:-->
+      <vAdiant>string</vAdiant>
+      <!--Optional:-->
+      <indAntecipaAdiant>1</indAntecipaAdiant>
+      <!--Zero or more repetitions:-->
+      <infPrazo>
+        <nParcela>string</nParcela>
+        <dVenc>string</dVenc>
+        <vParcela>string</vParcela>
+      </infPrazo>
+      <!--Optional:-->
+      <tpAntecip>2</tpAntecip>
+      <infBanc>
+        <!--You have a CHOICE of the next 3 items at this level-->
+        <codBanco>strin</codBanco>
+        <codAgencia>string</codAgencia>
+        <CNPJIPEF>string</CNPJIPEF>
+        <PIX>string</PIX>
+      </infBanc>
+    </infPag>
+  </infANTT>
+  <veicTracao>
+    <!--Optional:-->
+    <cInt>string</cInt>
+    <placa>string</placa>
+    <!--Optional:-->
+    <RENAVAM>stringstrin</RENAVAM>
+    <tara>string</tara>
+    <!--Optional:-->
+    <capKG>string</capKG>
+    <!--Optional:-->
+    <capM3>string</capM3>
+    <!--Optional:-->
+    <prop>
+      <!--You have a CHOICE of the next 2 items at this level-->
+      <CPF>string</CPF>
+      <CNPJ>string</CNPJ>
+      <RNTRC>string</RNTRC>
+      <xNome>string</xNome>
+      <IE>string</IE>
+      <UF>RS</UF>
+      <tpProp>1</tpProp>
+    </prop>
+    <!--1 to 10 repetitions:-->
+    <condutor>
+      <xNome>string</xNome>
+      <CPF>string</CPF>
+    </condutor>
+    <tpRod>05</tpRod>
+    <tpCar>01</tpCar>
+    <!--Optional:-->
+    <UF>CE</UF>
+  </veicTracao>
+  <!--0 to 3 repetitions:-->
+  <veicReboque>
+    <!--Optional:-->
+    <cInt>string</cInt>
+    <placa>string</placa>
+    <!--Optional:-->
+    <RENAVAM>stringstrin</RENAVAM>
+    <tara>string</tara>
+    <capKG>string</capKG>
+    <!--Optional:-->
+    <capM3>string</capM3>
+    <!--Optional:-->
+    <prop>
+      <!--You have a CHOICE of the next 2 items at this level-->
+      <CPF>string</CPF>
+      <CNPJ>string</CNPJ>
+      <RNTRC>string</RNTRC>
+      <xNome>string</xNome>
+      <IE>string</IE>
+      <UF>CE</UF>
+      <tpProp>0</tpProp>
+    </prop>
+    <tpCar>00</tpCar>
+    <!--Optional:-->
+    <UF>AM</UF>
+  </veicReboque>
+  <!--Optional:-->
+  <codAgPorto>string</codAgPorto>
+  <!--Zero or more repetitions:-->
+  <lacRodo>
+    <nLacre>string</nLacre>
+  </lacRodo>
+</rodo>

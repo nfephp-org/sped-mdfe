@@ -1,0 +1,14 @@
+<retConsStatServMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <tpAmb>2</tpAmb>
+  <verAplic>string</verAplic>
+  <cStat>string</cStat>
+  <xMotivo>string</xMotivo>
+  <cUF>12</cUF>
+  <dhRecbto>string</dhRecbto>
+  <!--Optional:-->
+  <tMed>100</tMed>
+  <!--Optional:-->
+  <dhRetorno>string</dhRetorno>
+  <!--Optional:-->
+  <xObs>string</xObs>
+</retConsStatServMDFe>
