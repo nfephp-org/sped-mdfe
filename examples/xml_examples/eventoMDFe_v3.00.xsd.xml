@@ -1,0 +1,56 @@
+<eventoMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe" xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+  <infEvento Id="string">
+    <cOrgao>50</cOrgao>
+    <tpAmb>1</tpAmb>
+    <!--You have a CHOICE of the next 2 items at this level-->
+    <CNPJ>string</CNPJ>
+    <CPF>string</CPF>
+    <chMDFe>string</chMDFe>
+    <dhEvento>string</dhEvento>
+    <tpEvento>string</tpEvento>
+    <nSeqEvento>string</nSeqEvento>
+    <detEvento versaoEvento="string">
+      <!--You may enter ANY elements at this point-->
+      <AnyElement/>
+    </detEvento>
+    <!--Optional:-->
+    <infSolicNFF>
+      <xSolic>string</xSolic>
+    </infSolicNFF>
+    <!--Optional:-->
+    <infPAA>
+      <CNPJPAA>string</CNPJPAA>
+      <PAASignature>
+        <SignatureValue>Y3Vt</SignatureValue>
+        <RSAKeyValue>
+          <Modulus>c29ub3Jhcw==</Modulus>
+          <Exponent>YWVvbGlhbQ==</Exponent>
+        </RSAKeyValue>
+      </PAASignature>
+    </infPAA>
+  </infEvento>
+  <xd:Signature Id="string">
+    <xd:SignedInfo Id="string">
+      <xd:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <xd:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <xd:Reference Id="string" URI="http://www.any.com/verrantque/temperat" Type="http://www.any.com/circum/regemque">
+        <xd:Transforms>
+          <xd:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature">
+            <xd:XPath>string</xd:XPath>
+          </xd:Transform>
+          <xd:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">
+            <xd:XPath>string</xd:XPath>
+          </xd:Transform>
+        </xd:Transforms>
+        <xd:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <xd:DigestValue>Zm9lZGVyZQ==</xd:DigestValue>
+      </xd:Reference>
+    </xd:SignedInfo>
+    <xd:SignatureValue Id="string">ZmVyYW50</xd:SignatureValue>
+    <xd:KeyInfo Id="string">
+      <xd:X509Data>
+        <xd:X509Certificate>cHJvZnVuZHVt</xd:X509Certificate>
+      </xd:X509Data>
+    </xd:KeyInfo>
+  </xd:Signature>
+</eventoMDFe>

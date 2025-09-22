@@ -1,0 +1,8 @@
+<aereo xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <nac>stri</nac>
+  <matr>string</matr>
+  <nVoo>string</nVoo>
+  <cAerEmb>stri</cAerEmb>
+  <cAerDes>stri</cAerDes>
+  <dVoo>string</dVoo>
+</aereo>

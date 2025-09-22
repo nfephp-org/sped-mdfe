@@ -1,0 +1,22 @@
+<retMDFeConsultaDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <tpAmb>2</tpAmb>
+  <verAplic>string</verAplic>
+  <cStat>string</cStat>
+  <xMotivo>string</xMotivo>
+  <!--Optional:-->
+  <MDFeDFe>
+    <procMDFe versao="string">
+      <!--You may enter ANY elements at this point-->
+      <AnyElement/>
+      <!--You may enter ANY elements at this point-->
+      <AnyElement/>
+    </procMDFe>
+    <!--Zero or more repetitions:-->
+    <procEventoMDFe versao="string">
+      <!--You may enter ANY elements at this point-->
+      <AnyElement/>
+      <!--You may enter ANY elements at this point-->
+      <AnyElement/>
+    </procEventoMDFe>
+  </MDFeDFe>
+</retMDFeConsultaDFe>

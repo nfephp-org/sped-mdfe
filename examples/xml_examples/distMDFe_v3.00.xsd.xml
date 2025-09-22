@@ -1,0 +1,7 @@
+<distMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <tpAmb>2</tpAmb>
+  <verAplic>string</verAplic>
+  <indDFe>8</indDFe>
+  <indCompRet>0</indCompRet>
+  <ultNSU>string</ultNSU>
+</distMDFe>

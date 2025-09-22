@@ -1,0 +1,12 @@
+<retConsMDFeNaoEnc versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <tpAmb>2</tpAmb>
+  <verAplic>string</verAplic>
+  <cStat>string</cStat>
+  <xMotivo>string</xMotivo>
+  <cUF>12</cUF>
+  <!--Zero or more repetitions:-->
+  <infMDFe>
+    <chMDFe>string</chMDFe>
+    <nProt>string</nProt>
+  </infMDFe>
+</retConsMDFeNaoEnc>

@@ -1,0 +1,5 @@
+<evCancMDFe xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <descEvento>Cancelamento</descEvento>
+  <nProt>string</nProt>
+  <xJust>stringstringstringstring</xJust>
+</evCancMDFe>

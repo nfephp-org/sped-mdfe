@@ -1,0 +1,9 @@
+<evEncMDFe xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <descEvento>Encerramento</descEvento>
+  <nProt>string</nProt>
+  <dtEnc>string</dtEnc>
+  <cUF>15</cUF>
+  <cMun>string</cMun>
+  <!--Optional:-->
+  <indEncPorTerceiro>1</indEncPorTerceiro>
+</evEncMDFe>

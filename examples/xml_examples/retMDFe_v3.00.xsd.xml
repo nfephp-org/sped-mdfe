@@ -1,0 +1,52 @@
+<retMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe" xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+  <tpAmb>anyType</tpAmb>
+  <cUF>51</cUF>
+  <verAplic>string</verAplic>
+  <cStat>string</cStat>
+  <xMotivo>string</xMotivo>
+  <!--Optional:-->
+  <protMDFe versao="string">
+    <infProt Id="string">
+      <tpAmb>1</tpAmb>
+      <verAplic>string</verAplic>
+      <chMDFe>string</chMDFe>
+      <dhRecbto>string</dhRecbto>
+      <!--Optional:-->
+      <nProt>string</nProt>
+      <!--Optional:-->
+      <digVal>Y3Vt</digVal>
+      <cStat>string</cStat>
+      <xMotivo>string</xMotivo>
+    </infProt>
+    <!--Optional:-->
+    <infFisco>
+      <cMsg>string</cMsg>
+      <xMsg>string</xMsg>
+    </infFisco>
+    <!--Optional:-->
+    <xd:Signature Id="string">
+      <xd:SignedInfo Id="string">
+        <xd:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        <xd:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+        <xd:Reference Id="string" URI="http://www.corp.edu/quae/ventos" Type="http://www.your.org/per/turbine">
+          <xd:Transforms>
+            <xd:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+            <xd:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+          </xd:Transforms>
+          <xd:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+          <xd:DigestValue>bmltYm9ydW0=</xd:DigestValue>
+        </xd:Reference>
+      </xd:SignedInfo>
+      <xd:SignatureValue Id="string">ZnJlbXVudA==</xd:SignatureValue>
+      <xd:KeyInfo Id="string">
+        <xd:X509Data>
+          <xd:X509Certificate>Zm9lZGVyZQ==</xd:X509Certificate>
+        </xd:X509Data>
+      </xd:KeyInfo>
+    </xd:Signature>
+  </protMDFe>
+</retMDFe>

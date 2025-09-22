@@ -1,0 +1,7 @@
+<consMDFeNaoEnc versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <tpAmb>2</tpAmb>
+  <xServ>string</xServ>
+  <!--You have a CHOICE of the next 2 items at this level-->
+  <CNPJ>string</CNPJ>
+  <CPF>string</CPF>
+</consMDFeNaoEnc>

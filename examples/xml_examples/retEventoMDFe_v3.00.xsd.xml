@@ -1,0 +1,46 @@
+<retEventoMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe" xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+  <infEvento Id="string">
+    <tpAmb>2</tpAmb>
+    <verAplic>string</verAplic>
+    <cOrgao>14</cOrgao>
+    <cStat>string</cStat>
+    <xMotivo>string</xMotivo>
+    <!--Optional:-->
+    <chMDFe>string</chMDFe>
+    <!--Optional:-->
+    <tpEvento>string</tpEvento>
+    <!--Optional:-->
+    <xEvento>string</xEvento>
+    <!--Optional:-->
+    <nSeqEvento>string</nSeqEvento>
+    <!--Optional:-->
+    <dhRegEvento>string</dhRegEvento>
+    <!--Optional:-->
+    <nProt>string</nProt>
+  </infEvento>
+  <!--Optional:-->
+  <xd:Signature Id="string">
+    <xd:SignedInfo Id="string">
+      <xd:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+      <xd:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+      <xd:Reference Id="string" URI="http://www.your.org/aeoliam/quae" Type="http://www.corp.org/temperat/per">
+        <xd:Transforms>
+          <xd:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature">
+            <xd:XPath>string</xd:XPath>
+          </xd:Transform>
+          <xd:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature">
+            <xd:XPath>string</xd:XPath>
+          </xd:Transform>
+        </xd:Transforms>
+        <xd:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+        <xd:DigestValue>cmVnZW1xdWU=</xd:DigestValue>
+      </xd:Reference>
+    </xd:SignedInfo>
+    <xd:SignatureValue Id="string">bmltYm9ydW0=</xd:SignatureValue>
+    <xd:KeyInfo Id="string">
+      <xd:X509Data>
+        <xd:X509Certificate>ZnJlbXVudA==</xd:X509Certificate>
+      </xd:X509Data>
+    </xd:KeyInfo>
+  </xd:Signature>
+</retEventoMDFe>

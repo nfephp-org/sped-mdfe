@@ -1,0 +1,4 @@
+<evConfirmaServMDFe xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <descEvento>Confirmacao Servico Transporte</descEvento>
+  <nProt>string</nProt>
+</evConfirmaServMDFe>
