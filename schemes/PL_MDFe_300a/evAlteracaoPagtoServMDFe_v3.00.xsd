@@ -79,11 +79,12 @@
 											<xs:annotation>
 												<xs:documentation>Tipo do Componente</xs:documentation>
 												<xs:documentation>
-01 - Vale Pedágio; 
-02 - Impostos, taxas e contribuições; 
-03 - Despesas (bancárias, meios de pagamento, outras)
-04 - Frete
-99 - Outros</xs:documentation>
+                                                    01 - Vale Pedágio;
+                                                    02 - Impostos, taxas e contribuições;
+                                                    03 - Despesas (bancárias, meios de pagamento, outras)
+                                                    04 - Frete
+                                                    99 - Outros
+                                                </xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="xs:string">
@@ -141,8 +142,8 @@
 								<xs:annotation>
 									<xs:documentation>Indicador para declarar concordância em antecipar o adiantamento</xs:documentation>
 									<xs:documentation>Operação de transporte com utilização de veículos de frotas dedicadas ou fidelizadas.
-Preencher com “1” para indicar operação de transporte de alto desempenho, demais casos não informar a tag
-</xs:documentation>
+                                    Preencher com “1” para indicar operação de transporte de alto desempenho, demais casos não informar a tag
+                                    </xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
@@ -185,8 +186,9 @@ Preencher com “1” para indicar operação de transporte de alto desempenho, 
 								<xs:annotation>
 									<xs:documentation>Tipo de Permissão em relação a antecipação das parcelas</xs:documentation>
 									<xs:documentation>0 - Não permite antecipar
-1 - Permite antecipar as parcelas
-2 - Permite antecipar as parcelas mediante confirmação</xs:documentation>
+                                    1 - Permite antecipar as parcelas
+                                    2 - Permite antecipar as parcelas mediante confirmação
+                                    </xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
 									<xs:restriction base="xs:string">
@@ -235,8 +237,9 @@ Preencher com “1” para indicar operação de transporte de alto desempenho, 
 										<xs:element name="PIX">
 											<xs:annotation>
 												<xs:documentation>Chave PIX </xs:documentation>
-												<xs:documentation>Informar a chave PIX para recebimento do frete. 
-Pode ser email, CPF/ CNPJ (somente numeros), Telefone com a seguinte formatação (+5599999999999) ou a chave aleatória gerada pela instituição.</xs:documentation>
+												<xs:documentation>Informar a chave PIX para recebimento do frete.
+                                                Pode ser email, CPF/ CNPJ (somente numeros), Telefone com a seguinte formatação (+5599999999999) ou a chave aleatória gerada pela instituição.
+                                                </xs:documentation>
 											</xs:annotation>
 											<xs:simpleType>
 												<xs:restriction base="TString">

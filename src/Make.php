@@ -245,7 +245,7 @@ class Make
     /**
      * @type string
      */
-    protected $tpAmb;    
+    protected $tpAmb;
     /**
     * @type string
     */
@@ -1212,7 +1212,9 @@ class Make
             'infEntregaParcial',
             'infUnidTransp',
             'peri',
-            'nItem'
+            'nItem',
+            'indPrestacaoParcial',
+            'infNFePrestParcial'
         ];
         $std = $this->equilizeParameters($std, $possible);
         $infCTe = $this->dom->createElement("infCTe");
@@ -1283,6 +1285,29 @@ class Make
             );
             $this->dom->appChild($infCTe, $infEntregaParcial, 'Falta tag "infCTe"');
         }
+
+        if ($std->indPrestacaoParcial != null) {
+            $identificadorparcial = '[4] <indPrestacaoParcial> - ';
+            $this->dom->addChild(
+                $infCTe,
+                "indPrestacaoParcial",
+                '1',
+                true,
+                $identificadorparcial . "Indicador de Prestação parcial"
+            );
+            $infNFePrestParcial = $this->dom->createElement("infNFePrestParcial");
+            foreach ($std->infNFePrestParcial as $nfe) {
+                $this->dom->addChild(
+                    $infNFePrestParcial,
+                    "chNFe",
+                    $nfe->chave,
+                    true,
+                    $identificadorparcial . "Nota Fiscal Eletrônica"
+                );
+            }
+            $this->dom->appChild($infCTe, $infNFePrestParcial, 'Falta tag "infCTe"');
+        }
+
         $this->infCTe[$std->nItem][] = $infCTe;
         return $infCTe;
     }
@@ -2312,7 +2337,8 @@ class Make
             'infTermDescarreg',
             'infEmbComb',
             'infUnidCargaVazia',
-            'infUnidTranspVazia'
+            'infUnidTranspVazia',
+            'MMSI'
         ];
         $identificador = '[1] <aquav> - ';
         $std = $this->equilizeParameters($std, $possible);
@@ -2425,6 +2451,13 @@ class Make
                 );
             }
         }
+        $this->dom->addChild(
+            $aquav,
+            "MMSI",
+            $std->MMSI,
+            false,
+            $identificador . "Maritime Mobile Service Identify"
+        );
         $this->aquav = $aquav;
         return $aquav;
     }
