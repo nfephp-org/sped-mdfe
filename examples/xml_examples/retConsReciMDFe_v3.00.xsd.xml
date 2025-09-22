@@ -1,0 +1,53 @@
+<retConsReciMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe" xmlns:xd="http://www.w3.org/2000/09/xmldsig#">
+  <tpAmb>2</tpAmb>
+  <verAplic>string</verAplic>
+  <nRec>string</nRec>
+  <cStat>string</cStat>
+  <xMotivo>string</xMotivo>
+  <cUF>12</cUF>
+  <!--Optional:-->
+  <protMDFe versao="string">
+    <infProt Id="string">
+      <tpAmb>1</tpAmb>
+      <verAplic>string</verAplic>
+      <chMDFe>string</chMDFe>
+      <dhRecbto>string</dhRecbto>
+      <!--Optional:-->
+      <nProt>string</nProt>
+      <!--Optional:-->
+      <digVal>c29ub3Jhcw==</digVal>
+      <cStat>string</cStat>
+      <xMotivo>string</xMotivo>
+    </infProt>
+    <!--Optional:-->
+    <infFisco>
+      <cMsg>string</cMsg>
+      <xMsg>string</xMsg>
+    </infFisco>
+    <!--Optional:-->
+    <xd:Signature Id="string">
+      <xd:SignedInfo Id="string">
+        <xd:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+        <xd:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+        <xd:Reference Id="string" URI="http://www.any.org/ventos/verrantque" Type="http://www.sample.org/turbine/circum">
+          <xd:Transforms>
+            <xd:Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+            <xd:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature">
+              <xd:XPath>string</xd:XPath>
+            </xd:Transform>
+          </xd:Transforms>
+          <xd:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+          <xd:DigestValue>ZnJlbXVudA==</xd:DigestValue>
+        </xd:Reference>
+      </xd:SignedInfo>
+      <xd:SignatureValue Id="string">Zm9lZGVyZQ==</xd:SignatureValue>
+      <xd:KeyInfo Id="string">
+        <xd:X509Data>
+          <xd:X509Certificate>ZmVyYW50</xd:X509Certificate>
+        </xd:X509Data>
+      </xd:KeyInfo>
+    </xd:Signature>
+  </protMDFe>
+</retConsReciMDFe>

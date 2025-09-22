@@ -1,0 +1,22 @@
+<ferrov xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <trem>
+    <xPref>string</xPref>
+    <!--Optional:-->
+    <dhTrem>string</dhTrem>
+    <xOri>str</xOri>
+    <xDest>str</xDest>
+    <qVag>string</qVag>
+  </trem>
+  <!--1 or more repetitions:-->
+  <vag>
+    <pesoBC>string</pesoBC>
+    <pesoR>string</pesoR>
+    <!--Optional:-->
+    <tpVag>str</tpVag>
+    <serie>str</serie>
+    <nVag>string</nVag>
+    <!--Optional:-->
+    <nSeq>string</nSeq>
+    <TU>string</TU>
+  </vag>
+</ferrov>

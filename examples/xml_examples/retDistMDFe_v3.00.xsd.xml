@@ -1,0 +1,16 @@
+<retDistMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <tpAmb>2</tpAmb>
+  <verAplic>string</verAplic>
+  <cStat>string</cStat>
+  <xMotivo>string</xMotivo>
+  <!--Optional:-->
+  <ultNSU>string</ultNSU>
+  <!--You have a CHOICE of the next 2 items at this level-->
+  <loteDistMDFeComp>Z2Vybw==</loteDistMDFeComp>
+  <loteDistMDFe versao="string">
+    <proc schema="string" NSU="string" ipTransmissor="string">
+      <!--You may enter ANY elements at this point-->
+      <AnyElement/>
+    </proc>
+  </loteDistMDFe>
+</retDistMDFe>

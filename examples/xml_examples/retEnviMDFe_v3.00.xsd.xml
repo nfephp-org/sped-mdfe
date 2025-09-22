@@ -1,0 +1,13 @@
+<retEnviMDFe versao="string" xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <tpAmb>anyType</tpAmb>
+  <cUF>51</cUF>
+  <verAplic>string</verAplic>
+  <cStat>string</cStat>
+  <xMotivo>string</xMotivo>
+  <!--Optional:-->
+  <infRec>
+    <nRec>string</nRec>
+    <dhRecbto>2007-10-26T04:36:28</dhRecbto>
+    <tMed>100</tMed>
+  </infRec>
+</retEnviMDFe>

@@ -1,0 +1,7 @@
+<evIncCondutorMDFe xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <descEvento>Inclusao Condutor</descEvento>
+  <condutor>
+    <xNome>string</xNome>
+    <CPF>string</CPF>
+  </condutor>
+</evIncCondutorMDFe>

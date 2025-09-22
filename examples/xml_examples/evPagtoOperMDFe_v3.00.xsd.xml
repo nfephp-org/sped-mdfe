@@ -1,0 +1,45 @@
+<evPagtoOperMDFe xmlns:mdfe="http://www.portalfiscal.inf.br/mdfe">
+  <descEvento>Pagamento Operacao MDF-e</descEvento>
+  <nProt>string</nProt>
+  <infViagens>
+    <qtdViagens>string</qtdViagens>
+    <nroViagem>string</nroViagem>
+  </infViagens>
+  <!--1 or more repetitions:-->
+  <infPag>
+    <!--Optional:-->
+    <xNome>string</xNome>
+    <!--You have a CHOICE of the next 3 items at this level-->
+    <CPF>string</CPF>
+    <CNPJ>string</CNPJ>
+    <idEstrangeiro>string</idEstrangeiro>
+    <!--1 or more repetitions:-->
+    <Comp>
+      <tpComp>04</tpComp>
+      <vComp>string</vComp>
+      <!--Optional:-->
+      <xComp>string</xComp>
+    </Comp>
+    <vContrato>string</vContrato>
+    <indPag>0</indPag>
+    <!--Optional:-->
+    <vAdiant>string</vAdiant>
+    <!--Optional:-->
+    <indAntecipaAdiant>1</indAntecipaAdiant>
+    <!--Zero or more repetitions:-->
+    <infPrazo>
+      <nParcela>string</nParcela>
+      <dVenc>string</dVenc>
+      <vParcela>string</vParcela>
+    </infPrazo>
+    <!--Optional:-->
+    <tpAntecip>2</tpAntecip>
+    <infBanc>
+      <!--You have a CHOICE of the next 3 items at this level-->
+      <codBanco>strin</codBanco>
+      <codAgencia>string</codAgencia>
+      <CNPJIPEF>string</CNPJIPEF>
+      <PIX>string</PIX>
+    </infBanc>
+  </infPag>
+</evPagtoOperMDFe>
