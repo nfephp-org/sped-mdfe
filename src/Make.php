@@ -3110,6 +3110,7 @@ class Make
             'vAdiant',
             'indAntecipaAdiant',
             'infPrazo',
+            'tpAntecip',
             'infBanc'
         ];
         $std = $this->equilizeParameters($std, $possible);
@@ -3193,6 +3194,13 @@ class Make
                 $this->dom->appChild($infPag, $this->infPrazo($value), 'Falta tag "infPrazo"');
             }
         }
+        $this->dom->addChild(
+            $infPag,
+            "tpAntecip",
+            $std->tpAntecip,
+            false,
+            $identificador . "Tipo de Permissão em relação a antecipação das parcelas"
+        );
         $this->dom->appChild($infPag, $this->infBanc($std->infBanc), 'Falta tag "infBanc"');
         $this->infPag[] = $infPag;
         return $infPag;
@@ -3247,7 +3255,6 @@ class Make
             'nParcela',
             'dVenc',
             'vParcela',
-            'tpAntecip'
         ];
         $stdPraz = $this->equilizeParameters($std, $possible);
         $prazo = $this->dom->createElement("infPrazo");
@@ -3272,13 +3279,6 @@ class Make
             $this->conditionalNumberFormatting($stdPraz->vParcela),
             true,
             $identificador . "Valor da Parcela"
-        );
-        $this->dom->addChild(
-            $prazo,
-            "tpAntecip",
-            $stdPraz->tpAntecip,
-            false,
-            $identificador . "Tipo de Permissão em relação a antecipação das parcelas"
         );
         return $prazo;
     }
