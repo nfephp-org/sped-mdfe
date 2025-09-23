@@ -3155,7 +3155,7 @@ class Make
         $this->dom->addChild(
             $infPag,
             "vContrato",
-            $std->vContrato,
+            $this->conditionalNumberFormatting($std->vContrato),
             true,
             $identificador . "Valor total do contrato"
         );
@@ -3231,7 +3231,7 @@ class Make
         $this->dom->addChild(
             $comp,
             "vComp",
-            $stdComp->vComp,
+            $this->conditionalNumberFormatting($stdComp->vComp),
             true,
             $identificador . "Valor do Componente"
         );
