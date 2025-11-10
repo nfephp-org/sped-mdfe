@@ -111,22 +111,10 @@ class Complements
             throw DocumentsException::wrongDocument(4, "[$cStat] $xMotivo");
         }
 
-        $tpEvento = $retEv->getElementsByTagName('tpEvento')->item(0)->nodeValue;
-        if ($tpEvento == '110111') {
-            $node = 'procCancMDFe';
-        } elseif ($tpEvento == '110112') {
-            $node = 'procEncMDFe';
-        } elseif ($tpEvento == '110114') {
-            $node = 'procIncCondutor';
-        } elseif ($tpEvento == '110115') {
-            $node = 'procIncDFe';
-        } else {
-            throw DocumentsException::wrongDocument(4, "Evento não disponivel.");
-        }
         return self::join(
             $ev->saveXML($event),
             $ret->saveXML($retEv),
-            $node,
+            'procEventoMDFe',
             $versao
         );
     }
