@@ -22,6 +22,7 @@ use stdClass;
 
 class Standardize
 {
+    private $xml = '';
     /**
      * @var string
      */
@@ -34,6 +35,11 @@ class Standardize
      * @var string
      */
     public $key = '';
+    /**
+	@var object
+     */
+
+    private object $sxml;
     /**
      * @var array
      */
@@ -62,9 +68,11 @@ class Standardize
      * Constructor
      * @param string $xml
      */
-    public function __construct($xml = null)
+    public function __construct(?string $xml = null)
     {
-        $this->toStd($xml);
+        if (!empty($xml)) {
+            $this->xml = $xml;
+        }
     }
 
     /**
@@ -73,16 +81,22 @@ class Standardize
      * @return string identificated node name
      * @throws InvalidArgumentException
      */
-    public function whichIs($xml)
+    public function whichIs(?string $xml = null): string
     {
-        if (!Validator::isXML($xml)) {
+        if (empty($xml) && empty($this->xml)) {
+            throw new DocumentsException("O XML está vazio.");
+        }
+        if (!empty($xml)) {
+            $this->xml = $xml;
+        }
+        if (!Validator::isXML($this->xml)) {
             //invalid document is not a XML
             throw DocumentsException::wrongDocument(6);
         }
         $dom = new \DOMDocument('1.0', 'UTF-8');
         $dom->preserveWhiteSpace = false;
         $dom->formatOutput = false;
-        $dom->loadXML($xml);
+        $dom->loadXML($this->xml);
         foreach ($this->rootTagList as $key) {
             $node = !empty($dom->getElementsByTagName($key)->item(0))
                 ? $dom->getElementsByTagName($key)->item(0)
@@ -92,7 +106,7 @@ class Standardize
                 return $key;
             }
         }
-        //documento does not belong to the SPED-MDFe project
+        //documento does not belong to the SPED-NFe project
         throw DocumentsException::wrongDocument(7);
     }
 
@@ -110,44 +124,73 @@ class Standardize
      * @param string $xml
      * @return stdClass
      */
-    public function toStd($xml = null)
+    public function toStd(?string $xml = null): stdClass
     {
-        if (!empty($xml)) {
-            $this->key = $this->whichIs($xml);
+        if (empty($xml) && empty($this->xml)) {
+            throw new DocumentsException("O XML está vazio.");
         }
-
-        $sxml = simplexml_load_string($this->node);
+        if (!empty($xml)) {
+            $this->xml = $xml;
+        }
+        $this->key = $this->whichIs();
+        $this->sxml = simplexml_load_string($this->node);
         $this->json = str_replace(
             '@attributes',
             'attributes',
-            json_encode($sxml, JSON_PRETTY_PRINT)
+            json_encode($this->sxml, JSON_PRETTY_PRINT)
         );
-        return json_decode($this->json);
-    }
+        $std = json_decode($this->json);
 
+        return $std;
+    }
     /**
-     * Retruns JSON string form XML
-     * @param string $xml
-     * @return string
+     * Returns the SimpleXml Object
+     * @param string|null $xml
+     * @return object
+     * @throws DocumentsException
      */
-    public function toJson($xml = null)
+    public function simpleXml(?string $xml = null): object
     {
-        if (!empty($xml)) {
-            $this->toStd($xml);
-        }
+        $this->checkXml($xml);
+        return $this->sxml;
+    }
+    /**
+     * Returns JSON string form XML
+     * @param string|null $xml
+     * @return string
+     * @throws DocumentsException
+     */
+    public function toJson(?string $xml = null): string
+    {
+        $this->checkXml($xml);
         return $this->json;
     }
-
     /**
      * Returns array from XML
-     * @param string $xml
+     * @param string|null $xml
      * @return array
+     * @throws DocumentsException
      */
-    public function toArray($xml = null)
+    public function toArray(?string $xml = null): array
     {
-        if (!empty($xml)) {
-            $this->toStd($xml);
-        }
+        $this->checkXml($xml);
         return json_decode($this->json, true);
+    }
+
+    /**
+     * Check and load XML
+     * @param string|null $xml
+     * @return void
+     * @throws DocumentsException
+     */
+    private function checkXml(?string $xml = null)
+    {
+        if (empty($xml) && empty($this->xml)) {
+            throw new DocumentsException("O XML está vazio.");
+        }
+        if (!empty($xml)) {
+            $this->xml = $xml;
+        }
+        $this->toStd();
     }
 }
