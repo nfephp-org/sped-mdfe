@@ -448,7 +448,9 @@ class Make
                 foreach ($this->infMunDescarga as $key => $value) {
                     $this->dom->appChild($this->infDoc, $value, 'Falta tag "infMunDescarga"');
                     if (isset($this->infCTe[$key])) {
-                        $this->dom->addArrayChild($value, $this->infCTe[$key], 'Falta tag "infCTe"');
+                        foreach ($this->infCTe as $infCTe) {
+                            $this->dom->addArrayChild($value, $infCTe, 'Falta tag "infCTe"');
+                        }
                     }
                     if (isset($this->infNFe[$key])) {
                         $this->dom->addArrayChild(
