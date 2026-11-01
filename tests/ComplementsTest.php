@@ -82,4 +82,26 @@ class ComplementsTest extends TestCase
 
         Complements::toAuthorize($request, $response);
     }
+
+    public function testCancelRegisterMustNotChangeNProtWhenEventDoesNotBelongToTheMDFe()
+    {
+        $procMdfe = '<mdfeProc versao="3.00" xmlns="http://www.portalfiscal.inf.br/mdfe">'
+            . '<MDFe><infMDFe Id="MDFe35190400000000000000580000000057662000255633" versao="3.00">'
+            . '<ide><cUF>35</cUF></ide></infMDFe></MDFe>'
+            . '<protMDFe versao="3.00"><infProt Id="MDFe135190000000000"><tpAmb>2</tpAmb>'
+            . '<chMDFe>35190400000000000000580000000057662000255633</chMDFe><nProt>123456789</nProt>'
+            . '</infProt></protMDFe></mdfeProc>';
+        // cancelamento autorizado, mas de OUTRO MDF-e
+        $cancelamento = '<retConsSitMDFe versao="3.00" xmlns="http://www.portalfiscal.inf.br/mdfe">'
+            . '<retEventoMDFe versao="3.00"><infEvento Id="ID1101114324110615725000011658001000000075100000000101">'
+            . '<tpAmb>2</tpAmb><cStat>135</cStat><xMotivo>Evento registrado e vinculado ao MDF-e</xMotivo>'
+            . '<chMDFe>43241106157250000116580010000000751000000001</chMDFe><tpEvento>110111</tpEvento>'
+            . '<nProt>999888777</nProt></infEvento></retEventoMDFe></retConsSitMDFe>';
+        $out = Complements::cancelRegister($procMdfe, $cancelamento);
+        $dom = new \DOMDocument();
+        $dom->loadXML($out);
+        $this->assertEquals('123456789', $dom->getElementsByTagName('nProt')->item(0)->nodeValue);
+        $this->assertEquals(0, $dom->getElementsByTagName('retEventoMDFe')->length);
+    }
+
 }
