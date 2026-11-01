@@ -182,14 +182,14 @@ class Complements
             $tpEvento = $infEvento->getElementsByTagName('tpEvento')
                 ->item(0)
                 ->nodeValue;
-            $proMDFe->getElementsByTagName('nProt')
-                ->item(0)
-                ->nodeValue = $nProt;
             if (
                 in_array($cStat, ['135', '136', '155'])
                 && $tpEvento == '110111'
                 && $chaveEvento == $chaveMdfe
             ) {
+                $proMDFe->getElementsByTagName('nProt')
+                    ->item(0)
+                    ->nodeValue = $nProt;
                 $node = $dommdfe->importNode($evento, true);
                 $dommdfe->documentElement->appendChild($node);
                 break;
@@ -198,6 +198,9 @@ class Complements
                 && $tpEvento == '110112'
                 && $chaveEvento == $chaveMdfe
             ) {
+                $proMDFe->getElementsByTagName('nProt')
+                    ->item(0)
+                    ->nodeValue = $nProt;
                 $node = $dommdfe->importNode($evento, true);
                 $dommdfe->documentElement->appendChild($node);
                 break;
