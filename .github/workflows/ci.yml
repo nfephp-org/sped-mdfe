@@ -12,7 +12,7 @@ on:
 jobs:
     testsuite:
         name: Testes Automatizados
-        runs-on: ubuntu-20.04
+        runs-on: ubuntu-22.04
         strategy:
             fail-fast: false
             matrix:
@@ -26,7 +26,7 @@ jobs:
                   extensions: mbstring, intl, mysql, zlib, dom, openssl, soap, json, simplexml, libxml
 
             - name: checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
 
             - name: Composer Install
               run: |
