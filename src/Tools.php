@@ -219,7 +219,8 @@ class Tools extends ToolsCommon
         $tpEvento = 110112;
         $nSeqEvento = 1;
         if ($dtEnc == '') {
-            $dtEnc = date('Y-m-d');
+            $dt = new \DateTime('now', new \DateTimeZone($this->timezone));
+            $dtEnc = $dt->format('Y-m-d');
         }
         $tagAdic = "<evEncMDFe>"
             . "<descEvento>Encerramento</descEvento>"
@@ -375,7 +376,7 @@ class Tools extends ToolsCommon
         );
         $cnpj = $this->config->cnpj;
         $sigla = (strlen($cnpj) == 11) ? 'CPF' : 'CNPJ';
-        $dt = new \DateTime();
+        $dt = new \DateTime('now', new \DateTimeZone($this->timezone));
         $dhEvento = $dt->format('Y-m-d\TH:i:sP');
         $sSeqEvento = str_pad($nSeqEvento, 2, "0", STR_PAD_LEFT);
         $eventId = "ID" . $tpEvento . $chave . $sSeqEvento;

@@ -154,6 +154,10 @@ class Tools
      * @var string
      */
     protected $typePerson = 'J';
+    /**
+     * @var string
+     */
+    protected $timezone;
 
     protected $soapnamespaces = [
         'xmlns:xsi' => "http://www.w3.org/2001/XMLSchema-instance",
@@ -197,7 +201,7 @@ class Tools
      */
     public function setEnvironmentTimeZone($acronym)
     {
-        date_default_timezone_set(TimeZoneByUF::get($acronym));
+        $this->timezone = TimeZoneByUF::get($acronym);
     }
 
     /**
