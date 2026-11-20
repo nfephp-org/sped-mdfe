@@ -358,6 +358,14 @@ class Make
                 $this->errors[] = "Tag infLotacao é obrigatória quando só "
                     . "existir um Documento informado!";
             }
+            $tpTransp = $this->ide->getElementsByTagName('tpTransp')->item(0);
+            if (($tpEmit == 1 || $tpEmit == 3 || ($tpEmit == 2 && $tpTransp))
+                && empty($this->infCIOT)
+            ) {
+                // NT 2026.001: rejeição 684 - CIOT deverá ser informado
+                $this->errors[] = "Tag infCIOT é obrigatória para modal rodoviário com "
+                    . "tpEmit 1 ou 3, ou tpEmit 2 com tpTransp informado (NT 2026.001)!";
+            }
             if ($this->infANTT) {
                 if ($this->infCIOT) {
                     $this->dom->addArrayChild(
